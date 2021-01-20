@@ -43,7 +43,7 @@ function Application(props) {
         { /* Home */ }
         <Route exact path="/app" component={PersonalDashboard} />
         <Route path="/app/crm-dashboard" component={CrmDashboard} />
-        <Route path="/app/crypto-dashboard" component={CryptoDashboard} />
+        {/*<Route path="/app/crypto-dashboard" component={CryptoDashboard} />*/}
         { /* Widgets */ }
         <Route path="/app/widgets/infographics" component={Infographics} />
         <Route path="/app/widgets/mini-apps" component={MiniApps} />

@@ -63,7 +63,7 @@ function SidebarContent(props) {
       <div className={classes.drawerHeader}>
         <NavLink to="/app" className={classNames(classes.brand, classes.brandBar, turnDarker && classes.darker)}>
           <img src={logo} alt={brand.name} />
-          {brand.name}
+          Neuro Vision
         </NavLink>
         {isLogin && (
           <div
@@ -76,7 +76,7 @@ function SidebarContent(props) {
               className={classNames(classes.avatar, classes.bigAvatar)}
             />
             <div>
-              <h4>{dummy.user.name}</h4>
+              <h4>Neuro Vision</h4>
               <Button size="small" onClick={openMenuStatus}>
                 <i className={classNames(classes.dotStatus, setStatus(status))} />
                 {status}

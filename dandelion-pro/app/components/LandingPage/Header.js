@@ -86,7 +86,7 @@ function Header(props) {
           <div className={classes.spaceContainer}>
             <NavLink to="/" className={classes.brand}>
               <img src={logo} alt={brand.name} />
-              {brand.name}
+              Nero Vision
             </NavLink>
             <Hidden mdDown>
               <nav>

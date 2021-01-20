@@ -5,9 +5,9 @@ module.exports = {
   email: '/app/pages/email',
   profile: '/app/pages/user-profile',
   calendar: '/app/pages/calendar',
-  twitter: '#',
-  github: '#',
-  pinterest: '#',
-  linkedin: '#',
+  // twitter: '#',
+  // github: '#',
+  // pinterest: '#',
+  // linkedin: '#',
   buy: '#',
 };

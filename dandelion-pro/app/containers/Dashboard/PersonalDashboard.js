@@ -7,12 +7,8 @@ import Hidden from '@material-ui/core/Hidden';
 import Grid from '@material-ui/core/Grid';
 import Divider from '@material-ui/core/Divider';
 import {
-  SliderWidget,
   CounterIconsWidget,
-  PerformanceChartWidget,
   DateWidget,
-  TaskWidget,
-  WeatherWidget,
   ContactWidget,
   TimelineWidget,
   FilesWidget,
@@ -24,6 +20,10 @@ function PersonalDashboard(props) {
   const title = brand.name + ' - Personal Dashboard';
   const description = brand.desc;
   const { classes } = props;
+
+    // if (!props.UserCredentials[0]) {
+    //     return <Redirect to="/login" />;
+    // }
   return (
     <div>
       <Helmet>
@@ -39,32 +39,19 @@ function PersonalDashboard(props) {
         <Grid item md={6} xs={12}>
           <CounterIconsWidget />
         </Grid>
-        <Grid item md={6} sm={12} xs={12}>
-          <div className={classes.sliderWrap}>
-            <SliderWidget />
-          </div>
-        </Grid>
       </Grid>
       <Divider className={classes.divider} />
-      {/* 2nd Section */}
-      <Grid container spacing={2} className={classes.root}>
-        <Grid item xs={12}>
-          <PerformanceChartWidget />
-        </Grid>
-      </Grid>
       {/* 3rd Section */}
       <Grid container spacing={3} className={classes.root}>
         <Grid item md={6} xs={12}>
           <Divider className={classes.divider} />
           <ContactWidget />
           <Divider className={classes.divider} />
-          <TaskWidget />
         </Grid>
         <Grid item md={6} xs={12}>
           <Hidden mdDown>
             <Divider className={classes.divider} />
           </Hidden>
-          <WeatherWidget />
           <Divider className={classes.divider} />
           <DateWidget />
           <Divider className={classes.divider} />

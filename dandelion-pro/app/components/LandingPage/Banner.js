@@ -28,29 +28,8 @@ function Banner(props) {
     >
       {!slideMode && <BannerParallax />}
       <div className={!slideMode ? classes.container : ''}>
-        <Typography component="h2" variant="h2" gutterBottom>Dandelion Pro</Typography>
-        <Typography component="p" variant="h5" gutterBottom>A React.js Website Template </Typography>
-        <div className={classes.btnArea}>
-          <Button
-            size="large"
-            variant="outlined"
-            className={classNames(classes.button, classes.btnLight)}
-            href={link.buy}
-            target="_blank"
-          >
-            Buy Now
-          </Button>
-          <Button
-            size="large"
-            variant="contained"
-            color="secondary"
-            className={classes.button}
-            component={Link}
-            to={link.dashboard}
-          >
-            See Demo
-          </Button>
-        </div>
+        <Typography component="h2" variant="h2" gutterBottom>Neuro Vision</Typography>
+        <Typography component="p" variant="h5" gutterBottom>Integration Platform </Typography>
         <div className={classes.previewApp}>
           <Hidden smDown>
             <div className={classNames(classes.m2, classes.screen, slideMode ? classes.bottom : '')}>
