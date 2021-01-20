@@ -4,6 +4,7 @@ import { Switch, Route } from 'react-router-dom';
 import { ThemeContext } from './ThemeWrapper';
 import Dashboard from '../Templates/Dashboard';
 import {
+  UserTable, RoleTable, DashboardTable,
   PersonalDashboard, CrmDashboard, CryptoDashboard,
   Infographics, MiniApps, Analytics,
   InfoUpdates, Status,
@@ -57,6 +58,9 @@ function Application(props) {
         <Route path="/app/layouts/responsive" component={Responsive} />
         { /* Table */ }
         <Route exact path="/app/tables" component={Parent} />
+        <Route path="/app/tables/users" component={UserTable} />
+        <Route path="/app/tables/roles" component={RoleTable} />
+        <Route path="/app/tables/dashboards" component={DashboardTable} />
         <Route path="/app/tables/basic-table" component={SimpleTable} />
         <Route path="/app/tables/data-table" component={AdvancedTable} />
         <Route path="/app/tables/table-playground" component={TablePlayground} />

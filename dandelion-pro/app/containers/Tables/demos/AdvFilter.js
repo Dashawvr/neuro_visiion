@@ -126,7 +126,7 @@ class AdvFilter extends React.Component {
       filterType: 'dropdown',
       responsive: 'stacked',
       print: true,
-      rowsPerPage: 10,
+      rowsPerPage: 5,
       page: 0
     };
     return (

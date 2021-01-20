@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
@@ -60,6 +61,10 @@ class LoginForm extends React.Component {
       pristine,
       submitting,
       deco,
+      onChangePassword,
+      onChangeEmail,
+      // password,
+      // email,
     } = this.props;
     const { showPassword } = this.state;
     return (
@@ -118,6 +123,7 @@ class LoginForm extends React.Component {
                     required
                     validate={[required, email]}
                     className={classes.field}
+                    onChange={onChangeEmail}
                   />
                 </FormControl>
               </div>
@@ -128,6 +134,7 @@ class LoginForm extends React.Component {
                     component={TextFieldRedux}
                     type={showPassword ? 'text' : 'password'}
                     label="Your Password"
+                    onChange={onChangePassword}
                     InputProps={{
                       endAdornment: (
                         <InputAdornment position="end">

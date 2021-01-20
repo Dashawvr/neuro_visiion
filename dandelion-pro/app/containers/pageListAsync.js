@@ -73,6 +73,18 @@ export const Grid = loadable(() =>
   });
 
 // Tables
+export const UserTable = loadable(() =>
+  import ('./MyTables/UserTable'), {
+    fallback: <Loading />,
+  });
+  export const RoleTable = loadable(() =>
+  import ('./MyTables/RoleTable'), {
+    fallback: <Loading />,
+  });
+  export const DashboardTable = loadable(() =>
+  import ('./MyTables/DashboardTable'), {
+    fallback: <Loading />,
+  });
 export const SimpleTable = loadable(() =>
   import ('./Tables/BasicTable'), {
     fallback: <Loading />,
