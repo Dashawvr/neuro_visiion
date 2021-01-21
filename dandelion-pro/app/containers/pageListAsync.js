@@ -107,6 +107,18 @@ export const TablePlayground = loadable(() =>
   });
 
 // Forms
+export const AddDashboardForm = loadable(() =>
+  import ('./MyForms/MainForms/Create/AddDashboardForm'), {
+    fallback: <Loading />,
+  });
+export const AddRoleForm = loadable(() =>
+  import ('./MyForms/MainForms/Create/AddRoleForm'), {
+    fallback: <Loading />,
+  });
+export const AddUserForm = loadable(() =>
+  import ('./MyForms/MainForms/Create/AddUserForm'), {
+    fallback: <Loading />,
+  });
 export const ReduxForm = loadable(() =>
   import ('./Forms/ReduxForm'), {
     fallback: <Loading />,

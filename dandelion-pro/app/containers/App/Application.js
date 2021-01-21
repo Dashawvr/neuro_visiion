@@ -5,6 +5,7 @@ import { ThemeContext } from './ThemeWrapper';
 import Dashboard from '../Templates/Dashboard';
 import {
   UserTable, RoleTable, DashboardTable,
+  AddUserForm, AddRoleForm, AddDashboardForm,
   PersonalDashboard, CrmDashboard, CryptoDashboard,
   Infographics, MiniApps, Analytics,
   InfoUpdates, Status,
@@ -68,6 +69,9 @@ function Application(props) {
         <Route path="/app/tables/editable-cell" component={EditableCell} />
         { /* Form & Button */ }
         <Route exact path="/app/forms" component={Parent} />
+        <Route path="/app/forms/add/dashboard" component={AddDashboardForm} />
+        <Route path="/app/forms/add/role" component={AddRoleForm} />
+        <Route path="/app/forms/add/user" component={AddUserForm} />
         <Route path="/app/forms/reduxform" component={ReduxForm} />
         <Route path="/app/forms/date-time-picker" component={DateTimePicker} />
         <Route path="/app/forms/checkbox-radio" component={CheckboxRadio} />
