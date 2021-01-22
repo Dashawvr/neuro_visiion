@@ -53,7 +53,7 @@ function LeftSidebarLayout(props) {
       />
       <main className={classNames(classes.content, !sidebarOpen ? classes.contentPaddingLeft : '')} id="mainContent">
         <Decoration
-          mode={mode}
+          // mode={mode}
           gradient={gradient}
           decoration={deco}
           bgPosition={bgPosition}
@@ -69,11 +69,12 @@ function LeftSidebarLayout(props) {
           { !pageLoaded && (<img src="/images/spinner.gif" alt="spinner" className={classes.circularProgress} />) }
           <Fade
             in={pageLoaded}
-            {...(pageLoaded ? { timeout: 700 } : {})}
+            // {...(pageLoaded ? { timeout: 700 } : {})}
           >
             <div className={!pageLoaded ? classes.hideApp : ''}>
               {/* Application content will load here */}
               { children }
+
             </div>
           </Fade>
         </section>

@@ -10,7 +10,7 @@ const guideSteps = [
     imgPath: '/images/guide/guide2.gif',
   },
   {
-    title: 'Themes and Layout',
+    title: 'Integration platfoorm',
     label: 'Build your template with various themes and layout combination. It easy to adjust following your brand identity.',
     imgPath: '/images/guide/guide3.gif',
   },

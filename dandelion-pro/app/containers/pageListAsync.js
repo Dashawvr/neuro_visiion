@@ -27,14 +27,18 @@ export const PersonalDashboard = loadable(() =>
   import ('./Dashboard/PersonalDashboard'), {
     fallback: <Loading />,
   });
-export const CrmDashboard = loadable(() =>
-  import ('./Dashboard/CrmDashboard'), {
+export const DashboardNew = loadable(() =>
+  import ('./Dashboard/DashboardNew'), {
     fallback: <Loading />,
   });
-export const CryptoDashboard = loadable(() =>
-  import ('./Dashboard/CryptoDashboard'), {
-    fallback: <Loading />,
-  });
+// export const CrmDashboard = loadable(() =>
+//   import ('./Dashboard/CrmDashboard'), {
+//     fallback: <Loading />,
+//   });
+// export const CryptoDashboard = loadable(() =>
+//   import ('./Dashboard/CryptoDashboard'), {
+//     fallback: <Loading />,
+//   });
 
 // Widgets
 export const Infographics = loadable(() =>

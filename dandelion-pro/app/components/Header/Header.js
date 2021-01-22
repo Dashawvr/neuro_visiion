@@ -76,13 +76,13 @@ function Header(props) {
     }
   };
 
-  // const turnMode = mode => {
-  //   if (mode === 'light') {
-  //     props.changeMode('dark');
-  //   } else {
-  //     props.changeMode('light');
-  //   }
-  // };
+  const turnMode = mode => {
+    if (mode === 'light') {
+      props.changeMode('dark');
+    } else {
+      props.changeMode('light');
+    }
+  };
 
   const {
     classes,
@@ -90,7 +90,7 @@ function Header(props) {
     margin,
     position,
     gradient,
-    // mode,
+    mode,
     title,
     openGuide,
     history
@@ -144,11 +144,11 @@ function Header(props) {
                   </IconButton>
                 </Tooltip>
               )}
-              {/*<Tooltip title="Turn Dark/Light" placement="bottom">*/}
-              {/*  <IconButton className={classes.button} onClick={() => turnMode(mode)}>*/}
-              {/*    <i className="ion-ios-lightbulb-outline" />*/}
-              {/*  </IconButton>*/}
-              {/*</Tooltip>*/}
+              <Tooltip title="Turn Dark/Light" placement="bottom">
+                <IconButton className={classes.button} onClick={() => turnMode(mode)}>
+                  <i className="ion-ios-lightbulb-outline" />
+                </IconButton>
+              </Tooltip>
               <Tooltip title="Show Guide" placement="bottom">
                 <IconButton className={classes.button} onClick={openGuide}>
                   <i className="ion-ios-help-outline" />

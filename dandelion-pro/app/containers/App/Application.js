@@ -4,7 +4,7 @@ import { Switch, Route } from 'react-router-dom';
 import { ThemeContext } from './ThemeWrapper';
 import Dashboard from '../Templates/Dashboard';
 import {
-  PersonalDashboard, CrmDashboard, CryptoDashboard,
+  PersonalDashboard, DashboardNew ,CrmDashboard, CryptoDashboard,
   Infographics, MiniApps, Analytics,
   InfoUpdates, Status,
   Parent, AppLayout, Responsive, Grid,
@@ -41,8 +41,10 @@ function Application(props) {
     <Dashboard history={history} changeMode={changeMode}>
       <Switch>
         { /* Home */ }
-        <Route exact path="/app" component={PersonalDashboard} />
-        <Route path="/app/crm-dashboard" component={CrmDashboard} />
+        <Route  path="/" component={PersonalDashboard} />
+        {/*<Route  path="/" component={DashboardNew} />*/}
+        <Route  path="/dashboards/new" component={DashboardNew} />
+        {/*<Route path="/app/crm-dashboard" component={CrmDashboard} />*/}
         {/*<Route path="/app/crypto-dashboard" component={CryptoDashboard} />*/}
         { /* Widgets */ }
         <Route path="/app/widgets/infographics" component={Infographics} />

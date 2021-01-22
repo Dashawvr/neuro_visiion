@@ -47,76 +47,14 @@ function FilesWidget(props) {
         </PapperBlock>
       </Grid>
       <Grid item md={4} sm={12} xs={12}>
-        <PapperBlock title="Your Photos" icon="ios-images-outline" whiteBg desc="">
+        <PapperBlock title="Operation System" icon="ion-ios-world" whiteBg desc="">
           <div className={classes.albumRoot}>
-            <GridList cellHeight={120} className={classes.gridList}>
-              {
-                imgData.map((tile, index) => {
-                  if (index >= 4) {
-                    return false;
-                  }
-                  return (
-                    <GridListTile key={index.toString()}>
-                      <img src={tile.img} className={classes.img} alt={tile.title} />
-                      <GridListTileBar
-                        title={tile.title}
-                        subtitle={(
-                          <span>
-                            by:&nbsp;
-                            {tile.author}
-                          </span>
-                        )}
-                        actionIcon={(
-                          <IconButton className={classes.icon}>
-                            <InfoIcon />
-                          </IconButton>
-                        )}
-                      />
-                    </GridListTile>
-                  );
-                })
-              }
-            </GridList>
+            Your platform:
+            {window.navigator.platform}
           </div>
-          <Divider className={classes.divider} />
-          <Grid container justify="center">
-            <Button color="secondary" className={classes.button}>
-              See All
-            </Button>
-          </Grid>
-        </PapperBlock>
-      </Grid>
-      <Grid item md={4} sm={12} xs={12}>
-        <PapperBlock title="Favorites" icon="ios-heart-outline" whiteBg desc="">
           <div className={classes.albumRoot}>
-            <GridList cellHeight={120} className={classes.gridList}>
-              {
-                imgData.map((tile, index) => {
-                  if (index >= 4 && index < 8) {
-                    return (
-                      <GridListTile key={index.toString()}>
-                        <img src={tile.img} className={classes.img} alt={tile.title} />
-                        <GridListTileBar
-                          title={tile.title}
-                          subtitle={(
-                            <span>
-                              by:&nbsp;
-                              {tile.author}
-                            </span>
-                          )}
-                          actionIcon={(
-                            <IconButton className={classes.icon}>
-                              <InfoIcon />
-                            </IconButton>
-                          )}
-                        />
-                      </GridListTile>
-                    );
-                  }
-                  return false;
-                })
-              }
-            </GridList>
+          Your agent:
+          {window.navigator.userAgent}
           </div>
           <Divider className={classes.divider} />
           <Grid container justify="center">

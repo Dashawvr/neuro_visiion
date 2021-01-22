@@ -1,200 +1,122 @@
 module.exports = [
+    // {
+    //     key: 'home',
+    //     name: 'Home',
+    //     icon: 'ios-home-outline',
+    //     child: [
+    //         {
+    //             key: 'corporate',
+    //             name: 'Main',
+    //             link: '/',
+    //             icon: 'ios-globe-outline'
+    //         },
+    //     ]
+    //     //   {
+    //     //     key: 'landing_page',
+    //     //     name: 'Table',
+    //     //     title: true,
+    //     //   },
+    //     //   {
+    //     //     key: 'creative',
+    //     //     name: 'Creative',
+    //     //     link: '/landing-creative',
+    //     //     icon: 'ios-desktop-outline'
+    //     //   },
+    //     //   {
+    //     //     key: 'dashboard',
+    //     //     name: 'Dashboard',
+    //     //     title: true,
+    //     //   },
+    //     //   {
+    //     //     key: 'personal',
+    //     //     name: 'Personal',
+    //     //     link: '/app',
+    //     //     icon: 'ios-contact-outline'
+    //     //   },
+    //     //   {
+    //     //     key: 'crm',
+    //     //     name: 'CRM',
+    //     //     link: '/app/crm-dashboard',
+    //     //     icon: 'ios-card-outline'
+    //     //   },
+    //     //   {
+    //     //     key: 'crypto',
+    //     //     name: 'Cryptocurrency',
+    //     //     link: '/app/crypto-dashboard',
+    //     //     icon: 'ios-medal-outline'
+    //     //   },
+    //     //   {
+    //     //     key: 'dashboard_widgets',
+    //     //     name: 'Dashboard Widgets',
+    //     //     title: true,
+    //     //   },
+    //     //   {
+    //     //     key: 'infographics_wdiget',
+    //     //     name: 'Infographics',
+    //     //     link: '/app/widgets/infographics',
+    //     //     icon: 'ios-card'
+    //     //   },
+    //     //   {
+    //     //     key: 'status_widget',
+    //     //     name: 'Status',
+    //     //     link: '/app/widgets/status',
+    //     //     icon: 'ios-notifications-outline'
+    //     //   },
+    //     //   {
+    //     //     key: 'mini_apps_widget',
+    //     //     name: 'Mini Apps',
+    //     //     link: '/app/widgets/mini-apps',
+    //     //     icon: 'ios-information-circle-outline'
+    //     //   },
+    //     //   {
+    //     //     key: 'analytics_widget',
+    //     //     name: 'Analytics',
+    //     //     link: '/app/widgets/analytics',
+    //     //     icon: 'ios-analytics-outline'
+    //     //   },
+    //     //   {
+    //     //     key: 'info_updates_widget',
+    //     //     name: 'Info & Updates',
+    //     //     link: '/app/widgets/info-updates',
+    //     //     icon: 'ios-information-circle-outline'
+    //     //   },
+    //     //   {
+    //     //     key: 'layout_settings',
+    //     //     name: 'Layout',
+    //     //     title: true,
+    //     //   },
+    //     //   {
+    //     //     key: 'grid',
+    //     //     name: 'Grid',
+    //     //     link: '/app/layouts/grid',
+    //     //     icon: 'ios-apps-outline'
+    //     //   },
+    //     //   {
+    //     //     key: 'application_layout',
+    //     //     name: 'App Layout',
+    //     //     link: '/app/layouts/app-layout',
+    //     //     icon: 'ios-photos-outline'
+    //     //   },
+    //     //   {
+    //     //     key: 'responsive',
+    //     //     name: 'Responsive',
+    //     //     link: '/app/layouts/responsive',
+    //     //     icon: 'ios-phone-portrait'
+    //     //   }
+    //     // ]
+    // },
+
     {
         key: 'home',
         name: 'Home',
         icon: 'ios-home-outline',
-        child: [
-            {
-                key: 'corporate',
-                name: 'Main',
-                link: '/app',
-                icon: 'ios-globe-outline'
-            },
-        ]
-        //   {
-        //     key: 'landing_page',
-        //     name: 'Table',
-        //     title: true,
-        //   },
-        //   {
-        //     key: 'creative',
-        //     name: 'Creative',
-        //     link: '/landing-creative',
-        //     icon: 'ios-desktop-outline'
-        //   },
-        //   {
-        //     key: 'dashboard',
-        //     name: 'Dashboard',
-        //     title: true,
-        //   },
-        //   {
-        //     key: 'personal',
-        //     name: 'Personal',
-        //     link: '/app',
-        //     icon: 'ios-contact-outline'
-        //   },
-        //   {
-        //     key: 'crm',
-        //     name: 'CRM',
-        //     link: '/app/crm-dashboard',
-        //     icon: 'ios-card-outline'
-        //   },
-        //   {
-        //     key: 'crypto',
-        //     name: 'Cryptocurrency',
-        //     link: '/app/crypto-dashboard',
-        //     icon: 'ios-medal-outline'
-        //   },
-        //   {
-        //     key: 'dashboard_widgets',
-        //     name: 'Dashboard Widgets',
-        //     title: true,
-        //   },
-        //   {
-        //     key: 'infographics_wdiget',
-        //     name: 'Infographics',
-        //     link: '/app/widgets/infographics',
-        //     icon: 'ios-card'
-        //   },
-        //   {
-        //     key: 'status_widget',
-        //     name: 'Status',
-        //     link: '/app/widgets/status',
-        //     icon: 'ios-notifications-outline'
-        //   },
-        //   {
-        //     key: 'mini_apps_widget',
-        //     name: 'Mini Apps',
-        //     link: '/app/widgets/mini-apps',
-        //     icon: 'ios-information-circle-outline'
-        //   },
-        //   {
-        //     key: 'analytics_widget',
-        //     name: 'Analytics',
-        //     link: '/app/widgets/analytics',
-        //     icon: 'ios-analytics-outline'
-        //   },
-        //   {
-        //     key: 'info_updates_widget',
-        //     name: 'Info & Updates',
-        //     link: '/app/widgets/info-updates',
-        //     icon: 'ios-information-circle-outline'
-        //   },
-        //   {
-        //     key: 'layout_settings',
-        //     name: 'Layout',
-        //     title: true,
-        //   },
-        //   {
-        //     key: 'grid',
-        //     name: 'Grid',
-        //     link: '/app/layouts/grid',
-        //     icon: 'ios-apps-outline'
-        //   },
-        //   {
-        //     key: 'application_layout',
-        //     name: 'App Layout',
-        //     link: '/app/layouts/app-layout',
-        //     icon: 'ios-photos-outline'
-        //   },
-        //   {
-        //     key: 'responsive',
-        //     name: 'Responsive',
-        //     link: '/app/layouts/responsive',
-        //     icon: 'ios-phone-portrait'
-        //   }
-        // ]
+        linkParent: '/',
     },
-
-    {
-        key: 'apps',
-        name: 'Users',
-        icon: 'ios-grid-outline',
-        child: [
-            {
-                key: 'communication_apps',
-                name: 'Communication',
-                title: true,
-            },
-            {
-                key: 'contact',
-                name: 'Contact',
-                link: '/app/pages/contact',
-                icon: 'ios-contact-outline'
-            },
-            {
-                key: 'email',
-                name: 'Email',
-                link: '/app/pages/email',
-                badge: '2',
-                icon: 'ios-mail-outline'
-            },
-            {
-                key: 'social_apps',
-                name: 'Social',
-                title: true,
-            },
-            {
-                key: 'chat',
-                name: 'Chat',
-                link: '/app/pages/chat',
-                badge: '4',
-                icon: 'ios-chatbubbles-outline'
-            },
-            // {
-            //     key: 'ecommerce_app',
-            //     name: 'Ecommerce',
-            //     title: true,
-            // },
-            // {
-            //     key: 'Itemlist',
-            //     name: 'Product Catalogues',
-            //     link: '/app/pages/ecommerce',
-            //     icon: 'ios-apps-outline'
-            // },
-            // {
-            //     key: 'item_detail',
-            //     name: 'Product Detail',
-            //     link: '/app/pages/product-detail',
-            //     icon: 'ios-card'
-            // },
-            // {
-            //     key: 'checkout',
-            //     name: 'Checkout Page',
-            //     link: '/app/pages/checkout',
-            //     icon: 'ios-cart-outline'
-            // },
-            // {
-            //     key: 'dynamic_invoice',
-            //     name: 'Dynamic Invoice',
-            //     link: '/app/pages/invoice',
-            //     icon: 'ios-document-outline'
-            // },
-            // {
-            //     key: 'productivity_app',
-            //     name: 'Productivity',
-            //     title: true,
-            // },
-            // {
-            //     key: 'calendar',
-            //     name: 'Calendar',
-            //     link: '/app/pages/calendar',
-            //     icon: 'ios-calendar-outline'
-            // },
-            // {
-            //     key: 'task',
-            //     name: 'Task Board',
-            //     link: '/app/pages/taskboard',
-            //     icon: 'ios-checkmark-circle-outline'
-            // },
-        ]
-    },
-
     {
         key: 'pages',
         name: 'Roles',
         icon: 'ios-paper-outline',
-        child: []
+        linkParent: '/'
         // {
         //   key: 'account_page',
         //   name: 'Auth Page',
@@ -336,12 +258,95 @@ module.exports = [
         //   icon: 'ios-warning-outline'
         // },
     },
+    {
+        key: 'apps',
+        name: 'Users',
+        icon: 'ios-grid-outline',
+        child: [
+            {
+                key: 'communication_apps',
+                name: 'Communication',
+                title: true,
+            },
+            {
+                key: 'contact',
+                name: 'Contact',
+                link: '/app/pages/contact',
+                icon: 'ios-contact-outline'
+            },
+            // {
+            //     key: 'email',
+            //     name: 'Email',
+            //     link: '/app/pages/email',
+            //     badge: '2',
+            //     icon: 'ios-mail-outline'
+            // },
+            {
+                key: 'social_apps',
+                name: 'Social',
+                title: true,
+            },
+            {
+                key: 'chat',
+                name: 'Chat',
+                link: '/app/pages/chat',
+                badge: '4',
+                icon: 'ios-chatbubbles-outline'
+            },
+            // {
+            //     key: 'ecommerce_app',
+            //     name: 'Ecommerce',
+            //     title: true,
+            // },
+            // {
+            //     key: 'Itemlist',
+            //     name: 'Product Catalogues',
+            //     link: '/app/pages/ecommerce',
+            //     icon: 'ios-apps-outline'
+            // },
+            // {
+            //     key: 'item_detail',
+            //     name: 'Product Detail',
+            //     link: '/app/pages/product-detail',
+            //     icon: 'ios-card'
+            // },
+            // {
+            //     key: 'checkout',
+            //     name: 'Checkout Page',
+            //     link: '/app/pages/checkout',
+            //     icon: 'ios-cart-outline'
+            // },
+            // {
+            //     key: 'dynamic_invoice',
+            //     name: 'Dynamic Invoice',
+            //     link: '/app/pages/invoice',
+            //     icon: 'ios-document-outline'
+            // },
+            // {
+            //     key: 'productivity_app',
+            //     name: 'Productivity',
+            //     title: true,
+            // },
+            // {
+            //     key: 'calendar',
+            //     name: 'Calendar',
+            //     link: '/app/pages/calendar',
+            //     icon: 'ios-calendar-outline'
+            // },
+            // {
+            //     key: 'task',
+            //     name: 'Task Board',
+            //     link: '/app/pages/taskboard',
+            //     icon: 'ios-checkmark-circle-outline'
+            // },
+        ]
+    },
 
     {
         key: 'tables',
         name: 'Edit Panel',
         icon: 'ios-appstore-outline',
-        child: []
+        linkParent: '/app/tables/data-table'
         // {
         //   key: 'common_table',
         //   name: 'Common Table',
@@ -429,10 +434,10 @@ module.exports = [
 
     {
         key: 'no_child',
-        name: 'Devices',
+        name: 'Stage',
         icon: 'ios-document-outline',
-        linkParent: '/app/pages/blank-page',
-    }
+        linkParent: '/dashboard',
+    },
 
     // {
     //   key: 'forms',

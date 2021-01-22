@@ -7,10 +7,10 @@ import { withStyles } from '@material-ui/core/styles';
 import { GuideSlider } from 'dan-components';
 import { toggleAction, openAction, playTransitionAction } from 'dan-redux/actions/uiActions';
 import LeftSidebarLayout from './layouts/LeftSidebarLayout';
-import RightSidebarLayout from './layouts/RightSidebarLayout';
+// import RightSidebarLayout from './layouts/RightSidebarLayout';
 import LeftSidebarBigLayout from './layouts/LeftSidebarBigLayout';
 import DropMenuLayout from './layouts/DropMenuLayout';
-import MegaMenuLayout from './layouts/MegaMenuLayout';
+// import MegaMenuLayout from './layouts/MegaMenuLayout';
 import styles from './appStyles-jss';
 
 function Dashboard(props) {
@@ -68,7 +68,7 @@ function Dashboard(props) {
     layout,
     changeMode
   } = props;
-  const titleException = ['/app', '/app/crm-dashboard', '/app/crypto-dashboard'];
+  const titleException = ['/', '/app/crm-dashboard', '/app/crypto-dashboard'];
   const parts = history.location.pathname.split('/');
   const place = parts[parts.length - 1].replace('-', ' ');
   return (
@@ -82,7 +82,7 @@ function Dashboard(props) {
         )
       }
     >
-      <GuideSlider openGuide={openGuide} closeGuide={handleCloseGuide} />
+      {/*<GuideSlider openGuide={openGuide} closeGuide={handleCloseGuide} />*/}
       { /* Left Sidebar Layout */
         layout === 'left-sidebar' && (
           <LeftSidebarLayout

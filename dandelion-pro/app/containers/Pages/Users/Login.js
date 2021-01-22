@@ -35,7 +35,7 @@ getLogin = () => {
             localStorage.setItem("token", response.data.data.token.access_token);
             console.log(response);
             if (response.data.data.token.access_token) {
-                this.props.history.push("/app");
+                this.props.history.push("/");
             }
             // props.onSignIn(response.data.data.attributes);
             // store.addNotification({
