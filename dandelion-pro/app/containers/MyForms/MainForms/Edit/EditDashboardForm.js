@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet';
 import brand from 'dan-api/dummy/brand';
 import { withStyles } from '@material-ui/core/styles';
 import { PapperBlock } from 'dan-components';
-import EditUser from '../../Forms/Edit/EditUser';
+import EditDashboard from '../../Forms/Edit/EditDashboard';
 
 const styles = ({
   root: {
@@ -11,7 +11,7 @@ const styles = ({
   }
 });
 
-class EditUserForm extends React.Component {
+class EditDashboardForm extends React.Component {
   state = {
     valueForm: []
   }
@@ -36,15 +36,9 @@ class EditUserForm extends React.Component {
           <meta property="twitter:title" content={title} />
           <meta property="twitter:description" content={description} />
         </Helmet>
-        <PapperBlock title="Edit User" icon="ios-list-box-outline">
+        <PapperBlock title="Create Dashboard" icon="ios-list-box-outline">
           <div>
-            <EditUser
-              onSubmit={(values) => this.showResult(values)}
-              name="Misha"
-              lastName="Tretyak"
-              userEmail="misha@gmail.com"
-              userRole="Super Admin"
-            />
+            <EditDashboard onSubmit={(values) => this.showResult(values)} />
           </div>
         </PapperBlock>
       </div>
@@ -52,4 +46,4 @@ class EditUserForm extends React.Component {
   }
 }
 
-export default withStyles(styles)(EditUserForm);
+export default withStyles(styles)(EditDashboardForm);

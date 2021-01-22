@@ -107,6 +107,18 @@ export const TablePlayground = loadable(() =>
   });
 
 // Forms
+export const EditDashboardForm = loadable(() =>
+  import ('./MyForms/MainForms/Edit/EditDashboardForm'), {
+    fallback: <Loading />,
+  });
+export const EditRoleForm = loadable(() =>
+  import ('./MyForms/MainForms/Edit/EditRoleForm'), {
+    fallback: <Loading />,
+  });
+export const EditUserForm = loadable(() =>
+  import ('./MyForms/MainForms/Edit/EditUserForm'), {
+    fallback: <Loading />,
+  });
 export const AddDashboardForm = loadable(() =>
   import ('./MyForms/MainForms/Create/AddDashboardForm'), {
     fallback: <Loading />,

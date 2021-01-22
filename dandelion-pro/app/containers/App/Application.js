@@ -6,6 +6,7 @@ import Dashboard from '../Templates/Dashboard';
 import {
   UserTable, RoleTable, DashboardTable,
   AddUserForm, AddRoleForm, AddDashboardForm,
+  EditUserForm, EditRoleForm, EditDashboardForm,
   PersonalDashboard, CrmDashboard, CryptoDashboard,
   Infographics, MiniApps, Analytics,
   InfoUpdates, Status,
@@ -69,6 +70,9 @@ function Application(props) {
         <Route path="/app/tables/editable-cell" component={EditableCell} />
         { /* Form & Button */ }
         <Route exact path="/app/forms" component={Parent} />
+        <Route path="/app/forms/edit/dashboard" component={EditDashboardForm} />
+        <Route path="/app/forms/edit/role" component={EditRoleForm} />
+        <Route path="/app/forms/edit/user" component={EditUserForm} />
         <Route path="/app/forms/add/dashboard" component={AddDashboardForm} />
         <Route path="/app/forms/add/role" component={AddRoleForm} />
         <Route path="/app/forms/add/user" component={AddUserForm} />
