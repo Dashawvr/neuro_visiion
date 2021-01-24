@@ -57,11 +57,11 @@ function FilesWidget(props) {
           {window.navigator.userAgent}
           </div>
           <Divider className={classes.divider} />
-          <Grid container justify="center">
-            <Button color="secondary" className={classes.button}>
-              See All
-            </Button>
-          </Grid>
+          {/*<Grid container justify="center">*/}
+          {/*  <Button color="secondary" className={classes.button}>*/}
+          {/*    See All*/}
+          {/*  </Button>*/}
+          {/*</Grid>*/}
         </PapperBlock>
       </Grid>
     </Grid>

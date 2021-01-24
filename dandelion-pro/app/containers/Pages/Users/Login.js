@@ -6,8 +6,10 @@ import {withStyles} from '@material-ui/core/styles';
 import {LoginForm} from 'dan-components';
 import styles from 'dan-components/Forms/user-jss';
 import {withRouter} from "react-router-dom";
+import {connect} from "react-redux";
 
 import axios from "axios";
+import {onSignIn} from "../../../redux/actions/login";
 
 class Login extends React.Component {
     state = {
@@ -33,6 +35,7 @@ getLogin = () => {
         .post("http://localhost:80/api/auth/login", {email: this.state.email, password: this.state.password})
         .then((response) => {
             localStorage.setItem("token", response.data.data.token.access_token);
+            this.props.onSignIn(response)
             console.log(response);
             if (response.data.data.token.access_token) {
                 this.props.history.push("/");
@@ -103,4 +106,9 @@ Login.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(withRouter(Login));
+
+
+export default withStyles(styles)(withRouter(connect(null, {
+    onSignIn: onSignIn
+})(Login)));
+

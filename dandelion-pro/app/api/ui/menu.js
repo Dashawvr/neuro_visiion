@@ -113,330 +113,167 @@ module.exports = [
         linkParent: '/',
     },
     {
-        key: 'pages',
+        key: 'roles',
         name: 'Roles',
         icon: 'ios-paper-outline',
-        linkParent: '/'
-        // {
-        //   key: 'account_page',
-        //   name: 'Auth Page',
-        //   title: true,
-        // },
-        // {
-        //   key: 'login',
-        //   name: 'Login',
-        //   link: '/login',
-        //   icon: 'ios-person-outline'
-        // },
-        // {
-        //   key: 'login2',
-        //   name: 'Login Ver.2',
-        //   link: '/login-v2',
-        //   icon: 'ios-contact-outline'
-        // },
-        // {
-        //   key: 'login3',
-        //   name: 'Login Ver.3',
-        //   link: '/login-v3',
-        //   icon: 'ios-contact-outline'
-        // },
-        // {
-        //   key: 'register',
-        //   name: 'Register',
-        //   link: '/register',
-        //   icon: 'ios-key-outline'
-        // },
-        // {
-        //   key: 'register2',
-        //   name: 'Register Ver.2',
-        //   link: '/register-v2',
-        //   icon: 'ios-key-outline'
-        // },
-        // {
-        //   key: 'register3',
-        //   name: 'Register Ver.3',
-        //   link: '/register-v3',
-        //   icon: 'ios-key-outline'
-        // },
-        // {
-        //   key: 'reset',
-        //   name: 'Reset Password',
-        //   link: '/reset-password',
-        //   icon: 'ios-undo-outline'
-        // },
-        // {
-        //   key: 'lock',
-        //   name: 'Lock Screen',
-        //   link: '/lock-screen',
-        //   icon: 'ios-lock-outline'
-        // },
-        // {
-        //   key: 'generic_page',
-        //   name: 'General',
-        //   title: true,
-        // },
-        // {
-        //   key: 'user_profile',
-        //   name: 'User Profile',
-        //   link: '/app/pages/user-profile',
-        //   icon: 'ios-person-outline'
-        // },
-        // {
-        //   key: 'blank',
-        //   name: 'Blank Page',
-        //   link: '/app/pages/blank-page',
-        //   icon: 'ios-document-outline'
-        // },
-        // {
-        //   key: 'pricing',
-        //   name: 'Pricing Page',
-        //   link: '/app/pages/pricing',
-        //   icon: 'ios-archive-outline'
-        // },
-        // {
-        //   key: 'gallery',
-        //   name: 'Photo Gallery',
-        //   link: '/app/pages/photo-gallery',
-        //   icon: 'ios-images-outline'
-        // },
-        // {
-        //   key: 'settings',
-        //   name: 'Settings',
-        //   link: '/app/pages/settings',
-        //   icon: 'ios-options-outline'
-        // },
-        // {
-        //   key: 'help_support',
-        //   name: 'Help & Support',
-        //   link: '/app/pages/help-support',
-        //   icon: 'ios-help-circle-outline'
-        // },
-        // {
-        //   key: 'maintenance',
-        //   name: 'Maintenance',
-        //   link: '/maintenance',
-        //   icon: 'ios-build-outline'
-        // },
-        // {
-        //   key: 'coming_soon',
-        //   name: 'Coming Soon',
-        //   link: '/coming-soon',
-        //   icon: 'ios-bonfire-outline'
-        // },
-        // {
-        //   key: 'blog',
-        //   name: 'Panel',
-        //   title: true,
-        // },
-        // {
-        //   key: 'blog_list',
-        //   name: 'Blog Home',
-        //   link: '/blog',
-        //   icon: 'ios-home-outline'
-        // },
-        // {
-        //   key: 'blog_detail',
-        //   name: 'Article',
-        //   link: '/blog/article',
-        //   icon: 'ios-list-box-outline'
-        // },
-        // {
-        //   key: 'errors',
-        //   name: 'Errors',
-        //   title: true,
-        // },
-        // {
-        //   key: 'not_found_page',
-        //   name: 'Not Found Page',
-        //   link: '/app/pages/not-found',
-        //   icon: 'ios-warning-outline'
-        // },
-        // {
-        //   key: 'error_page',
-        //   name: 'Error Page',
-        //   link: '/app/pages/error',
-        //   icon: 'ios-warning-outline'
-        // },
+        linkParent: '/roles'
+
     },
     {
-        key: 'apps',
+        key: 'users',
         name: 'Users',
         icon: 'ios-grid-outline',
-        child: [
-            {
-                key: 'communication_apps',
-                name: 'Communication',
-                title: true,
-            },
-            {
-                key: 'contact',
-                name: 'Contact',
-                link: '/app/pages/contact',
-                icon: 'ios-contact-outline'
-            },
-            // {
-            //     key: 'email',
-            //     name: 'Email',
-            //     link: '/app/pages/email',
-            //     badge: '2',
-            //     icon: 'ios-mail-outline'
-            // },
-            {
-                key: 'social_apps',
-                name: 'Social',
-                title: true,
-            },
-            {
-                key: 'chat',
-                name: 'Chat',
-                link: '/app/pages/chat',
-                badge: '4',
-                icon: 'ios-chatbubbles-outline'
-            },
-            // {
-            //     key: 'ecommerce_app',
-            //     name: 'Ecommerce',
-            //     title: true,
-            // },
-            // {
-            //     key: 'Itemlist',
-            //     name: 'Product Catalogues',
-            //     link: '/app/pages/ecommerce',
-            //     icon: 'ios-apps-outline'
-            // },
-            // {
-            //     key: 'item_detail',
-            //     name: 'Product Detail',
-            //     link: '/app/pages/product-detail',
-            //     icon: 'ios-card'
-            // },
-            // {
-            //     key: 'checkout',
-            //     name: 'Checkout Page',
-            //     link: '/app/pages/checkout',
-            //     icon: 'ios-cart-outline'
-            // },
-            // {
-            //     key: 'dynamic_invoice',
-            //     name: 'Dynamic Invoice',
-            //     link: '/app/pages/invoice',
-            //     icon: 'ios-document-outline'
-            // },
-            // {
-            //     key: 'productivity_app',
-            //     name: 'Productivity',
-            //     title: true,
-            // },
-            // {
-            //     key: 'calendar',
-            //     name: 'Calendar',
-            //     link: '/app/pages/calendar',
-            //     icon: 'ios-calendar-outline'
-            // },
-            // {
-            //     key: 'task',
-            //     name: 'Task Board',
-            //     link: '/app/pages/taskboard',
-            //     icon: 'ios-checkmark-circle-outline'
-            // },
-        ]
+        linkParent: '/users',
     },
+    {
+        key: 'maps',
+        name: 'Maps',
+        icon: 'ios-navigate-outline',
+        linkParent: '/maps',
+    },
+
+    // {
+    //     key: 'no_child',
+    //     name: 'Users',
+    //     icon: 'ios-grid-outline',
+    //     link: '/users',
+    //     // child: [
+    //         // {
+    //         //     key: 'communication_apps',
+    //         //     name: 'Communication',
+    //         //     title: true,
+    //         // },
+    //         // {
+    //         //     key: 'contact',
+    //         //     name: 'Contact',
+    //         //     link: '/app/pages/contact',
+    //         //     icon: 'ios-contact-outline'
+    //         // },
+    //         // {
+    //         //     key: 'email',
+    //         //     name: 'Email',
+    //         //     link: '/app/pages/email',
+    //         //     badge: '2',
+    //         //     icon: 'ios-mail-outline'
+    //         // // },
+    //         // {
+    //         //     key: 'social_apps',
+    //         //     name: 'Social',
+    //         //     title: true,
+    //         // },
+    //         // {
+    //         //     key: 'chat',
+    //         //     name: 'Chat',
+    //         //     link: '/app/pages/chat',
+    //         //     badge: '4',
+    //         //     icon: 'ios-chatbubbles-outline'
+    //         // },
+    //         // {
+    //         //     key: 'ecommerce_app',
+    //         //     name: 'Ecommerce',
+    //         //     title: true,
+    //         // },
+    //         // {
+    //         //     key: 'Itemlist',
+    //         //     name: 'Product Catalogues',
+    //         //     link: '/app/pages/ecommerce',
+    //         //     icon: 'ios-apps-outline'
+    //         // },
+    //         // {
+    //         //     key: 'item_detail',
+    //         //     name: 'Product Detail',
+    //         //     link: '/app/pages/product-detail',
+    //         //     icon: 'ios-card'
+    //         // },
+    //         // {
+    //         //     key: 'checkout',
+    //         //     name: 'Checkout Page',
+    //         //     link: '/app/pages/checkout',
+    //         //     icon: 'ios-cart-outline'
+    //         // },
+    //         // {
+    //         //     key: 'dynamic_invoice',
+    //         //     name: 'Dynamic Invoice',
+    //         //     link: '/app/pages/invoice',
+    //         //     icon: 'ios-document-outline'
+    //         // },
+    //         // {
+    //         //     key: 'productivity_app',
+    //         //     name: 'Productivity',
+    //         //     title: true,
+    //         // },
+    //         // {
+    //         //     key: 'calendar',
+    //         //     name: 'Calendar',
+    //         //     link: '/app/pages/calendar',
+    //         //     icon: 'ios-calendar-outline'
+    //         // },
+    //         // {
+    //         //     key: 'task',
+    //         //     name: 'Task Board',
+    //         //     link: '/app/pages/taskboard',
+    //         //     icon: 'ios-checkmark-circle-outline'
+    //         // },
+    //     // ]
+    // },
 
     {
         key: 'tables',
         name: 'Edit Panel',
         icon: 'ios-appstore-outline',
-        linkParent: '/app/tables/data-table'
-        // {
-        //   key: 'common_table',
-        //   name: 'Common Table',
-        //   title: true,
-        // },
-        // {
-        //   key: 'basic_table',
-        //   name: 'Basic',
-        //   link: '/app/tables/basic-table',
-        //   icon: 'ios-grid-outline'
-        // },
-        // {
-        //   key: 'data_table',
-        //   name: 'Data Tables',
-        //   link: '/app/tables/data-table',
-        //   icon: 'ios-cube-outline'
-        // },
-        // {
-        //   key: 'table_playground',
-        //   name: 'Table Playgound',
-        //   link: '/app/tables/table-playground',
-        //   icon: 'ios-list-box-outline'
-        // },
-        // {
-        //   key: 'redux_table',
-        //   name: 'Redux Table',
-        //   title: true,
-        // },
-        // {
-        //   key: 'editable_cell',
-        //   name: 'Table Edit',
-        //   link: '/app/tables/editable-cell',
-        //   icon: 'ios-cube-outline'
-        // },
-        // {
-        //   key: 'tree_table',
-        //   name: 'Tree Table',
-        //   link: '/app/tables/tree-table',
-        //   icon: 'ios-git-merge'
-        // },
+        linkParent: '/edit-panel'
+
     },
 
-    {
-        key: 'maps',
-        name: 'Maps',
-        icon: 'ios-navigate-outline',
-        child: [
-            {
-                key: 'google_map',
-                name: 'Google Map',
-                title: true,
-            },
-            {
-                key: 'map_marker',
-                name: 'Map Marker',
-                link: '/app/maps/map-marker',
-                icon: 'ios-pin-outline'
-            },
-            {
-                key: 'map_direction',
-                name: 'Map Direction',
-                link: '/app/maps/map-direction',
-                icon: 'ios-arrow-dropright'
-            },
-            {
-                key: 'map_searchbox',
-                name: 'Map with Searchbox',
-                link: '/app/maps/map-searchbox',
-                icon: 'ios-search-outline'
-            },
-            {
-                key: 'map_traffic',
-                name: 'Traffic Indicator',
-                link: '/app/maps/map-traffic',
-                icon: 'ios-car-outline'
-            },
-            {
-                key: 'street_view',
-                name: 'Street View',
-                link: '/app/maps/street-view',
-                icon: 'ios-eye-outline'
-            },
-        ]
-    },
+    // {
+    //     key: 'no_child',
+    //     name: 'Maps',
+    //     icon: 'ios-navigate-outline',
+    //     link: '/maps',
+    //     // child: [
+    //     //     {
+    //     //         key: 'google_map',
+    //     //         name: 'Google Map',
+    //     //         title: true,
+    //     //     },
+    //     //     {
+    //     //         key: 'map_marker',
+    //     //         name: 'Map Marker',
+    //     //         link: '/app/maps/map-marker',
+    //     //         icon: 'ios-pin-outline'
+    //     //     },
+    //     //     {
+    //     //         key: 'map_direction',
+    //     //         name: 'Map Direction',
+    //     //         link: '/app/maps/map-direction',
+    //     //         icon: 'ios-arrow-dropright'
+    //     //     },
+    //     //     {
+    //     //         key: 'map_searchbox',
+    //     //         name: 'Map with Searchbox',
+    //     //         link: '/app/maps/map-searchbox',
+    //     //         icon: 'ios-search-outline'
+    //     //     },
+    //     //     {
+    //     //         key: 'map_traffic',
+    //     //         name: 'Traffic Indicator',
+    //     //         link: '/app/maps/map-traffic',
+    //     //         icon: 'ios-car-outline'
+    //     //     },
+    //     //     {
+    //     //         key: 'street_view',
+    //     //         name: 'Street View',
+    //     //         link: '/app/maps/street-view',
+    //     //         icon: 'ios-eye-outline'
+    //     //     },
+    //     // ]
+    // },
 
     {
         key: 'no_child',
         name: 'Stage',
         icon: 'ios-document-outline',
-        linkParent: '/dashboard',
+        linkParent: '/stage',
     },
 
     // {

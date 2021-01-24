@@ -4,7 +4,6 @@ import NotFound from 'containers/Pages/Standalone/NotFoundDedicated';
 import Auth from './Auth';
 import Login from "../Pages/Users/Login";
 import Application from './Application';
-import DashboardNew from "../Dashboard/DashboardNew";
 import LandingCorporate from './Landing';
 import LandingCreative from './LandingCreative';
 // import ArticleNews from './ArticleNews';
@@ -18,10 +17,10 @@ function App() {
       <Switch>
         {/*<Route path="/" exact component={LandingCorporate} />*/}
         {/*<Route path="/landing-creative" exact component={LandingCreative} />*/}
-        <Route path="/" exact component={Application} />
+        <Route exact  path="/"  component={Application} />
         {/*<Route path="/app/pages/email" component={Email}/>*/}
         <Route path="/login" component={Auth} />
-        <Route component={NotFound} />
+        {/*<Route component={NotFound} />*/}
       </Switch>
     </ThemeWrapper>
   );

@@ -12,10 +12,11 @@ import dummy from 'dan-api/dummy/dummyContents';
 import logo from 'dan-images/logo.svg';
 import MainMenu from './MainMenu';
 import styles from './sidebar-jss';
+import {connect} from "react-redux";
 
 function SidebarContent(props) {
   const [transform, setTransform] = useState(0);
-
+  console.log(props.user, 'user in props')
   const handleScroll = (event) => {
     const scroll = event.target.scrollTop;
     setTransform(scroll);
@@ -42,7 +43,8 @@ function SidebarContent(props) {
     openMenuStatus,
     closeMenuStatus,
     changeStatus,
-    isLogin
+    isLogin,
+    username
   } = props;
 
   const setStatus = st => {
@@ -63,7 +65,7 @@ function SidebarContent(props) {
       <div className={classes.drawerHeader}>
         <NavLink to="/app" className={classNames(classes.brand, classes.brandBar, turnDarker && classes.darker)}>
           <img src={logo} alt={brand.name} />
-          Neuro Vision
+          {props.username}
         </NavLink>
         {isLogin && (
           <div
@@ -149,4 +151,8 @@ SidebarContent.defaultProps = {
   isLogin: true,
 };
 
-export default withStyles(styles)(SidebarContent);
+const mapStateToProps = (state) => ({
+  user: state.loginS
+})
+
+export default connect(mapStateToProps, null)(withStyles(styles)(SidebarContent));

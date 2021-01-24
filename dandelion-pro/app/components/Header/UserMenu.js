@@ -82,56 +82,35 @@ function UserMenu(props) {
         >
           <MenuItem onClick={handleClose}>
             <div className={messageStyles.messageInfo}>
-              <ListItemAvatar>
-                <Avatar alt="User Name" src={avatarApi[0]} />
-              </ListItemAvatar>
-              <ListItemText primary={dummy.text.subtitle} secondary={dummy.text.date} />
+              {/*<ListItemAvatar>*/}
+              {/*  <Avatar alt="User Name" src={avatarApi[0]} />*/}
+              {/*</ListItemAvatar>*/}
+              <ListItemText primary={'Stage 1'} secondary={dummy.text.date} />
             </div>
           </MenuItem>
           <Divider variant="inset" />
           <MenuItem onClick={handleClose}>
             <div className={messageStyles.messageInfo}>
-              <ListItemAvatar>
-                <Avatar className={messageStyles.icon}>
-                  <Info />
-                </Avatar>
-              </ListItemAvatar>
-              <ListItemText primary={dummy.text.sentences} className={classes.textNotif} secondary={dummy.text.date} />
+              {/*<ListItemAvatar>*/}
+              {/*  <Avatar className={messageStyles.icon}>*/}
+              {/*    <Info />*/}
+              {/*  </Avatar>*/}
+              {/*</ListItemAvatar>*/}
+              <ListItemText primary={'Stage 2'} className={classes.textNotif} secondary={dummy.text.date} />
             </div>
           </MenuItem>
           <Divider variant="inset" />
           <MenuItem onClick={handleClose}>
             <div className={messageStyles.messageSuccess}>
-              <ListItemAvatar>
-                <Avatar className={messageStyles.icon}>
-                  <Check />
-                </Avatar>
-              </ListItemAvatar>
-              <ListItemText primary={dummy.text.subtitle} className={classes.textNotif} secondary={dummy.text.date} />
+              {/*<ListItemAvatar>*/}
+              {/*  <Avatar className={messageStyles.icon}>*/}
+              {/*    <Check />*/}
+              {/*  </Avatar>*/}
+              {/*</ListItemAvatar>*/}
+              <ListItemText primary={'Stage 3'} className={classes.textNotif} secondary={dummy.text.date} />
             </div>
           </MenuItem>
           <Divider variant="inset" />
-          <MenuItem onClick={handleClose}>
-            <div className={messageStyles.messageWarning}>
-              <ListItemAvatar>
-                <Avatar className={messageStyles.icon}>
-                  <Warning />
-                </Avatar>
-              </ListItemAvatar>
-              <ListItemText primary={dummy.text.subtitle} className={classes.textNotif} secondary={dummy.text.date} />
-            </div>
-          </MenuItem>
-          <Divider variant="inset" />
-          <MenuItem onClick={handleClose}>
-            <div className={messageStyles.messageError}>
-              <ListItemAvatar>
-                <Avatar className={messageStyles.icon}>
-                  <Error />
-                </Avatar>
-              </ListItemAvatar>
-              <ListItemText primary="Suspendisse pharetra pulvinar sollicitudin. Aenean ut orci eu odio cursus lobortis eget tempus velit. " className={classes.textNotif} secondary="Jan 9, 2016" />
-            </div>
-          </MenuItem>
         </Menu>
         <Button onClick={handleMenu('user-setting')}>
           <Avatar

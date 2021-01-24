@@ -82,7 +82,6 @@ function Dashboard(props) {
         )
       }
     >
-      {/*<GuideSlider openGuide={openGuide} closeGuide={handleCloseGuide} />*/}
       { /* Left Sidebar Layout */
         layout === 'left-sidebar' && (
           <LeftSidebarLayout
@@ -102,90 +101,6 @@ function Dashboard(props) {
           >
             { children }
           </LeftSidebarLayout>
-        )
-      }
-      { /* Left Big-Sidebar Layout */
-        layout === 'big-sidebar' && (
-          <LeftSidebarBigLayout
-            history={history}
-            toggleDrawer={toggleDrawer}
-            loadTransition={loadTransition}
-            changeMode={changeMode}
-            sidebarOpen={sidebarOpen}
-            pageLoaded={pageLoaded}
-            gradient={gradient}
-            deco={deco}
-            bgPosition={bgPosition}
-            mode={mode}
-            place={place}
-            titleException={titleException}
-            handleOpenGuide={handleOpenGuide}
-          >
-            { children }
-          </LeftSidebarBigLayout>
-        )
-      }
-      { /* Right Sidebar Layout */
-        layout === 'right-sidebar' && (
-          <RightSidebarLayout
-            history={history}
-            toggleDrawer={toggleDrawer}
-            loadTransition={loadTransition}
-            changeMode={changeMode}
-            sidebarOpen={sidebarOpen}
-            pageLoaded={pageLoaded}
-            mode={mode}
-            gradient={gradient}
-            deco={deco}
-            bgPosition={bgPosition}
-            place={place}
-            titleException={titleException}
-            handleOpenGuide={handleOpenGuide}
-          >
-            { children }
-          </RightSidebarLayout>
-        )
-      }
-      { /* Top Bar with Dropdown Menu */
-        layout === 'top-navigation' && (
-          <DropMenuLayout
-            history={history}
-            toggleDrawer={toggleDrawer}
-            loadTransition={loadTransition}
-            changeMode={changeMode}
-            sidebarOpen={sidebarOpen}
-            pageLoaded={pageLoaded}
-            mode={mode}
-            gradient={gradient}
-            deco={deco}
-            bgPosition={bgPosition}
-            place={place}
-            titleException={titleException}
-            handleOpenGuide={handleOpenGuide}
-          >
-            { children }
-          </DropMenuLayout>
-        )
-      }
-      { /* Top Bar with Mega Menu */
-        layout === 'mega-menu' && (
-          <MegaMenuLayout
-            history={history}
-            toggleDrawer={toggleDrawer}
-            loadTransition={loadTransition}
-            changeMode={changeMode}
-            sidebarOpen={sidebarOpen}
-            pageLoaded={pageLoaded}
-            mode={mode}
-            gradient={gradient}
-            deco={deco}
-            bgPosition={bgPosition}
-            place={place}
-            titleException={titleException}
-            handleOpenGuide={handleOpenGuide}
-          >
-            { children }
-          </MegaMenuLayout>
         )
       }
     </div>
