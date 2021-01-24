@@ -44,7 +44,7 @@ function SidebarContent(props) {
     closeMenuStatus,
     changeStatus,
     isLogin,
-    username
+    user
   } = props;
 
   const setStatus = st => {
@@ -78,7 +78,7 @@ function SidebarContent(props) {
               className={classNames(classes.avatar, classes.bigAvatar)}
             />
             <div>
-              <h4>Neuro Vision</h4>
+              <h4>{ user.user.name } { user.user.surName }</h4>
               <Button size="small" onClick={openMenuStatus}>
                 <i className={classNames(classes.dotStatus, setStatus(status))} />
                 {status}
@@ -152,7 +152,7 @@ SidebarContent.defaultProps = {
 };
 
 const mapStateToProps = (state) => ({
-  user: state.loginS
+  user: state.get('loginReducer')
 })
 
 export default connect(mapStateToProps, null)(withStyles(styles)(SidebarContent));

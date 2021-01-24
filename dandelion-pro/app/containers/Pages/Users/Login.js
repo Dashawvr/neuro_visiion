@@ -35,7 +35,7 @@ getLogin = () => {
         .post("http://localhost:80/api/auth/login", {email: this.state.email, password: this.state.password})
         .then((response) => {
             localStorage.setItem("token", response.data.data.token.access_token);
-            this.props.onSignIn(response)
+            this.props.onSignIn(response.data.data.attributes)
             console.log(response);
             if (response.data.data.token.access_token) {
                 this.props.history.push("/");
