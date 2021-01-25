@@ -107,6 +107,26 @@ export const TablePlayground = loadable(() =>
   });
 
 // Forms
+export const CreateWidgetVideoForm = loadable(() =>
+  import ('./MyWidgetForms/Create/CreateWidgetVideoForm'), {
+    fallback: <Loading />,
+  });
+export const CreateWidgetTableForm = loadable(() =>
+  import ('./MyWidgetForms/Create/CreateWidgetTableForm'), {
+    fallback: <Loading />,
+  });
+export const CreateWidgetMapForm = loadable(() =>
+  import ('./MyWidgetForms/Create/CreateWidgetMapForm'), {
+    fallback: <Loading />,
+  });
+export const CreateWidgetTextForm = loadable(() =>
+  import ('./MyWidgetForms/Create/CreateWidgetTextForm'), {
+    fallback: <Loading />,
+  });
+export const AddWidgetForm = loadable(() =>
+  import ('./MyWidgetForms/Create/CreateWidgetForm'), {
+    fallback: <Loading />,
+  });
 export const EditDashboardForm = loadable(() =>
   import ('./MyForms/MainForms/Edit/EditDashboardForm'), {
     fallback: <Loading />,

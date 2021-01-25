@@ -7,6 +7,8 @@ import {
   UserTable, RoleTable, DashboardTable,
   AddUserForm, AddRoleForm, AddDashboardForm,
   EditUserForm, EditRoleForm, EditDashboardForm,
+  AddWidgetForm, CreateWidgetVideoForm, CreateWidgetTextForm,
+  CreateWidgetMapForm, CreateWidgetTableForm,
   PersonalDashboard, CrmDashboard, CryptoDashboard,
   Infographics, MiniApps, Analytics,
   InfoUpdates, Status,
@@ -70,6 +72,11 @@ function Application(props) {
         <Route path="/app/tables/editable-cell" component={EditableCell} />
         { /* Form & Button */ }
         <Route exact path="/app/forms" component={Parent} />
+        <Route path="/app/forms/add/widget/video" component={CreateWidgetVideoForm} />
+        <Route path="/app/forms/add/widget/text" component={CreateWidgetTextForm} />
+        <Route path="/app/forms/add/widget/map" component={CreateWidgetMapForm} />
+        <Route path="/app/forms/add/widget/table" component={CreateWidgetTableForm} />
+        <Route path="/app/forms/add/widget" component={AddWidgetForm} />
         <Route path="/app/forms/edit/dashboard" component={EditDashboardForm} />
         <Route path="/app/forms/edit/role" component={EditRoleForm} />
         <Route path="/app/forms/edit/user" component={EditUserForm} />
