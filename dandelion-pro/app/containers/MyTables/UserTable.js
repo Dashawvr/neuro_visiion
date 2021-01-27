@@ -31,10 +31,10 @@ class UserTable extends Component {
   }
 
   componentDidMount() {
-    request('https://d9ce848438bc.ngrok.io/api/users', params).then((res) => {
+    request('https://6a85fe0ad8a2.ngrok.io/api/users', params).then((res) => {
       this.setState({ users: res.data.users.rows });
     });
-    request('https://d9ce848438bc.ngrok.io/api/role', params).then((res) => {
+    request('https://6a85fe0ad8a2.ngrok.io/api/role', params).then((res) => {
       this.setState({ roles: res.data.roles.rows });
     });
   }

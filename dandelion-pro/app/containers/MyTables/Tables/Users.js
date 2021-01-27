@@ -101,6 +101,9 @@ class Users extends React.Component {
       rowsPerPage: 5,
       page: 0
     };
+    const handleSelectRow = (e) => {
+      console.log(e);
+    };
 
     return (
       <div className={classes.table}>
@@ -109,6 +112,7 @@ class Users extends React.Component {
           data={data}
           columns={columns}
           options={options}
+          onRowSelectionChange={handleSelectRow}
         />
         <div>
           <Buttons create="/app/forms/add/user" edit="" deleteFunction="" />
