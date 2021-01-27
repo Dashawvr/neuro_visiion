@@ -14,8 +14,7 @@ function Auth() {
   return (
     <Outer>
       <Switch>
-        <Route path="/login" component={Login} />
-        <Route component={NotFound} />
+        <Route exact path="/" component={Login} />
       </Switch>
     </Outer>
   );

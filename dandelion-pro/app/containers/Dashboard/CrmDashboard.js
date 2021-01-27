@@ -29,25 +29,26 @@ function CrmDahboard(props) {
         <meta property="twitter:title" content={title} />
         <meta property="twitter:description" content={description} />
       </Helmet>
-      <Grid container className={classes.root}>
-        <CounterChartWidget />
-      </Grid>
-      <Divider className={classes.divider} />
-      <SalesChartWidget />
-      <Divider className={classes.divider} />
-      <TableWidget />
-      <Divider className={classes.divider} />
-      <Grid container spacing={3} className={classes.root}>
-        <Grid item md={4} xs={12}>
-          <CarouselWidget />
-        </Grid>
-        <Grid item md={4} sm={6} xs={12}>
-          <NewsWidget />
-        </Grid>
-        <Grid item md={4} sm={6} xs={12}>
-          <CalculatorWidget />
-        </Grid>
-      </Grid>
+      {/*<Grid container className={classes.root}>*/}
+      {/*  <CounterChartWidget />*/}
+      {/*</Grid>*/}
+      {/*<Divider className={classes.divider} />*/}
+      {/*<SalesChartWidget />*/}
+      {/*<Divider className={classes.divider} />*/}
+      {/*<TableWidget />*/}
+      {/*<Divider className={classes.divider} />*/}
+      {/*<Grid container spacing={3} className={classes.root}>*/}
+      {/*  <Grid item md={4} xs={12}>*/}
+      {/*    <CarouselWidget />*/}
+      {/*  </Grid>*/}
+      {/*  <Grid item md={4} sm={6} xs={12}>*/}
+      {/*    <NewsWidget />*/}
+      {/*  </Grid>*/}
+      {/*  <Grid item md={4} sm={6} xs={12}>*/}
+      {/*    <CalculatorWidget />*/}
+      {/*  </Grid>*/}
+      {/*</Grid>*/}
+      <div><h1>Hello</h1></div>
     </div>
   );
 }

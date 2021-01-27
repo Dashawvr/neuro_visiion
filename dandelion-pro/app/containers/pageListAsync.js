@@ -27,27 +27,35 @@ export const PersonalDashboard = loadable(() =>
   import ('./Dashboard/PersonalDashboard'), {
     fallback: <Loading />,
   });
+// stage
 export const Stage = loadable(() =>
   import ('../NVision-Pages/Stage/Stage'), {
     fallback: <Loading />,
   });
-
+// Roles
 export const Roles = loadable(() =>
     import ('../NVision-Pages/Roles/Roles'), {
     fallback: <Loading />,
 });
+//Users
 export const Users = loadable(() =>
     import ('../NVision-Pages/Users/Users'), {
     fallback: <Loading />,
 });
+// Edit Panel
 export const EditPanel = loadable(() =>
     import ('../NVision-Pages/Edit-Panel/EditPanel'), {
     fallback: <Loading />,
 });
-// export const CrmDashboard = loadable(() =>
+// Dashboard
+// export const DashboardNew = loadable(() =>
 //   import ('./Dashboard/CrmDashboard'), {
 //     fallback: <Loading />,
 //   });
+export const DashboardNew = loadable(() =>
+    import ('../NVision-Pages/Dashboard/Dashboard'), {
+    fallback: <Loading />,
+});
 // export const CryptoDashboard = loadable(() =>
 //   import ('./Dashboard/CryptoDashboard'), {
 //     fallback: <Loading />,

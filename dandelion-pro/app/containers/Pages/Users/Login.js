@@ -38,7 +38,7 @@ getLogin = () => {
             this.props.onSignIn(response.data.data.attributes)
             console.log(response);
             if (response.data.data.token.access_token) {
-                this.props.history.push("/");
+                this.props.history.push("/app");
             }
             // props.onSignIn(response.data.data.attributes);
             // store.addNotification({

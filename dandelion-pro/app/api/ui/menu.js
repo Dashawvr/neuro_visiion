@@ -110,26 +110,27 @@ module.exports = [
         key: 'home',
         name: 'Home',
         icon: 'ios-home-outline',
-        linkParent: '/',
+        linkParent: '/app',
     },
     {
         key: 'roles',
         name: 'Roles',
         icon: 'ios-paper-outline',
-        linkParent: '/roles'
+        linkParent: '/app/roles'
 
     },
     {
         key: 'users',
         name: 'Users',
         icon: 'ios-grid-outline',
-        linkParent: '/users',
+        // linkParent: '/app/users',
+        linkParent: '/app/users',
     },
     {
         key: 'maps',
         name: 'Maps',
         icon: 'ios-navigate-outline',
-        linkParent: '/maps',
+        linkParent: '/app/maps',
     },
 
     // {
@@ -221,7 +222,7 @@ module.exports = [
         key: 'tables',
         name: 'Edit Panel',
         icon: 'ios-appstore-outline',
-        linkParent: '/edit-panel'
+        linkParent: '/app/edit-panel'
 
     },
 
@@ -273,7 +274,7 @@ module.exports = [
         key: 'no_child',
         name: 'Stage',
         icon: 'ios-document-outline',
-        linkParent: '/stage',
+        linkParent: '/app/stage',
     },
 
     // {

@@ -22,6 +22,7 @@ import calendar from '../containers/SampleApps/Calendar/reducers/calendarReducer
 import socmed from '../containers/SampleApps/Timeline/reducers/timelineReducer';
 import taskboard from '../containers/SampleApps/TaskBoard/reducers/taskboardReducer';
 import loginReducer from "./modules/loginReducer";
+import dashboards from "./modules/dashboards";
 
 /**
  * Branching reducers to use one reducer for many components
@@ -43,6 +44,7 @@ function branchReducer(reducerFunction, reducerName) {
  */
 export default function createReducer(injectedReducers = {}) {
   const rootReducer = combineReducers({
+    dashboards,
     loginReducer,
     form,
     ui: uiReducer,

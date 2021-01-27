@@ -23,6 +23,7 @@ import messageStyles from 'dan-styles/Messages.scss';
 import avatarApi from 'dan-api/images/avatars';
 import link from 'dan-api/ui/link';
 import styles from './header-jss';
+import {connect} from 'react-redux'
 
 function UserMenu(props) {
   const [menuState, setMenuState] = useState({
@@ -46,7 +47,10 @@ function UserMenu(props) {
     localStorage.clear();
   };
 
-  const { classes, dark } = props;
+  console.log(props.dashboards, 'usermenuuuuu')
+
+
+  const { classes, dark , dashboards, history} = props;
   const { anchorEl, openMenu } = menuState;
   return (
       <div>
@@ -56,8 +60,8 @@ function UserMenu(props) {
             color="inherit"
             className={classNames(classes.notifIcon, dark ? classes.dark : classes.light)}
         >
-          <Badge className={classes.badge} badgeContent={4} color="secondary">
-            <i className="ion-ios-bell-outline" />
+          <Badge className={classes.badge} badgeContent={dashboards?dashboards.data.data.dashboard.rows.length:''} color="secondary">
+            <i className="ion-ios-folder-outline" />
           </Badge>
         </IconButton>
         <Menu
@@ -80,37 +84,21 @@ function UserMenu(props) {
             open={openMenu === 'notification'}
             onClose={handleClose}
         >
-          <MenuItem onClick={handleClose}>
-            <div className={messageStyles.messageInfo}>
-              {/*<ListItemAvatar>*/}
-              {/*  <Avatar alt="User Name" src={avatarApi[0]} />*/}
-              {/*</ListItemAvatar>*/}
-              <ListItemText primary={'Stage 1'} secondary={dummy.text.date} />
-            </div>
-          </MenuItem>
-          <Divider variant="inset" />
-          <MenuItem onClick={handleClose}>
-            <div className={messageStyles.messageInfo}>
-              {/*<ListItemAvatar>*/}
-              {/*  <Avatar className={messageStyles.icon}>*/}
-              {/*    <Info />*/}
-              {/*  </Avatar>*/}
-              {/*</ListItemAvatar>*/}
-              <ListItemText primary={'Stage 2'} className={classes.textNotif} secondary={dummy.text.date} />
-            </div>
-          </MenuItem>
-          <Divider variant="inset" />
-          <MenuItem onClick={handleClose}>
-            <div className={messageStyles.messageSuccess}>
-              {/*<ListItemAvatar>*/}
-              {/*  <Avatar className={messageStyles.icon}>*/}
-              {/*    <Check />*/}
-              {/*  </Avatar>*/}
-              {/*</ListItemAvatar>*/}
-              <ListItemText primary={'Stage 3'} className={classes.textNotif} secondary={dummy.text.date} />
-            </div>
-          </MenuItem>
-          <Divider variant="inset" />
+          {
+            dashboards ?
+            (dashboards.data.data.dashboard.rows.map((el) => {
+              return (
+                <Link to={`/app/dashboard/${el.id}`}>
+                  <MenuItem onClick={handleClose}>
+                    <div className={messageStyles.messageInfo}>
+                      <ListItemText  primary={`Stage ${el.id}`} secondary={el.createdAt} />
+                    </div>
+                  </MenuItem>
+                  <Divider variant="inset" />
+                </Link>
+              )
+            })):''
+          }
         </Menu>
         <Button onClick={handleMenu('user-setting')}>
           <Avatar
@@ -161,4 +149,8 @@ UserMenu.defaultProps = {
   dark: false
 };
 
-export default withStyles(styles)(UserMenu);
+const mapStateToProps = (state) => ({
+  dashboards: state.get('dashboards').dashboards
+})
+
+export default connect(mapStateToProps, null)(withStyles(styles)(UserMenu));

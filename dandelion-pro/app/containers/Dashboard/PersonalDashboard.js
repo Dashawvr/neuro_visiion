@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
 import {Redirect} from 'react-router-dom';
 import brand from 'dan-api/dummy/brand';
@@ -15,16 +15,25 @@ import {
     FilesWidget,
 } from 'dan-components';
 import styles from './dashboard-jss';
+import {connect} from "react-redux";
+import { getDashboards } from "../../redux/actions/dashboards";
+
 
 
 
 function PersonalDashboard(props) {
+    console.log(props.user)
     const title = brand.name + ' - Personal Dashboard';
     const description = brand.desc;
     const { classes } = props;
 
-    if (!localStorage.getItem('token')) {
-        return <Redirect to="/login" />;
+    useEffect(() => {
+        console.log(props.user)
+        props.getDash(props.user.user.id)
+    }, [])
+
+    if (!props.user.user) {
+        return <Redirect to="/" />;
     }
     return (
         <div>
@@ -70,4 +79,13 @@ PersonalDashboard.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(PersonalDashboard);
+const mapStateToProps = (state) => ({
+    user: state.get('loginReducer'),
+    dashboards: state.get('dashboards')
+})
+
+
+
+export default connect(mapStateToProps, {
+    getDash: getDashboards
+})(withStyles(styles)(PersonalDashboard))

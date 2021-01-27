@@ -17,6 +17,8 @@ import FontFaceObserver from 'fontfaceobserver';
 import history from 'utils/history';
 import 'sanitize.css/sanitize.css';
 
+import {BrowserRouter} from "react-router-dom";
+
 // Import root app
 import App from 'containers/App';
 import './styles/layout/base.scss';
@@ -29,6 +31,8 @@ import '!file-loader?name=[name].[ext]!../public/favicons/favicon.ico'; // eslin
 import 'file-loader?name=.htaccess!./.htaccess'; // eslint-disable-line
 
 import configureStore from './redux/configureStore';
+
+import axios from 'axios'
 
 // Import i18n messages
 import { translationMessages } from './i18n';
@@ -47,13 +51,21 @@ const initialState = {};
 const store = configureStore(initialState, history);
 const MOUNT_NODE = document.getElementById('app');
 
+axios.defaults.baseURL = "http://localhost:80";
+axios.defaults.headers.common = {
+  ...axios.defaults.headers.common,
+  "Access-Control-Allow-Origin": "http://localhost:3000",
+  "Content-Type": "application/json",
+  Authorization: localStorage.getItem("token"),
+};
+
 const render = messages => {
   ReactDOM.render(
     <Provider store={store}>
       <LanguageProvider messages={messages}>
-        <ConnectedRouter history={history}>
+        <BrowserRouter history={history}>
           <App />
-        </ConnectedRouter>
+        </BrowserRouter>
       </LanguageProvider>
     </Provider>,
     MOUNT_NODE,
