@@ -1,10 +1,10 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import Chip from '@material-ui/core/Chip';
 import MUIDataTable from 'mui-datatables';
-import axios from 'axios';
 import Buttons from '../../MyComponents/Buttons/TableButtons';
 
 const styles = theme => ({
@@ -26,55 +26,55 @@ const styles = theme => ({
     }
   }
 });
-/*
-  It uses npm mui-datatables. It's easy to use, you just describe columns and data collection.
-  Checkout full documentation here :
-  https://github.com/gregnb/mui-datatables/blob/master/README.md
-*/
+
 class Users extends React.Component {
   state = {
     columns: [
       {
-        name: 'Name',
+        name: 'id',
+        label: 'ID',
         options: {
           filter: true
         }
       },
       {
-        name: 'Last Name',
+        name: 'name',
+        label: 'Name',
+        options: {
+          filter: true
+        }
+      },
+      {
+        name: 'surName',
+        label: 'Last Name',
         options: {
           filter: true,
         }
       },
       {
-        name: 'Email',
+        name: 'email',
+        label: 'Email',
         options: {
           filter: true,
         }
       },
       {
-        name: 'Role',
+        name: 'roleId',
+        label: 'Role',
         options: {
           filter: true,
         }
       },
       {
-        name: 'Creator',
+        name: 'created_id',
+        label: 'Created User',
         options: {
           filter: true,
         }
       },
-      //   {
-      //     name: 'KPI',
-      //     options: {
-      //       filter: false,
-      //       customBodyRender: (value) => (
-      //         <LinearProgress variant="determinate" color="secondary" value={value} />
-      //       )
-      //     }
-      //   },
       {
-        name: 'Status',
+        name: 'isOnline',
+        label: 'Status',
         options: {
           filter: true,
           customBodyRender: (value) => {
@@ -88,41 +88,12 @@ class Users extends React.Component {
           }
         }
       },
-      //   {
-      //     name: 'Salary',
-      //     options: {
-      //       filter: true,
-      //       customBodyRender: (value) => {
-      //         const nf = new Intl.NumberFormat('en-US', {
-      //           style: 'currency',
-      //           currency: 'USD',
-      //           minimumFractionDigits: 2,
-      //           maximumFractionDigits: 2
-      //         });
-
-    //         return nf.format(value);
-    //       }
-    //     }
-    //   },
     ],
-    data: [
-      ['Gabby', 'George', 'misha.neuro@gmail.com', 'Super Admin', 'none', 'active'],
-      ['Aiden', 'Lloyd', 'dasha.neuro@gmail.com', 'Admin', 'Super Admin', 'active'],
-      ['Jaden', 'Collins', 'igor.neuro@gmail.com', 'User', 'Admin', 'non-active'],
-      ['Franky', 'Rees', 'misha.neuro@gmail.com', 'Admin', 'Super Admin', 'active'],
-      ['Aaren', 'Rose', 'igor.neuro@gmail.com', 'User', 'Admin', 'unknown'],
-      ['Blake', 'Duncan', 'dasha.neuro@gmail.com', 'Admin', 'Super Admin', 'active'],
-      ['Frankie', 'Parry', 'misha.neuro@gmail.com', 'Admin', 'Super Admin', 'non-active'],
-      ['Lane', 'Wilson', 'igor.neuro@gmail.com', 'User', 'Admin', 'active'],
-      ['Robin', 'Duncan', 'dasha.neuro@gmail.com', 'Admin', 'Super Admin', 'unknown'],
-      ['Mel', 'Brooks', 'igor.neuro@gmail.com', 'User', 'Admin', 'active'],
-      ['Harper', 'White', 'misha.neuro@gmail.com', 'Admin', 'Super Admin', 'non-active'],
-    ]
   }
 
   render() {
-    const { columns, data } = this.state;
-    const { classes } = this.props;
+    const { columns } = this.state;
+    const { classes, data } = this.props;
     const options = {
       filterType: 'dropdown',
       responsive: 'stacked',
@@ -138,9 +109,10 @@ class Users extends React.Component {
           data={data}
           columns={columns}
           options={options}
+          onRowSelectionChange={}
         />
         <div>
-          <Buttons />
+          <Buttons create="/app/forms/add/user" edit="" deleteFunction=""  disable={} />
         </div>
       </div>
     );

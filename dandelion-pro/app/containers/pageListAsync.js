@@ -23,6 +23,10 @@ export const Article = loadable(() =>
   });
 
 // Dashboard
+export const Scene = loadable(() =>
+  import ('./Scene/MainScene/Scene'), {
+    fallback: <Loading />,
+  });
 export const PersonalDashboard = loadable(() =>
   import ('./Dashboard/PersonalDashboard'), {
     fallback: <Loading />,

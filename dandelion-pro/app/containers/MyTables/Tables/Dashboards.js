@@ -1,10 +1,10 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import Chip from '@material-ui/core/Chip';
 import MUIDataTable from 'mui-datatables';
-import axios from 'axios';
 import Buttons from '../../MyComponents/Buttons/TableButtons';
 
 const styles = theme => ({
@@ -26,62 +26,52 @@ const styles = theme => ({
     }
   }
 });
-/*
-  It uses npm mui-datatables. It's easy to use, you just describe columns and data collection.
-  Checkout full documentation here :
-  https://github.com/gregnb/mui-datatables/blob/master/README.md
-*/
 class Dashboards extends React.Component {
   state = {
     columns: [
       {
-        name: 'Id',
+        label: 'ID',
+        name: 'id',
         options: {
           filter: true
         }
       },
       {
-        name: 'Active',
+        label: 'Active',
+        name: 'enable',
         options: {
-          filter: true
+          filter: true,
+          customBodyRender: (value) => {
+            if (value) {
+              return (<Chip label="ON" color="secondary" />);
+            }
+            if (!value) {
+              return (<Chip label="OFF" color="primary" />);
+            }
+            return (<Chip label="Unknown" />);
+          }
         }
       },
       {
-        name: 'Role',
+        label: 'Role',
+        name: 'roleId',
         options: {
           filter: true,
         }
       },
       {
-        name: 'User',
-        options: {
-          filter: true,
-        }
-      },
-      {
-        name: 'Widgets',
+        label: 'User',
+        name: 'userId',
         options: {
           filter: true,
         }
       },
     ],
-    data: [
-      ['1', 'true', 'Super Admin', 'Super Admin', 5],
-      ['2', 'true', 'User', 'User', 3],
-      ['3', 'false', 'Admin', 'Admin', 7],
-      ['4', 'true', 'User', 'User', 6],
-      ['5', 'false', 'Moderator', 'Moderator', 2],
-      ['6', 'true', 'Employee', 'Employee', 5],
-      ['7', 'false', 'Moderator', 'Moderator', 1],
-      ['8', 'true', 'User', 'User', 4],
-      ['9', 'false', 'Admin', 'Admin', 8],
-      ['10', 'true', 'Admin', 'Admin', 4],
-    ]
   }
 
   render() {
-    const { columns, data } = this.state;
-    const { classes } = this.props;
+    const { columns } = this.state;
+    const { classes, data } = this.props;
     const options = {
       filterType: 'dropdown',
       responsive: 'stacked',
@@ -99,7 +89,7 @@ class Dashboards extends React.Component {
           options={options}
         />
         <div>
-          <Buttons />
+          <Buttons create="/app/forms/add/dashboard" edit="" deleteFunction="" />
         </div>
       </div>
     );

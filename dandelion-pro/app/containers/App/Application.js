@@ -9,6 +9,7 @@ import {
   EditUserForm, EditRoleForm, EditDashboardForm,
   AddWidgetForm, CreateWidgetVideoForm, CreateWidgetTextForm,
   CreateWidgetMapForm, CreateWidgetTableForm,
+  // Scene,
   PersonalDashboard, CrmDashboard, CryptoDashboard,
   Infographics, MiniApps, Analytics,
   InfoUpdates, Status,
@@ -47,6 +48,7 @@ function Application(props) {
       <Switch>
         { /* Home */ }
         <Route exact path="/app" component={PersonalDashboard} />
+        {/* <Route path="/app/scene" component={Scene} /> */}
         <Route path="/app/crm-dashboard" component={CrmDashboard} />
         <Route path="/app/crypto-dashboard" component={CryptoDashboard} />
         { /* Widgets */ }

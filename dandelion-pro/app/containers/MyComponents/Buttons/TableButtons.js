@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React, { Fragment, PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
@@ -5,7 +6,8 @@ import { withStyles } from '@material-ui/core/styles';
 import DeleteIcon from '@material-ui/icons/Delete';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import CreateIcon from '@material-ui/icons/Create';
-import UpdateIcon from '@material-ui/icons/Update';
+// import UpdateIcon from '@material-ui/icons/Update';
+import history from '../../../utils/history';
 
 const styles = theme => ({
   button: {
@@ -22,26 +24,24 @@ const styles = theme => ({
 
 class TableButtons extends PureComponent {
   render() {
-    const { classes } = this.props;
+    const {
+      classes, create, edit, deleteFunction
+    } = this.props;
     return (
       <Fragment>
         <br />
         <br />
-        <Button className={classes.button} variant="contained" color="primary">
+        <Button onClick={() => history.push(`${create}`)} className={classes.button} variant="contained" color="primary">
             Create
           <AddCircleOutlineIcon className={classes.rightIcon} />
         </Button>
-        <Button className={classes.button} variant="contained" color="secondary">
+        <Button onClick={() => history.push(`${edit}`)} className={classes.button} variant="contained" color="secondary">
             Edit
           <CreateIcon className={classes.rightIcon} />
         </Button>
-        <Button className={classes.button} variant="contained" color="red">
+        <Button onClick={() => history.push(`${deleteFunction}`)} className={classes.button} variant="contained" color="red">
             Delete
           <DeleteIcon className={classes.rightIcon} />
-        </Button>
-        <Button className={classes.button} variant="contained" color="default">
-            Update
-          <UpdateIcon className={classes.rightIcon} />
         </Button>
         <br />
       </Fragment>
