@@ -109,10 +109,9 @@ class Users extends React.Component {
           data={data}
           columns={columns}
           options={options}
-          onRowSelectionChange={}
         />
         <div>
-          <Buttons create="/app/forms/add/user" edit="" deleteFunction=""  disable={} />
+          <Buttons create="/app/forms/add/user" edit="" deleteFunction="" />
         </div>
       </div>
     );
