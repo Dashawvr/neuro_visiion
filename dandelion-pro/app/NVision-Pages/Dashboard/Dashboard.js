@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Helmet} from "react-helmet/es/Helmet";
 import { PapperBlock } from 'dan-components';
 import TableDashboards from "../../Nvision-Tables/DashboardsTable/DashboardsTable";
+import "./app.css";
 
 const Dashboard = () => {
 
@@ -9,19 +10,19 @@ const Dashboard = () => {
   const description = 'Main dashboard';
 
   return (
-    <div>
-      <Helmet>
-        <title>{title}</title>
-        <meta name="description" content={description} />
-        <meta property="og:title" content={title} />
-        <meta property="og:description" content={description} />
-        <meta property="twitter:title" content={title} />
-        <meta property="twitter:description" content={description} />
-      </Helmet>
+    <div className='app'>
+      {/*<Helmet>*/}
+      {/*  <title>{title}</title>*/}
+      {/*  <meta name="description" content={description} />*/}
+      {/*  <meta property="og:title" content={title} />*/}
+      {/*  <meta property="og:description" content={description} />*/}
+      {/*  <meta property="twitter:title" content={title} />*/}
+      {/*  <meta property="twitter:description" content={description} />*/}
+      {/*</Helmet>*/}
       {/*Dashboard page!!!!!!!!*/}
-      <PapperBlock title="Dashboard" desc="Some text description">
 
-      </PapperBlock>
+      {/*<PapperBlock title="Dashboard" desc="Some text description" >*/}
+      {/*</PapperBlock>*/}
     </div>
   );
 }
