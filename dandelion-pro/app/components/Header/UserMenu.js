@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
@@ -24,11 +25,17 @@ import avatarApi from 'dan-api/images/avatars';
 import link from 'dan-api/ui/link';
 import styles from './header-jss';
 
+import { logOut } from '../../api/queries'
+import { clearTokens } from '../../api/helpers'
+import { logOutAction } from "../../redux/actions/login";
+
 function UserMenu(props) {
   const [menuState, setMenuState] = useState({
     anchorEl: null,
     openMenu: null
   });
+
+  const dispatch = useDispatch();
 
   const handleMenu = menu => (event) => {
     const { openMenu } = menuState;
@@ -42,113 +49,120 @@ function UserMenu(props) {
     setMenuState({ anchorEl: null, openMenu: null });
   };
 
-  const logOut = ()=>{
-    localStorage.clear();
+  const handleLogOut = async () => {
+    try {
+      await logOut();
+      clearTokens();
+      dispatch(logOutAction());
+    } catch (error) {
+      clearTokens();
+      dispatch(logOutAction());
+    }
   };
 
   const { classes, dark } = props;
   const { anchorEl, openMenu } = menuState;
   return (
-      <div>
-        <IconButton
-            aria-haspopup="true"
-            onClick={handleMenu('notification')}
-            color="inherit"
-            className={classNames(classes.notifIcon, dark ? classes.dark : classes.light)}
-        >
-          <Badge className={classes.badge} badgeContent={4} color="secondary">
-            <i className="ion-ios-bell-outline" />
-          </Badge>
-        </IconButton>
-        <Menu
-            id="menu-notification"
-            anchorEl={anchorEl}
-            anchorOrigin={{
-              vertical: 'top',
-              horizontal: 'right',
-            }}
-            transformOrigin={{
-              vertical: 'top',
-              horizontal: 'right',
-            }}
-            className={classes.notifMenu}
-            PaperProps={{
-              style: {
-                width: 350,
-              },
-            }}
-            open={openMenu === 'notification'}
-            onClose={handleClose}
-        >
-          <MenuItem onClick={handleClose}>
-            <div className={messageStyles.messageInfo}>
-              {/*<ListItemAvatar>*/}
-              {/*  <Avatar alt="User Name" src={avatarApi[0]} />*/}
-              {/*</ListItemAvatar>*/}
-              <ListItemText primary={'Stage 1'} secondary={dummy.text.date} />
-            </div>
-          </MenuItem>
-          <Divider variant="inset" />
-          <MenuItem onClick={handleClose}>
-            <div className={messageStyles.messageInfo}>
-              {/*<ListItemAvatar>*/}
-              {/*  <Avatar className={messageStyles.icon}>*/}
-              {/*    <Info />*/}
-              {/*  </Avatar>*/}
-              {/*</ListItemAvatar>*/}
-              <ListItemText primary={'Stage 2'} className={classes.textNotif} secondary={dummy.text.date} />
-            </div>
-          </MenuItem>
-          <Divider variant="inset" />
-          <MenuItem onClick={handleClose}>
-            <div className={messageStyles.messageSuccess}>
-              {/*<ListItemAvatar>*/}
-              {/*  <Avatar className={messageStyles.icon}>*/}
-              {/*    <Check />*/}
-              {/*  </Avatar>*/}
-              {/*</ListItemAvatar>*/}
-              <ListItemText primary={'Stage 3'} className={classes.textNotif} secondary={dummy.text.date} />
-            </div>
-          </MenuItem>
-          <Divider variant="inset" />
-        </Menu>
-        <Button onClick={handleMenu('user-setting')}>
-          <Avatar
-              alt={dummy.user.name}
-              src={dummy.user.avatar}
-          />
-        </Button>
-        <Menu
-            id="menu-appbar"
-            anchorEl={anchorEl}
-            anchorOrigin={{
-              vertical: 'top',
-              horizontal: 'right',
-            }}
-            transformOrigin={{
-              vertical: 'top',
-              horizontal: 'right',
-            }}
-            open={openMenu === 'user-setting'}
-            onClose={handleClose}
-        >
-          {/*<MenuItem onClick={handleClose} component={Link} to={link.profile}>My Profile</MenuItem>*/}
-          <MenuItem onClick={handleClose} component={Link} to={link.calendar}>My Calendar</MenuItem>
-          <MenuItem onClick={handleClose} component={Link} to={link.email}>
-            My Inbox
-            <ListItemIcon>
-              <Badge className={classNames(classes.badge, classes.badgeMenu)} badgeContent={2} color="secondary" />
-            </ListItemIcon>
-          </MenuItem>
-          <Divider />
-          <MenuItem onClick={logOut} component={Link} to="/login">
-            <ListItemIcon>
-              <ExitToApp />
-            </ListItemIcon>
-            Log Out
-          </MenuItem>
-        </Menu>
-      </div>
+    <div>
+      <IconButton
+        aria-haspopup="true"
+        onClick={handleMenu('notification')}
+        color="inherit"
+        className={classNames(classes.notifIcon, dark ? classes.dark : classes.light)}
+      >
+        <Badge className={classes.badge} badgeContent={4} color="secondary">
+          <i className="ion-ios-bell-outline"/>
+        </Badge>
+      </IconButton>
+      <Menu
+        id="menu-notification"
+        anchorEl={anchorEl}
+        anchorOrigin={{
+          vertical: 'top',
+          horizontal: 'right',
+        }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'right',
+        }}
+        className={classes.notifMenu}
+        PaperProps={{
+          style: {
+            width: 350,
+          },
+        }}
+        open={openMenu === 'notification'}
+        onClose={handleClose}
+      >
+        <MenuItem onClick={handleClose}>
+          <div className={messageStyles.messageInfo}>
+            {/*<ListItemAvatar>*/}
+            {/*  <Avatar alt="User Name" src={avatarApi[0]} />*/}
+            {/*</ListItemAvatar>*/}
+            <ListItemText primary={'Stage 1'} secondary={dummy.text.date}/>
+          </div>
+        </MenuItem>
+        <Divider variant="inset"/>
+        <MenuItem onClick={handleClose}>
+          <div className={messageStyles.messageInfo}>
+            {/*<ListItemAvatar>*/}
+            {/*  <Avatar className={messageStyles.icon}>*/}
+            {/*    <Info />*/}
+            {/*  </Avatar>*/}
+            {/*</ListItemAvatar>*/}
+            <ListItemText primary={'Stage 2'} className={classes.textNotif} secondary={dummy.text.date}/>
+          </div>
+        </MenuItem>
+        <Divider variant="inset"/>
+        <MenuItem onClick={handleClose}>
+          <div className={messageStyles.messageSuccess}>
+            {/*<ListItemAvatar>*/}
+            {/*  <Avatar className={messageStyles.icon}>*/}
+            {/*    <Check />*/}
+            {/*  </Avatar>*/}
+            {/*</ListItemAvatar>*/}
+            <ListItemText primary={'Stage 3'} className={classes.textNotif} secondary={dummy.text.date}/>
+          </div>
+        </MenuItem>
+        <Divider variant="inset"/>
+      </Menu>
+      <Button onClick={handleMenu('user-setting')}>
+        <Avatar
+          alt={dummy.user.name}
+          src={dummy.user.avatar}
+        />
+      </Button>
+      <Menu
+        id="menu-appbar"
+        anchorEl={anchorEl}
+        anchorOrigin={{
+          vertical: 'top',
+          horizontal: 'right',
+        }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'right',
+        }}
+        open={openMenu === 'user-setting'}
+        onClose={handleClose}
+      >
+        {/*<MenuItem onClick={handleClose} component={Link} to={link.profile}>My Profile</MenuItem>*/}
+        <MenuItem onClick={handleClose} component={Link} to={link.calendar}>My Calendar</MenuItem>
+        <MenuItem onClick={handleClose} component={Link} to={link.email}>
+          My Inbox
+          <ListItemIcon>
+            <Badge className={classNames(classes.badge, classes.badgeMenu)} badgeContent={2} color="secondary"/>
+          </ListItemIcon>
+        </MenuItem>
+        <Divider/>
+        <MenuItem onClick={handleLogOut} component={Link} to='/login'>
+          <ListItemIcon>
+            <ExitToApp/>
+          </ListItemIcon>
+          Log Out
+        </MenuItem>
+      </Menu>
+    </div>
   );
 }
 

@@ -22,10 +22,6 @@ function PersonalDashboard(props) {
     const title = brand.name + ' - Personal Dashboard';
     const description = brand.desc;
     const { classes } = props;
-
-    if (!localStorage.getItem('token')) {
-        return <Redirect to="/login" />;
-    }
     return (
         <div>
             <Helmet>

@@ -10,7 +10,7 @@ import history from 'utils/history';
 import languageProviderReducer from 'containers/LanguageProvider/reducer';
 import uiReducer from './modules/ui';
 import initval from './modules/initForm';
-import login from './modules/login';
+import auth from './modules/auth';
 import treeTable from '../containers/Tables/reducers/treeTbReducer';
 import crudTable from '../containers/Tables/reducers/crudTbReducer';
 import crudTableForm from '../containers/Tables/reducers/crudTbFrmReducer';
@@ -21,7 +21,6 @@ import email from '../containers/SampleApps/Email/reducers/emailReducer';
 import calendar from '../containers/SampleApps/Calendar/reducers/calendarReducer';
 import socmed from '../containers/SampleApps/Timeline/reducers/timelineReducer';
 import taskboard from '../containers/SampleApps/TaskBoard/reducers/taskboardReducer';
-import loginReducer from "./modules/loginReducer";
 
 /**
  * Branching reducers to use one reducer for many components
@@ -43,11 +42,10 @@ function branchReducer(reducerFunction, reducerName) {
  */
 export default function createReducer(injectedReducers = {}) {
   const rootReducer = combineReducers({
-    loginReducer,
     form,
     ui: uiReducer,
     initval,
-    login,
+    auth,
     socmed,
     calendar,
     ecommerce,
