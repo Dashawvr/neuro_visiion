@@ -24,6 +24,7 @@ import avatarApi from 'dan-api/images/avatars';
 import link from 'dan-api/ui/link';
 import styles from './header-jss';
 import {connect} from 'react-redux'
+import '../../NVision-Pages/Dashboard/app.css'
 
 function UserMenu(props) {
   const [menuState, setMenuState] = useState({
@@ -47,10 +48,9 @@ function UserMenu(props) {
     localStorage.clear();
   };
 
-  console.log(props.dashboards, 'usermenuuuuu')
 
+  const { classes, dark , dashboards, history,location} = props;
 
-  const { classes, dark , dashboards, history} = props;
   const { anchorEl, openMenu } = menuState;
   return (
       <div>
@@ -61,7 +61,7 @@ function UserMenu(props) {
             className={classNames(classes.notifIcon, dark ? classes.dark : classes.light)}
         >
           <Badge className={classes.badge} badgeContent={dashboards?dashboards.data.data.dashboard.rows.length:''} color="secondary">
-            <i className="ion-ios-folder-outline" />
+            <i className={`ion-ios-folder-outline ${location?'black':''}`} />
           </Badge>
         </IconButton>
         <Menu
@@ -88,7 +88,7 @@ function UserMenu(props) {
             dashboards ?
             (dashboards.data.data.dashboard.rows.map((el) => {
               return (
-                <Link to={`/app/dashboard/${el.id}`}>
+                <Link to={`/home/dashboard/${el.id}`}>
                   <MenuItem onClick={handleClose}>
                     <div className={messageStyles.messageInfo}>
                       <ListItemText  primary={`Stage ${el.id}`} secondary={el.createdAt} />
@@ -129,7 +129,7 @@ function UserMenu(props) {
             </ListItemIcon>
           </MenuItem>
           <Divider />
-          <MenuItem onClick={logOut} component={Link} to="/login">
+          <MenuItem onClick={logOut} component={Link} to="/">
             <ListItemIcon>
               <ExitToApp />
             </ListItemIcon>

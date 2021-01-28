@@ -14,6 +14,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import UserMenu from './UserMenu';
 import SearchUi from '../Search/SearchUi';
 import styles from './header-jss';
+import '../../NVision-Pages/Dashboard/app.css'
 
 const elem = document.documentElement;
 
@@ -95,6 +96,7 @@ function Header(props) {
     openGuide,
     history
   } = props;
+  const location = history.location.pathname.split('/').includes('dashboard')
 
   const setMargin = (sidebarPosition) => {
     if (sidebarPosition === 'right-sidebar') {
@@ -134,19 +136,19 @@ function Header(props) {
               {fullScreen ? (
                 <Tooltip title="Exit Full Screen" placement="bottom">
                   <IconButton className={classes.button} onClick={closeFullScreen}>
-                    <i className="ion-ios-crop" />
+                    <i className={`ion-ios-crop ${location?'black':''}`} />
                   </IconButton>
                 </Tooltip>
               ) : (
                 <Tooltip title="Full Screen" placement="bottom">
                   <IconButton className={classes.button} onClick={openFullScreen}>
-                    <i className="ion-ios-crop" />
+                    <i className={`ion-ios-crop ${location?'black':''}`} />
                   </IconButton>
                 </Tooltip>
               )}
               <Tooltip title="Turn Dark/Light" placement="bottom">
                 <IconButton className={classes.button} onClick={() => turnMode(mode)}>
-                  <i className="ion-ios-lightbulb-outline" />
+                  <i className={`ion-ios-lightbulb-outline ${location?'black':''}`} />
                 </IconButton>
               </Tooltip>
               {/*<Tooltip title="Show Guide" placement="bottom">*/}
@@ -171,7 +173,7 @@ function Header(props) {
         {/*<Hidden xsDown>*/}
         {/*  <span className={classes.separatorV} />*/}
         {/*</Hidden>*/}
-        <UserMenu />
+        <UserMenu location={location}/>
       </Toolbar>
     </AppBar>
   );

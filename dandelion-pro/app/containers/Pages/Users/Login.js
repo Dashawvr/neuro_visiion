@@ -5,11 +5,13 @@ import PropTypes from 'prop-types';
 import {withStyles} from '@material-ui/core/styles';
 import {LoginForm} from 'dan-components';
 import styles from 'dan-components/Forms/user-jss';
-import {withRouter} from "react-router-dom";
+import {withRouter, Redirect} from "react-router-dom";
 import {connect} from "react-redux";
 
 import axios from "axios";
 import {onSignIn} from "../../../redux/actions/login";
+
+const user = JSON.parse(localStorage.getItem('user'))
 
 class Login extends React.Component {
     state = {
@@ -35,10 +37,10 @@ getLogin = () => {
         .post("http://localhost:80/api/auth/login", {email: this.state.email, password: this.state.password})
         .then((response) => {
             localStorage.setItem("token", response.data.data.token.access_token);
-            this.props.onSignIn(response.data.data.attributes)
-            console.log(response);
+            this.props.onSignIn(response.data.data.attributes);// TODO set this to local storage and delete that info after user logout
+            localStorage.setItem("user", JSON.stringify(response.data.data.attributes));
             if (response.data.data.token.access_token) {
-                this.props.history.push("/app");
+                this.props.history.push("/home");
             }
             // props.onSignIn(response.data.data.attributes);
             // store.addNotification({
@@ -57,7 +59,7 @@ getLogin = () => {
             // props.history.push("/");
         })
         .catch((error) => {
-            console.log(error);
+            console.error(error);
             // store.addNotification({
             //   title: "Помилка!",
             //   message: "Щось пішло не так..",
@@ -74,11 +76,15 @@ getLogin = () => {
         });
 };
 
+
 render()
 {
     const title = brand.name + ' - Login';
     const description = brand.desc;
     const {classes} = this.props;
+    if(user){
+      return <Redirect to='/home'/>
+    }
     return (
         <div className={classes.root}>
             <Helmet>

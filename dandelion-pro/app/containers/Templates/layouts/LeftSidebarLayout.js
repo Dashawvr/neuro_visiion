@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import Fade from '@material-ui/core/Fade';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
+import '../../../NVision-Pages/Dashboard/app.css'
 import {
   Header,
   Sidebar,
@@ -29,8 +30,11 @@ function LeftSidebarLayout(props) {
     changeMode,
     place,
     titleException,
-    handleOpenGuide
+    handleOpenGuide,
+
   } = props;
+  const location = history.location.pathname.split('/').includes('dashboard')
+  console.log(location)
   return (
     <Fragment>
       <Header
@@ -51,19 +55,22 @@ function LeftSidebarLayout(props) {
         dataMenu={dataMenu}
         leftSidebar
       />
-      <main className={classNames(classes.content, !sidebarOpen ? classes.contentPaddingLeft : '')} id="mainContent">
-        <Decoration
-          // mode={mode}
-          gradient={gradient}
-          decoration={deco}
-          bgPosition={bgPosition}
-          horizontalMenu={false}
-        />
-        <section className={classNames(classes.mainWrap, classes.sidebarLayout)}>
-          {titleException.indexOf(history.location.pathname) < 0 && (
+      <main className={`${classNames(classes.content, !sidebarOpen ? classes.contentPaddingLeft : '')} ${location?'app':''}`} id="mainContent">
+        {
+          !location ?
+            (<Decoration
+              // mode={mode}
+              gradient={gradient}
+              decoration={deco}
+              bgPosition={bgPosition}
+              horizontalMenu={false}
+            />):''
+        }
+        <section className={`${classNames(classes.mainWrap, classes.sidebarLayout)}`}>
+          {(titleException.indexOf(history.location.pathname) < 0&&!location) && (
             <div className={classes.pageTitle}>
-              <Typography component="h4" className={bgPosition === 'header' ? classes.darkTitle : classes.lightTitle} variant="h4">{place}</Typography>
-              <BreadCrumb separator=" / " theme={bgPosition === 'header' ? 'dark' : 'light'} location={history.location} />
+              <Typography component="h4" className={`${bgPosition === 'header' ? classes.darkTitle : classes.lightTitle} ${location?'black':''}`} variant="h4">{place}</Typography>
+              <BreadCrumb separator=" / " theme={`${bgPosition === 'header' ? 'dark' : 'light'}${location?'black':''}`} location={history.location} />
             </div>
           )}
           { !pageLoaded && (<img src="/images/spinner.gif" alt="spinner" className={classes.circularProgress} />) }

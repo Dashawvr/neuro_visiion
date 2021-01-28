@@ -18,13 +18,13 @@ function Application(props) {
   return (
         <Dashboard history={history} changeMode={changeMode}>
           <Switch>
-            <Route exact path="/app" component={PersonalDashboard}/>
-            <Route path="/app/roles"  component={Roles}/>
-            <Route path="/app/users"  component={Users}/>
-            <Route path="/app/edit-panel"  component={EditPanel}/>
-            <Route path="/app/maps"  component={StreetViewMap}/>
-            <Route path="/app/stage"  component={Stage}/>
-            <Route path="/app/dashboard/:id"  component={DashboardNew}/>
+            <Route exact path="/home" component={PersonalDashboard}/>
+            <Route path="/home/roles"  component={Roles}/>
+            <Route path="/home/users"  component={Users}/>
+            <Route path="/home/edit-panel"  component={EditPanel}/>
+            <Route path="/home/maps"  component={StreetViewMap}/>
+            <Route path="/home/stage"  component={Stage}/>
+            <Route path="/home/dashboard/:id"  component={DashboardNew}/>
           </Switch>
         </Dashboard>
   );

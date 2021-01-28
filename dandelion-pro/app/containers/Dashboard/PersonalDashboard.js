@@ -22,18 +22,17 @@ import { getDashboards } from "../../redux/actions/dashboards";
 
 
 function PersonalDashboard(props) {
-    console.log(props.user)
     const title = brand.name + ' - Personal Dashboard';
     const description = brand.desc;
     const { classes } = props;
+    const user = JSON.parse(localStorage.getItem('user'))
 
     useEffect(() => {
-        console.log(props.user)
-        props.getDash(props.user.user.id)
+        props.getDash(user.id)
     }, [])
 
-    if (!props.user.user) {
-        return <Redirect to="/" />;
+    if (!user) {
+        return <Redirect to="/login" />;
     }
     return (
         <div>
@@ -80,7 +79,6 @@ PersonalDashboard.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-    user: state.get('loginReducer'),
     dashboards: state.get('dashboards')
 })
 

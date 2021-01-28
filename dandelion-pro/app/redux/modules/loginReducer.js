@@ -1,7 +1,10 @@
 import {LOGIN, LOGOUT} from "../constants/login";
 
 const initialState = {
-    user: ''
+    user: {
+        name: '',
+        surName: ''
+    }
 }
 
 export default function loginS(state = initialState, action) {

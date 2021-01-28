@@ -26,6 +26,7 @@ const styles = theme => ({
     color: theme.palette.text.primary,
     ...appFrame,
   },
+
   appFrameOuter: {
     color: theme.palette.text.primary,
     ...appFrame,

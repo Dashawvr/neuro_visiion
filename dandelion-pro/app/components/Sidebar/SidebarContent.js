@@ -16,7 +16,6 @@ import {connect} from "react-redux";
 
 function SidebarContent(props) {
   const [transform, setTransform] = useState(0);
-  console.log(props.user, 'user in props')
   const handleScroll = (event) => {
     const scroll = event.target.scrollTop;
     setTransform(scroll);
@@ -44,7 +43,6 @@ function SidebarContent(props) {
     closeMenuStatus,
     changeStatus,
     isLogin,
-    user
   } = props;
 
   const setStatus = st => {
@@ -60,6 +58,9 @@ function SidebarContent(props) {
     }
   };
 
+  const user = JSON.parse(localStorage.getItem('user'))
+  console.log(user)
+
   return (
     <div className={classNames(classes.drawerInner, !drawerPaper ? classes.drawerPaperClose : '')}>
       <div className={classes.drawerHeader}>
@@ -72,17 +73,22 @@ function SidebarContent(props) {
             className={classNames(classes.profile, classes.user)}
             style={{ opacity: 1 - (transform / 100), marginTop: transform * -0.3 }}
           >
-            <Avatar
-              alt={dummy.user.name}
-              src={dummy.user.avatar}
-              className={classNames(classes.avatar, classes.bigAvatar)}
-            />
+             {/* // TODO crete component with user basic info -> set user info from local storage */}
             <div>
-              <h4>{ user.user.name } { user.user.surName }</h4>
+              <Avatar
+                alt={dummy.user.name}
+                src={dummy.user.avatar}
+                className={classNames(classes.avatar, classes.bigAvatar)}
+              />
+              <h4>{ user.name } { user.surName }</h4>
               <Button size="small" onClick={openMenuStatus}>
                 <i className={classNames(classes.dotStatus, setStatus(status))} />
                 {status}
               </Button>
+            </div>
+
+            <div>
+
               <Menu
                 id="status-menu"
                 anchorEl={anchorEl}
@@ -151,8 +157,4 @@ SidebarContent.defaultProps = {
   isLogin: true,
 };
 
-const mapStateToProps = (state) => ({
-  user: state.get('loginReducer')
-})
-
-export default connect(mapStateToProps, null)(withStyles(styles)(SidebarContent));
+export default connect(null, null)(withStyles(styles)(SidebarContent));
