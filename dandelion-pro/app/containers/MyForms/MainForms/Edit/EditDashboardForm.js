@@ -1,9 +1,22 @@
+/* eslint-disable prefer-destructuring */
+/* eslint-disable react/destructuring-assignment */
+/* eslint-disable array-callback-return */
+/* eslint-disable react/no-unused-state */
+/* eslint-disable class-methods-use-this */
+/* eslint-disable no-restricted-globals */
+/* eslint-disable no-unused-vars */
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import brand from 'dan-api/dummy/brand';
 import { withStyles } from '@material-ui/core/styles';
 import { PapperBlock } from 'dan-components';
+import queryString from 'query-string';
 import EditDashboard from '../../Forms/Edit/EditDashboard';
+import request from '../../../../utils/request';
+import history from '../../../../utils/history';
+import { URL, PUT, GET } from '../../../Axios/axiosForData';
+
+const parsed = queryString.parse(location.search);
 
 const styles = ({
   root: {
@@ -13,19 +26,62 @@ const styles = ({
 
 class EditDashboardForm extends React.Component {
   state = {
-    valueForm: []
+    user: null,
+    role: null,
+    users: [],
+    roles: [],
+    dashboard: {},
+  }
+
+  componentDidMount() {
+    request(`${URL}/api/users/`, GET).then((res) => {
+      this.setState({ users: res.data.users.rows });
+    });
+    request(`${URL}/api/role/`, GET).then((res) => {
+      this.setState({ roles: res.data.roles.rows });
+    });
+    request(`${URL}/api/dashboard/${parsed.id}`, GET).then((res) => {
+      this.setState({ dashboard: res.data.Dashboard });
+    });
   }
 
   showResult(values) {
-    setTimeout(() => {
-      this.setState({ valueForm: values });
-      window.alert(`You submitted:\n\n${this.state.valueForm}`); // eslint-disable-line
-    }, 500); // simulate server latency
+    let enabled = false;
+    let userIdd = null;
+    let roleIdd = null;
+    values._root.entries.map((elem) => {
+      if (elem[0] === 'active') {
+        enabled = elem[1];
+      }
+      if (elem[0] === 'user') {
+        userIdd = elem[1];
+      }
+      if (elem[0] === 'role') {
+        roleIdd = elem[1];
+      }
+    });
+    PUT.data = {
+      enable: enabled,
+      roleId: roleIdd,
+      userId: userIdd,
+    };
+    request(`${URL}/api/dashboard/${parsed.id}`, PUT);
+    history.goBack();
   }
 
   render() {
     const title = brand.name + ' - Form';
     const description = brand.desc;
+    this.state.roles.map((role) => {
+      if (role.id === this.state.dashboard.roleId) {
+        this.state.role = role.name;
+      }
+    });
+    this.state.users.map((user) => {
+      if (user.id === this.state.dashboard.userId) {
+        this.state.user = user.name;
+      }
+    });
     return (
       <div>
         <Helmet>
@@ -38,7 +94,7 @@ class EditDashboardForm extends React.Component {
         </Helmet>
         <PapperBlock title="Create Dashboard" icon="ios-list-box-outline">
           <div>
-            <EditDashboard onSubmit={(values) => this.showResult(values)} />
+            <EditDashboard onSubmit={(values) => this.showResult(values)} users={this.state.users} roles={this.state.roles} user={this.state.user} role={this.state.role} />
           </div>
         </PapperBlock>
       </div>

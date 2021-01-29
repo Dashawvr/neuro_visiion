@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
@@ -16,6 +17,7 @@ import {
   TextFieldRedux,
 } from 'dan-components/Forms/ReduxFormMUI';
 import { initAction, clearAction } from 'dan-redux/actions/reduxFormActions';
+import history from '../../../../utils/history';
 
 const renderRadioGroup = ({ input, ...rest }) => (
   <RadioGroup
@@ -71,6 +73,7 @@ class AddUser extends Component {
       pristine,
       reset,
       submitting,
+      roles,
     } = this.props;
     return (
       <div>
@@ -135,10 +138,7 @@ class AddUser extends Component {
                       placeholder="Selection"
                       required
                     >
-                      <MenuItem value="admin">Admin</MenuItem>
-                      <MenuItem value="user">User</MenuItem>
-                      <MenuItem value="moderator">Moderator</MenuItem>
-                      <MenuItem value="employee">Employee</MenuItem>
+                      {roles.map((r) => <MenuItem value={r.id}>{r.name}</MenuItem>)}
                     </Field>
                   </FormControl>
                 </div>
@@ -152,6 +152,9 @@ class AddUser extends Component {
                     onClick={reset}
                   >
                     Reset
+                  </Button>
+                  <Button variant="contained" color="primary" onClick={() => history.goBack()}>
+                    Cancel
                   </Button>
                 </div>
               </form>

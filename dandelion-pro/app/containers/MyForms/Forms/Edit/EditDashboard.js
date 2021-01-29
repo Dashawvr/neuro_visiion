@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
@@ -17,6 +18,7 @@ import {
   SwitchRedux,
 } from 'dan-components/Forms/ReduxFormMUI';
 import { initAction, clearAction } from 'dan-redux/actions/reduxFormActions';
+import history from '../../../../utils/history';
 
 const renderRadioGroup = ({ input, ...rest }) => (
   <RadioGroup
@@ -59,6 +61,10 @@ class EditDashboard extends Component {
       pristine,
       reset,
       submitting,
+      user,
+      role,
+      users,
+      roles,
     } = this.props;
     return (
       <div>
@@ -68,33 +74,27 @@ class EditDashboard extends Component {
               <form onSubmit={handleSubmit}>
                 <div>
                   <FormControl className={classes.field}>
-                    <InputLabel htmlFor="role">Role</InputLabel>
+                    <InputLabel htmlFor="role">{role}</InputLabel>
                     <Field
                       name="role"
                       component={SelectRedux}
                       placeholder="Role"
                       required
                     >
-                      <MenuItem value="admin">Admin</MenuItem>
-                      <MenuItem value="user">User</MenuItem>
-                      <MenuItem value="moderator">Moderator</MenuItem>
-                      <MenuItem value="employee">Employee</MenuItem>
+                      {roles.map((r) => <MenuItem value={r.id}>{r.name}</MenuItem>)}
                     </Field>
                   </FormControl>
                 </div>
                 <div>
                   <FormControl className={classes.field}>
-                    <InputLabel htmlFor="user">User</InputLabel>
+                    <InputLabel htmlFor="user">{user}</InputLabel>
                     <Field
                       name="user"
                       component={SelectRedux}
                       placeholder="User"
                       required
                     >
-                      <MenuItem value="misha">Misha</MenuItem>
-                      <MenuItem value="dasha">Dasha</MenuItem>
-                      <MenuItem value="pasha">Pasha</MenuItem>
-                      <MenuItem value="igor">Igor</MenuItem>
+                      {users.map((u) => <MenuItem value={u.id}>{u.name}</MenuItem>)}
                     </Field>
                   </FormControl>
                 </div>
@@ -111,6 +111,9 @@ class EditDashboard extends Component {
                     onClick={reset}
                   >
                     Reset
+                  </Button>
+                  <Button variant="contained" color="primary" onClick={() => history.goBack()}>
+                    Cancel
                   </Button>
                 </div>
               </form>

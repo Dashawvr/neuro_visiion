@@ -25,7 +25,7 @@ const styles = theme => ({
 class TableButtons extends PureComponent {
   render() {
     const {
-      classes, create, edit, deleteFunction
+      classes, create, edit, deleteFunction, disable
     } = this.props;
     return (
       <Fragment>
@@ -35,11 +35,11 @@ class TableButtons extends PureComponent {
             Create
           <AddCircleOutlineIcon className={classes.rightIcon} />
         </Button>
-        <Button onClick={() => history.push(`${edit}`)} className={classes.button} variant="contained" color="secondary">
+        <Button onClick={() => history.push(`${edit}`)} disabled={`${disable}`} className={classes.button} variant="contained" color="secondary">
             Edit
           <CreateIcon className={classes.rightIcon} />
         </Button>
-        <Button onClick={() => history.push(`${deleteFunction}`)} className={classes.button} variant="contained" color="red">
+        <Button onClick={() => history.push(`${deleteFunction}`)} disabled={`${disable}`} className={classes.button} variant="contained" color="red">
             Delete
           <DeleteIcon className={classes.rightIcon} />
         </Button>

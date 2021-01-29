@@ -17,6 +17,7 @@ import {
   TextFieldRedux,
 } from 'dan-components/Forms/ReduxFormMUI';
 import { initAction, clearAction } from 'dan-redux/actions/reduxFormActions';
+import history from '../../../../utils/history';
 
 const renderRadioGroup = ({ input, ...rest }) => (
   <RadioGroup
@@ -75,7 +76,7 @@ class EditUser extends Component {
       lastName,
       userEmail,
       userRole,
-      handleCancel
+      roles,
     } = this.props;
     return (
       <div>
@@ -127,10 +128,7 @@ class EditUser extends Component {
                       placeholder="Selection"
                       required
                     >
-                      <MenuItem value="admin">Admin</MenuItem>
-                      <MenuItem value="user">User</MenuItem>
-                      <MenuItem value="moderator">Moderator</MenuItem>
-                      <MenuItem value="employee">Employee</MenuItem>
+                      {roles.map((role) => <MenuItem value={role.id}>{role.name}</MenuItem>)}
                     </Field>
                   </FormControl>
                 </div>
@@ -145,7 +143,7 @@ class EditUser extends Component {
                   >
                     Reset
                   </Button>
-                  <Button variant="contained" color="primary" onClick={handleCancel}>
+                  <Button variant="contained" color="primary" onClick={() => history.goBack()}>
                     Cancel
                   </Button>
                 </div>

@@ -8,19 +8,13 @@ import brand from 'dan-api/dummy/brand';
 import { withStyles } from '@material-ui/core/styles';
 import Dashboards from './Tables/Dashboards';
 import request from '../../utils/request';
+import { URL, params } from '../Axios/axiosForData';
 
 const styles = ({
   root: {
     flexGrow: 1,
   }
 });
-const params = {
-  method: 'GET',
-  headers: {
-    'Content-Type': 'application/json',
-    Authorization: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MTE3MzkyOTgsImV4cCI6MTYxMjQ1OTI5OH0.X_Pwwf0gIYWjLSvnPZ2a4Za8kUUphxKzuh2z1XCX4Zc'
-  }
-};
 
 class DashboardTable extends Component {
   state = {
@@ -30,14 +24,14 @@ class DashboardTable extends Component {
   }
 
   componentDidMount() {
-    request('https://d9ce848438bc.ngrok.io/api/dashboard', params).then((res) => {
+    request(`${URL}/api/dashboard`, params).then((res) => {
       this.setState({ dashboards: res.data.Dashboards.rows });
       console.log(res.data.Dashboards.rows);
     });
-    request('https://d9ce848438bc.ngrok.io/api/role', params).then((res) => {
+    request(`${URL}/api/role`, params).then((res) => {
       this.setState({ roles: res.data.roles.rows });
     });
-    request('https://d9ce848438bc.ngrok.io/api/users', params).then((res) => {
+    request(`${URL}/api/users`, params).then((res) => {
       this.setState({ users: res.data.users.rows });
     });
   }

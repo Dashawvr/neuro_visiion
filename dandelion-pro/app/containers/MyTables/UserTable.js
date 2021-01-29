@@ -10,6 +10,7 @@ import { withStyles } from '@material-ui/core/styles';
 import { SourceReader, PapperBlock } from 'dan-components';
 import Users from './Tables/Users';
 import request from '../../utils/request';
+import { URL, params } from '../Axios/axiosForData';
 
 const styles = ({
   root: {
@@ -17,13 +18,6 @@ const styles = ({
   }
 });
 
-const params = {
-  method: 'GET',
-  headers: {
-    'Content-Type': 'application/json',
-    Authorization: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MTE3MzkyOTgsImV4cCI6MTYxMjQ1OTI5OH0.X_Pwwf0gIYWjLSvnPZ2a4Za8kUUphxKzuh2z1XCX4Zc'
-  }
-};
 class UserTable extends Component {
   state = {
     users: [],
@@ -31,10 +25,10 @@ class UserTable extends Component {
   }
 
   componentDidMount() {
-    request('https://d9ce848438bc.ngrok.io/api/users', params).then((res) => {
+    request(`${URL}/api/users`, params).then((res) => {
       this.setState({ users: res.data.users.rows });
     });
-    request('https://d9ce848438bc.ngrok.io/api/role', params).then((res) => {
+    request(`${URL}/api/role`, params).then((res) => {
       this.setState({ roles: res.data.roles.rows });
     });
   }
@@ -46,7 +40,6 @@ class UserTable extends Component {
       this.state.roles.map((role) => {
         if (role.id === user.roleId) {
           user.roleId = role.name;
-          console.log('succsses');
         }
       });
     });

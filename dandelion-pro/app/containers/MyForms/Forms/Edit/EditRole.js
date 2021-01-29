@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
@@ -14,6 +15,7 @@ import {
   SwitchRedux,
 } from 'dan-components/Forms/ReduxFormMUI';
 import { initAction, clearAction } from 'dan-redux/actions/reduxFormActions';
+import history from '../../../../utils/history';
 
 const renderRadioGroup = ({ input, ...rest }) => (
   <RadioGroup
@@ -59,6 +61,7 @@ class EditRole extends Component {
       pristine,
       reset,
       submitting,
+      name,
     } = this.props;
     return (
       <div>
@@ -71,7 +74,7 @@ class EditRole extends Component {
                     name="name"
                     component={TextFieldRedux}
                     placeholder="Name"
-                    label="Name"
+                    label={name}
                     validate={required}
                     required
                     ref={this.saveRef}
@@ -79,19 +82,6 @@ class EditRole extends Component {
                   />
                 </div>
                 <div>
-                  <Field
-                    name="important"
-                    component={TextFieldRedux}
-                    placeholder="Important"
-                    label="Important"
-                    validate={required}
-                    required
-                    ref={this.saveRef}
-                    className={classes.field}
-                  />
-                </div>
-                <div>
-                  <FormControlLabel control={<Field name="read" component={SwitchRedux} />} label="Read" />
                   <FormControlLabel control={<Field name="create" component={SwitchRedux} />} label="Create" />
                   <FormControlLabel control={<Field name="edit" component={SwitchRedux} />} label="Edit" />
                   <FormControlLabel control={<Field name="delete" component={SwitchRedux} />} label="Delete" />
@@ -106,6 +96,9 @@ class EditRole extends Component {
                     onClick={reset}
                   >
                     Reset
+                  </Button>
+                  <Button variant="contained" color="primary" onClick={() => history.goBack()}>
+                    Cancel
                   </Button>
                 </div>
               </form>
