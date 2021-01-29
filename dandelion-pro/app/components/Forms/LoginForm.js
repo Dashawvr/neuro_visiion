@@ -1,4 +1,9 @@
+<<<<<<< HEAD
 import React, {Fragment} from 'react';
+=======
+/* eslint-disable react/prop-types */
+import React, { Fragment } from 'react';
+>>>>>>> 102377680c91e727212c9b3f254e56b655cc259d
 import PropTypes from 'prop-types';
 import {withStyles} from '@material-ui/core/styles';
 import classNames from 'classnames';
@@ -53,6 +58,7 @@ class LoginForm extends React.Component {
         event.preventDefault();
     };
 
+<<<<<<< HEAD
     render() {
         const {
             classes,
@@ -166,6 +172,124 @@ class LoginForm extends React.Component {
             </Fragment>
         );
     }
+=======
+  render() {
+    const {
+      classes,
+      handleSubmit,
+      pristine,
+      submitting,
+      deco,
+      onChangePassword,
+      onChangeEmail,
+      // password,
+      // email,
+    } = this.props;
+    const { showPassword } = this.state;
+    return (
+      <Fragment>
+        <Hidden mdUp>
+          <NavLink to="/" className={classNames(classes.brand, classes.outer)}>
+            <img src={logo} alt={brand.name} />
+            {brand.name}
+          </NavLink>
+        </Hidden>
+        <Paper className={classNames(classes.paperWrap, deco && classes.petal)}>
+          <Hidden smDown>
+            <div className={classes.topBar}>
+              <NavLink to="/" className={classes.brand}>
+                <img src={logo} alt={brand.name} />
+                {brand.name}
+              </NavLink>
+              <Button size="small" className={classes.buttonLink} component={LinkBtn} to="/register">
+                <Icon className={classes.icon}>arrow_forward</Icon>
+                Create new account
+              </Button>
+            </div>
+          </Hidden>
+          <Typography variant="h4" className={classes.title} gutterBottom>
+            Sign In
+          </Typography>
+          <Typography variant="caption" className={classes.subtitle} gutterBottom align="center">
+            Lorem ipsum dolor sit amet
+          </Typography>
+          <section className={classes.socmedLogin}>
+            <div className={classes.btnArea}>
+              <Button variant="outlined" size="small" className={classes.redBtn} type="button">
+                <AllInclusive className={classNames(classes.leftIcon, classes.iconSmall)} />
+                Socmed 1
+              </Button>
+              <Button variant="outlined" size="small" className={classes.blueBtn} type="button">
+                <Brightness5 className={classNames(classes.leftIcon, classes.iconSmall)} />
+                Socmed 2
+              </Button>
+              <Button variant="outlined" size="small" className={classes.cyanBtn} type="button">
+                <People className={classNames(classes.leftIcon, classes.iconSmall)} />
+                Socmed 3
+              </Button>
+            </div>
+            <ContentDivider content="Or sign in with email" />
+          </section>
+          <section className={classes.formWrap}>
+            <form onSubmit={handleSubmit}>
+              <div>
+                <FormControl className={classes.formControl}>
+                  <Field
+                    name="email"
+                    component={TextFieldRedux}
+                    placeholder="Your Email"
+                    label="Your Email"
+                    required
+                    validate={[required, email]}
+                    className={classes.field}
+                    onChange={onChangeEmail}
+                  />
+                </FormControl>
+              </div>
+              <div>
+                <FormControl className={classes.formControl}>
+                  <Field
+                    name="password"
+                    component={TextFieldRedux}
+                    type={showPassword ? 'text' : 'password'}
+                    label="Your Password"
+                    onChange={onChangePassword}
+                    InputProps={{
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          <IconButton
+                            aria-label="Toggle password visibility"
+                            onClick={this.handleClickShowPassword}
+                            onMouseDown={this.handleMouseDownPassword}
+                          >
+                            {showPassword ? <VisibilityOff /> : <Visibility />}
+                          </IconButton>
+                        </InputAdornment>
+                      )
+                    }}
+                    required
+                    validate={required}
+                    className={classes.field}
+                  />
+                </FormControl>
+              </div>
+              <div className={classes.optArea}>
+                <FormControlLabel className={classes.label} control={<Field name="checkbox" component={CheckboxRedux} />} label="Remember" />
+                <Button size="small" component={LinkBtn} to="/reset-password" className={classes.buttonLink}>Forgot Password</Button>
+              </div>
+              <div className={classes.btnArea}>
+                <Button variant="contained" color="primary" size="large" type="submit">
+                  Continue
+                  <ArrowForward className={classNames(classes.rightIcon, classes.iconSmall)} disabled={submitting || pristine} />
+                </Button>
+              </div>
+            </form>
+          </section>
+        </Paper>
+      </Fragment>
+    );
+  }
+>>>>>>> 102377680c91e727212c9b3f254e56b655cc259d
 }
 
 LoginForm.propTypes = {
