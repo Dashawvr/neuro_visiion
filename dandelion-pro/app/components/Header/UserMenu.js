@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect,Fragment, useState } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
-import { Link } from 'react-router-dom';
+import { Link,  useHistory  } from 'react-router-dom';
 import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
@@ -25,12 +25,15 @@ import link from 'dan-api/ui/link';
 import styles from './header-jss';
 import {connect} from 'react-redux'
 import '../../NVision-Pages/Dashboard/app.css'
+import { getDashboards } from "../../redux/actions/dashboards";
 
 function UserMenu(props) {
   const [menuState, setMenuState] = useState({
     anchorEl: null,
     openMenu: null
   });
+
+  const history = useHistory()
 
   const handleMenu = menu => (event) => {
     const { openMenu } = menuState;
@@ -48,8 +51,14 @@ function UserMenu(props) {
     localStorage.clear();
   };
 
+  const user = JSON.parse(localStorage.getItem('user'))
 
-  const { classes, dark , dashboards, history,location} = props;
+  useEffect(() => {
+    props.getDash(user.id)
+  }, [])
+
+
+  const { classes, dark , dashboards, location} = props;
 
   const { anchorEl, openMenu } = menuState;
   return (
@@ -88,14 +97,17 @@ function UserMenu(props) {
             dashboards ?
             (dashboards.data.data.dashboard.rows.map((el) => {
               return (
-                <Link to={`/home/dashboard/${el.id}`}>
-                  <MenuItem onClick={handleClose}>
+                <>
+                  <MenuItem onClick={() => {
+                    history.push(`/home/dashboard/${el.id}`)
+                    handleClose()
+                  }}>
                     <div className={messageStyles.messageInfo}>
                       <ListItemText  primary={`Stage ${el.id}`} secondary={el.createdAt} />
                     </div>
                   </MenuItem>
                   <Divider variant="inset" />
-                </Link>
+                </>
               )
             })):''
           }
@@ -153,4 +165,6 @@ const mapStateToProps = (state) => ({
   dashboards: state.get('dashboards').dashboards
 })
 
-export default connect(mapStateToProps, null)(withStyles(styles)(UserMenu));
+export default connect(mapStateToProps, {
+  getDash: getDashboards
+})(withStyles(styles)(UserMenu));
