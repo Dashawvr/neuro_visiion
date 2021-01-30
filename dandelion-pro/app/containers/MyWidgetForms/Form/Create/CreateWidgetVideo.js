@@ -12,6 +12,7 @@ import {
   TextFieldRedux,
 } from 'dan-components/Forms/ReduxFormMUI';
 import { initAction, clearAction } from 'dan-redux/actions/reduxFormActions';
+import history from '../../../../utils/history';
 
 const renderRadioGroup = ({ input, ...rest }) => (
   <RadioGroup
@@ -66,7 +67,7 @@ class CreateWidgetVideo extends Component {
               <form onSubmit={handleSubmit}>
                 <div>
                   <Field
-                    name="rtsp"
+                    name="data"
                     component={TextFieldRedux}
                     placeholder="RTSP"
                     label="RTSP"
@@ -86,6 +87,9 @@ class CreateWidgetVideo extends Component {
                     onClick={reset}
                   >
                     Reset
+                  </Button>
+                  <Button variant="contained" color="primary" onClick={() => history.goBack()}>
+                    Cancel
                   </Button>
                 </div>
               </form>

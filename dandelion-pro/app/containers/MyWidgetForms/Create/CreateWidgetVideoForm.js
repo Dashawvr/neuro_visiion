@@ -1,12 +1,23 @@
 /* eslint-disable react/no-unused-state */
+/* eslint-disable prefer-destructuring */
 /* eslint-disable react/destructuring-assignment */
+/* eslint-disable array-callback-return */
+/* eslint-disable react/no-unused-state */
+/* eslint-disable class-methods-use-this */
+/* eslint-disable no-restricted-globals */
+/* eslint-disable no-unused-vars */
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import brand from 'dan-api/dummy/brand';
 import { withStyles } from '@material-ui/core/styles';
 import { PapperBlock } from 'dan-components';
+import queryString from 'query-string';
 import CreateWidgetVideo from '../Form/Create/CreateWidgetVideo';
-// import history from '../../../utils/history';
+import request from '../../../../utils/request';
+import history from '../../../../utils/history';
+import { POST, URL } from '../../Axios/axiosForData';
+
+const parsed = queryString.parse(location.search);
 
 const styles = ({
   root: {
@@ -15,18 +26,16 @@ const styles = ({
 });
 
 class CreateWidgetVideoForm extends React.Component {
-  state = {
-    valueForm: [],
-  }
-
-  // history = useHistory();
-
   showResult(values) {
-    setTimeout(() => {
-      this.setState({ valueForm: values });
-      // const dashboardId = this.state.valueForm._root.entries[0][1];
-    //   const widgetType = this.state.valueForm._root.entries[1][1];
-    }, 500); // simulate server latency
+    const data = values._root.entries[0][1];
+    POST.data = {
+      type: parsed.type,
+      data,
+      dashboardId: parsed.dashboardId,
+      widgetCoordinatesId: parsed.coordinatesId,
+    };
+    request(`${URL}/api/widget_data`, POST);
+    history.goBack();
   }
 
   render() {

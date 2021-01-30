@@ -14,6 +14,7 @@ import {
   SwitchRedux,
 } from 'dan-components/Forms/ReduxFormMUI';
 import { initAction, clearAction } from 'dan-redux/actions/reduxFormActions';
+import history from '../../../../utils/history';
 
 const renderRadioGroup = ({ input, ...rest }) => (
   <RadioGroup
@@ -91,7 +92,6 @@ class AddRole extends Component {
                   />
                 </div>
                 <div>
-                  <FormControlLabel control={<Field name="read" component={SwitchRedux} />} label="Read" />
                   <FormControlLabel control={<Field name="create" component={SwitchRedux} />} label="Create" />
                   <FormControlLabel control={<Field name="edit" component={SwitchRedux} />} label="Edit" />
                   <FormControlLabel control={<Field name="delete" component={SwitchRedux} />} label="Delete" />
@@ -106,6 +106,9 @@ class AddRole extends Component {
                     onClick={reset}
                   >
                     Reset
+                  </Button>
+                  <Button variant="contained" color="primary" onClick={() => history.goBack()}>
+                    Cancel
                   </Button>
                 </div>
               </form>

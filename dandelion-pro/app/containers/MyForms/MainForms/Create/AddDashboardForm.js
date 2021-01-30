@@ -1,9 +1,21 @@
+/* eslint-disable prefer-destructuring */
+/* eslint-disable react/destructuring-assignment */
+/* eslint-disable array-callback-return */
+/* eslint-disable react/no-unused-state */
+/* eslint-disable class-methods-use-this */
+/* eslint-disable no-restricted-globals */
+/* eslint-disable no-unused-vars */
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import brand from 'dan-api/dummy/brand';
 import { withStyles } from '@material-ui/core/styles';
 import { PapperBlock } from 'dan-components';
 import AddDashboard from '../../Forms/Create/AddDashboard';
+import request from '../../../../utils/request';
+import history from '../../../../utils/history';
+import {
+  URL, POST, GET
+} from '../../../Axios/axiosForData';
 
 const styles = ({
   root: {
@@ -13,14 +25,41 @@ const styles = ({
 
 class AddDashboardForm extends React.Component {
   state = {
-    valueForm: []
+    roles: [],
+    users: [],
+  }
+
+  componentDidMount() {
+    request(`${URL}/api/users/`, GET).then((res) => {
+      this.setState({ users: res.data.users.rows });
+    });
+    request(`${URL}/api/role/`, GET).then((res) => {
+      this.setState({ roles: res.data.roles.rows });
+    });
   }
 
   showResult(values) {
-    setTimeout(() => {
-      this.setState({ valueForm: values });
-      window.alert(`You submitted:\n\n${this.state.valueForm}`); // eslint-disable-line
-    }, 500); // simulate server latency
+    let active = false;
+    let roleId = null;
+    let userId = null;
+    values._root.entries.map((elem) => {
+      if (elem[0] === 'active') {
+        active = elem[1];
+      }
+      if (elem[0] === 'role') {
+        roleId = elem[1];
+      }
+      if (elem[0] === 'user') {
+        userId = elem[1];
+      }
+    });
+    POST.data = {
+      enable: active,
+      roleId,
+      userId,
+    };
+    request(`${URL}/api/dashboard/`, POST);
+    history.goBack();
   }
 
   render() {
@@ -38,7 +77,7 @@ class AddDashboardForm extends React.Component {
         </Helmet>
         <PapperBlock title="Create Dashboard" icon="ios-list-box-outline">
           <div>
-            <AddDashboard onSubmit={(values) => this.showResult(values)} />
+            <AddDashboard onSubmit={(values) => this.showResult(values)} users={this.state.users} roles={this.state.roles} />
           </div>
         </PapperBlock>
       </div>

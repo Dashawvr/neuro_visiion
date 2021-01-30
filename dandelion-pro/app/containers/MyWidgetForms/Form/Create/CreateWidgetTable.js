@@ -15,6 +15,7 @@ import { initAction, clearAction } from 'dan-redux/actions/reduxFormActions';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
+import history from '../../../../utils/history';
 
 const renderRadioGroup = ({ input, ...rest }) => (
   <RadioGroup
@@ -24,9 +25,6 @@ const renderRadioGroup = ({ input, ...rest }) => (
     onChange={(event, value) => input.onChange(value)}
   />
 );
-
-// validation functions
-// const required = value => (value == null ? 'Required' : undefined);
 
 const styles = theme => ({
   root: {
@@ -71,7 +69,7 @@ class CreateWidgetTable extends Component {
                   <FormControl className={classes.field}>
                     <InputLabel htmlFor="table">Table</InputLabel>
                     <Field
-                      name="table"
+                      name="data"
                       component={SelectRedux}
                       placeholder="Table"
                       required
@@ -92,6 +90,9 @@ class CreateWidgetTable extends Component {
                     onClick={reset}
                   >
                     Reset
+                  </Button>
+                  <Button variant="contained" color="primary" onClick={() => history.goBack()}>
+                    Cancel
                   </Button>
                 </div>
               </form>

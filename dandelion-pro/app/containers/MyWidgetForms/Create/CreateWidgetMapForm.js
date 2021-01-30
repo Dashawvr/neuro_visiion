@@ -1,12 +1,23 @@
 /* eslint-disable react/no-unused-state */
+/* eslint-disable prefer-destructuring */
 /* eslint-disable react/destructuring-assignment */
+/* eslint-disable array-callback-return */
+/* eslint-disable react/no-unused-state */
+/* eslint-disable class-methods-use-this */
+/* eslint-disable no-restricted-globals */
+/* eslint-disable no-unused-vars */
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import brand from 'dan-api/dummy/brand';
 import { withStyles } from '@material-ui/core/styles';
 import { PapperBlock } from 'dan-components';
+import queryString from 'query-string';
 import CreateWidgetMap from '../Form/Create/CreateWidgetMap';
-// import history from '../../../utils/history';
+import request from '../../../../utils/request';
+import history from '../../../../utils/history';
+import { POST, URL } from '../../Axios/axiosForData';
+
+const parsed = queryString.parse(location.search);
 
 const styles = ({
   root: {
@@ -15,18 +26,28 @@ const styles = ({
 });
 
 class CreateWidgetMapForm extends React.Component {
-  state = {
-    valueForm: [],
-  }
-
-  // history = useHistory();
-
   showResult(values) {
-    setTimeout(() => {
-      this.setState({ valueForm: values });
-      // const dashboardId = this.state.valueForm._root.entries[0][1];
-    //   const widgetType = this.state.valueForm._root.entries[1][1];
-    }, 500); // simulate server latency
+    let lon = null;
+    let lat = null;
+    values._root.entries.map((elem) => {
+      if (elem[0] === 'lat') {
+        lat = elem[1];
+      }
+      if (elem[0] === 'lon') {
+        lon = elem[1];
+      }
+    });
+    POST.data = {
+      type: parsed.type,
+      data: {
+        lat,
+        lon,
+      },
+      dashboardId: parsed.dashboardId,
+      widgetCoordinatesId: parsed.coordinatesId,
+    };
+    request(`${URL}/api/widget_data`, POST);
+    history.goBack();
   }
 
   render() {

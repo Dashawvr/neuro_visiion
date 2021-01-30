@@ -12,6 +12,7 @@ import {
   TextFieldRedux,
 } from 'dan-components/Forms/ReduxFormMUI';
 import { initAction, clearAction } from 'dan-redux/actions/reduxFormActions';
+import history from '../../../../utils/history';
 
 const renderRadioGroup = ({ input, ...rest }) => (
   <RadioGroup
@@ -68,8 +69,8 @@ class CreateWidgetMap extends Component {
                   <Field
                     name="lan"
                     component={TextFieldRedux}
-                    placeholder="Lan"
-                    label="Lan"
+                    placeholder="Latitude"
+                    label="Latitude"
                     validate={required}
                     required
                     ref={this.saveRef}
@@ -80,8 +81,8 @@ class CreateWidgetMap extends Component {
                   <Field
                     name="lon"
                     component={TextFieldRedux}
-                    placeholder="Lon"
-                    label="Lon"
+                    placeholder="Longitude"
+                    label="Longitude"
                     validate={required}
                     required
                     ref={this.saveRef}
@@ -98,6 +99,9 @@ class CreateWidgetMap extends Component {
                     onClick={reset}
                   >
                     Reset
+                  </Button>
+                  <Button variant="contained" color="primary" onClick={() => history.goBack()}>
+                    Cancel
                   </Button>
                 </div>
               </form>

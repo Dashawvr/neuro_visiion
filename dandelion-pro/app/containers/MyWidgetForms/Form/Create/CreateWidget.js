@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
@@ -16,6 +17,7 @@ import {
   // TextFieldRedux,
 } from 'dan-components/Forms/ReduxFormMUI';
 import { initAction, clearAction } from 'dan-redux/actions/reduxFormActions';
+import history from '../../../../utils/history';
 
 const renderRadioGroup = ({ input, ...rest }) => (
   <RadioGroup
@@ -61,6 +63,7 @@ class AddWidget extends Component {
       pristine,
       reset,
       submitting,
+      dashboards,
     } = this.props;
     return (
       <div>
@@ -77,16 +80,13 @@ class AddWidget extends Component {
                       placeholder="Dashboard"
                       required
                     >
-                      <MenuItem value="4">Video Wall Misha</MenuItem>
-                      <MenuItem value="3">Tables Dasha</MenuItem>
-                      <MenuItem value="2">Igor Cams Street</MenuItem>
-                      <MenuItem value="1">Diana Text and Video</MenuItem>
+                      {dashboards.map((d) => <MenuItem value={d.id}>{d.name}</MenuItem>)}
                     </Field>
                   </FormControl>
                 </div>
                 <div>
                   <FormControl className={classes.field}>
-                    <InputLabel htmlFor="widgetType">Widget</InputLabel>
+                    <InputLabel htmlFor="widgetType">Widget Type</InputLabel>
                     <Field
                       name="widgetType"
                       component={SelectRedux}
@@ -100,18 +100,6 @@ class AddWidget extends Component {
                     </Field>
                   </FormControl>
                 </div>
-                {/* <div>
-                  <Field
-                    name="name"
-                    component={TextFieldRedux}
-                    placeholder="Name"
-                    label="Name"
-                    validate={required}
-                    required
-                    ref={this.saveRef}
-                    className={classes.field}
-                  />
-                </div>                 */}
                 <div>
                   <Button variant="contained" color="secondary" type="submit" disabled={submitting}>
                     Submit
@@ -122,6 +110,9 @@ class AddWidget extends Component {
                     onClick={reset}
                   >
                     Reset
+                  </Button>
+                  <Button variant="contained" color="primary" onClick={() => history.goBack()}>
+                    Cancel
                   </Button>
                 </div>
               </form>
