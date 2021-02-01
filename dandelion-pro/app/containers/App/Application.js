@@ -3,6 +3,7 @@ import { PropTypes } from 'prop-types';
 import { Switch, Route, BrowserRouter } from 'react-router-dom';
 import { ThemeContext } from './ThemeWrapper';
 import Dashboard from '../Templates/Dashboard';
+import Calendar from  '../SampleApps/Calendar';
 
 import {
   PersonalDashboard, Stage , DashboardNew, Roles, Users, EditPanel,
@@ -25,6 +26,7 @@ function Application(props) {
             <Route path="/home/maps"  component={StreetViewMap}/>
             <Route path="/home/stage"  component={Stage}/>
             <Route path="/home/dashboard/:id"  component={DashboardNew}/>
+            <Route path="/pages/calendar" component={Calendar}/>
           </Switch>
         </Dashboard>
   );
