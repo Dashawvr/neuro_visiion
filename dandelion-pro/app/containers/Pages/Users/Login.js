@@ -42,37 +42,9 @@ getLogin = () => {
             if (response.data.data.token.access_token) {
                 this.props.history.push("/home");
             }
-            // props.onSignIn(response.data.data.attributes);
-            // store.addNotification({
-            //   title: "Вітаю!",
-            //   message: response.data.data.attributes.name,
-            //   type: "success",
-            //   insert: "top",
-            //   container: "top-right",
-            //   animationIn: ["animate__animated", "animate__fadeIn"],
-            //   animationOut: ["animate__animated", "animate__fadeOut"],
-            //   dismiss: {
-            //     duration: 3000,
-            //     onScreen: true,
-            //   },
-            // });
-            // props.history.push("/");
         })
         .catch((error) => {
             console.error(error);
-            // store.addNotification({
-            //   title: "Помилка!",
-            //   message: "Щось пішло не так..",
-            //   type: "danger",
-            //   insert: "top",
-            //   container: "top-right",
-            //   animationIn: ["animate__animated", "animate__fadeIn"],
-            //   animationOut: ["animate__animated", "animate__fadeOut"],
-            //   dismiss: {
-            //     duration: 5000,
-            //     onScreen: true,
-            //   },
-            // });
         });
 };
 
