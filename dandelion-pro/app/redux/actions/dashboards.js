@@ -6,7 +6,6 @@ export const getDashboards = (id) => {
     axios
       .get(`/api/dashboard/user/${id}`)
       .then((res) => {
-        console.log(res)
         dispatch ({
           type: GET_DASH,
           payload: res

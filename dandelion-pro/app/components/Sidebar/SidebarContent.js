@@ -59,7 +59,6 @@ function SidebarContent(props) {
   };
 
   const user = JSON.parse(localStorage.getItem('user'))
-  console.log(user)
 
   return (
     <div className={classNames(classes.drawerInner, !drawerPaper ? classes.drawerPaperClose : '')}>

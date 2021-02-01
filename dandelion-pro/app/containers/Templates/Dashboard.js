@@ -18,7 +18,7 @@ function Dashboard(props) {
   // Initial header style
   const [openGuide, setOpenGuide] = useState(false);
   const [appHeight, setAppHeight] = useState(0);
-  const themeMode = useLightSwitch();
+  // const themeMode = useLightSwitch();
 
   useEffect(() => {
     const { history, loadTransition } = props;
@@ -46,10 +46,10 @@ function Dashboard(props) {
       }
     };
   }, []);
-
-  useEffect(()=> {
-    props.changeMode(themeMode === Mode.Dark ? 'dark' : 'light')
-  }, [themeMode])
+// setTheme
+  // useEffect(()=> {
+  //   props.changeMode(themeMode === Mode.Dark ? 'dark' : 'light')
+  // }, [themeMode])
 
   const handleOpenGuide = () => {
     setOpenGuide(true);

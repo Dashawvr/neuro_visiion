@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useRef } from 'react';
 import { PropTypes } from 'prop-types';
 import { Switch, Route } from 'react-router-dom';
 import { ThemeContext } from './ThemeWrapper';
@@ -14,10 +14,40 @@ import {
    StreetViewMap,
 } from '../pageListAsync';
 
+function useInterval(callback, delay) {
+  const savedCallback = useRef();
+
+  useEffect(() => {
+    savedCallback.current = callback;
+  }, [callback])
+
+  useEffect(() => {
+    let id = setInterval(() => {
+      savedCallback.current();
+    }, delay);
+    return () => clearInterval(id);
+  },[delay]);
+}
 
 function Application(props) {
   const { history } = props;
   const changeMode = useContext(ThemeContext);
+  const hours =new Date().getHours();
+
+  useEffect(() => {
+    const lightThemeHours = hours => hours >= 4 && hours < 17;
+
+    changeMode(lightThemeHours(hours) ? 'light' : 'dark');
+  }, [hours])
+
+  useInterval(() => {
+    const hours =new Date().getHours();
+
+    const lightThemeHours = hours => hours >= 4 && hours < 17;
+
+    changeMode(lightThemeHours(hours) ? 'light' : 'dark');
+  }, 100000)
+
   return (
         <Dashboard history={history} changeMode={changeMode}>
           <Switch>

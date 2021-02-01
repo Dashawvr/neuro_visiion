@@ -34,7 +34,6 @@ function LeftSidebarLayout(props) {
 
   } = props;
   const location = history.location.pathname.split('/').includes('dashboard')
-  console.log(location)
   return (
     <Fragment>
       <Header
