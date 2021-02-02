@@ -53,6 +53,7 @@ class CreateWidgetMapForm extends React.Component {
     });
     POST.data = {
       type: parsed.type,
+      authorId: localStorage.getItem('user').id,
       data: {
         lat,
         lon,
