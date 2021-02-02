@@ -16,7 +16,7 @@ import CreateWidgetTable from '../Form/Create/CreateWidgetTable';
 import request from '../../../utils/request';
 import history from '../../../utils/history';
 import { POST, URL } from '../../Axios/axiosForData';
-import Notification from '../../../MyNotification/Notification';
+import Notification from '../../MyNotification/Notification';
 
 const parsed = queryString.parse(location.search);
 
