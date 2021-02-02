@@ -16,6 +16,7 @@ import Ionicon from 'react-ionicons';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import styles from './sidebar-jss';
+import {userCred} from "../../api/ui/menu";
 
 const LinkBtn = React.forwardRef(function LinkBtn(props, ref) { // eslint-disable-line
   return <NavLink to={props.to} {...props} innerRef={ref} />; // eslint-disable-line
@@ -35,6 +36,10 @@ function MainMenu(props) {
     open,
     dataMenu
   } = props;
+
+  console.log(userCred)
+
+  //console.log(dataMenu)
 
   const getMenus = menuArray => menuArray.map((item, index) => {
     if (item.child || item.linkParent) {

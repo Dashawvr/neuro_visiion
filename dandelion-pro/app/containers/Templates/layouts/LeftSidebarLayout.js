@@ -58,7 +58,7 @@ function LeftSidebarLayout(props) {
         {
           !location ?
             (<Decoration
-              // mode={mode}
+              mode={mode}
               gradient={gradient}
               decoration={deco}
               bgPosition={bgPosition}

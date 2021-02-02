@@ -14,7 +14,71 @@ import MainMenu from './MainMenu';
 import styles from './sidebar-jss';
 import {connect} from "react-redux";
 
-function SidebarContent(props) {
+const superuserCred = [
+    {
+        key: 'home',
+        name: 'Home',
+        icon: 'ios-home-outline',
+        linkParent: '/home',
+    },
+
+    {
+        key: 'roles',
+        name: 'Roles',
+        icon: 'ios-paper-outline',
+        linkParent: '/home/roles'
+
+    },
+
+    {
+        key: 'users',
+        name: 'Users',
+        icon: 'ios-grid-outline',
+        linkParent: '/home/users',
+    },
+
+    {
+        key: 'maps',
+        name: 'Maps',
+        icon: 'ios-navigate-outline',
+        linkParent: '/home/maps',
+    },
+
+    {
+        key: 'tables',
+        name: 'Edit Panel',
+        icon: 'ios-appstore-outline',
+        linkParent: '/home/edit-panel'
+
+    },
+
+    {
+        key: 'no_child',
+        name: 'Stage',
+        icon: 'ios-document-outline',
+        linkParent: '/home/stage',
+    },
+];
+
+const userCred = [
+    {
+        key: 'home',
+        name: 'Home',
+        icon: 'ios-home-outline',
+        linkParent: '/home',
+    },
+
+    {
+        key: 'maps',
+        name: 'Maps',
+        icon: 'ios-navigate-outline',
+        linkParent: '/home/maps',
+    }
+];
+
+
+
+  function SidebarContent(props) {
   const [transform, setTransform] = useState(0);
   const handleScroll = (event) => {
     const scroll = event.target.scrollTop;
@@ -59,6 +123,7 @@ function SidebarContent(props) {
   };
 
   const user = JSON.parse(localStorage.getItem('user'))
+    console.log(user)
 
   return (
     <div className={classNames(classes.drawerInner, !drawerPaper ? classes.drawerPaperClose : '')}>
@@ -79,7 +144,7 @@ function SidebarContent(props) {
                 src={dummy.user.avatar}
                 className={classNames(classes.avatar, classes.bigAvatar)}
               />
-              <h4>{ user.name } { user.surName }</h4>
+              <h4>{ user.name }</h4>
               <Button size="small" onClick={openMenuStatus}>
                 <i className={classNames(classes.dotStatus, setStatus(status))} />
                 {status}
@@ -126,7 +191,12 @@ function SidebarContent(props) {
           )
         }
       >
-        <MainMenu loadTransition={loadTransition} dataMenu={dataMenu} toggleDrawerOpen={toggleDrawerOpen} />
+        {
+          ( user.roleId === 1) || (user.roleId === 2) ?(
+            <MainMenu loadTransition={loadTransition} dataMenu={superuserCred} toggleDrawerOpen={toggleDrawerOpen} />
+          ):
+            (<MainMenu loadTransition={loadTransition} dataMenu={userCred} toggleDrawerOpen={toggleDrawerOpen} />)
+        }
       </div>
     </div>
   );

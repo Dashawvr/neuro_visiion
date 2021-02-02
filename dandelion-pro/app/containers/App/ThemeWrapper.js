@@ -89,7 +89,6 @@ function ThemeWrapper(props) {
 
   const handleChangeRandomTheme = () => {
     const { mode, direction } = props;
-    console.log(mode)
     props.changeRandomTheme(); // eslint-disable-line
     setTimeout(() => {
       setTheme(
@@ -102,7 +101,6 @@ function ThemeWrapper(props) {
 
   const handleChangeMode = mode => {
     const { color, changeMode, direction } = props;
-    console.log(mode)
     setTheme(
       createMuiTheme(
         applicationTheme(color, mode, direction)
