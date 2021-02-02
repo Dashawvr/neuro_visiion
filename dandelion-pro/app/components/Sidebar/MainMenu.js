@@ -37,9 +37,6 @@ function MainMenu(props) {
     dataMenu
   } = props;
 
-  console.log(userCred)
-
-  //console.log(dataMenu)
 
   const getMenus = menuArray => menuArray.map((item, index) => {
     if (item.child || item.linkParent) {
