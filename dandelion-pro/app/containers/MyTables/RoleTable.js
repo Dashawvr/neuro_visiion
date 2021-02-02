@@ -10,7 +10,7 @@ import { withStyles } from '@material-ui/core/styles';
 import { SourceReader, PapperBlock } from 'dan-components';
 import Roles from './Tables/Roles';
 import request from '../../utils/request';
-import { URL, params } from '../Axios/axiosForData';
+import { URL, GET } from '../Axios/axiosForData';
 
 const styles = ({
   root: {
@@ -24,7 +24,7 @@ class RoleTable extends Component {
   }
 
   componentDidMount() {
-    request(`${URL}/api/role`, params).then((res) => {
+    request(`${URL}/api/role`, GET).then((res) => {
       this.setState({ roles: res.data.roles.rows });
       console.log(res.data.roles.rows);
     });

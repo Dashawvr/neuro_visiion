@@ -17,6 +17,7 @@ import history from '../../../../utils/history';
 import {
   URL, PUT, PATCH, GET
 } from '../../../Axios/axiosForData';
+import Notification from '../../../MyNotification/Notification';
 
 const parsed = queryString.parse(location.search);
 const styles = ({
@@ -27,6 +28,9 @@ const styles = ({
 
 class EditRoleForm extends React.Component {
   state = {
+    variant: '',
+    message: '',
+    open: false,
     role: {},
     accessRight: {},
   }
@@ -37,6 +41,13 @@ class EditRoleForm extends React.Component {
       this.setState({ accessRight: res.data.role.access_right });
     });
   }
+
+  handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    this.setState({ open: false });
+  };
 
   showResult(values) {
     let name = null;
@@ -69,13 +80,18 @@ class EditRoleForm extends React.Component {
       desc: this.state.accessRight.desc,
     };
     request(`${URL}/api/role/${parsed.id}`, PUT);
-    request(`${URL}/api/access_right/` + this.state.accessRight.id, PATCH);
+    request(`${URL}/api/access_right/` + this.state.accessRight.id, PATCH).then(() => {
+      this.setState({ open: true, variant: 'success', message: 'Success save!' });
+    }).catch((error) => {
+      this.setState({ open: true, variant: 'error', message: 'Opps, failed to save!' });
+    });
     history.goBack();
   }
 
   render() {
     const title = brand.name + ' - Form';
     const description = brand.desc;
+    const { message, variant, open } = this.state;
     return (
       <div>
         <Helmet>
@@ -91,6 +107,7 @@ class EditRoleForm extends React.Component {
             <EditRole onSubmit={(values) => this.showResult(values)} name={this.state.role.name} />
           </div>
         </PapperBlock>
+        <Notification open={open} handleClose={() => this.handleClose()} variant={variant} message={message} />
       </div>
     );
   }

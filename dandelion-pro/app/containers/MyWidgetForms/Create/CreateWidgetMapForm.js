@@ -13,9 +13,10 @@ import { withStyles } from '@material-ui/core/styles';
 import { PapperBlock } from 'dan-components';
 import queryString from 'query-string';
 import CreateWidgetMap from '../Form/Create/CreateWidgetMap';
-import request from '../../../../utils/request';
-import history from '../../../../utils/history';
+import request from '../../../utils/request';
+import history from '../../../utils/history';
 import { POST, URL } from '../../Axios/axiosForData';
+import Notification from '../../../MyNotification/Notification';
 
 const parsed = queryString.parse(location.search);
 
@@ -26,6 +27,19 @@ const styles = ({
 });
 
 class CreateWidgetMapForm extends React.Component {
+  state = {
+    variant: '',
+    message: '',
+    open: false,
+  }
+
+  handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    this.setState({ open: false });
+  };
+
   showResult(values) {
     let lon = null;
     let lat = null;
@@ -46,13 +60,18 @@ class CreateWidgetMapForm extends React.Component {
       dashboardId: parsed.dashboardId,
       widgetCoordinatesId: parsed.coordinatesId,
     };
-    request(`${URL}/api/widget_data`, POST);
-    history.goBack();
+    request(`${URL}/api/widget_data`, POST).then(() => {
+      this.setState({ open: true, variant: 'success', message: 'Success create!' });
+    }).catch((error) => {
+      this.setState({ open: true, variant: 'error', message: 'Opps, failed to create!' });
+    });
+    history.push('/home');
   }
 
   render() {
     const title = brand.name + ' - Form';
     const description = brand.desc;
+    const { message, variant, open } = this.state;
     return (
       <div>
         <Helmet>
@@ -68,6 +87,7 @@ class CreateWidgetMapForm extends React.Component {
             <CreateWidgetMap onSubmit={(values) => this.showResult(values)} />
           </div>
         </PapperBlock>
+        <Notification open={open} handleClose={() => this.handleClose()} variant={variant} message={message} />
       </div>
     );
   }

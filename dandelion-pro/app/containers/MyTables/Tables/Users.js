@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable no-shadow */
 /* eslint-disable react/prop-types */
@@ -11,10 +12,10 @@ import Button from '@material-ui/core/Button';
 import DeleteIcon from '@material-ui/icons/Delete';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import CreateIcon from '@material-ui/icons/Create';
-// import UpdateIcon from '@material-ui/icons/Update';
-import history from '../../../utils/history';
+import { URL, DELETE } from '../../Axios/axiosForData';
 import request from '../../../utils/request';
-import { URL, paramsDelete } from '../../Axios/axiosForData';
+import history from '../../../utils/history';
+import Notification from '../../MyNotification/Notification';
 
 const styles = theme => ({
   button: {
@@ -47,6 +48,9 @@ const styles = theme => ({
 
 class Users extends React.Component {
   state = {
+    variant: '',
+    message: '',
+    open: false,
     id: null,
     columns: [
       {
@@ -111,7 +115,9 @@ class Users extends React.Component {
   }
 
   render() {
-    const { columns, id } = this.state;
+    const {
+      columns, id, open, variant, message
+    } = this.state;
     const { classes, data } = this.props;
     const options = {
       filterType: 'dropdown',
@@ -127,17 +133,27 @@ class Users extends React.Component {
     };
     const handleDelete = (id) => {
       if (id) {
-        request(`${URL}/api/users/${id}`, paramsDelete);
+        request(`${URL}/api/users/${id}`, DELETE).then(() => {
+          this.setState({ open: true, variant: 'success', message: 'Success delete user!' });
+        }).catch((error) => {
+          this.setState({ open: true, variant: 'error', message: 'Opps, failed to delete!' });
+        });
       } else {
-        window.alert('Click on row for delete!');
+        this.setState({ open: true, variant: 'warning', message: 'Click on row for delete!' });
       }
     };
     const handleEdit = (id) => {
       if (id) {
         history.push('/app/forms/edit/user/?id=' + id);
       } else {
-        window.alert('Click on row for edit!');
+        this.setState({ open: true, variant: 'warning', message: 'Click on row for edit!' });
       }
+    };
+    const handleClose = (event, reason) => {
+      if (reason === 'clickaway') {
+        return;
+      }
+      this.setState({ open: false });
     };
 
     return (
@@ -167,6 +183,7 @@ class Users extends React.Component {
           </Button>
           <br />
         </div>
+        <Notification open={open} handleClose={() => handleClose()} variant={variant} message={message} />
       </Fragment>
     );
   }

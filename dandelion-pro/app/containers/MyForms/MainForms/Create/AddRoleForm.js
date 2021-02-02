@@ -16,6 +16,7 @@ import history from '../../../../utils/history';
 import {
   URL, POST
 } from '../../../Axios/axiosForData';
+import Notification from '../../../MyNotification/Notification';
 
 const styles = ({
   root: {
@@ -24,6 +25,12 @@ const styles = ({
 });
 
 class AddRoleForm extends React.Component {
+  state = {
+    variant: '',
+    message: '',
+    open: false,
+  }
+
   showResult(values) {
     let name = null;
     let important = null;
@@ -60,13 +67,18 @@ class AddRoleForm extends React.Component {
       data.roleId = res.data.newRole.id;
     });
     POST.data = data;
-    request(`${URL}/api/access_right/`, POST);
+    request(`${URL}/api/access_right/`, POST).then(() => {
+      this.setState({ open: true, variant: 'success', message: 'Success created!' });
+    }).catch((error) => {
+      this.setState({ open: true, variant: 'error', message: 'Opps, failed to create!' });
+    });
     history.goBack();
   }
 
   render() {
     const title = brand.name + ' - Form';
     const description = brand.desc;
+    const { message, variant, open } = this.state;
     return (
       <div>
         <Helmet>
@@ -82,6 +94,7 @@ class AddRoleForm extends React.Component {
             <AddRole onSubmit={(values) => this.showResult(values)} />
           </div>
         </PapperBlock>
+        <Notification open={open} handleClose={() => this.handleClose()} variant={variant} message={message} />
       </div>
     );
   }

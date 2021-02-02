@@ -10,7 +10,7 @@ import { withStyles } from '@material-ui/core/styles';
 import { SourceReader, PapperBlock } from 'dan-components';
 import Users from './Tables/Users';
 import request from '../../utils/request';
-import { URL, params } from '../Axios/axiosForData';
+import { URL, GET } from '../Axios/axiosForData';
 
 const styles = ({
   root: {
@@ -25,10 +25,10 @@ class UserTable extends Component {
   }
 
   componentDidMount() {
-    request(`${URL}/api/users`, params).then((res) => {
+    request(`${URL}/api/users`, GET).then((res) => {
       this.setState({ users: res.data.users.rows });
     });
-    request(`${URL}/api/role`, params).then((res) => {
+    request(`${URL}/api/role`, GET).then((res) => {
       this.setState({ roles: res.data.roles.rows });
     });
   }

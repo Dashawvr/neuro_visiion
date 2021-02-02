@@ -3,6 +3,7 @@ import { PropTypes } from 'prop-types';
 import { Switch, Route } from 'react-router-dom';
 import { ThemeContext } from './ThemeWrapper';
 import Dashboard from '../Templates/Dashboard';
+
 import {
   UserTable, RoleTable, DashboardTable,
   AddUserForm, AddRoleForm, AddDashboardForm,
