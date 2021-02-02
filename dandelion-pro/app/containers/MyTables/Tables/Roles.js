@@ -11,10 +11,10 @@ import Button from '@material-ui/core/Button';
 import DeleteIcon from '@material-ui/icons/Delete';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import CreateIcon from '@material-ui/icons/Create';
-// import UpdateIcon from '@material-ui/icons/Update';
 import history from '../../../utils/history';
 import request from '../../../utils/request';
 import { URL, DELETE } from '../../Axios/axiosForData';
+import Notification from '../../MyNotification/Notification';
 
 const styles = theme => ({
   table: {
@@ -38,6 +38,9 @@ const styles = theme => ({
 
 class Roles extends React.Component {
   state = {
+    variant: '',
+    message: '',
+    open: false,
     id: null,
     columns: [
       {
@@ -106,7 +109,9 @@ class Roles extends React.Component {
   }
 
   render() {
-    const { columns, id } = this.state;
+    const {
+      columns, id, open, variant, message
+    } = this.state;
     const { classes, data } = this.props;
     const options = {
       filterType: 'dropdown',
@@ -122,17 +127,27 @@ class Roles extends React.Component {
     };
     const handleDelete = (id) => {
       if (id) {
-        request(`${URL}/api/role/${id}`, DELETE);
+        request(`${URL}/api/role/${id}`, DELETE).then(() => {
+          this.setState({ open: true, variant: 'success', message: 'Success delete role!' });
+        }).catch((error) => {
+          this.setState({ open: true, variant: 'error', message: 'Opps, failed to delete!' });
+        });
       } else {
-        window.alert('Click on row for delete!');
+        this.setState({ open: true, variant: 'warning', message: 'Click on row for delete!' });
       }
     };
     const handleEdit = (id) => {
       if (id) {
         history.push('/home/forms/edit/role/?id=' + id);
       } else {
-        window.alert('Click on row for edit!');
+        this.setState({ open: true, variant: 'warning', message: 'Click on row for edit!' });
       }
+    };
+    const handleClose = (event, reason) => {
+      if (reason === 'clickaway') {
+        return;
+      }
+      this.setState({ open: false });
     };
 
     return (
@@ -162,6 +177,7 @@ class Roles extends React.Component {
           </Button>
           <br />
         </div>
+        <Notification open={open} handleClose={() => handleClose()} variant={variant} message={message} />
       </Fragment>
     );
   }

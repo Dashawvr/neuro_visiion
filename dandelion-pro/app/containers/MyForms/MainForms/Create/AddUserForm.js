@@ -16,6 +16,7 @@ import history from '../../../../utils/history';
 import {
   URL, POST, GET
 } from '../../../Axios/axiosForData';
+import Notification from '../../../MyNotification/Notification';
 
 const styles = ({
   root: {
@@ -25,6 +26,9 @@ const styles = ({
 
 class AddUserForm extends React.Component {
   state = {
+    variant: '',
+    message: '',
+    open: false,
     roles: [],
   }
 
@@ -33,6 +37,13 @@ class AddUserForm extends React.Component {
       this.setState({ roles: res.data.roles.rows });
     });
   }
+
+  handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    this.setState({ open: false });
+  };
 
   showResult(values) {
     let name = null;
@@ -65,13 +76,18 @@ class AddUserForm extends React.Component {
       roleId,
       username: email,
     };
-    request(`${URL}/api/users/`, POST);
+    request(`${URL}/api/users/`, POST).then(() => {
+      this.setState({ open: true, variant: 'success', message: 'Success created!' });
+    }).catch((error) => {
+      this.setState({ open: true, variant: 'error', message: 'Opps, failed to create!' });
+    });
     history.goBack();
   }
 
   render() {
     const title = brand.name + ' - Form';
     const description = brand.desc;
+    const { message, variant, open } = this.state;
     return (
       <div>
         <Helmet>
@@ -87,6 +103,7 @@ class AddUserForm extends React.Component {
             <AddUser onSubmit={(values) => this.showResult(values)} roles={this.state.roles} />
           </div>
         </PapperBlock>
+        <Notification open={open} handleClose={() => this.handleClose()} variant={variant} message={message} />
       </div>
     );
   }

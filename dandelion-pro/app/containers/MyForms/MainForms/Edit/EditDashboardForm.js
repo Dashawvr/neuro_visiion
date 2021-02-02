@@ -15,6 +15,7 @@ import EditDashboard from '../../Forms/Edit/EditDashboard';
 import request from '../../../../utils/request';
 import history from '../../../../utils/history';
 import { URL, PUT, GET } from '../../../Axios/axiosForData';
+import Notification from '../../../MyNotification/Notification';
 
 const parsed = queryString.parse(location.search);
 
@@ -26,6 +27,9 @@ const styles = ({
 
 class EditDashboardForm extends React.Component {
   state = {
+    variant: '',
+    message: '',
+    open: false,
     user: null,
     role: null,
     users: [],
@@ -44,6 +48,13 @@ class EditDashboardForm extends React.Component {
       this.setState({ dashboard: res.data.Dashboard });
     });
   }
+
+  handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    this.setState({ open: false });
+  };
 
   showResult(values) {
     let enabled = false;
@@ -65,13 +76,18 @@ class EditDashboardForm extends React.Component {
       roleId: roleIdd,
       userId: userIdd,
     };
-    request(`${URL}/api/dashboard/${parsed.id}`, PUT);
+    request(`${URL}/api/dashboard/${parsed.id}`, PUT).then(() => {
+      this.setState({ open: true, variant: 'success', message: 'Success save!' });
+    }).catch((error) => {
+      this.setState({ open: true, variant: 'error', message: 'Opps, failed to save!' });
+    });
     history.goBack();
   }
 
   render() {
     const title = brand.name + ' - Form';
     const description = brand.desc;
+    const { message, variant, open } = this.state;
     this.state.roles.map((role) => {
       if (role.id === this.state.dashboard.roleId) {
         this.state.role = role.name;
@@ -97,6 +113,7 @@ class EditDashboardForm extends React.Component {
             <EditDashboard onSubmit={(values) => this.showResult(values)} users={this.state.users} roles={this.state.roles} user={this.state.user} role={this.state.role} />
           </div>
         </PapperBlock>
+        <Notification open={open} handleClose={() => this.handleClose()} variant={variant} message={message} />
       </div>
     );
   }

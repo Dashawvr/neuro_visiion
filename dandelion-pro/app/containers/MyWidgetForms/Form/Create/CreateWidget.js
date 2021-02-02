@@ -28,9 +28,6 @@ const renderRadioGroup = ({ input, ...rest }) => (
   />
 );
 
-// validation functions
-// const required = value => (value == null ? 'Required' : undefined);
-
 const styles = theme => ({
   root: {
     flexGrow: 1,

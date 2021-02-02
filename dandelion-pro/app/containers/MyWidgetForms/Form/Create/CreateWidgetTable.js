@@ -91,7 +91,7 @@ class CreateWidgetTable extends Component {
                   >
                     Reset
                   </Button>
-                  <Button variant="contained" color="primary" onClick={() => history.goBack()}>
+                  <Button variant="contained" color="primary" onClick={() => history.push('/home')}>
                     Cancel
                   </Button>
                 </div>

@@ -17,6 +17,7 @@ import history from '../../../utils/history';
 import {
   URL, POST, GET
 } from '../../Axios/axiosForData';
+import Notification from '../../MyNotification/Notification';
 
 const styles = ({
   root: {
@@ -26,6 +27,9 @@ const styles = ({
 
 class AddWidgetForm extends React.Component {
   state = {
+    variant: '',
+    message: '',
+    open: false,
     dashboards: [],
     coordinatesId: null,
   }
@@ -35,6 +39,13 @@ class AddWidgetForm extends React.Component {
       this.setState({ roles: res.data.Dashboards.rows });
     });
   }
+
+  handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    this.setState({ open: false });
+  };
 
   showResult(values) {
     const data = {
@@ -58,6 +69,9 @@ class AddWidgetForm extends React.Component {
     POST.data = data;
     request(`${URL}/api/widget_coordinates/`, POST).then((res) => {
       this.setState({ coordinatesId: res.data.newWidgetCoordinates });
+    }).catch((error) => {
+      this.setState({ open: true, variant: 'error', message: 'Opps, failed to create!' });
+      history.push('/home');
     });
     if (type) {
       switch (type) {
@@ -80,6 +94,7 @@ class AddWidgetForm extends React.Component {
   render() {
     const title = brand.name + ' - Form';
     const description = brand.desc;
+    const { message, variant, open } = this.state;
     return (
       <div>
         <Helmet>
@@ -95,6 +110,7 @@ class AddWidgetForm extends React.Component {
             <AddWidget onSubmit={(values) => this.showResult(values)} dashboards={this.state.dashboards} />
           </div>
         </PapperBlock>
+        <Notification open={open} handleClose={() => this.handleClose()} variant={variant} message={message} />
       </div>
     );
   }

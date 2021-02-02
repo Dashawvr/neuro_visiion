@@ -16,6 +16,7 @@ import CreateWidgetVideo from '../Form/Create/CreateWidgetVideo';
 import request from '../../../utils/request';
 import history from '../../../utils/history';
 import { POST, URL } from '../../Axios/axiosForData';
+import Notification from '../../../MyNotification/Notification';
 
 const parsed = queryString.parse(location.search);
 
@@ -26,6 +27,19 @@ const styles = ({
 });
 
 class CreateWidgetVideoForm extends React.Component {
+  state = {
+    variant: '',
+    message: '',
+    open: false,
+  }
+
+  handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    this.setState({ open: false });
+  };
+
   showResult(values) {
     const data = values._root.entries[0][1];
     POST.data = {
@@ -34,13 +48,18 @@ class CreateWidgetVideoForm extends React.Component {
       dashboardId: parsed.dashboardId,
       widgetCoordinatesId: parsed.coordinatesId,
     };
-    request(`${URL}/api/widget_data`, POST);
-    history.goBack();
+    request(`${URL}/api/widget_data`, POST).then(() => {
+      this.setState({ open: true, variant: 'success', message: 'Success create!' });
+    }).catch((error) => {
+      this.setState({ open: true, variant: 'error', message: 'Opps, failed to create!' });
+    });
+    history.push('/home');
   }
 
   render() {
     const title = brand.name + ' - Form';
     const description = brand.desc;
+    const { message, variant, open } = this.state;
     return (
       <div>
         <Helmet>
@@ -56,6 +75,7 @@ class CreateWidgetVideoForm extends React.Component {
             <CreateWidgetVideo onSubmit={(values) => this.showResult(values)} />
           </div>
         </PapperBlock>
+        <Notification open={open} handleClose={() => this.handleClose()} variant={variant} message={message} />
       </div>
     );
   }
