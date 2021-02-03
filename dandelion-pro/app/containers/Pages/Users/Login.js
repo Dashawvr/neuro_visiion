@@ -7,6 +7,7 @@ import {LoginForm} from 'dan-components';
 import styles from 'dan-components/Forms/user-jss';
 import {withRouter, Redirect} from "react-router-dom";
 import {connect} from "react-redux";
+import { URL } from "../../Axios/axiosForData";
 
 import axios from "axios";
 import {onSignIn} from "../../../redux/actions/login";
@@ -34,7 +35,7 @@ onChangePassword = (e) => {
 
 getLogin = () => {
     axios
-        .post("http://localhost:80/api/auth/login", {email: this.state.email, password: this.state.password})
+        .post(URL + "/api/auth/login", this.state)
         .then((response) => {
             localStorage.setItem("token", response.data.data.token.access_token);
             this.props.onSignIn(response.data.data.attributes);// TODO set this to local storage and delete that info after user logout

@@ -1,5 +1,5 @@
 /* eslint-disable import/prefer-default-export */
-export const URL = 'http://localhost:80';
+export const URL = 'https://f78729986047.ngrok.io';
 export const GET = {
   method: 'GET',
   headers: {

@@ -144,6 +144,7 @@
     "moment": "^2.22.2",
     "mui-datatables": "^2.13.1",
     "prop-types": "15.7.2",
+    "query-string": "^6.13.8",
     "rcolor": "^1.0.1",
     "react": "16.8.6",
     "react-anchor-link-smooth-scroll": "^1.0.11",
@@ -186,13 +187,14 @@
     "redux-form": "8.2.0",
     "redux-immutable": "4.0.0",
     "redux-saga": "1.0.2",
+    "redux-thunk": "^2.3.0",
     "reselect": "4.0.0",
     "sanitize.css": "8.0.0",
     "serve-favicon": "^2.4.5",
     "slick-carousel": "^1.8.1",
     "tunnel-agent": "^0.6.0",
-    "warning": "4.0.2",
-    "use-light-switch": "^1.0.1"
+    "use-light-switch": "^1.0.1",
+    "warning": "4.0.2"
   },
   "devDependencies": {
     "@babel/cli": "7.4.3",
