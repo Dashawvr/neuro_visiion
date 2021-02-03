@@ -17,6 +17,7 @@ import request from '../../../../utils/request';
 import history from '../../../../utils/history';
 import { URL, PATCH, GET } from '../../../Axios/axiosForData';
 import Notification from '../../../MyNotification/Notification';
+import axios from 'axios';
 
 const parsed = queryString.parse(location.search);
 
@@ -52,20 +53,36 @@ class EditUserForm extends React.Component {
   };
 
   showResult(values) {
+    let name = undefined;
+    let email = undefined;
+    let roleId = undefined;
+    let surName = undefined;
+    values._root.entries.map((elem) => {
+      if (elem[0] === 'name') {
+        name = elem[1];
+      }
+      if (elem[0] === 'email') {
+        email = elem[1];
+      }
+      if (elem[0] === 'role') {
+        roleId = Number(elem[1]);
+      }
+      if (elem[0] === 'surName') {
+        surName = elem[1];
+      }
+    });
     PATCH.data = {
-      name: values._root.entries[0][1],
-      username: values._root.entries[2][1],
-      surName: values._root.entries[1][1],
-      email: values._root.entries[2][1],
-      roleId: values._root.entries[3][1],
-      password: this.state.user.password,
+      name: name ? name : this.state.user.name,
+      username: email ? email : this.state.user.email,
+      surName: surName ? surName : this.state.user.surName,
+      email: email ? email : this.state.user.email,
+      roleId: roleId ? roleId : this.state.user.roleId,
     };
-    request(`${URL}/api/users/${parsed.id}`, PATCH).then(() => {
+    axios.patch(`${URL}/api/users/${parsed.id}`, PATCH.data, {Authorization: localStorage.getItem('token')}).then(() => {
       this.setState({ open: true, variant: 'success', message: 'Success save!' });
     }).catch((error) => {
       this.setState({ open: true, variant: 'error', message: 'Opps, failed to save!' });
     });
-    history.goBack();
   }
 
   render() {

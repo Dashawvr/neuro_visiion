@@ -15,6 +15,7 @@ import history from '../../../utils/history';
 import request from '../../../utils/request';
 import { URL, DELETE } from '../../Axios/axiosForData';
 import Notification from '../../MyNotification/Notification';
+import { withRouter } from "react-router-dom";
 
 const styles = theme => ({
   table: {
@@ -138,7 +139,7 @@ class Roles extends React.Component {
     };
     const handleEdit = (id) => {
       if (id) {
-        history.push('/home/forms/edit/role/?id=' + id);
+        this.props.history.push('/home/forms/edit/role/?id=' + id);
       } else {
         this.setState({ open: true, variant: 'warning', message: 'Click on row for edit!' });
       }
@@ -163,7 +164,7 @@ class Roles extends React.Component {
         <div>
           <br />
           <br />
-          <Button onClick={() => history.push('/home/forms/add/role')} className={classes.button} variant="contained" color="primary">
+          <Button onClick={() => this.props.history.push('/home/forms/add/role')} className={classes.button} variant="contained" color="primary">
             Create
             <AddCircleOutlineIcon className={classes.rightIcon} />
           </Button>
@@ -187,4 +188,4 @@ Roles.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(Roles);
+export default withStyles(styles)(withRouter((Roles)));

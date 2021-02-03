@@ -18,6 +18,8 @@ import {
   URL, POST, GET
 } from '../../Axios/axiosForData';
 import Notification from '../../MyNotification/Notification';
+import { withRouter } from "react-router-dom";
+import axios from 'axios';
 
 const styles = ({
   root: {
@@ -67,7 +69,7 @@ class AddWidgetForm extends React.Component {
       }
     });
     POST.data = data;
-    request(`${URL}/api/widget_coordinates/`, POST).then((res) => {
+    axios.post(`${URL}/api/widget_coordinates//`, POST.data, {Authorization: localStorage.getItem('token')}).then((res) => {
       this.setState({ coordinatesId: res.data.newWidgetCoordinates });
     }).catch((error) => {
       this.setState({ open: true, variant: 'error', message: 'Opps, failed to create!' });
@@ -76,16 +78,16 @@ class AddWidgetForm extends React.Component {
     if (type) {
       switch (type) {
         case 'video':
-          history.push('/home/forms/add/widget/video/?coordinatesId=' + this.state.coordinatesId + '?type=' + type + '?dashboardId=' + dashboardId);
+          this.props.history.push('/home/forms/add/widget/video/?coordinatesId=' + this.state.coordinatesId + '?type=' + type + '?dashboardId=' + dashboardId);
           break;
         case 'map':
-          history.push('/home/forms/add/widget/map/?coordinatesId=' + this.state.coordinatesId + '?type=' + type + '?dashboardId=' + dashboardId);
+          this.props.history.push('/home/forms/add/widget/map/?coordinatesId=' + this.state.coordinatesId + '?type=' + type + '?dashboardId=' + dashboardId);
           break;
         case 'table':
-          history.push('/home/forms/add/widget/table/?coordinatesId=' + this.state.coordinatesId + '?type=' + type + '?dashboardId=' + dashboardId);
+          this.props.history.push('/home/forms/add/widget/table/?coordinatesId=' + this.state.coordinatesId + '?type=' + type + '?dashboardId=' + dashboardId);
           break;
         case 'text':
-          history.push('/home/forms/add/widget/text/?coordinatesId=' + this.state.coordinatesId + '?type=' + type + '?dashboardId=' + dashboardId);
+          this.props.history.push('/home/forms/add/widget/text/?coordinatesId=' + this.state.coordinatesId + '?type=' + type + '?dashboardId=' + dashboardId);
           break;
       }
     }
@@ -116,4 +118,4 @@ class AddWidgetForm extends React.Component {
   }
 }
 
-export default withStyles(styles)(AddWidgetForm);
+export default withStyles(styles)(withRouter((AddWidgetForm)));

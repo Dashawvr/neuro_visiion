@@ -12,9 +12,9 @@ import { withStyles } from '@material-ui/core/styles';
 import { PapperBlock } from 'dan-components';
 import AddUser from '../../Forms/Create/AddUser';
 import request from '../../../../utils/request';
-import history from '../../../../utils/history';
+import axios from 'axios';
 import {
-  URL, POST, GET
+  URL, GET
 } from '../../../Axios/axiosForData';
 import Notification from '../../../MyNotification/Notification';
 
@@ -69,19 +69,18 @@ class AddUserForm extends React.Component {
       }
     });
     POST.data = {
-      name,
-      surName,
-      email,
-      password,
-      roleId,
+      name: name,
+      surName: surName,
+      email: email,
+      password: password,
+      roleId: Number(roleId),
       username: email,
     };
-    request(`${URL}/api/users/`, POST).then(() => {
-      this.setState({ open: true, variant: 'success', message: 'Success created!' });
-    }).catch((error) => {
-      this.setState({ open: true, variant: 'error', message: 'Opps, failed to create!' });
-    });
-    history.goBack();
+    axios.post(`${URL}/api/users/`, POST.data, {Authorization: localStorage.getItem('token')}).then(() => {
+        this.setState({ open: true, variant: 'success', message: 'Success created!' });
+      }).catch((error) => {
+        this.setState({ open: true, variant: 'error', message: 'Opps, failed to create!' });
+      });
   }
 
   render() {

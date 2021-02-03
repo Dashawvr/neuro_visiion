@@ -17,6 +17,8 @@ import request from '../../../utils/request';
 import history from '../../../utils/history';
 import { POST, URL } from '../../Axios/axiosForData';
 import Notification from '../../MyNotification/Notification';
+import { withRouter } from "react-router-dom";
+import axios from 'axios';
 
 const parsed = queryString.parse(location.search);
 
@@ -61,12 +63,12 @@ class CreateWidgetMapForm extends React.Component {
       dashboardId: parsed.dashboardId,
       widgetCoordinatesId: parsed.coordinatesId,
     };
-    request(`${URL}/api/widget_data`, POST).then(() => {
+    axios.post(`${URL}/api/widget_data/`, POST.data, {Authorization: localStorage.getItem('token')}).then(() => {
       this.setState({ open: true, variant: 'success', message: 'Success create!' });
     }).catch((error) => {
       this.setState({ open: true, variant: 'error', message: 'Opps, failed to create!' });
     });
-    history.push('/home');
+    this.props.history.push('/home');
   }
 
   render() {
@@ -94,4 +96,4 @@ class CreateWidgetMapForm extends React.Component {
   }
 }
 
-export default withStyles(styles)(CreateWidgetMapForm);
+export default withStyles(styles)(withRouter((CreateWidgetMapForm)));

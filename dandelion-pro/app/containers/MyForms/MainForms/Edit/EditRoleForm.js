@@ -18,6 +18,7 @@ import {
   URL, PUT, PATCH, GET
 } from '../../../Axios/axiosForData';
 import Notification from '../../../MyNotification/Notification';
+import axios from 'axios';
 
 const parsed = queryString.parse(location.search);
 const styles = ({
@@ -69,23 +70,22 @@ class EditRoleForm extends React.Component {
       }
     });
     PUT.data = {
-      name: `${name}`,
+      name: name ? name : this.state.role.name,
       role: this.state.role.id,
     };
     PATCH.data = {
-      canCreateUser: create,
-      canDeleteUser: canDelete,
-      canUpdateUser: update,
+      canCreateUser: create ? create : this.state.accessRight.canCreateUser,
+      canDeleteUser: canDelete ? canDelete : this.state.accessRight.canDeleteUser,
+      canUpdateUser: update ? update : this.state.accessRight.canUpdateUser,
       roleId: this.state.role.id,
       desc: this.state.accessRight.desc,
     };
-    request(`${URL}/api/role/${parsed.id}`, PUT);
-    request(`${URL}/api/access_right/` + this.state.accessRight.id, PATCH).then(() => {
+    axios.put(`${URL}/api/role/`, PUT.data, {Authorization: localStorage.getItem('token')});
+    axios.patch(`${URL}/api/access_right/` + this.state.accessRight.id, PATCH.data, {Authorization: localStorage.getItem('token')}).then(() => {
       this.setState({ open: true, variant: 'success', message: 'Success save!' });
     }).catch((error) => {
       this.setState({ open: true, variant: 'error', message: 'Opps, failed to save!' });
     });
-    history.goBack();
   }
 
   render() {

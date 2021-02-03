@@ -13,6 +13,7 @@ import { PapperBlock } from 'dan-components';
 import AddDashboard from '../../Forms/Create/AddDashboard';
 import request from '../../../../utils/request';
 import history from '../../../../utils/history';
+import axios from 'axios';
 import {
   URL, POST, GET
 } from '../../../Axios/axiosForData';
@@ -69,12 +70,11 @@ class AddDashboardForm extends React.Component {
       roleId,
       userId,
     };
-    request(`${URL}/api/dashboard/`, POST).then(() => {
+    axios.post(`${URL}/api/dashboard/`, POST.data, {Authorization: localStorage.getItem('token')}).then(() => {
       this.setState({ open: true, variant: 'success', message: 'Success created!' });
     }).catch((error) => {
       this.setState({ open: true, variant: 'error', message: 'Opps, failed to create!' });
     });
-    history.goBack();
   }
 
   render() {

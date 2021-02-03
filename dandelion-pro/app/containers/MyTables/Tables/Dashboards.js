@@ -15,6 +15,7 @@ import history from '../../../utils/history';
 import request from '../../../utils/request';
 import { URL, DELETE } from '../../Axios/axiosForData';
 import Notification from '../../MyNotification/Notification';
+import { withRouter } from "react-router-dom";
 
 const styles = theme => ({
   table: {
@@ -112,7 +113,7 @@ class Dashboards extends React.Component {
     };
     const handleEdit = (id) => {
       if (id) {
-        history.push('/home/forms/edit/dashboard/?id=' + id);
+        this.props.history.push('/home/forms/edit/dashboard/?id=' + id);
       } else {
         this.setState({ open: true, variant: 'warning', message: 'Click on row for edit!' });
       }
@@ -137,7 +138,7 @@ class Dashboards extends React.Component {
         <div>
           <br />
           <br />
-          <Button onClick={() => history.push('/home/forms/add/user')} className={classes.button} variant="contained" color="primary">
+          <Button onClick={() => this.props.history.push('/home/forms/add/dashboard')} className={classes.button} variant="contained" color="primary">
             Create
             <AddCircleOutlineIcon className={classes.rightIcon} />
           </Button>
@@ -161,4 +162,4 @@ Dashboards.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(Dashboards);
+export default withStyles(styles)(withRouter((Dashboards)));

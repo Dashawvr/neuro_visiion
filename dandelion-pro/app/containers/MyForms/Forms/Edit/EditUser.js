@@ -28,9 +28,6 @@ const renderRadioGroup = ({ input, ...rest }) => (
   />
 );
 
-// const handleCancel = () => {
-
-// };
 
 // validation functions
 const required = value => (value == null ? 'Required' : undefined);

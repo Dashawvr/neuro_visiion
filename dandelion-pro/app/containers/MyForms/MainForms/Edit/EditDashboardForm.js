@@ -16,6 +16,7 @@ import request from '../../../../utils/request';
 import history from '../../../../utils/history';
 import { URL, PUT, GET } from '../../../Axios/axiosForData';
 import Notification from '../../../MyNotification/Notification';
+import axios from 'axios';
 
 const parsed = queryString.parse(location.search);
 
@@ -73,15 +74,14 @@ class EditDashboardForm extends React.Component {
     });
     PUT.data = {
       enable: enabled,
-      roleId: roleIdd,
-      userId: userIdd,
+      roleId: roleIdd ? roleIdd : this.state.dashboard.roleId,
+      userId: userIdd ? userIdd : this.state.dashboard.userId,
     };
-    request(`${URL}/api/dashboard/${parsed.id}`, PUT).then(() => {
+    axios.put(`${URL}/api/dashboard/`, PUT.data, {Authorization: localStorage.getItem('token')}).then(() => {
       this.setState({ open: true, variant: 'success', message: 'Success save!' });
     }).catch((error) => {
       this.setState({ open: true, variant: 'error', message: 'Opps, failed to save!' });
     });
-    history.goBack();
   }
 
   render() {

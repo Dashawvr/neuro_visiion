@@ -13,6 +13,7 @@ import { PapperBlock } from 'dan-components';
 import AddRole from '../../Forms/Create/AddRole';
 import request from '../../../../utils/request';
 import history from '../../../../utils/history';
+import axios from 'axios';
 import {
   URL, POST
 } from '../../../Axios/axiosForData';
@@ -67,12 +68,11 @@ class AddRoleForm extends React.Component {
       data.roleId = res.data.newRole.id;
     });
     POST.data = data;
-    request(`${URL}/api/access_right/`, POST).then(() => {
+    axios.post(`${URL}/api/access_right/`, POST.data, {Authorization: localStorage.getItem('token')}).then(() => {
       this.setState({ open: true, variant: 'success', message: 'Success created!' });
     }).catch((error) => {
       this.setState({ open: true, variant: 'error', message: 'Opps, failed to create!' });
     });
-    history.goBack();
   }
 
   render() {

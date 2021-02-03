@@ -14,8 +14,8 @@ import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import CreateIcon from '@material-ui/icons/Create';
 import { URL, DELETE } from '../../Axios/axiosForData';
 import request from '../../../utils/request';
-import history from '../../../utils/history';
 import Notification from '../../MyNotification/Notification';
+import { withRouter } from "react-router-dom";
 
 const styles = theme => ({
   button: {
@@ -144,7 +144,7 @@ class Users extends React.Component {
     };
     const handleEdit = (id) => {
       if (id) {
-        history.push('/home/forms/edit/user/?id=' + id);
+        this.props.history.push('/home/forms/edit/user/?id=' + id);
       } else {
         this.setState({ open: true, variant: 'warning', message: 'Click on row for edit!' });
       }
@@ -169,7 +169,7 @@ class Users extends React.Component {
         <div>
           <br />
           <br />
-          <Button onClick={() => history.push('/home/forms/add/user')} className={classes.button} variant="contained" color="primary">
+          <Button onClick={() => this.props.history.push('/home/forms/add/user')} className={classes.button} variant="contained" color="primary">
             Create
             <AddCircleOutlineIcon className={classes.rightIcon} />
           </Button>
@@ -193,4 +193,4 @@ Users.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(Users);
+export default withStyles(styles)(withRouter((Users)));
