@@ -38,7 +38,7 @@ class AddWidgetForm extends React.Component {
 
   componentDidMount() {
     request(`${URL}/api/dashboard/`, GET).then((res) => {
-      this.setState({ roles: res.data.Dashboards.rows });
+      this.setState({ dashboards: res.data.Dashboards.rows });
     });
   }
 
