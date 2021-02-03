@@ -37,9 +37,9 @@ export const Roles = loadable(() =>
     import ('../NVision-Pages/Roles/Roles'), {
     fallback: <Loading />,
 });
-//Users
+//Widgets
 export const Users = loadable(() =>
-    import ('../NVision-Pages/Users/Users'), {
+    import ('../NVision-Pages/Widgets/Widgets'), {
     fallback: <Loading />,
 });
 // Edit Panel
@@ -60,7 +60,10 @@ export const DashboardNew = loadable(() =>
 //   import ('./Dashboard/CryptoDashboard'), {
 //     fallback: <Loading />,
 //   });
-
+export const Widgets = loadable(() =>
+  import ('../NVision-Pages/Widgets/Widgets'), {
+  fallback: <Loading />,
+});
 // Widgets
 export const Infographics = loadable(() =>
   import ('./Widgets/Infographics'), {

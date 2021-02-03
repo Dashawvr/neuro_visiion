@@ -2,10 +2,10 @@ import React, {Component} from 'react';
 import {Helmet} from "react-helmet/es/Helmet";
 import { PapperBlock } from 'dan-components';
 
-const Users = () => {
+const Widgets = () => {
 
-    const title = 'Users';
-    const description = 'desc of Users';
+    const title = 'Widgets';
+    const description = 'desc of Widgets';
 
     return (
         <div>
@@ -24,4 +24,4 @@ const Users = () => {
     );
 }
 
-export default Users;
+export default Widgets;

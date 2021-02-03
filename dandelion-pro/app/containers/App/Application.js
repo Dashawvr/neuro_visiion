@@ -3,6 +3,7 @@ import { PropTypes } from 'prop-types';
 import { Switch, Route } from 'react-router-dom';
 import { ThemeContext } from './ThemeWrapper';
 import Dashboard from '../Templates/Dashboard';
+import Widgets from "../../NVision-Pages/Widgets/Widgets";
 
 import {
   UserTable, RoleTable, DashboardTable,
@@ -58,6 +59,7 @@ function Application(props) {
             <Route path="/home/maps"  component={StreetViewMap}/>
             <Route path="/home/stage"  component={DashboardTable}/>
             <Route path="/home/dashboard/:id"  component={DashboardNew}/>
+            <Route path="/home/widget" component={Widgets}/>
             <Route path="/home/forms/add/widget/video" component={CreateWidgetVideoForm} />
             <Route path="/home/forms/add/widget/text" component={CreateWidgetTextForm} />
             <Route path="/home/forms/add/widget/map" component={CreateWidgetMapForm} />
