@@ -63,7 +63,6 @@ function Application(props) {
             <Route path="/home/forms/add/widget/text" component={CreateWidgetTextForm} />
             <Route path="/home/forms/add/widget/map" component={CreateWidgetMapForm} />
             <Route path="/home/forms/add/widget/table" component={CreateWidgetTableForm} />
-            {/*<Route path="/home/forms/add/widget" component={AddWidgetForm} />*/}
             <Route path="/home/forms/edit/dashboard" component={EditDashboardForm} />
             <Route path="/home/forms/edit/role" component={EditRoleForm} />
             <Route path="/home/forms/edit/user" component={EditUserForm} />

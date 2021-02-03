@@ -69,7 +69,7 @@ class AddWidgetForm extends React.Component {
       }
     });
     POST.data = data;
-    axios.post(`${URL}/api/widget_coordinates//`, POST.data, {Authorization: localStorage.getItem('token')}).then((res) => {
+    axios.post(`${URL}/api/widget_coordinates/`, POST.data, {Authorization: localStorage.getItem('token')}).then((res) => {
       this.setState({ coordinatesId: res.data.newWidgetCoordinates });
     }).catch((error) => {
       this.setState({ open: true, variant: 'error', message: 'Opps, failed to create!' });
