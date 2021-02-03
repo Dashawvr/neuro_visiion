@@ -3,7 +3,6 @@ import { PropTypes } from 'prop-types';
 import { Switch, Route } from 'react-router-dom';
 import { ThemeContext } from './ThemeWrapper';
 import Dashboard from '../Templates/Dashboard';
-import Widgets from "../../NVision-Pages/Widgets/Widgets";
 
 import {
   UserTable, RoleTable, DashboardTable,
@@ -12,7 +11,7 @@ import {
   AddWidgetForm, CreateWidgetVideoForm, CreateWidgetTextForm,
   CreateWidgetMapForm, CreateWidgetTableForm,
   PersonalDashboard, DashboardNew, EditPanel,
-   StreetViewMap,
+   StreetViewMap, Widgets
 } from '../pageListAsync';
 
 function useInterval(callback, delay) {
