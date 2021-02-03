@@ -5,16 +5,13 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Chip from '@material-ui/core/Chip';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import GridList from '@material-ui/core/GridList';
-import GridListTile from '@material-ui/core/GridListTile';
-import GridListTileBar from '@material-ui/core/GridListTileBar';
 import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
-import IconButton from '@material-ui/core/IconButton';
-import InfoIcon from '@material-ui/icons/Info';
-import imgData from 'dan-api/images/imgData';
 import styles from './widget-jss';
 import PapperBlock from '../PapperBlock/PapperBlock';
+
+import axios from "axios";
+
 
 function FilesWidget(props) {
   const { classes } = props;
