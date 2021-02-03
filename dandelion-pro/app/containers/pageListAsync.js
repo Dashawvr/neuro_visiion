@@ -37,9 +37,9 @@ export const Roles = loadable(() =>
     import ('../NVision-Pages/Roles/Roles'), {
     fallback: <Loading />,
 });
-//Users
+//Widgets
 export const Users = loadable(() =>
-    import ('../NVision-Pages/Users/Users'), {
+    import ('../NVision-Pages/Widgets/Widgets'), {
     fallback: <Loading />,
 });
 // Edit Panel
@@ -60,7 +60,10 @@ export const DashboardNew = loadable(() =>
 //   import ('./Dashboard/CryptoDashboard'), {
 //     fallback: <Loading />,
 //   });
-
+export const Widgets = loadable(() =>
+  import ('../NVision-Pages/Widgets/Widgets'), {
+  fallback: <Loading />,
+});
 // Widgets
 export const Infographics = loadable(() =>
   import ('./Widgets/Infographics'), {
@@ -318,26 +321,6 @@ export const Login = loadable(() =>
   import ('./Pages/Users/Login'), {
     fallback: <Loading />,
   });
-// export const LoginV2 = loadable(() =>
-//   import ('./Pages/Users/LoginV2'), {
-//     fallback: <Loading />,
-//   });
-// export const LoginV3 = loadable(() =>
-//   import ('./Pages/Users/LoginV3'), {
-//     fallback: <Loading />,
-//   });
-// export const Register = loadable(() =>
-//   import ('./Pages/Users/Register'), {
-//     fallback: <Loading />,
-//   });
-// export const RegisterV2 = loadable(() =>
-//   import ('./Pages/Users/RegisterV2'), {
-//     fallback: <Loading />,
-//   });
-// export const RegisterV3 = loadable(() =>
-//   import ('./Pages/Users/RegisterV3'), {
-//     fallback: <Loading />,
-//   });
 export const ComingSoon = loadable(() =>
   import ('./Pages/ComingSoon'), {
     fallback: <Loading />,

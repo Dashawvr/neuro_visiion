@@ -42,6 +42,13 @@ module.exports = [
         icon: 'ios-document-outline',
         linkParent: '/home/stage',
     },
+
+    {
+        key: 'widget',
+        name: 'Widgets',
+        icon: 'ion-easel',
+        linkParent: '/home/widget'
+    }
 ];
 
 // export const superuserCred = [
@@ -62,7 +69,7 @@ module.exports = [
 //
 //     {
 //         key: 'users',
-//         name: 'Users',
+//         name: 'Widgets',
 //         icon: 'ios-grid-outline',
 //         linkParent: '/home/users',
 //     },

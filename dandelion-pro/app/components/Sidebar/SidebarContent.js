@@ -12,73 +12,79 @@ import dummy from 'dan-api/dummy/dummyContents';
 import logo from 'dan-images/logo.svg';
 import MainMenu from './MainMenu';
 import styles from './sidebar-jss';
-import {connect} from "react-redux";
+import { connect } from "react-redux";
 
 const superuserCred = [
-    {
-        key: 'home',
-        name: 'Home',
-        icon: 'ios-home-outline',
-        linkParent: '/home',
-    },
+  {
+    key: 'home',
+    name: 'Home',
+    icon: 'ios-home-outline',
+    linkParent: '/home',
+  },
 
-    {
-        key: 'roles',
-        name: 'Roles',
-        icon: 'ios-paper-outline',
-        linkParent: '/home/roles'
+  {
+    key: 'roles',
+    name: 'Roles',
+    icon: 'ios-paper-outline',
+    linkParent: '/home/roles'
 
-    },
+  },
 
-    {
-        key: 'users',
-        name: 'Users',
-        icon: 'ios-grid-outline',
-        linkParent: '/home/users',
-    },
+  {
+    key: 'users',
+    name: 'Users',
+    icon: 'ios-grid-outline',
+    linkParent: '/home/users',
+  },
 
-    {
-        key: 'maps',
-        name: 'Maps',
-        icon: 'ios-navigate-outline',
-        linkParent: '/home/maps',
-    },
+  {
+    key: 'maps',
+    name: 'Maps',
+    icon: 'ios-navigate-outline',
+    linkParent: '/home/maps',
+  },
 
-    {
-        key: 'tables',
-        name: 'Edit Panel',
-        icon: 'ios-appstore-outline',
-        linkParent: '/home/edit-panel'
+  {
+    key: 'tables',
+    name: 'Edit Panel',
+    icon: 'ios-appstore-outline',
+    linkParent: '/home/edit-panel'
 
-    },
+  },
 
-    {
-        key: 'no_child',
-        name: 'Stage',
-        icon: 'ios-document-outline',
-        linkParent: '/home/stage',
-    },
+  {
+    key: 'widget',
+    name: 'Widgets',
+    icon: 'ios-laptop',
+    linkParent: '/home/widget'
+  },
+
+  {
+    key: 'no_child',
+    name: 'Stage',
+    icon: 'ios-document-outline',
+    linkParent: '/home/stage',
+  },
 ];
 
 const userCred = [
-    {
-        key: 'home',
-        name: 'Home',
-        icon: 'ios-home-outline',
-        linkParent: '/home',
-    },
+  {
+    key: 'home',
+    name: 'Home',
+    icon: 'ios-home-outline',
+    linkParent: '/home',
+  },
 
-    {
-        key: 'maps',
-        name: 'Maps',
-        icon: 'ios-navigate-outline',
-        linkParent: '/home/maps',
-    }
+  {
+    key: 'maps',
+    name: 'Maps',
+    icon: 'ios-navigate-outline',
+    linkParent: '/home/maps',
+  }
 ];
 
 
-
-  function SidebarContent(props) {
+function SidebarContent(props) {
   const [transform, setTransform] = useState(0);
   const handleScroll = (event) => {
     const scroll = event.target.scrollTop;
@@ -129,7 +135,7 @@ const userCred = [
     <div className={classNames(classes.drawerInner, !drawerPaper ? classes.drawerPaperClose : '')}>
       <div className={classes.drawerHeader}>
         <NavLink to="/app" className={classNames(classes.brand, classes.brandBar, turnDarker && classes.darker)}>
-          <img src={logo} alt={brand.name} />
+          <img src={logo} alt={brand.name}/>
           {props.username}
         </NavLink>
         {isLogin && (
@@ -137,16 +143,16 @@ const userCred = [
             className={classNames(classes.profile, classes.user)}
             style={{ opacity: 1 - (transform / 100), marginTop: transform * -0.3 }}
           >
-             {/* // TODO crete component with user basic info -> set user info from local storage */}
+            {/* // TODO crete component with user basic info -> set user info from local storage */}
             <div>
               <Avatar
                 alt={dummy.user.name}
                 src={dummy.user.avatar}
                 className={classNames(classes.avatar, classes.bigAvatar)}
               />
-              <h4>{ user.name }</h4>
+              <h4>{user.name}</h4>
               <Button size="small" onClick={openMenuStatus}>
-                <i className={classNames(classes.dotStatus, setStatus(status))} />
+                <i className={classNames(classes.dotStatus, setStatus(status))}/>
                 {status}
               </Button>
             </div>
@@ -161,19 +167,19 @@ const userCred = [
                 className={classes.statusMenu}
               >
                 <MenuItem onClick={() => changeStatus('online')}>
-                  <i className={classNames(classes.dotStatus, classes.online)} />
+                  <i className={classNames(classes.dotStatus, classes.online)}/>
                   Online
                 </MenuItem>
                 <MenuItem onClick={() => changeStatus('idle')}>
-                  <i className={classNames(classes.dotStatus, classes.idle)} />
+                  <i className={classNames(classes.dotStatus, classes.idle)}/>
                   Idle
                 </MenuItem>
                 <MenuItem onClick={() => changeStatus('bussy')}>
-                  <i className={classNames(classes.dotStatus, classes.bussy)} />
+                  <i className={classNames(classes.dotStatus, classes.bussy)}/>
                   Bussy
                 </MenuItem>
                 <MenuItem onClick={() => changeStatus('offline')}>
-                  <i className={classNames(classes.dotStatus, classes.offline)} />
+                  <i className={classNames(classes.dotStatus, classes.offline)}/>
                   Offline
                 </MenuItem>
               </Menu>
@@ -192,10 +198,10 @@ const userCred = [
         }
       >
         {
-          ( user.roleId === 1) || (user.roleId === 2) ?(
-            <MainMenu loadTransition={loadTransition} dataMenu={superuserCred} toggleDrawerOpen={toggleDrawerOpen} />
-          ):
-            (<MainMenu loadTransition={loadTransition} dataMenu={userCred} toggleDrawerOpen={toggleDrawerOpen} />)
+          (user.roleId === 1) || (user.roleId === 2) ? (
+              <MainMenu loadTransition={loadTransition} dataMenu={superuserCred} toggleDrawerOpen={toggleDrawerOpen}/>
+            ) :
+            (<MainMenu loadTransition={loadTransition} dataMenu={userCred} toggleDrawerOpen={toggleDrawerOpen}/>)
         }
       </div>
     </div>
@@ -220,8 +226,10 @@ SidebarContent.propTypes = {
 
 SidebarContent.defaultProps = {
   turnDarker: false,
-  toggleDrawerOpen: () => {},
-  loadTransition: () => {},
+  toggleDrawerOpen: () => {
+  },
+  loadTransition: () => {
+  },
   anchorEl: null,
   isLogin: true,
 };

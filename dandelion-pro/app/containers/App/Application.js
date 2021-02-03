@@ -11,7 +11,7 @@ import {
   AddWidgetForm, CreateWidgetVideoForm, CreateWidgetTextForm,
   CreateWidgetMapForm, CreateWidgetTableForm,
   PersonalDashboard, DashboardNew, EditPanel,
-   StreetViewMap,
+   StreetViewMap, Widgets
 } from '../pageListAsync';
 
 function useInterval(callback, delay) {
@@ -58,6 +58,7 @@ function Application(props) {
             <Route path="/home/maps"  component={StreetViewMap}/>
             <Route path="/home/stage"  component={DashboardTable}/>
             <Route path="/home/dashboard/:id"  component={DashboardNew}/>
+            <Route path="/home/widget" component={Widgets}/>
             <Route path="/home/forms/add/widget/video" component={CreateWidgetVideoForm} />
             <Route path="/home/forms/add/widget/text" component={CreateWidgetTextForm} />
             <Route path="/home/forms/add/widget/map" component={CreateWidgetMapForm} />

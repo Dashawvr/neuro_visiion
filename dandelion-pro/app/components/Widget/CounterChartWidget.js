@@ -63,7 +63,7 @@ function CounterChartWidget(props) {
           {/*  start={0}*/}
           {/*  end={82}*/}
           {/*  duration={3}*/}
-          {/*  title="Active Users"*/}
+          {/*  title="Active Widgets"*/}
           {/*>*/}
           {/*  <LineChart width={100} height={80} data={data1}>*/}
           {/*    <Line type="monotone" dataKey="pv" stroke="#FFFFFF" strokeWidth={2} />*/}

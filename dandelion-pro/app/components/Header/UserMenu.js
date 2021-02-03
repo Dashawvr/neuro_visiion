@@ -17,11 +17,8 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import dummy from 'dan-api/dummy/dummyContents';
 import messageStyles from 'dan-styles/Messages.scss';
-import avatarApi from 'dan-api/images/avatars';
-import link from 'dan-api/ui/link';
 import styles from './header-jss';
 import {connect} from 'react-redux'
 import '../../NVision-Pages/Dashboard/app.css'
@@ -47,7 +44,7 @@ function UserMenu(props) {
     setMenuState({ anchorEl: null, openMenu: null });
   };
 
-  const logOut = ()=>{
+  const logOut = () => {
     localStorage.clear();
   };
 
@@ -109,7 +106,7 @@ function UserMenu(props) {
                   <Divider variant="inset" />
                 </>
               )
-            })):''
+            })) : ''
           }
         </Menu>
         <Button onClick={handleMenu('user-setting')}>
@@ -133,9 +130,10 @@ function UserMenu(props) {
             onClose={handleClose}
         >
           <MenuItem onClick={logOut} component={Link} to="/">
-            <ListItemIcon>
-              <ExitToApp />
-            </ListItemIcon>
+            {/*<ListItemIcon>*/}
+            {/*  <ExitToApp />*/}
+            {/*</ListItemIcon>*/}
+            <ExitToApp />
             Log Out
           </MenuItem>
         </Menu>
