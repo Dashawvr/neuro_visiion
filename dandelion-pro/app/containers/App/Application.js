@@ -58,12 +58,12 @@ function Application(props) {
             <Route path="/home/maps"  component={StreetViewMap}/>
             <Route path="/home/stage"  component={DashboardTable}/>
             <Route path="/home/dashboard/:id"  component={DashboardNew}/>
-            <Route path="/home/widget" component={Widgets}/>
+            <Route path="/home/widget" component={AddWidgetForm}/>
             <Route path="/home/forms/add/widget/video" component={CreateWidgetVideoForm} />
             <Route path="/home/forms/add/widget/text" component={CreateWidgetTextForm} />
             <Route path="/home/forms/add/widget/map" component={CreateWidgetMapForm} />
             <Route path="/home/forms/add/widget/table" component={CreateWidgetTableForm} />
-            <Route path="/home/forms/add/widget" component={AddWidgetForm} />
+            {/*<Route path="/home/forms/add/widget" component={AddWidgetForm} />*/}
             <Route path="/home/forms/edit/dashboard" component={EditDashboardForm} />
             <Route path="/home/forms/edit/role" component={EditRoleForm} />
             <Route path="/home/forms/edit/user" component={EditUserForm} />
