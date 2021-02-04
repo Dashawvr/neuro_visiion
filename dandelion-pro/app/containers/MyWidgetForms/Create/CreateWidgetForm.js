@@ -33,7 +33,7 @@ class AddWidgetForm extends React.Component {
     message: '',
     open: false,
     dashboards: [],
-    coordinatesId: null,
+    coordinatesId: undefined,
   }
 
   componentDidMount() {
@@ -49,7 +49,7 @@ class AddWidgetForm extends React.Component {
     this.setState({ open: false });
   };
 
-  showResult(values) {
+  async showResult(values) {
     const data = {
       x: 850,
       y: 200,
@@ -68,28 +68,31 @@ class AddWidgetForm extends React.Component {
         data.name = elem[1];
       }
     });
-    POST.data = data;
-    axios.post(`${URL}/api/widget_coordinates/`, POST.data, {Authorization: localStorage.getItem('token')}).then((res) => {
-      this.setState({ coordinatesId: res.data.newWidgetCoordinates });
+    POST.data = data;    
+    await axios.post(`${URL}/api/widget_coordinates/`, POST.data, {Authorization: localStorage.getItem('token')}).then((res) => {
+      this.setState({ coordinatesId: res.data.data.newWidgetCoordinates });
+      this.setState({ open: true, variant: 'success', message: 'OK!' }); 
     }).catch((error) => {
       this.setState({ open: true, variant: 'error', message: 'Opps, failed to create!' });
-      history.push('/home');
+      this.props.history.push('/home');
     });
-    if (type) {
-      switch (type) {
-        case 'video':
-          this.props.history.push('/home/forms/add/widget/video/?coordinatesId=' + this.state.coordinatesId + '?type=' + type + '?dashboardId=' + dashboardId);
-          break;
-        case 'map':
-          this.props.history.push('/home/forms/add/widget/map/?coordinatesId=' + this.state.coordinatesId + '?type=' + type + '?dashboardId=' + dashboardId);
-          break;
-        case 'table':
-          this.props.history.push('/home/forms/add/widget/table/?coordinatesId=' + this.state.coordinatesId + '?type=' + type + '?dashboardId=' + dashboardId);
-          break;
-        case 'text':
-          this.props.history.push('/home/forms/add/widget/text/?coordinatesId=' + this.state.coordinatesId + '?type=' + type + '?dashboardId=' + dashboardId);
-          break;
-      }
+    setTimeout(() => this.redirectToCreate(type, dashboardId), 2000);
+  }
+
+  redirectToCreate(type, dashboardId) {
+    switch (type) {
+      case 'video':
+        this.props.history.push('/home/forms/add/video?coordinatesId=' + this.state.coordinatesId.id + '&type=' + type+ '&dashboardId=' + dashboardId);
+        break;
+      case 'map':
+        this.props.history.push('/home/forms/add/map?coordinatesId=' + this.state.coordinatesId.id + '&type=' + type +'&dashboardId=' + dashboardId);
+        break;
+      case 'table':
+        this.props.history.push('/home/forms/add/table?coordinatesId=' + this.state.coordinatesId.id + '&type=' + type+ '&dashboardId=' + dashboardId);
+        break;
+      case 'text':
+        this.props.history.push('/home/forms/add/text?coordinatesId=' + this.state.coordinatesId.id + '&type=' + type +'&dashboardId=' + dashboardId);
+        break;
     }
   }
 

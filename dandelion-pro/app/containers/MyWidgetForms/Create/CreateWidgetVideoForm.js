@@ -11,16 +11,13 @@ import { Helmet } from 'react-helmet';
 import brand from 'dan-api/dummy/brand';
 import { withStyles } from '@material-ui/core/styles';
 import { PapperBlock } from 'dan-components';
-import queryString from 'query-string';
 import CreateWidgetVideo from '../Form/Create/CreateWidgetVideo';
-import request from '../../../utils/request';
-import history from '../../../utils/history';
 import { POST, URL } from '../../Axios/axiosForData';
 import Notification from '../../MyNotification/Notification';
 import { withRouter } from "react-router-dom";
 import axios from 'axios';
 
-const parsed = queryString.parse(location.search);
+const parsed = new URLSearchParams(window.location.search);
 
 const styles = ({
   root: {
@@ -44,19 +41,20 @@ class CreateWidgetVideoForm extends React.Component {
 
   showResult(values) {
     const data = values._root.entries[0][1];
+    const user = JSON.parse(localStorage.getItem('user'));
     POST.data = {
-      type: parsed.type,
-      authorId: localStorage.getItem('user').id,
-      data,
-      dashboardId: parsed.dashboardId,
-      widgetCoordinatesId: parsed.coordinatesId,
+      type: parsed.get('type'),
+      authorId: user.id,
+      data: data,
+      dashboardId: parsed.get('dashboardId'),
+      widgetCoordinatesId: parsed.get('coordinatesId'),
     };
     axios.post(`${URL}/api/widget_data/`, POST.data, {Authorization: localStorage.getItem('token')}).then(() => {
       this.setState({ open: true, variant: 'success', message: 'Success create!' });
     }).catch((error) => {
       this.setState({ open: true, variant: 'error', message: 'Opps, failed to create!' });
     });
-    this.props.history.push('/home');
+    setTimeout(() => this.props.history.push('/home'), 1000);    
   }
 
   render() {

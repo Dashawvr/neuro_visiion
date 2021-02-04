@@ -11,16 +11,13 @@ import { Helmet } from 'react-helmet';
 import brand from 'dan-api/dummy/brand';
 import { withStyles } from '@material-ui/core/styles';
 import { PapperBlock } from 'dan-components';
-import queryString from 'query-string';
 import CreateWidgetMap from '../Form/Create/CreateWidgetMap';
-import request from '../../../utils/request';
-import history from '../../../utils/history';
 import { POST, URL } from '../../Axios/axiosForData';
 import Notification from '../../MyNotification/Notification';
 import { withRouter } from "react-router-dom";
 import axios from 'axios';
 
-const parsed = queryString.parse(location.search);
+const parsed = new URLSearchParams(window.location.search);
 
 const styles = ({
   root: {
@@ -43,6 +40,7 @@ class CreateWidgetMapForm extends React.Component {
   };
 
   showResult(values) {
+    const user = JSON.parse(localStorage.getItem('user'));
     let lon = null;
     let lat = null;
     values._root.entries.map((elem) => {
@@ -54,21 +52,21 @@ class CreateWidgetMapForm extends React.Component {
       }
     });
     POST.data = {
-      type: parsed.type,
-      authorId: localStorage.getItem('user').id,
+      type: parsed.get('type'),
+      authorId: user.id,
       data: {
         lat,
         lon,
       },
-      dashboardId: parsed.dashboardId,
-      widgetCoordinatesId: parsed.coordinatesId,
+      dashboardId: parsed.get('dashboardId'),
+      widgetCoordinatesId: parsed.get('coordinatesId'),
     };
     axios.post(`${URL}/api/widget_data/`, POST.data, {Authorization: localStorage.getItem('token')}).then(() => {
       this.setState({ open: true, variant: 'success', message: 'Success create!' });
     }).catch((error) => {
       this.setState({ open: true, variant: 'error', message: 'Opps, failed to create!' });
     });
-    this.props.history.push('/home');
+    setTimeout(() => this.props.history.push('/home'), 1000);    
   }
 
   render() {
