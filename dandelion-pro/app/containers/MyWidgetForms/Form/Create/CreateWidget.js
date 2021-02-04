@@ -77,7 +77,7 @@ class AddWidget extends Component {
                       placeholder="Dashboard"
                       required
                     >
-                      {dashboards.map((d) => <MenuItem value={d.id}>{d.name}</MenuItem>)}
+                      {dashboards.map((d) => <MenuItem value={d.id}>{d.id}</MenuItem>)}
                     </Field>
                   </FormControl>
                 </div>
