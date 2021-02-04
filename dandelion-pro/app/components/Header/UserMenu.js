@@ -48,9 +48,10 @@ function UserMenu(props) {
     localStorage.clear();
   };
 
-  const user = JSON.parse(localStorage.getItem('user'))
+
 
   useEffect(() => {
+    const user = JSON.parse(localStorage.getItem('user'))
     props.getDash(user.id)
   }, [])
 
@@ -129,7 +130,10 @@ function UserMenu(props) {
             open={openMenu === 'user-setting'}
             onClose={handleClose}
         >
-          <MenuItem onClick={logOut} component={Link} to="/">
+          <MenuItem onClick={() => {
+            logOut()
+            history.push('/')
+          }}>
             {/*<ListItemIcon>*/}
             {/*  <ExitToApp />*/}
             {/*</ListItemIcon>*/}
