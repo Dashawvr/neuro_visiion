@@ -15,6 +15,7 @@ import axios from "axios";
 
 
 function FilesWidget(props) {
+
   const { classes } = props
   const [info, setInfo] = useState([]);
 
@@ -40,23 +41,28 @@ function FilesWidget(props) {
     <Grid container spacing={3}>
       <Grid item md={4} sm={12} xs={12}>
         <PapperBlock whiteBg noMargin title="Your Storage" icon="ios-cloud-outline" desc="">
-          <div className={classes.secondaryWrap}>
-            <div className={classes.centerItem}>
-              <Chip label={used} className={classes.chip} color="secondary"/>
-              <CircularProgress  variant="determinate" className={classes.progressCircle} size={140} thickness={4}
-                                value={used}/>
-            </div>
-            <ul className={classes.storageInfo}>
-              <li>
-                <Typography variant="h6" color="primary" gutterBottom>{info.usedGb}</Typography>
-                <Typography variant="caption" gutterBottom>{used}% used</Typography>
-              </li>
-              <li>
-                <Typography variant="h6" gutterBottom>{info.totalGb}</Typography>
-                <Typography variant="caption" gutterBottom>total storage</Typography>
-              </li>
-            </ul>
-          </div>
+          {
+            info.totalGb? (
+              <div className={classes.secondaryWrap}>
+                <div className={classes.centerItem}>
+                  <Chip label={used} className={classes.chip} color="secondary"/>
+                  <CircularProgress  variant="determinate" className={classes.progressCircle} size={140} thickness={4}
+                                     value={used}/>
+                </div>
+                <ul className={classes.storageInfo}>
+                  <li>
+                    <Typography variant="h6" color="primary" gutterBottom>{info.usedGb}</Typography>
+                    <Typography variant="caption" gutterBottom>{used}% used</Typography>
+                  </li>
+                  <li>
+                    <Typography variant="h6" gutterBottom>{info.totalGb}</Typography>
+                    <Typography variant="caption" gutterBottom>total storage</Typography>
+                  </li>
+                </ul>
+              </div>
+            ):(<CircularProgress className={classes.center} />)
+          }
+
           <Divider className={classes.divider}/>
           <Grid container justify="center">
             <Button color="secondary" variant="contained" className={classes.button}>

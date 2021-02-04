@@ -6,6 +6,9 @@ import red from '@material-ui/core/colors/red';
 import images from 'dan-api/images/photos';
 
 const styles = theme => ({
+  center: {
+    marginLeft: '50%'
+  },
   rootCounter: {
     flexGrow: 1,
   },
