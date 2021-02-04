@@ -9,6 +9,7 @@ import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
 import styles from './widget-jss';
 import PapperBlock from '../PapperBlock/PapperBlock';
+import { URL } from '../../containers/Axios/axiosForData'
 
 import axios from "axios";
 
@@ -21,7 +22,7 @@ function FilesWidget(props) {
 
   const getInfo = () => {
     axios
-      .get('/api/cpu/info/')
+      .get( URL +'/api/cpu/info/')
       .then((response) => {
         setInfo(response.data.data.info);
         console.log(response);
