@@ -23,6 +23,7 @@ import styles from './header-jss';
 import {connect} from 'react-redux'
 import '../../NVision-Pages/Dashboard/app.css'
 import { getDashboards } from "../../redux/actions/dashboards";
+import { URL } from '../../containers/Axios/axiosForData';
 
 function UserMenu(props) {
   const [menuState, setMenuState] = useState({
@@ -97,7 +98,7 @@ function UserMenu(props) {
               return (
                 <>
                   <MenuItem onClick={() => {
-                    history.push(`/home/dashboard/${el.id}`)
+                    history.push(`${URL}/home/dashboard/${el.id}`)
                     handleClose()
                   }}>
                     <div className={messageStyles.messageInfo}>
