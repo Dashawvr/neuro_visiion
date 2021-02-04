@@ -98,7 +98,7 @@ function UserMenu(props) {
               return (
                 <>
                   <MenuItem onClick={() => {
-                    history.push(`${URL}/home/dashboard/${el.id}`)
+                    history.push(`/home/dashboard/${el.id}`)
                     handleClose()
                   }}>
                     <div className={messageStyles.messageInfo}>
