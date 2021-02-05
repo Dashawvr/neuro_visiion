@@ -101,10 +101,10 @@ class Users extends React.Component {
         options: {
           filter: true,
           customBodyRender: (value) => {
-            if (value === 'active') {
+            if (value === true) {
               return (<Chip label="Active" color="secondary" />);
             }
-            if (value === 'non-active') {
+            if (value === false) {
               return (<Chip label="Offline" color="primary" />);
             }
             return (<Chip label="Unknown" />);
