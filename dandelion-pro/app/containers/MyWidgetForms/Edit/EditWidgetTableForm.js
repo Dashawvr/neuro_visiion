@@ -13,9 +13,9 @@ import { withStyles } from '@material-ui/core/styles';
 import { PapperBlock } from 'dan-components';
 import queryString from 'query-string';
 import EditWidgettable from '../Form/Edit/EditWidgetTable';
-import request from '../../../../utils/request';
-import { URL, PATCH, GET } from '../../../Axios/axiosForData';
-import Notification from '../../../MyNotification/Notification';
+import request from '../../../utils/request';
+import { URL, PATCH, GET } from '../../Axios/axiosForData';
+import Notification from '../../MyNotification/Notification';
 import axios from 'axios';
 
 const parsed = queryString.parse(location.search);
