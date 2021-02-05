@@ -132,7 +132,7 @@ class UsersGroups extends React.Component {
         <div>
           <br />
           <br />
-          <Button onClick={() => this.props.history.push('/home/forms/add/user_group')} className={classes.button} variant="contained" color="primary">
+          <Button onClick={() => this.props.history.push('/home/forms/add/group')} className={classes.button} variant="contained" color="primary">
             Create
             <AddCircleOutlineIcon className={classes.rightIcon} />
           </Button>
