@@ -93,7 +93,7 @@ class AddWidget extends Component {
                       placeholder="Widget"
                       required
                     >
-                    {widgets.map((w) => <MenuItem value={w.id}>{w.type}</MenuItem>)}                      
+                    {widgets.map((w) => <MenuItem value={w.id}>{w.name}</MenuItem>)}                      
                     </Field>
                   </FormControl>
                 </div>

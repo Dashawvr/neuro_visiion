@@ -57,10 +57,11 @@ class EditPanel extends React.Component {
   };
 
   async showResult(values) {
-    let widgetId = values._root.entries[0][1];
+    let widgetId = values._root.entries[1][1];
+
 
     request(`${URL}/api/widget_data/${widgetId}`, GET).then((res) => {
-        this.setState({ widget: res.data.widget_data }); // TODO доробити збереження
+        this.setState({ widget: res.data.widgetData });
       });
       switch (this.state.widget.type) {
         case 'video':
