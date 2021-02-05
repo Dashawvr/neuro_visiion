@@ -54,6 +54,7 @@ function Application(props) {
             <Route exact path="/home" component={PersonalDashboard}/>
             <Route path="/home/roles"  component={RoleTable}/>
             <Route path="/home/users"  component={UserTable}/>
+            <Route path="/home/group"  component={UserTable}/>
             <Route path="/home/edit-panel"  component={EditPanel}/>
             <Route path="/home/maps"  component={StreetViewMap}/>
             <Route path="/home/stage"  component={DashboardTable}/>

@@ -34,8 +34,14 @@ const superuserCred = [
   {
     key: 'users',
     name: 'Users',
-    icon: 'ios-grid-outline',
+    icon: 'ios-person',
     linkParent: '/home/users',
+  },
+  {
+    key: 'group',
+    name: 'User Group',
+    icon: 'ios-people',
+    linkParent: '/home/group'
   },
 
   {
