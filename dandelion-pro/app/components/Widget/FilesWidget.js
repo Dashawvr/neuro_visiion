@@ -74,12 +74,10 @@ function FilesWidget(props) {
       <Grid item md={4} sm={12} xs={12}>
         <PapperBlock title="Operation System" icon="ion-ios-world" whiteBg desc="">
           <div className={classes.albumRoot}>
-            Your platform:
-            {window.navigator.platform}
+            Your platform:  {window.navigator.platform}
           </div>
           <div className={classes.albumRoot}>
-            Your agent:
-            {window.navigator.userAgent}
+            Your agent: {window.navigator.userAgent}
           </div>
           <Divider className={classes.divider}/>
           {/*<Grid container justify="center">*/}

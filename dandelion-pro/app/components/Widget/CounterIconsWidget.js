@@ -9,10 +9,12 @@ import Edit from '@material-ui/icons/Edit';
 import colorfull from 'dan-api/palette/colorfull';
 import CounterWidget from '../Counter/CounterWidget';
 import styles from './widget-jss';
+import axios from 'axios';
 
 
 function CounterIconWidget(props) {
   const { classes } = props;
+
   return (
     <div className={classes.rootCounterFull}>
       <Grid container spacing={2}>
@@ -22,7 +24,7 @@ function CounterIconWidget(props) {
             start={0}
             end={207}
             duration={3}
-            title="Subscribers"
+            title="Cams"
           >
             <OndemandVideo className={classes.counterIcon} />
           </CounterWidget>
@@ -33,7 +35,7 @@ function CounterIconWidget(props) {
             start={0}
             end={300}
             duration={3}
-            title="Followers"
+            title="Nums of people"
           >
             <SupervisorAccount className={classes.counterIcon} />
           </CounterWidget>
@@ -44,7 +46,7 @@ function CounterIconWidget(props) {
             start={0}
             end={67}
             duration={3}
-            title="Total Posts"
+            title="roles"
           >
             <Edit className={classes.counterIcon} />
           </CounterWidget>
@@ -55,7 +57,7 @@ function CounterIconWidget(props) {
             start={0}
             end={70}
             duration={3}
-            title="Total Articles"
+            title="Dashboards"
           >
             <CollectionsBookmark className={classes.counterIcon} />
           </CounterWidget>
