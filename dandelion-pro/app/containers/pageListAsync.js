@@ -412,6 +412,10 @@ export const StreetViewMap = loadable(() =>
     fallback: <Loading />,
   });
 
+export const UsersGroupsTable = loadable(() =>
+  import ('./MyTables/UsersGroupsTable'), {
+  fallback: <Loading />,
+});
 export const UserTable = loadable(() =>
   import ('./MyTables/UserTable'), {
   fallback: <Loading />,
@@ -468,6 +472,14 @@ export const EditDashboardForm = loadable(() =>
 });
 export const EditRoleForm = loadable(() =>
   import ('./MyForms/MainForms/Edit/EditRoleForm'), {
+  fallback: <Loading />,
+});
+export const AddGroupForm = loadable(() =>
+  import ('./MyForms/MainForms/Create/AddGroupForm'), {
+  fallback: <Loading />,
+});
+export const EditGroupForm = loadable(() =>
+  import ('./MyForms/MainForms/Edit/EditGroupForm'), {
   fallback: <Loading />,
 });
 export const EditUserForm = loadable(() =>
