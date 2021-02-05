@@ -80,7 +80,7 @@ class AddWidget extends Component {
                       required
                       onChange={handleDashboard}
                     >
-                      {dashboards.map((d) => <MenuItem value={d.id}> {d.id} </MenuItem>)}
+                      {dashboards.map((d) => <MenuItem value={d.id}> {d.name} </MenuItem>)}
                     </Field>
                   </FormControl>
                 </div>

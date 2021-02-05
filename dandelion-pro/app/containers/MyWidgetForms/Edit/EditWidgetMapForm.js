@@ -32,11 +32,13 @@ class EditWidgetMapForm extends React.Component {
     message: '',
     open: false,
     widget: {},
+    styles: {},
   }
 
   componentDidMount() {
-    request(`${URL}/api/widget/${parsed.widgetId}`, GET).then((res) => {
-      this.setState({ user: res.data.user });
+    request(`${URL}/api/widget_data/${parsed.widgetId}`, GET).then((res) => {
+      this.setState({ widget: res.data.widgetData });
+      this.setState({ styles: res.data.widgetData.styles });
     });
   }
 
@@ -66,25 +68,29 @@ class EditWidgetMapForm extends React.Component {
         lat = elem[1];
       }
     });
-    // PATCH.data = {
-    //   name: name ? name : this.state.user.name,
-    //   username: email ? email : this.state.user.email,
-    //   surName: surName ? surName : this.state.user.surName,
-    //   email: email ? email : this.state.user.email,
-    //   roleId: roleId ? roleId : this.state.user.roleId,
-    // };
-    // axios.patch(`${URL}/api/users/${parsed.id}`, PATCH.data, {Authorization: localStorage.getItem('token')}).then(() => {
-    //   this.setState({ open: true, variant: 'success', message: 'Success save!' });
-    // }).catch((error) => {
-    //   this.setState({ open: true, variant: 'error', message: 'Opps, failed to save!' });
-    // });
+    delete this.state.widget.createdAt;
+    delete this.state.widget.id;
+    delete this.state.widget.updatedAt;
+    delete this.state.widget.styles;
+    
+    this.state.widget.styles = {
+      color: color,
+      size: size,
+      lon: lon,
+      lat: lat,
+    }
+    PATCH.data = this.state.widget;
+    axios.patch(`${URL}/api/widget_data/${parsed.widgetId}`, PATCH.data, {Authorization: localStorage.getItem('token')}).then(() => {
+      this.setState({ open: true, variant: 'success', message: 'Success save!' });
+    }).catch((error) => {
+      this.setState({ open: true, variant: 'error', message: 'Opps, failed to save!' });
+    });
   }
 
   render() {
     const title = brand.name + ' - Form';
     const description = brand.desc;
-    const { widget } = this.state;
-    const { message, variant, open } = this.state;
+    const { message, variant, open, styles } = this.state;
     return (
       <div>
         <Helmet>
@@ -99,10 +105,7 @@ class EditWidgetMapForm extends React.Component {
           <div>
             <EditWidgetMap
               onSubmit={(values) => this.showResult(values)}
-              color={widget.color ? widget.color : ''}
-              size={widget.size ? widget.size : ''}
-              lon={widget.lon ? widget.lon : ''}
-              lat={widget.lat ? widget.lat : ''}
+              widget={styles}
             />
           </div>
         </PapperBlock>

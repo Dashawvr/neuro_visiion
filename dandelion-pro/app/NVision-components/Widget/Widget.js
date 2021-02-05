@@ -114,6 +114,14 @@ const Widget = (props) => {
       });
   };
 
+  const user = JSON.parse(localStorage.getItem('user'));
+  let canEditScene = true;
+  let canEnableResizing = false;
+  if(user.id === 1 || user.id === 2) {
+    canEditScene = false;
+    canEnableResizing = true;
+  };
+
   const handleDelete = (e) => {
     setState(initialState);
     console.log(e.target.id);
@@ -143,6 +151,8 @@ const Widget = (props) => {
               onDragStop={handlePosition}
               onResizeStop={handlePosition}
               onContextMenu={handleClick}
+              disableDragging={canEditScene}
+              enableResizing={canEnableResizing}
             >
               <div onDoubleClick={handleDoubleClickContent}>
                 Table of Users
@@ -179,7 +189,9 @@ const Widget = (props) => {
             //     }}
             //     onDragStop={handlePosition}
             //     onResizeStop={handlePosition}
-            //     onContextMenu={handleClick}
+            //     onContextMenu={handleClick}            
+            //     disableDragging={canEditScene}
+            //     enableResizing={canEnableResizing}
             // >
             //   <div onDoubleClick={handleDoubleClickContent}>
             //     <TableRoles />
@@ -217,6 +229,8 @@ const Widget = (props) => {
             //     onDragStop={handlePosition}
             //     onResizeStop={handlePosition}
             //     onContextMenu={handleClick}
+            //     disableDragging={canEditScene}
+            //     enableResizing={canEnableResizing}
             // >
             //   <div onDoubleClick={handleDoubleClickContent}>
             //     <TableFiles />
@@ -258,6 +272,8 @@ const Widget = (props) => {
         //     onDragStop={handlePosition}
         //     onResizeStop={handlePosition}
         //     onContextMenu={handleClick}
+        //     disableDragging={canEditScene}
+        //     enableResizing={canEnableResizing}
         // >
         //   <Maps lat={props.data.lat} lon={props.data.lon} />
         //   <Menu
@@ -292,7 +308,9 @@ const Widget = (props) => {
         //     }}
         //     onDragStop={handlePosition}
         //     onResizeStop={handlePosition}
-        //     onContextMenu={handleClick}
+        //     onContextMenu={handleClick}        
+        //     disableDragging={canEditScene}
+        //     enableResizing={canEnableResizing}
         // >
         //   <div onDoubleClick={handleDoubleClickContent}>
         //     <marquee behavior="scroll" direction="right" hspace="10px">
@@ -333,6 +351,8 @@ const Widget = (props) => {
             onDragStop={handlePosition}
             onResizeStop={handlePosition}
             onContextMenu={handleClick}
+            disableDragging={canEditScene}
+            enableResizing={canEnableResizing}
           >
             <div onDoubleClick={handleDoubleClickContent}>
               <JsmpegPlayer

@@ -56,6 +56,23 @@ class EditPanel extends React.Component {
       });
   };
 
+  redirectToEdit(type, widgetId) {
+    switch (type) {
+      case 'video':
+        this.props.history.push('/home/forms/edit/video?widgetId=' + widgetId);
+        break;
+      case 'map':
+        this.props.history.push('/home/forms/edit/map?widgetId=' + widgetId);
+        break;
+      case 'table':
+        this.props.history.push('/home/forms/edit/table?widgetId=' + widgetId);
+        break;
+      case 'text':
+        this.props.history.push('/home/forms/edit/text?widgetId=' + widgetId);
+        break;
+    }
+  }
+
   async showResult(values) {
     let widgetId = values._root.entries[1][1];
 
@@ -63,20 +80,7 @@ class EditPanel extends React.Component {
     request(`${URL}/api/widget_data/${widgetId}`, GET).then((res) => {
         this.setState({ widget: res.data.widgetData });
       });
-      switch (this.state.widget.type) {
-        case 'video':
-          this.props.history.push('/home/forms/edit/video?widgetId=' + widgetId);
-          break;
-        case 'map':
-          this.props.history.push('/home/forms/edit/map?widgetId=' + widgetId);
-          break;
-        case 'table':
-          this.props.history.push('/home/forms/edit/table?widgetId=' + widgetId);
-          break;
-        case 'text':
-          this.props.history.push('/home/forms/edit/text?widgetsId=' + widgetId);
-          break;
-      }
+      setTimeout(() => this.redirectToEdit(this.state.widget.type, widgetId), 2000);
   }
 
   render() {

@@ -60,8 +60,7 @@ class EditWidgetVideo extends Component {
       pristine,
       reset,
       submitting,
-      color,
-      size,
+      widget,
     } = this.props;
     return (
       <div>
@@ -73,8 +72,8 @@ class EditWidgetVideo extends Component {
                   <Field
                     name="color"
                     component={TextFieldRedux}
-                    label={color}
-                    placeholder="Color"
+                    label={widget.color}
+                    placeholder="Border Color (red, blue, green...)"
                     validate={required}
                     required
                     ref={this.saveRef}
@@ -85,8 +84,8 @@ class EditWidgetVideo extends Component {
                   <Field
                     name="size"
                     component={TextFieldRedux}
-                    label={size}
-                    placeholder="Size (px)"
+                    label={widget.size}
+                    placeholder="Border Size (px)"
                     validate={required}
                     required
                     ref={this.saveRef}

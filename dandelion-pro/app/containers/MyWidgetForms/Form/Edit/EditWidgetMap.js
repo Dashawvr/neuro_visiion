@@ -60,10 +60,7 @@ class EditWidgetMap extends Component {
       pristine,
       reset,
       submitting,
-      color,
-      size,
-      lat,
-      lon,
+      widget
     } = this.props;
     return (
       <div>
@@ -75,8 +72,8 @@ class EditWidgetMap extends Component {
                   <Field
                     name="color"
                     component={TextFieldRedux}
-                    label={color}
-                    placeholder="Color"
+                    label={widget.color}
+                    placeholder="Border Color"
                     validate={required}
                     required
                     ref={this.saveRef}
@@ -87,8 +84,8 @@ class EditWidgetMap extends Component {
                   <Field
                     name="size"
                     component={TextFieldRedux}
-                    label={size}
-                    placeholder="Size (px)"
+                    label={widget.size}
+                    placeholder="Border Size (px)"
                     validate={required}
                     required
                     ref={this.saveRef}
@@ -99,8 +96,8 @@ class EditWidgetMap extends Component {
                   <Field
                     name="lat"
                     component={TextFieldRedux}
-                    label={lat}
-                    placeholder="Latitude"
+                    label={widget.lat}
+                    placeholder="Marker Latitude"
                     validate={required}
                     required
                     ref={this.saveRef}
@@ -111,8 +108,8 @@ class EditWidgetMap extends Component {
                   <Field
                     name="lon"
                     component={TextFieldRedux}
-                    label={lon}
-                    placeholder="Lontitude"
+                    label={widget.lon}
+                    placeholder="Marker Lontitude"
                     validate={required}
                     required
                     ref={this.saveRef}
