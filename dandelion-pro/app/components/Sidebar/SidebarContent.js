@@ -13,6 +13,7 @@ import logo from 'dan-images/logo.svg';
 import MainMenu from './MainMenu';
 import styles from './sidebar-jss';
 import { connect } from "react-redux";
+import {SocketConnection} from "../../api/socket";
 
 const superuserCred = [
   {
@@ -82,7 +83,7 @@ const userCred = [
     linkParent: '/home/maps',
   }
 ];
-
+const socketConnection = new SocketConnection();
 
 function SidebarContent(props) {
   const [transform, setTransform] = useState(0);
@@ -98,6 +99,14 @@ function SidebarContent(props) {
       mainContent.removeEventListener('scroll', handleScroll);
     };
   }, []);
+
+  useEffect(() => {
+    socketConnection.checkUserStatus();
+    socketConnection.onUserStatus((status) => {
+      changeStatus(status);
+      console.log(status)
+    });
+  },[])
 
   const {
     classes,
@@ -129,12 +138,10 @@ function SidebarContent(props) {
   };
 
   const user = JSON.parse(localStorage.getItem('user'))
-    // console.log(user)
-
   return (
     <div className={classNames(classes.drawerInner, !drawerPaper ? classes.drawerPaperClose : '')}>
       <div className={classes.drawerHeader}>
-        <NavLink to="/app" className={classNames(classes.brand, classes.brandBar, turnDarker && classes.darker)}>
+        <NavLink to="/home" className={classNames(classes.brand, classes.brandBar, turnDarker && classes.darker)}>
           <img src={logo} alt={brand.name}/>
           {props.username}
         </NavLink>

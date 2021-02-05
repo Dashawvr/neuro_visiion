@@ -11,8 +11,11 @@ import { URL } from "../../Axios/axiosForData";
 
 import axios from "axios";
 import { onSignIn } from "../../../redux/actions/login";
+import { SocketConnection } from "../../../api/socket";
 
 const user = JSON.parse(localStorage.getItem('user'))
+
+const socketConnection = new SocketConnection();
 
 
 class Login extends React.Component {
@@ -41,6 +44,7 @@ class Login extends React.Component {
         localStorage.setItem("token", response.data.data.token.access_token);
         this.props.onSignIn(response.data.data.attributes);
         localStorage.setItem("user", JSON.stringify(response.data.data.attributes));
+        socketConnection.setOnline()
         if (response.data.data.token.access_token) {
           this.props.history.push("/home");
         }

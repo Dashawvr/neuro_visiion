@@ -4,8 +4,12 @@ import Auth from './Auth';
 import Application from './Application';
 import ThemeWrapper, { ThemeContext } from './ThemeWrapper';
 import { Email } from "../SampleApps/Email";
+import { Beforeunload } from 'react-beforeunload'
+import { SocketConnection } from "../../api/socket";
 
 window.__MUI_USE_NEXT_TYPOGRAPHY_VARIANTS__ = true;
+
+const socketConnection = new SocketConnection();
 
 
 function App() { // TODO rename this

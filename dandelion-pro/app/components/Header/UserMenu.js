@@ -1,8 +1,8 @@
-import React, { useEffect,Fragment, useState } from 'react';
+import React, { useEffect, Fragment, useState } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
-import { Link,  useHistory  } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
@@ -20,10 +20,13 @@ import ListItemText from '@material-ui/core/ListItemText';
 import dummy from 'dan-api/dummy/dummyContents';
 import messageStyles from 'dan-styles/Messages.scss';
 import styles from './header-jss';
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 import '../../NVision-Pages/Dashboard/app.css'
 import { getDashboards } from "../../redux/actions/dashboards";
 import { URL } from '../../containers/Axios/axiosForData';
+import { SocketConnection } from "../../api/socket";
+
+const socketConnection = new SocketConnection();
 
 function UserMenu(props) {
   const [menuState, setMenuState] = useState({
@@ -45,10 +48,10 @@ function UserMenu(props) {
     setMenuState({ anchorEl: null, openMenu: null });
   };
 
-  const logOut = () => {
+  const logOut = async () => {
+    await socketConnection.setOffline();
     localStorage.clear();
   };
-
 
 
   useEffect(() => {
@@ -57,43 +60,44 @@ function UserMenu(props) {
   }, [])
 
 
-  const { classes, dark , dashboards, location} = props;
+  const { classes, dark, dashboards, location } = props;
 
   const { anchorEl, openMenu } = menuState;
   return (
-      <div>
-        <IconButton
-            aria-haspopup="true"
-            onClick={handleMenu('notification')}
-            color="inherit"
-            className={classNames(classes.notifIcon, dark ? classes.dark : classes.light)}
-        >
-          <Badge className={classes.badge} badgeContent={dashboards?dashboards.data.data.dashboard.rows.length:''} color="secondary">
-            <i className={`ion-ios-folder-outline ${location?'black':''}`} />
-          </Badge>
-        </IconButton>
-        <Menu
-            id="menu-notification"
-            anchorEl={anchorEl}
-            anchorOrigin={{
-              vertical: 'top',
-              horizontal: 'right',
-            }}
-            transformOrigin={{
-              vertical: 'top',
-              horizontal: 'right',
-            }}
-            className={classes.notifMenu}
-            PaperProps={{
-              style: {
-                width: 350,
-              },
-            }}
-            open={openMenu === 'notification'}
-            onClose={handleClose}
-        >
-          {
-            dashboards ?
+    <div>
+      <IconButton
+        aria-haspopup="true"
+        onClick={handleMenu('notification')}
+        color="inherit"
+        className={classNames(classes.notifIcon, dark ? classes.dark : classes.light)}
+      >
+        <Badge className={classes.badge} badgeContent={dashboards ? dashboards.data.data.dashboard.rows.length : ''}
+               color="secondary">
+          <i className={`ion-ios-folder-outline ${location ? 'black' : ''}`}/>
+        </Badge>
+      </IconButton>
+      <Menu
+        id="menu-notification"
+        anchorEl={anchorEl}
+        anchorOrigin={{
+          vertical: 'top',
+          horizontal: 'right',
+        }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'right',
+        }}
+        className={classes.notifMenu}
+        PaperProps={{
+          style: {
+            width: 350,
+          },
+        }}
+        open={openMenu === 'notification'}
+        onClose={handleClose}
+      >
+        {
+          dashboards ?
             (dashboards.data.data.dashboard.rows.map((el) => {
               return (
                 <>
@@ -102,47 +106,47 @@ function UserMenu(props) {
                     handleClose()
                   }}>
                     <div className={messageStyles.messageInfo}>
-                      <ListItemText  primary={`Stage ${el.id}`} secondary={el.createdAt} />
+                      <ListItemText primary={`Stage ${el.id}`} secondary={el.createdAt}/>
                     </div>
                   </MenuItem>
-                  <Divider variant="inset" />
+                  <Divider variant="inset"/>
                 </>
               )
             })) : ''
-          }
-        </Menu>
-        <Button onClick={handleMenu('user-setting')}>
-          <Avatar
-              alt={dummy.user.name}
-              src={dummy.user.avatar}
-          />
-        </Button>
-        <Menu
-            id="menu-appbar"
-            anchorEl={anchorEl}
-            anchorOrigin={{
-              vertical: 'top',
-              horizontal: 'right',
-            }}
-            transformOrigin={{
-              vertical: 'top',
-              horizontal: 'right',
-            }}
-            open={openMenu === 'user-setting'}
-            onClose={handleClose}
-        >
-          <MenuItem onClick={() => {
-            logOut()
-            history.push('/')
-          }}>
-            {/*<ListItemIcon>*/}
-            {/*  <ExitToApp />*/}
-            {/*</ListItemIcon>*/}
+        }
+      </Menu>
+      <Button onClick={handleMenu('user-setting')}>
+        <Avatar
+          alt={dummy.user.name}
+          src={dummy.user.avatar}
+        />
+      </Button>
+      <Menu
+        id="menu-appbar"
+        anchorEl={anchorEl}
+        anchorOrigin={{
+          vertical: 'top',
+          horizontal: 'right',
+        }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'right',
+        }}
+        open={openMenu === 'user-setting'}
+        onClose={handleClose}
+      >
+        <MenuItem onClick={() => {
+          logOut()
+          history.push('/')
+        }}>
+          <ListItemIcon>
             <ExitToApp />
-            Log Out
-          </MenuItem>
-        </Menu>
-      </div>
+          </ListItemIcon>
+          <ExitToApp/>
+          Log Out
+        </MenuItem>
+      </Menu>
+    </div>
   );
 }
 
