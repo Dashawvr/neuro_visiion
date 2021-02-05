@@ -426,6 +426,22 @@ export const DashboardTable = loadable(() =>
 });
 
 
+export const EditWidgetVideoForm = loadable(() =>
+  import ('./MyWidgetForms/Edit/EditWidgetVideoForm'), {
+  fallback: <Loading />,
+});
+export const EditWidgetTableForm = loadable(() =>
+  import ('./MyWidgetForms/Edit/EditWidgetTableForm'), {
+  fallback: <Loading />,
+});
+export const EditWidgetMapForm = loadable(() =>
+  import ('./MyWidgetForms/Edit/EditWidgetMapForm'), {
+  fallback: <Loading />,
+});
+export const EditWidgetTextForm = loadable(() =>
+  import ('./MyWidgetForms/Edit/EditWidgetTextForm'), {
+  fallback: <Loading />,
+});
 export const CreateWidgetVideoForm = loadable(() =>
   import ('./MyWidgetForms/Create/CreateWidgetVideoForm'), {
   fallback: <Loading />,

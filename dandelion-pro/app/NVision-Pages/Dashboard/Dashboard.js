@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import Widget from "../../NVision-components/Widget/Widget";
 import { Redirect, useHistory } from "react-router-dom";
 import axios from "axios";
+import { URL } from '../../containers/Axios/axiosForData';
 // import history from "../../utils/history";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -38,7 +39,7 @@ const Dashboard = (props) => {
   useEffect(() => {
     async function getWidgets() {
       await axios
-        .get(`/api/dashboard/${id}`)
+        .get(`${URL}/api/dashboard/${id}`)
         .then((res) => {
           setWidgets(res.data.data.Dashboard.widget_data);
         })
