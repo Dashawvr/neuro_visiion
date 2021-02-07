@@ -18,6 +18,7 @@ import {
 } from 'dan-components/Forms/ReduxFormMUI';
 import { initAction, clearAction } from 'dan-redux/actions/reduxFormActions';
 import history from '../../../../utils/history';
+import { withTranslation } from 'react-i18next';
 
 const renderRadioGroup = ({ input, ...rest }) => (
   <RadioGroup
@@ -66,6 +67,7 @@ class EditGroup extends Component {
       submitting,
       name,
       users,
+      t,
     } = this.props;
     return (
       <div>
@@ -78,7 +80,7 @@ class EditGroup extends Component {
                     name="name"
                     component={TextFieldRedux}
                     label={name}
-                    placeholder="Name"
+                    placeholder={t('EditGroup.name')}
                     validate={required}
                     required
                     ref={this.saveRef}
@@ -100,17 +102,17 @@ class EditGroup extends Component {
                 </div>
                 <div>
                   <Button variant="contained" color="secondary" type="submit" disabled={submitting}>
-                    Submit
+                  {t('Buttons.submit')}
                   </Button>
                   <Button
                     type="button"
                     disabled={pristine || submitting}
                     onClick={reset}
                   >
-                    Reset
+                    {t('Buttons.reset')}
                   </Button>
                   <Button variant="contained" color="primary" onClick={() => history.goBack()}>
-                    Cancel
+                  {t('Buttons.cancel')}
                   </Button>
                 </div>
               </form>
@@ -153,4 +155,4 @@ const FormInit = connect(
   mapDispatchToProps,
 )(ReduxFormMapped);
 
-export default withStyles(styles)(FormInit);
+export default withStyles(styles)(withTranslation()(FormInit));

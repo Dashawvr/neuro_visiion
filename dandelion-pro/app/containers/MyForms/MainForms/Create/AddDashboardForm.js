@@ -18,6 +18,7 @@ import {
   URL, POST, GET
 } from '../../../Axios/axiosForData';
 import Notification from '../../../MyNotification/Notification';
+import { withTranslation } from 'react-i18next';
 
 const styles = ({
   root: {
@@ -54,6 +55,7 @@ class AddDashboardForm extends React.Component {
     let active = false;
     let roleId = null;
     let userId = null;
+    let name = null;
     values._root.entries.map((elem) => {
       if (elem[0] === 'active') {
         active = elem[1];
@@ -63,17 +65,21 @@ class AddDashboardForm extends React.Component {
       }
       if (elem[0] === 'user') {
         userId = elem[1];
+      }      
+      if (elem[0] === 'name') {
+        name = elem[1];
       }
     });
     POST.data = {
       enable: active,
-      roleId,
-      userId,
+      roleId: roleId,
+      userId: userId,
+      name: name,
     };
     axios.post(`${URL}/api/dashboard/`, POST.data, {Authorization: localStorage.getItem('token')}).then(() => {
-      this.setState({ open: true, variant: 'success', message: 'Success created!' });
+      this.setState({ open: true, variant: 'success', message: 'Notification.success' });
     }).catch((error) => {
-      this.setState({ open: true, variant: 'error', message: 'Opps, failed to create!' });
+      this.setState({ open: true, variant: 'error', message: 'Notification.error' });
     });
   }
 
@@ -81,6 +87,7 @@ class AddDashboardForm extends React.Component {
     const title = brand.name + ' - Form';
     const description = brand.desc;
     const { message, variant, open } = this.state;
+    const { t } = this.props;
     return (
       <div>
         <Helmet>
@@ -91,15 +98,15 @@ class AddDashboardForm extends React.Component {
           <meta property="twitter:title" content={title} />
           <meta property="twitter:description" content={description} />
         </Helmet>
-        <PapperBlock title="Create Dashboard" icon="ios-list-box-outline">
+        <PapperBlock title={t('AddDashboard.title')} icon="ios-list-box-outline">
           <div>
             <AddDashboard onSubmit={(values) => this.showResult(values)} users={this.state.users} roles={this.state.roles} />
           </div>
         </PapperBlock>
-        <Notification open={open} handleClose={() => this.handleClose()} variant={variant} message={message} />
+        <Notification open={open} handleClose={() => this.handleClose()} variant={variant} message={t(message)} />
       </div>
     );
   }
 }
 
-export default withStyles(styles)(AddDashboardForm);
+export default withStyles(styles)(withTranslation()(AddDashboardForm));

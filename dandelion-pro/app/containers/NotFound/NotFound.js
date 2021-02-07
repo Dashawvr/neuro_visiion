@@ -3,6 +3,7 @@ import { Helmet } from 'react-helmet';
 import brand from 'dan-api/dummy/brand';
 import { Route } from 'react-router-dom';
 import { ErrorWrap } from 'dan-components';
+import { withTranslation } from 'react-i18next';
 
 const title = brand.name + ' - Page Not Found';
 const description = brand.desc;
@@ -13,6 +14,7 @@ const NotFound = () => (
       if (staticContext) {
         staticContext.status = 404; // eslint-disable-line
       }
+      const { t } = this.props;
       return (
         <div>
           <Helmet>
@@ -23,11 +25,11 @@ const NotFound = () => (
             <meta property="twitter:title" content={title} />
             <meta property="twitter:description" content={description} />
           </Helmet>
-          <ErrorWrap title="404" desc="Oops, Page Not Found :(" />
+          <ErrorWrap title="404" desc={t('NotFound.desc')} />
         </div>
       );
     }}
   />
 );
 
-export default NotFound;
+export default withTranslation()(NotFound);

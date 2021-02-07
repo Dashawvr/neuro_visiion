@@ -19,6 +19,7 @@ import {
 } from '../../../Axios/axiosForData';
 import Notification from '../../../MyNotification/Notification';
 import axios from 'axios';
+import { withTranslation } from 'react-i18next';
 
 const parsed = queryString.parse(location.search);
 const styles = ({
@@ -82,9 +83,9 @@ class EditRoleForm extends React.Component {
     };
     axios.put(`${URL}/api/role/`, PUT.data, {Authorization: localStorage.getItem('token')});
     axios.patch(`${URL}/api/access_right/` + this.state.accessRight.id, PATCH.data, {Authorization: localStorage.getItem('token')}).then(() => {
-      this.setState({ open: true, variant: 'success', message: 'Success save!' });
+      this.setState({ open: true, variant: 'success', message: 'Notification.success' });
     }).catch((error) => {
-      this.setState({ open: true, variant: 'error', message: 'Opps, failed to save!' });
+      this.setState({ open: true, variant: 'error', message: 'Notification.error' });
     });
   }
 
@@ -92,6 +93,7 @@ class EditRoleForm extends React.Component {
     const title = brand.name + ' - Form';
     const description = brand.desc;
     const { message, variant, open } = this.state;
+    const { t } = this.props;
     return (
       <div>
         <Helmet>
@@ -102,15 +104,15 @@ class EditRoleForm extends React.Component {
           <meta property="twitter:title" content={title} />
           <meta property="twitter:description" content={description} />
         </Helmet>
-        <PapperBlock title="Edit Role" icon="ios-list-box-outline">
+        <PapperBlock title={t('EditRole.title')} icon="ios-list-box-outline">
           <div>
             <EditRole onSubmit={(values) => this.showResult(values)} name={this.state.role.name} />
           </div>
         </PapperBlock>
-        <Notification open={open} handleClose={() => this.handleClose()} variant={variant} message={message} />
+        <Notification open={open} handleClose={() => this.handleClose()} variant={variant} message={t(message)} />
       </div>
     );
   }
 }
 
-export default withStyles(styles)(EditRoleForm);
+export default withStyles(styles)(withTranslation()(EditRoleForm));

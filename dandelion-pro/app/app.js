@@ -9,7 +9,7 @@
 import '@babel/polyfill';
 
 // Import all the third party stuff
-import React from 'react';
+import React, { Suspense } from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'connected-react-router/immutable';
@@ -33,6 +33,7 @@ import 'file-loader?name=.htaccess!./.htaccess'; // eslint-disable-line
 import configureStore from './redux/configureStore';
 
 import axios from 'axios'
+import './i18next';
 
 // Import i18n messages
 import { translationMessages } from './i18n';
@@ -63,9 +64,11 @@ const render = messages => {
   ReactDOM.render(
     <Provider store={store}>
       <LanguageProvider messages={messages}>
+      <Suspense fallback="loading...">
         <BrowserRouter history={history}>
           <App />
         </BrowserRouter>
+      </Suspense>
       </LanguageProvider>
     </Provider>,
     MOUNT_NODE,

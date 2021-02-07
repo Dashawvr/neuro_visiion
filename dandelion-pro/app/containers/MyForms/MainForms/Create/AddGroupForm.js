@@ -17,6 +17,7 @@ import {
   URL, GET
 } from '../../../Axios/axiosForData';
 import Notification from '../../../MyNotification/Notification';
+import { withTranslation } from 'react-i18next';
 
 const styles = ({
   root: {
@@ -61,9 +62,9 @@ class AddGroupForm extends React.Component {
       users: users,
     };
     axios.post(`${URL}/api/user_group/`, POST.data, {Authorization: localStorage.getItem('token')}).then(() => {
-        this.setState({ open: true, variant: 'success', message: 'Success created!' });
+        this.setState({ open: true, variant: 'success', message: 'Notification.success' });
       }).catch((error) => {
-        this.setState({ open: true, variant: 'error', message: 'Opps, failed to create!' });
+        this.setState({ open: true, variant: 'error', message: 'Notification.error' });
       });
   }
 
@@ -71,6 +72,7 @@ class AddGroupForm extends React.Component {
     const title = brand.name + ' - Form';
     const description = brand.desc;
     const { message, variant, open } = this.state;
+    const { t } = this.props;
     return (
       <div>
         <Helmet>
@@ -81,15 +83,15 @@ class AddGroupForm extends React.Component {
           <meta property="twitter:title" content={title} />
           <meta property="twitter:description" content={description} />
         </Helmet>
-        <PapperBlock title="Create User Group" icon="ios-list-box-outline">
+        <PapperBlock title={t('AddGroup.title')} icon="ios-list-box-outline">
           <div>
             <AddGroup onSubmit={(values) => this.showResult(values)} users={this.state.users} />
           </div>
         </PapperBlock>
-        <Notification open={open} handleClose={() => this.handleClose()} variant={variant} message={message} />
+        <Notification open={open} handleClose={() => this.handleClose()} variant={variant} message={t(message)} />
       </div>
     );
   }
 }
 
-export default withStyles(styles)(AddGroupForm);
+export default withStyles(styles)(withTranslation()(AddGroupForm));

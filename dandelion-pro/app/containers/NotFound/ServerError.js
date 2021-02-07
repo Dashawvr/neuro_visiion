@@ -3,6 +3,7 @@ import { Helmet } from 'react-helmet';
 import brand from 'dan-api/dummy/brand';
 import { Route } from 'react-router-dom';
 import { ErrorWrap } from 'dan-components';
+import { withTranslation } from 'react-i18next';
 
 const title = brand.name + ' - Server Error';
 const description = brand.desc;
@@ -13,6 +14,7 @@ const ServerError = () => (
       if (staticContext) {
         staticContext.status = 500; // eslint-disable-line
       }
+      const { t } = this.props;
       return (
         <div>
           <Helmet>
@@ -23,11 +25,11 @@ const ServerError = () => (
             <meta property="twitter:title" content={title} />
             <meta property="twitter:description" content={description} />
           </Helmet>
-          <ErrorWrap title="500" desc="Oops, Sorry Server Doesn't Work :(" />
+          <ErrorWrap title="500" desc={t('ServerError.desc')} />
         </div>
       );
     }}
   />
 );
 
-export default ServerError;
+export default withTranslation()(ServerError);

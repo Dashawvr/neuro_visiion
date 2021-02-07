@@ -16,8 +16,18 @@ import request from '../../../utils/request';
 import { URL, DELETE } from '../../Axios/axiosForData';
 import Notification from '../../MyNotification/Notification';
 import { withRouter } from "react-router-dom";
+import { withTranslation } from 'react-i18next';
 
 const styles = theme => ({
+  button: {
+    margin: theme.spacing(1),
+  },
+  rightIcon: {
+    marginLeft: theme.spacing(1),
+  },
+  iconSmall: {
+    fontSize: 20,
+  },
   table: {
     '& > div': {
       overflow: 'auto'
@@ -42,53 +52,48 @@ class Dashboards extends React.Component {
     message: '',
     open: false,
     id: null,
-    columns: [
-      {
-        label: 'ID',
-        name: 'id',
-        options: {
-          filter: true
-        }
-      },
-      {
-        label: 'Active',
-        name: 'enable',
-        options: {
-          filter: true,
-          customBodyRender: (value) => {
-            if (value) {
-              return (<Chip label="ON" color="secondary" />);
-            }
-            if (!value) {
-              return (<Chip label="OFF" color="primary" />);
-            }
-            return (<Chip label="Unknown" />);
-          }
-        }
-      },
-      {
-        label: 'Role',
-        name: 'roleId',
-        options: {
-          filter: true,
-        }
-      },
-      {
-        label: 'User',
-        name: 'userId',
-        options: {
-          filter: true,
-        }
-      },
-    ],
   }
 
   render() {
     const {
-      columns, id, open, variant, message
+      id, open, variant, message
     } = this.state;
-    const { classes, data } = this.props;
+    const { classes, data, t } = this.props;
     const options = {
+      textLabels: {
+        body: {
+          noMatch: t('MUIDATABLES.noMatch'),
+          toolTip: t('MUIDATABLES.toolTip'),
+          columnHeaderTooltip: column => `${t('MUIDATABLES.sort')} ${column.label}`
+        },
+        pagination: {
+          next: t('MUIDATABLES.next'),
+          previous: t('MUIDATABLES.previous'),
+          rowsPerPage: t('MUIDATABLES.rowsPerPage'),
+          displayRows: t('MUIDATABLES.displayRows'),
+        },
+        toolbar: {
+          search: t('MUIDATABLES.search'),
+          downloadCsv: t('MUIDATABLES.downloadCsv'),
+          print: t('MUIDATABLES.print'),
+          viewColumns: t('MUIDATABLES.viewColumns'),
+          filterTable: t('MUIDATABLES.filterTable'),
+        },
+        filter: {
+          all: t('MUIDATABLES.all'),
+          title: t('MUIDATABLES.title'),
+          reset: t('MUIDATABLES.reset'),
+        },
+        viewColumns: {
+          title: t('MUIDATABLES.titleShow'),
+          titleAria: t('MUIDATABLES.titleAria'),
+        },
+        selectedRows: {
+          text: t('MUIDATABLES.text'),
+          delete: t('MUIDATABLES.delete'),
+          deleteAria: t('MUIDATABLES.deleteAria'),
+        },
+      },
       filterType: 'dropdown',
       responsive: 'stacked',
       print: true,
@@ -103,19 +108,19 @@ class Dashboards extends React.Component {
     const handleDelete = (id) => {
       if (id) {
         request(`${URL}/api/dashboard/${id}`, DELETE).then(() => {
-          this.setState({ open: true, variant: 'success', message: 'Success delete!' });
+          this.setState({ open: true, variant: 'success', message: 'Notification.success' });
         }).catch((error) => {
-          this.setState({ open: true, variant: 'error', message: 'Opps, failed to delete!' });
+          this.setState({ open: true, variant: 'error', message: 'Notification.error' });
         });
       } else {
-        this.setState({ open: true, variant: 'warning', message: 'Click on row for delete!' });
+        this.setState({ open: true, variant: 'warning', message: 'Notification.clickDelete' });
       }
     };
     const handleEdit = (id) => {
       if (id) {
         this.props.history.push('/home/forms/edit/dashboard/?id=' + id);
       } else {
-        this.setState({ open: true, variant: 'warning', message: 'Click on row for edit!' });
+        this.setState({ open: true, variant: 'warning', message: 'Notification.clickEdit' });
       }
     };
     const handleClose = (event, reason) => {
@@ -132,27 +137,72 @@ class Dashboards extends React.Component {
             title="Dashboards list"
             data={data}
             columns={columns}
-            options={options}
+            options={[
+    {
+        label: 'ID',
+        name: 'id',
+        options: {
+          filter: true
+        }
+      },
+      {
+        label: t('TableDashboards.name'),
+        name: 'name',
+        options: {
+          filter: true
+        }
+      },      
+      {
+        label: 'Active',
+        name: 'enable',
+        options: {
+          filter: true,
+          customBodyRender: (value) => {
+            if (value) {
+              return (<Chip label={t("TableDashboards.yes")} color="secondary" />);
+            }
+            if (!value) {
+              return (<Chip label={t("TableDashboards.not")} color="primary" />);
+            }
+            return (<Chip label={t("TableDashboards.unknow")} />);
+          }
+        }
+      },
+      {
+        label: t("TableDashboards.role"),
+        name: 'roleId',
+        options: {
+          filter: true,
+        }
+      },
+      {
+        label: t("TableDashboards.user"),
+        name: 'userId',
+        options: {
+          filter: true,
+        }
+      },
+    ]}
           />
         </div>
         <div>
           <br />
           <br />
           <Button onClick={() => this.props.history.push('/home/forms/add/dashboard')} className={classes.button} variant="contained" color="primary">
-            Create
+          {t('Buttons.create')}
             <AddCircleOutlineIcon className={classes.rightIcon} />
           </Button>
           <Button onClick={() => handleEdit(id)} className={classes.button} variant="contained" color="secondary">
-            Edit
+          {t('Buttons.edit')}
             <CreateIcon className={classes.rightIcon} />
           </Button>
           <Button onClick={() => handleDelete(id)} className={classes.button} variant="contained" color="red">
-            Delete
+          {t('Buttons.delete')}
             <DeleteIcon className={classes.rightIcon} />
           </Button>
           <br />
         </div>
-        <Notification open={open} handleClose={() => handleClose()} variant={variant} message={message} />
+        <Notification open={open} handleClose={() => handleClose()} variant={variant} message={t(message)} />
       </Fragment>
     );
   }
@@ -162,4 +212,4 @@ Dashboards.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(withRouter((Dashboards)));
+export default withStyles(styles)(withRouter(withTranslation()(Dashboards)));

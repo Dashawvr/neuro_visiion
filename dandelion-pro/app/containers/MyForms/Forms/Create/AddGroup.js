@@ -18,6 +18,7 @@ import {
 } from 'dan-components/Forms/ReduxFormMUI';
 import { initAction, clearAction } from 'dan-redux/actions/reduxFormActions';
 import history from '../../../../utils/history';
+import { withTranslation } from 'react-i18next';
 
 const renderRadioGroup = ({ input, ...rest }) => (
   <RadioGroup
@@ -64,6 +65,7 @@ class AddGroup extends Component {
       reset,
       submitting,
       users,
+      t,
     } = this.props;
     return (
       <div>
@@ -75,8 +77,8 @@ class AddGroup extends Component {
                   <Field
                     name="name"
                     component={TextFieldRedux}
-                    placeholder="Name"
-                    label="Name"
+                    placeholder={t('AddGroup.name')}
+                    label={t('AddGroup.name')}
                     validate={required}
                     required
                     ref={this.saveRef}
@@ -85,7 +87,7 @@ class AddGroup extends Component {
                 </div>
                 <div>
                   <FormControl className={classes.field}>
-                    <InputLabel htmlFor="users">Users</InputLabel>
+                    <InputLabel htmlFor="users">{t('AddGroup.users')}</InputLabel>
                     <Field
                       name="users"
                       component={SelectRedux}
@@ -98,17 +100,17 @@ class AddGroup extends Component {
                 </div>
                 <div>
                   <Button variant="contained" color="secondary" type="submit" disabled={submitting}>
-                    Submit
+                  {t('Buttons.submit')}
                   </Button>
                   <Button
                     type="button"
                     disabled={pristine || submitting}
                     onClick={reset}
                   >
-                    Reset
+                    {t('Buttons.reset')}
                   </Button>
                   <Button variant="contained" color="primary" onClick={() => history.goBack()}>
-                    Cancel
+                  {t('Buttons.cancel')}
                   </Button>
                 </div>
               </form>
@@ -151,4 +153,4 @@ const FormInit = connect(
   mapDispatchToProps,
 )(ReduxFormMapped);
 
-export default withStyles(styles)(FormInit);
+export default withStyles(styles)(withTranslation()(FormInit));
