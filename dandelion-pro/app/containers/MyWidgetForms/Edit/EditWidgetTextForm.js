@@ -12,7 +12,7 @@ import brand from 'dan-api/dummy/brand';
 import { withStyles } from '@material-ui/core/styles';
 import { PapperBlock } from 'dan-components';
 import queryString from 'query-string';
-import EditWidgetText from '../Form/Edit/EditWidgetText';
+import EditWidgetMap from '../Form/Edit/EditWidgetMap';
 import request from '../../../utils/request';
 import { URL, PATCH, GET } from '../../Axios/axiosForData';
 import Notification from '../../MyNotification/Notification';
@@ -32,11 +32,13 @@ class EditWidgetTextForm extends React.Component {
     message: '',
     open: false,
     widget: {},
+    styles: {},
   }
 
   componentDidMount() {
-    request(`${URL}/api/widget/${parsed.widgetId}`, GET).then((res) => {
-      this.setState({ user: res.data.user });
+    request(`${URL}/api/widget_data/${parsed.widgetId}`, GET).then((res) => {
+      this.setState({ widget: res.data.widgetData });
+      this.setState({ styles: res.data.widgetData.styles });
     });
   }
 
@@ -50,8 +52,8 @@ class EditWidgetTextForm extends React.Component {
   showResult(values) {
     let color = undefined;
     let size = undefined;
-    let speed = undefined;
-    let fontSize = undefined;
+    let lon = undefined;
+    let lat = undefined;
     values._root.entries.map((elem) => {
       if (elem[0] === 'color') {
         color = elem[1];
@@ -66,25 +68,29 @@ class EditWidgetTextForm extends React.Component {
         fontSize = elem[1];
       }
     });
-    // PATCH.data = {
-    //   name: name ? name : this.state.user.name,
-    //   username: email ? email : this.state.user.email,
-    //   surName: surName ? surName : this.state.user.surName,
-    //   email: email ? email : this.state.user.email,
-    //   roleId: roleId ? roleId : this.state.user.roleId,
-    // };
-    // axios.patch(`${URL}/api/users/${parsed.id}`, PATCH.data, {Authorization: localStorage.getItem('token')}).then(() => {
-    //   this.setState({ open: true, variant: 'success', message: 'Success save!' });
-    // }).catch((error) => {
-    //   this.setState({ open: true, variant: 'error', message: 'Opps, failed to save!' });
-    // });
+    delete this.state.widget.createdAt;
+    delete this.state.widget.id;
+    delete this.state.widget.updatedAt;
+    delete this.state.widget.styles;
+    
+    this.state.widget.styles = {
+      color: color,
+      size: size,
+      speed: speed,
+      fontSize: fontSize,
+    }
+    PATCH.data = this.state.widget;
+    axios.patch(`${URL}/api/widget_data/${parsed.widgetId}`, PATCH.data, {Authorization: localStorage.getItem('token')}).then(() => {
+      this.setState({ open: true, variant: 'success', message: 'Success save!' });
+    }).catch((error) => {
+      this.setState({ open: true, variant: 'error', message: 'Opps, failed to save!' });
+    });
   }
 
   render() {
     const title = brand.name + ' - Form';
     const description = brand.desc;
-    const { widget } = this.state;
-    const { message, variant, open } = this.state;
+    const { message, variant, open, styles } = this.state;
     return (
       <div>
         <Helmet>
@@ -97,12 +103,9 @@ class EditWidgetTextForm extends React.Component {
         </Helmet>
         <PapperBlock title="Edit Widget Text" icon="ios-list-box-outline">
           <div>
-            <EditWidgetText
+            <EditWidgetMap
               onSubmit={(values) => this.showResult(values)}
-              color={widget.color ? widget.color : ''}
-              size={widget.size ? widget.size : ''}
-              speed={widget.speed ? widget.speed : ''}
-              fontSize={widget.fontSize ? widget.fontSize : ''}
+              widget={styles}
             />
           </div>
         </PapperBlock>

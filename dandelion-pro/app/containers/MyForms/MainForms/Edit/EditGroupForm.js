@@ -12,10 +12,11 @@ import brand from 'dan-api/dummy/brand';
 import { withStyles } from '@material-ui/core/styles';
 import { PapperBlock } from 'dan-components';
 import queryString from 'query-string';
-import EditWidgetMap from '../Form/Edit/EditWidgetMap';
-import request from '../../../utils/request';
-import { URL, PATCH, GET } from '../../Axios/axiosForData';
-import Notification from '../../MyNotification/Notification';
+import EditGroup from '../../Forms/Edit/EditGroup';
+import request from '../../../../utils/request';
+import history from '../../../../utils/history';
+import { URL, PATCH, GET } from '../../../Axios/axiosForData';
+import Notification from '../../../MyNotification/Notification';
 import axios from 'axios';
 
 const parsed = queryString.parse(location.search);
@@ -26,19 +27,21 @@ const styles = ({
   }
 });
 
-class EditWidgetMapForm extends React.Component {
+class EditGroupForm extends React.Component {
   state = {
     variant: '',
     message: '',
     open: false,
-    widget: {},
-    styles: {},
+    group: {},
+    users: []
   }
 
   componentDidMount() {
-    request(`${URL}/api/widget_data/${parsed.widgetId}`, GET).then((res) => {
-      this.setState({ widget: res.data.widgetData });
-      this.setState({ styles: res.data.widgetData.styles });
+    request(`${URL}/api/user_group/${parsed.id}`, GET).then((res) => {
+      this.setState({ user: res.data.user_group });
+    });
+    request(`${URL}/api/users/`, GET).then((res) => {
+      this.setState({ users: res.data.users.rows });
     });
   }
 
@@ -50,37 +53,21 @@ class EditWidgetMapForm extends React.Component {
   };
 
   showResult(values) {
-    let color = undefined;
-    let size = undefined;
-    let lon = undefined;
-    let lat = undefined;
+    let name = undefined;
+    let users = undefined;
     values._root.entries.map((elem) => {
-      if (elem[0] === 'color') {
-        color = elem[1];
+      if (elem[0] === 'name') {
+        name = elem[1];
       }
-      if (elem[0] === 'size') {
-        size = elem[1];
-      }
-      if (elem[0] === 'lon') {
-        lon = Number(elem[1]);
-      }
-      if (elem[0] === 'lat') {
-        lat = elem[1];
+      if (elem[0] === 'users') {
+        users = elem[1];
       }
     });
-    delete this.state.widget.createdAt;
-    delete this.state.widget.id;
-    delete this.state.widget.updatedAt;
-    delete this.state.widget.styles;
-    
-    this.state.widget.styles = {
-      color: color,
-      size: size,
-      lon: lon,
-      lat: lat,
-    }
-    PATCH.data = this.state.widget;
-    axios.patch(`${URL}/api/widget_data/${parsed.widgetId}`, PATCH.data, {Authorization: localStorage.getItem('token')}).then(() => {
+    PATCH.data = {
+      name: name ? name : this.state.group.name,
+      users: users ? users : this.state.group.users,
+    };
+    axios.patch(`${URL}/api/user_group/${parsed.id}`, PATCH.data, {Authorization: localStorage.getItem('token')}).then(() => {
       this.setState({ open: true, variant: 'success', message: 'Success save!' });
     }).catch((error) => {
       this.setState({ open: true, variant: 'error', message: 'Opps, failed to save!' });
@@ -90,7 +77,8 @@ class EditWidgetMapForm extends React.Component {
   render() {
     const title = brand.name + ' - Form';
     const description = brand.desc;
-    const { message, variant, open, styles } = this.state;
+    const { group } = this.state;
+    const { message, variant, open } = this.state;
     return (
       <div>
         <Helmet>
@@ -101,11 +89,12 @@ class EditWidgetMapForm extends React.Component {
           <meta property="twitter:title" content={title} />
           <meta property="twitter:description" content={description} />
         </Helmet>
-        <PapperBlock title="Edit Widget Map" icon="ios-list-box-outline">
+        <PapperBlock title="Edit Group" icon="ios-list-box-outline">
           <div>
-            <EditWidgetMap
+            <EditGroup
               onSubmit={(values) => this.showResult(values)}
-              widget={styles}
+              name={group.name ? group.name : ''}
+              users={group.users ? group.users : ''}
             />
           </div>
         </PapperBlock>
@@ -115,4 +104,4 @@ class EditWidgetMapForm extends React.Component {
   }
 }
 
-export default withStyles(styles)(EditWidgetMapForm);
+export default withStyles(styles)(EditGroupForm);

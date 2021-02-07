@@ -60,10 +60,7 @@ class EditWidgetText extends Component {
       pristine,
       reset,
       submitting,
-      color,
-      size,
-      speed,
-      fontSize,
+      widget,
     } = this.props;
     return (
       <div>
@@ -75,8 +72,8 @@ class EditWidgetText extends Component {
                   <Field
                     name="color"
                     component={TextFieldRedux}
-                    label={color}
-                    placeholder="Color"
+                    label={widget.color}
+                    placeholder="Border Color (red, blue, green, black...)"
                     validate={required}
                     required
                     ref={this.saveRef}
@@ -87,8 +84,8 @@ class EditWidgetText extends Component {
                   <Field
                     name="size"
                     component={TextFieldRedux}
-                    label={size}
-                    placeholder="Size (px)"
+                    label={widget.size}
+                    placeholder="Border Size (px)"
                     validate={required}
                     required
                     ref={this.saveRef}
@@ -99,8 +96,8 @@ class EditWidgetText extends Component {
                   <Field
                     name="fontSize"
                     component={TextFieldRedux}
-                    label={fontSize}
-                    placeholder="Font Size (px)"
+                    label={widget.fontSize}
+                    placeholder="Text Font Size (px)"
                     validate={required}
                     required
                     ref={this.saveRef}
@@ -111,8 +108,8 @@ class EditWidgetText extends Component {
                   <Field
                     name="speed"
                     component={TextFieldRedux}
-                    label={speed}
-                    placeholder="Speed"
+                    label={widget.speed}
+                    placeholder="Text Speed"
                     validate={required}
                     required
                     ref={this.saveRef}

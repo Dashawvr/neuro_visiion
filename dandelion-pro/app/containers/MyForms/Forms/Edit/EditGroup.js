@@ -4,12 +4,16 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import { Field, reduxForm } from 'redux-form/immutable';
+import MenuItem from '@material-ui/core/MenuItem';
 import Grid from '@material-ui/core/Grid';
 import RadioGroup from '@material-ui/core/RadioGroup';
+import FormControl from '@material-ui/core/FormControl';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Button from '@material-ui/core/Button';
+import InputLabel from '@material-ui/core/InputLabel';
 import {
+  SelectRedux,
   TextFieldRedux,
 } from 'dan-components/Forms/ReduxFormMUI';
 import { initAction, clearAction } from 'dan-redux/actions/reduxFormActions';
@@ -52,7 +56,7 @@ const styles = theme => ({
   },
 });
 
-class EditWidgetMap extends Component {
+class EditGroup extends Component {
   render() {
     const {
       classes,
@@ -60,7 +64,8 @@ class EditWidgetMap extends Component {
       pristine,
       reset,
       submitting,
-      widget
+      name,
+      users,
     } = this.props;
     return (
       <div>
@@ -70,10 +75,10 @@ class EditWidgetMap extends Component {
               <form onSubmit={handleSubmit}>
                 <div>
                   <Field
-                    name="color"
+                    name="name"
                     component={TextFieldRedux}
-                    label={widget.color}
-                    placeholder="Border Color"
+                    label={name}
+                    placeholder="Name"
                     validate={required}
                     required
                     ref={this.saveRef}
@@ -81,41 +86,18 @@ class EditWidgetMap extends Component {
                   />
                 </div>
                 <div>
-                  <Field
-                    name="size"
-                    component={TextFieldRedux}
-                    label={widget.size}
-                    placeholder="Border Size (px)"
-                    validate={required}
-                    required
-                    ref={this.saveRef}
-                    className={classes.field}
-                  />
-                </div>   
-                <div>
-                  <Field
-                    name="lat"
-                    component={TextFieldRedux}
-                    label={widget.lat}
-                    placeholder="Marker Latitude"
-                    validate={required}
-                    required
-                    ref={this.saveRef}
-                    className={classes.field}
-                  />
+                  <FormControl className={classes.field}>
+                    <InputLabel htmlFor="users">{users}</InputLabel>
+                    <Field
+                      name="users"
+                      component={SelectRedux}
+                      placeholder="Selection"
+                      required
+                    >
+                      {users.map((user) => <MenuItem value={user.id}>{user.name}</MenuItem>)}
+                    </Field>
+                  </FormControl>
                 </div>
-                <div>
-                  <Field
-                    name="lon"
-                    component={TextFieldRedux}
-                    label={widget.lon}
-                    placeholder="Marker Lontitude"
-                    validate={required}
-                    required
-                    ref={this.saveRef}
-                    className={classes.field}
-                  />
-                </div>             
                 <div>
                   <Button variant="contained" color="secondary" type="submit" disabled={submitting}>
                     Submit
@@ -144,7 +126,7 @@ renderRadioGroup.propTypes = {
   input: PropTypes.object.isRequired,
 };
 
-EditWidgetMap.propTypes = {
+EditGroup.propTypes = {
   classes: PropTypes.object.isRequired,
   handleSubmit: PropTypes.func.isRequired,
   reset: PropTypes.func.isRequired,
@@ -160,7 +142,7 @@ const mapDispatchToProps = dispatch => ({
 const ReduxFormMapped = reduxForm({
   form: 'immutableExample',
   enableReinitialize: true,
-})(EditWidgetMap);
+})(EditGroup);
 
 const reducer = 'initval';
 const FormInit = connect(
