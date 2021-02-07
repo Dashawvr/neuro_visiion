@@ -1,7 +1,8 @@
 import {GET_DASH} from "../constants/dashboards";
 
 const initialState = {
-  dashboards: ''
+  dashboards: '',
+  roles: ''
 }
 
 export default function dashboards(state = initialState, action) {
@@ -12,3 +13,4 @@ export default function dashboards(state = initialState, action) {
       return state
   }
 }
+

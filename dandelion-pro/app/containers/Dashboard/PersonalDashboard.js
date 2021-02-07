@@ -37,7 +37,6 @@ function PersonalDashboard(props) {
     socketConnection.connect();
     socketConnection.setOnline()
   },[])
-  // useBeforeunload((event) => event.preventDefault());
 
   useBeforeunload(() => "Are you sure to close this tab?")
 
