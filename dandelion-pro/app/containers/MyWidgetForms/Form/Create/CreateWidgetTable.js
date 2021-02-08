@@ -16,6 +16,7 @@ import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import history from '../../../../utils/history';
+import { withTranslation } from 'react-i18next';
 
 const renderRadioGroup = ({ input, ...rest }) => (
   <RadioGroup
@@ -59,6 +60,7 @@ class CreateWidgetTable extends Component {
       reset,
       submitting,
     } = this.props;
+    const { t } = this.props;
     return (
       <div>
         <Grid container spacing={3} alignItems="flex-start" direction="row" justify="center">
@@ -67,32 +69,32 @@ class CreateWidgetTable extends Component {
               <form onSubmit={handleSubmit}>
                 <div>
                   <FormControl className={classes.field}>
-                    <InputLabel htmlFor="table">Table</InputLabel>
+                    <InputLabel htmlFor="table">{t('AddWidgetTable.table')}</InputLabel>
                     <Field
                       name="data"
                       component={SelectRedux}
-                      placeholder="Table"
+                      placeholder={t('AddWidgetTable.table')}
                       required
                     >
-                      <MenuItem value="roles">Roles</MenuItem>
-                      <MenuItem value="users">Users</MenuItem>
-                      <MenuItem value="dashboards">Dashboards</MenuItem>
+                      <MenuItem value="roles">{t('AddWidgetTable.roles')}</MenuItem>
+                      <MenuItem value="users">{t('AddWidgetTable.users')}</MenuItem>
+                      <MenuItem value="dashboards">{t('AddWidgetTable.dashboards')}</MenuItem>
                     </Field>
                   </FormControl>
                 </div>
                 <div>
                   <Button variant="contained" color="secondary" type="submit" disabled={submitting}>
-                    Submit
+                  {t('Buttons.submit')}
                   </Button>
                   <Button
                     type="button"
                     disabled={pristine || submitting}
                     onClick={reset}
                   >
-                    Reset
+                    {t('Buttons.reset')}
                   </Button>
                   <Button variant="contained" color="primary" onClick={() => history.push('/home')}>
-                    Cancel
+                  {t('Buttons.cancel')}
                   </Button>
                 </div>
               </form>
@@ -135,4 +137,4 @@ const FormInit = connect(
   mapDispatchToProps,
 )(ReduxFormMapped);
 
-export default withStyles(styles)(FormInit);
+export default withStyles(styles)(withTranslation()(FormInit));

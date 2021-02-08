@@ -1,4 +1,3 @@
-/* eslint-disable consistent-return */
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable no-shadow */
 /* eslint-disable react/prop-types */
@@ -12,21 +11,22 @@ import Button from '@material-ui/core/Button';
 import DeleteIcon from '@material-ui/icons/Delete';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import CreateIcon from '@material-ui/icons/Create';
-import { URL, DELETE } from '../../Axios/axiosForData';
+import history from '../../../utils/history';
 import request from '../../../utils/request';
+import { URL, DELETE } from '../../Axios/axiosForData';
 import Notification from '../../MyNotification/Notification';
 import { withRouter } from "react-router-dom";
 import { withTranslation } from 'react-i18next';
 
 const styles = theme => ({
+  iconSmall: {
+    fontSize: 20,
+  },
   button: {
     margin: theme.spacing(1),
   },
   rightIcon: {
     marginLeft: theme.spacing(1),
-  },
-  iconSmall: {
-    fontSize: 20,
   },
   table: {
     '& > div': {
@@ -47,18 +47,9 @@ const styles = theme => ({
   }
 });
 
-class Users extends React.Component {
-  state = {
-    variant: '',
-    message: '',
-    open: false,
-    id: null,
-  }
+class RoleTable extends React.Component {
 
   render() {
-    const {
-      id, open, variant, message
-    } = this.state;
     const { classes, data, t } = this.props;
     const options = {
       textLabels: {
@@ -106,125 +97,87 @@ class Users extends React.Component {
       selectableRows: 'none',
       selectableRowsHeader: false,
     };
-    const handleDelete = (id) => {
-      if (id) {
-        request(`${URL}/api/users/${id}`, DELETE).then(() => {
-          this.setState({ open: true, variant: 'success', message: 'Notification.success' });
-        }).catch((error) => {
-          this.setState({ open: true, variant: 'error', message: 'Notification.error' });
-        });
-      } else {
-        this.setState({ open: true, variant: 'warning', message: 'Notification.clickDelete' });
-      }
-    };
-    const handleEdit = (id) => {
-      if (id) {
-        this.props.history.push('/home/forms/edit/user/?id=' + id);
-      } else {
-        this.setState({ open: true, variant: 'warning', message: 'Notification.clickEdit' });
-      }
-    };
-    const handleClose = (event, reason) => {
-      if (reason === 'clickaway') {
-        return;
-      }
-      this.setState({ open: false });
-    };
-
+    
     return (
       <Fragment>
         <div className={classes.table}>
           <MUIDataTable
-            title={t('TableUsers.title')}
+            title={t('TableRoles.title')}
             data={data}
             columns={[
       {
-        name: 'id',
         label: 'ID',
+        name: 'id',
         options: {
           filter: true
         }
       },
       {
+        label: t('TableRoles.name'),
         name: 'name',
-        label: t('TableUsers.name'),
         options: {
           filter: true
         }
       },
       {
-        name: 'surName',
-        label: t('TableUsers.lastName'),
-        options: {
-          filter: true,
-        }
-      },
-      {
-        name: 'email',
-        label: t('TableUsers.email'),
-        options: {
-          filter: true,
-        }
-      },
-      {
-        name: 'roleId',
-        label: t('TableUsers.role'),
-        options: {
-          filter: true,
-        }
-      },
-      {
-        name: 'created_id',
-        label: t('TableUsers.created'),
-        options: {
-          filter: true,
-        }
-      },
-      {
-        name: 'isOnline',
-        label: t('TableUsers.status'),
+        label: t('TableRoles.create'),
+        name: 'create',
         options: {
           filter: true,
           customBodyRender: (value) => {
-            if (value === true) {
-              return (<Chip label={t('Status.online')} color="secondary" />);
+            if (value) {
+              return (<Chip label={t("TableRoles.yes")} color="secondary" />);
             }
-            if (value === false) {
-              return (<Chip label={t('Status.offline')} color="primary" />);
+            if (!value) {
+              return (<Chip label={t("TableRoles.not")} color="primary" />);
             }
-            return (<Chip label={t('Status.unknown')} />);
+            return (<Chip label={t("TableRoles.unknow")} />);
+          }
+        }
+      },
+      {
+        label: t('TableRoles.edit'),
+        name: 'edit',
+        options: {
+          filter: true,
+          customBodyRender: (value) => {
+            if (value) {
+              return (<Chip label={t("TableRoles.yes")} color="secondary" />);
+            }
+            if (!value) {
+              return (<Chip label={t("TableRoles.not")} color="primary" />);
+            }
+            return (<Chip label={t("TableRoles.unknow")} />);
+          }
+        }
+      },
+      {
+        label: t('TableRoles.delete'),
+        name: 'delete',
+        options: {
+          filter: true,
+          customBodyRender: (value) => {
+            if (value) {
+              return (<Chip label={t("TableRoles.yes")} color="secondary" />);
+            }
+            if (!value) {
+              return (<Chip label={t("TableRoles.not")} color="primary" />);
+            }
+            return (<Chip label={t("TableRoles.unknow")} />);
           }
         }
       },
     ]}
     options={options}
-    />
-        </div>
-        <div>
-          <br />
-          <br />
-          <Button onClick={() => this.props.history.push('/home/forms/add/user')} className={classes.button} variant="contained" color="primary">
-            {t('Buttons.create')}
-            <AddCircleOutlineIcon className={classes.rightIcon} />
-          </Button>
-          <Button onClick={() => handleEdit(id)} className={classes.button} variant="contained" color="secondary">
-            {t('Buttons.edit')}
-            <CreateIcon className={classes.rightIcon} />
-          </Button>
-          <Button onClick={() => handleDelete(id)} className={classes.button} variant="contained" color="red">
-            {t('Buttons.delete')}
-            <DeleteIcon className={classes.rightIcon} />
-          </Button>
-          <br />
-        </div>
-        <Notification open={open} handleClose={() => handleClose()} variant={variant} message={t(message)} />
+          />
+        </div>        
       </Fragment>
     );
   }
 }
 
-Users.propTypes = {
+Roles.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(withRouter(withTranslation()(Users)));
+export default withStyles(styles)(withRouter(withTranslation()(RoleTable)));

@@ -20,6 +20,7 @@ import {
 import Notification from '../../MyNotification/Notification';
 import { withRouter } from "react-router-dom";
 import axios from 'axios';
+import { withTranslation } from 'react-i18next';
 
 const styles = ({
   root: {
@@ -71,9 +72,9 @@ class AddWidgetForm extends React.Component {
     POST.data = data;    
     await axios.post(`${URL}/api/widget_coordinates/`, POST.data, {Authorization: localStorage.getItem('token')}).then((res) => {
       this.setState({ coordinatesId: res.data.data.newWidgetCoordinates });
-      this.setState({ open: true, variant: 'success', message: 'OK!' }); 
+      this.setState({ open: true, variant: 'success', message: 'Notification.success' }); 
     }).catch((error) => {
-      this.setState({ open: true, variant: 'error', message: 'Opps, failed to create!' });
+      this.setState({ open: true, variant: 'error', message: 'Notification.error' });
       this.props.history.push('/home');
     });
     setTimeout(() => this.redirectToCreate(type, dashboardId), 2000);
@@ -100,6 +101,7 @@ class AddWidgetForm extends React.Component {
     const title = brand.name + ' - Form';
     const description = brand.desc;
     const { message, variant, open } = this.state;
+    const { t } = this.props;
     return (
       <div>
         <Helmet>
@@ -110,15 +112,15 @@ class AddWidgetForm extends React.Component {
           <meta property="twitter:title" content={title} />
           <meta property="twitter:description" content={description} />
         </Helmet>
-        <PapperBlock title="Create Widget" icon="ios-list-box-outline">
+        <PapperBlock title={t('AddWidget.title')} icon="ios-list-box-outline">
           <div>
             <AddWidget onSubmit={(values) => this.showResult(values)} dashboards={this.state.dashboards} />
           </div>
         </PapperBlock>
-        <Notification open={open} handleClose={() => this.handleClose()} variant={variant} message={message} />
+        <Notification open={open} handleClose={() => this.handleClose()} variant={variant} message={t(message)} />
       </div>
     );
   }
 }
 
-export default withStyles(styles)(withRouter((AddWidgetForm)));
+export default withStyles(styles)(withRouter(withTranslation()(AddWidgetForm)));

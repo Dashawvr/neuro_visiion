@@ -1,0 +1,212 @@
+{
+    "TableUsers": {
+        "name": "Name",
+        "lastName": "Last Name",
+        "email": "Email",
+        "role": "Role",
+        "status": "Status",
+        "created": "Created User",
+        "title": "User list"
+
+    },
+    "TableRoles": {
+        "name": "Name",
+        "create": "Create",
+        "edit": "Edit",
+        "delete": "Delete",
+        "yes": "Yes",
+        "not": "Not",
+        "unknow": "Unknow",
+        "title": "Roles list"
+
+    },
+    "TableDashboards": {
+        "name": "Name",
+        "yes": "Yes",
+        "not": "Not",
+        "unknow": "Unknow",
+        "title": "Dashboards list",
+        "role": "Role",
+        "user": "User"
+    },    
+    "TableGroups": {
+        "name": "Name",        
+        "title": "Users Groups list",
+        "users": "Users"
+
+    },
+    "AddUser": {
+        "title": "Create User",
+        "name": "Name",
+        "lastName": "Last Name",
+        "email": "Email",
+        "password": "Password",
+        "role": "Role"
+    },
+    "AddDashboard": {
+        "title": "Create Dashboard",
+        "role": "Role",
+        "user": "User",
+        "active": "Active",
+        "name": "Name"
+    },
+    "AddGroup": {
+        "title": "Create Group",
+        "name": "Name",
+        "users": "Users"        
+    },
+    "AddRole": {
+        "title": "Create Role",
+        "name": "Name",
+        "important": "Important",
+        "create": "Create",
+        "edit": "Edit",
+        "delete": "Delete"
+    },
+    "EditUser": {
+        "title": "Edit User",
+        "name": "Name",
+        "lastName": "Last Name",
+        "email": "Email"
+    },
+    "EditDashboard": {
+        "title": "Edit Dashboard",
+        "role": "Role",
+        "user": "User",
+        "active": "Active",
+        "name": "Name"
+    },
+    "EditGroup": {
+        "title": "Edit Group",
+        "name": "Name",
+        "users": "Users"
+    },
+    "EditRole": {
+        "title": "Edit Role",
+        "name": "Name",
+        "important": "Important",
+        "create": "Create",
+        "edit": "Edit",
+        "delete": "Delete"
+    },
+    "AddWidgetTable": {
+        "title": "Create Widget Table",
+        "table": "Table",
+        "roles": "Roles",
+        "users": "Users",
+        "dashboards": "Dashboards"
+    },
+    "AddWidgetText": {
+        "text": "Text",
+        "title": "Create Widget Text"
+    },
+    "AddWidgetVideo": {
+        "url": "RTSP",
+        "title": "Create Widget Video"
+    },
+    "AddWidgetMap": {
+        "lat": "Latitude",
+        "lon": "Lontitude",
+        "title": "Create Widget Map"
+    },
+    "AddWidget": {
+        "title": "Create Widget",
+        "type": "Widget Type",
+        "table": "Table",
+        "video": "Video",
+        "text": "Text",
+        "map": "Map",
+        "dashboard": "Dashboard"
+    },
+    "EditWidgetTable": {
+        "title": "Edit Widget Table",
+        "table": "Table",
+        "roles": "Roles",
+        "users": "Users",
+        "dashboards": "Dashboards",
+        "color": "Border Color (red, blue, green...)",
+        "size": "Border Size (px)"
+    },
+    "EditWidgetText": {
+        "text": "Text",
+        "color": "Border Color (red, blue, green...)",
+        "size": "Border Size (px)",
+        "speed": "Text Speed",
+        "fontSize": "Text Font Size (px)",
+        "title": "Edit Widget Text"
+    },
+    "EditWidgetVideo": {
+        "url": "RTSP",
+        "color": "Border Color (red, blue, green...)",
+        "size": "Border Size (px)",
+        "title": "Edit Widget Video"
+    },
+    "EditWidgetMap": {
+        "lat": "Marker Latitude",
+        "lon": "Marker Lontitude",
+        "color": "Border Color (red, blue, green...)",
+        "size": "Border Size (px)",
+        "title": "Edit Widget Map"
+    },
+    "Menu": {
+        "logOut": "Log Out",
+        "home": "Home",
+        "users": "Users",
+        "roles": "Roles",
+        "group": "User Group",
+        "maps": "Maps",
+        "editPanel": "Edit Panel",
+        "widgets": "Widgets",
+        "stage": "Stage"
+    },
+    "Status": {
+        "online": "Online",
+        "offline": "Offline",
+        "undefined": "Unknown"
+    },
+    "Buttons": {
+        "create": "Create",
+        "delete": "Delete",
+        "edit": "Edit",
+        "cancel": "Cancel",
+        "reset": "Reset",
+        "submit": "Submit"
+    },
+    "Notification": {
+        "success": "OK, Succeess",
+        "error": "Oops, Error",
+        "clickDelete": "Click on row for delete!",
+        "clickEdit": "Click on row for edit!"
+    },    
+    "AccessDenied": {
+        "desc": "Oops, You Are Dont Have Access :("
+    },
+    "NotFound": {
+        "desc": "Oops, Page Not Found :("
+    },
+    "ServerError": {
+        "desc": "Oops, Sorry Server Doesn't Work :("
+    },
+    "MUIDATABLES": {
+        "noMatch": "Sorry, no matching records found",
+        "toolTip": "Sort",
+        "sort": "Sort for",
+        "next": "Next Page",
+        "previous": "Previous Page",
+        "rowsPerPage": "Rows per page:",
+        "displayRows": "of",
+        "search": "Search",
+        "downloadCsv": "Download CSV",
+        "print": "Print",
+        "viewColumns": "View Columns",
+        "filterTable": "Filter Table",
+        "all": "All",
+        "title": "FILTERS",
+        "reset": "RESET",
+        "titleShow": "Show Columns",
+        "titleAria": "Show/Hide Table Columns",
+        "text": "row(s) selected",
+        "delete": "Delete",
+        "deleteAria": "Delete Selected Rows"
+    }
+}

@@ -3,8 +3,10 @@
 import React, { useState, useEffect } from "react";
 import { useHistory, Redirect } from "react-router-dom";
 import "../../NVision-styles/style.css";
-import { Rnd } from 'react-rnd'
-// import TableUsers from "./widget_types/tableUsers";
+import { Rnd } from 'react-rnd';
+import TableUsers from "../../containers/MyWidgets/WidgetTableUsers";
+import TableRole from "../../containers/MyWidgets/WidgetTableRole";
+import TableDashboards from "../../containers/MyWidgets/WidgetTableDashboards";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import axios from "axios";
@@ -155,7 +157,7 @@ const Widget = (props) => {
               enableResizing={canEnableResizing}
             >
               <div onDoubleClick={handleDoubleClickContent}>
-                Table of Users
+                <TableUsers />
               </div>
               <Menu
                 keepMounted
@@ -214,7 +216,7 @@ const Widget = (props) => {
             // </Rnd>
             <></>
           );
-        case "file":
+        case "dashboard":
           return (
             // <Rnd
             //     className="widgetTable"
@@ -233,7 +235,7 @@ const Widget = (props) => {
             //     enableResizing={canEnableResizing}
             // >
             //   <div onDoubleClick={handleDoubleClickContent}>
-            //     <TableFiles />
+            //     <TableDashboards />
             //   </div>
             //   <Menu
             //       keepMounted

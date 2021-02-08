@@ -16,6 +16,7 @@ import {
 } from 'dan-components/Forms/ReduxFormMUI';
 import { initAction, clearAction } from 'dan-redux/actions/reduxFormActions';
 import history from '../../../../utils/history';
+import { withTranslation } from 'react-i18next';
 
 const renderRadioGroup = ({ input, ...rest }) => (
   <RadioGroup
@@ -62,6 +63,7 @@ class EditRole extends Component {
       reset,
       submitting,
       name,
+      t,
     } = this.props;
     return (
       <div>
@@ -73,7 +75,7 @@ class EditRole extends Component {
                   <Field
                     name="name"
                     component={TextFieldRedux}
-                    placeholder="Name"
+                    placeholder={t('EditRole.name')}
                     label={name}
                     validate={required}
                     required
@@ -82,23 +84,23 @@ class EditRole extends Component {
                   />
                 </div>
                 <div>
-                  <FormControlLabel control={<Field name="create" component={SwitchRedux} />} label="Create" />
-                  <FormControlLabel control={<Field name="edit" component={SwitchRedux} />} label="Edit" />
-                  <FormControlLabel control={<Field name="delete" component={SwitchRedux} />} label="Delete" />
+                  <FormControlLabel control={<Field name="create" component={SwitchRedux} />} label={t('EditRole.create')} />
+                  <FormControlLabel control={<Field name="edit" component={SwitchRedux} />} label={t('EditRole.edit')} />
+                  <FormControlLabel control={<Field name="delete" component={SwitchRedux} />} label={t('EditRole.delete')} />
                 </div>
                 <div>
                   <Button variant="contained" color="secondary" type="submit" disabled={submitting}>
-                    Submit
+                  {t('Buttons.submit')}
                   </Button>
                   <Button
                     type="button"
                     disabled={pristine || submitting}
                     onClick={reset}
                   >
-                    Reset
+                    {t('Buttons.reset')}
                   </Button>
                   <Button variant="contained" color="primary" onClick={() => history.goBack()}>
-                    Cancel
+                  {t('Buttons.cancel')}
                   </Button>
                 </div>
               </form>
@@ -141,4 +143,4 @@ const FormInit = connect(
   mapDispatchToProps,
 )(ReduxFormMapped);
 
-export default withStyles(styles)(FormInit);
+export default withStyles(styles)(withTranslation()(FormInit));

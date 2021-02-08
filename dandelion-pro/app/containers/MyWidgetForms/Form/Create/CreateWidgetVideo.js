@@ -13,6 +13,7 @@ import {
 } from 'dan-components/Forms/ReduxFormMUI';
 import { initAction, clearAction } from 'dan-redux/actions/reduxFormActions';
 import history from '../../../../utils/history';
+import { withTranslation } from 'react-i18next';
 
 const renderRadioGroup = ({ input, ...rest }) => (
   <RadioGroup
@@ -59,6 +60,7 @@ class CreateWidgetVideo extends Component {
       reset,
       submitting,
     } = this.props;
+    const { t } = this.props;
     return (
       <div>
         <Grid container spacing={3} alignItems="flex-start" direction="row" justify="center">
@@ -69,8 +71,8 @@ class CreateWidgetVideo extends Component {
                   <Field
                     name="data"
                     component={TextFieldRedux}
-                    placeholder="RTSP"
-                    label="RTSP"
+                    placeholder={t('AddWidgetVideo.url')}
+                    label={t('AddWidgetVideo.url')}
                     validate={required}
                     required
                     ref={this.saveRef}
@@ -79,17 +81,17 @@ class CreateWidgetVideo extends Component {
                 </div>
                 <div>
                   <Button variant="contained" color="secondary" type="submit" disabled={submitting}>
-                    Submit
+                  {t('Buttons.submit')}
                   </Button>
                   <Button
                     type="button"
                     disabled={pristine || submitting}
                     onClick={reset}
                   >
-                    Reset
+                    {t('Buttons.reset')}
                   </Button>
                   <Button variant="contained" color="primary" onClick={() => history.push('/home')}>
-                    Cancel
+                  {t('Buttons.cancel')}
                   </Button>
                 </div>
               </form>
@@ -132,4 +134,4 @@ const FormInit = connect(
   mapDispatchToProps,
 )(ReduxFormMapped);
 
-export default withStyles(styles)(FormInit);
+export default withStyles(styles)(withTranslation()(FormInit));

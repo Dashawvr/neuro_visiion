@@ -25,6 +25,8 @@ import '../../NVision-Pages/Dashboard/app.css'
 import { getDashboards } from "../../redux/actions/dashboards";
 import { URL } from '../../containers/Axios/axiosForData';
 import { SocketConnection } from "../../api/socket";
+import { useTranslation } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 
 const socketConnection = new SocketConnection();
 
@@ -32,6 +34,10 @@ function UserMenu(props) {
   const [menuState, setMenuState] = useState({
     anchorEl: null,
     openMenu: null
+  });
+  const [languageState, setLanguageState] = useState({
+    anchorElLanguage: null,
+    openMenuLanguage: null
   });
 
   const history = useHistory()
@@ -44,8 +50,25 @@ function UserMenu(props) {
     });
   };
 
+  const handleLanguageMenu = menu => (event) => {
+    const { openMenuLanguage } = languageState;
+    setLanguageState({
+      openMenuLanguage: openMenuLanguage === menu ? null : menu,
+      anchorElLanguage: event.currentTarget
+    });
+  };
+
   const handleClose = () => {
     setMenuState({ anchorEl: null, openMenu: null });
+  };
+  const handleLanguageClose = () => {
+    setLanguageState({ anchorElLanguage: null, openMenuLanguage: null });
+  };
+
+  const { t, i18n } = useTranslation();
+
+  const handleLanguage = (lang) => {
+    i18n.changeLanguage(lang);
   };
 
   const logOut = async () => {
@@ -63,8 +86,17 @@ function UserMenu(props) {
   const { classes, dark, dashboards, location } = props;
 
   const { anchorEl, openMenu } = menuState;
+  const { anchorElLanguage, openMenuLanguage } = languageState;
   return (
-    <div>
+    <div>    
+    <IconButton
+        aria-haspopup="true"
+        onClick={handleLanguageMenu('language')}
+        color="inherit"
+        className={classNames(classes.notifIcon, dark ? classes.dark : classes.light)}
+      >
+        <i className={`ion-earth ${location ? 'black' : ''}`}/>
+      </IconButton>
       <IconButton
         aria-haspopup="true"
         onClick={handleMenu('notification')}
@@ -73,9 +105,59 @@ function UserMenu(props) {
       >
         <Badge className={classes.badge} badgeContent={dashboards ? dashboards.data.data.dashboard.rows.length : ''}
                color="secondary">
-          <i className={`ion-ios-folder-outline ${location ? 'black' : ''}`}/>
+          <i className={`ion-ios-monitor ${location ? 'black' : ''}`}/>
         </Badge>
       </IconButton>
+      <Menu
+        id="menu-language"
+        anchorEl={anchorElLanguage}
+        anchorOrigin={{
+          vertical: 'top',
+          horizontal: 'right',
+        }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'right',
+        }}
+        className={classes.notifMenu}
+        PaperProps={{
+          style: {
+            width: 350,
+          },
+        }}
+        open={openMenuLanguage === 'language'}
+        onClose={handleLanguageClose}
+      >
+      <MenuItem onClick={() => {
+        handleLanguage('ru')
+        handleClose()
+      }}>
+        <div className={messageStyles.messageInfo}>
+          <ListItemText primary='Російська' secondary='Russian' />
+        </div>
+      </MenuItem>
+      <Divider variant="inset"/>
+
+      <MenuItem onClick={() => {
+        handleLanguage('en')
+        handleClose()
+      }}>
+        <div className={messageStyles.messageInfo}>
+          <ListItemText primary='Англійська' secondary='English' />
+        </div>
+      </MenuItem>
+      <Divider variant="inset"/>
+
+      <MenuItem onClick={() => {
+        handleLanguage('ua')
+        handleClose()
+      }}>
+        <div className={messageStyles.messageInfo}>
+          <ListItemText primary='Українська' secondary='Ukrainian' />
+        </div>
+      </MenuItem>      
+      </Menu>
+
       <Menu
         id="menu-notification"
         anchorEl={anchorEl}
@@ -106,7 +188,7 @@ function UserMenu(props) {
                     handleClose()
                   }}>
                     <div className={messageStyles.messageInfo}>
-                      <ListItemText primary={`Stage ${el.id}`} secondary={el.createdAt}/>
+                      <ListItemText primary={`${el.name}`} secondary={el.createdAt}/>
                     </div>
                   </MenuItem>
                   <Divider variant="inset"/>
@@ -143,7 +225,7 @@ function UserMenu(props) {
             <ExitToApp />
           </ListItemIcon>
           <ExitToApp/>
-          Log Out
+          {t('Menu.logOut')}
         </MenuItem>
       </Menu>
     </div>
