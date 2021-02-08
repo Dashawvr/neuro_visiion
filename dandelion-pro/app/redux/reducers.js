@@ -23,6 +23,9 @@ import socmed from '../containers/SampleApps/Timeline/reducers/timelineReducer';
 import taskboard from '../containers/SampleApps/TaskBoard/reducers/taskboardReducer';
 import loginReducer from "./modules/loginReducer";
 import dashboards from "./modules/dashboards";
+import roles from "./modules/roles";
+import users from "./modules/users";
+import widget_data from "./modules/widget_data";
 
 /**
  * Branching reducers to use one reducer for many components
@@ -44,6 +47,9 @@ function branchReducer(reducerFunction, reducerName) {
  */
 export default function createReducer(injectedReducers = {}) {
   const rootReducer = combineReducers({
+    widget_data,
+    users,
+    roles,
     dashboards,
     loginReducer,
     form,
