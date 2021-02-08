@@ -97,7 +97,7 @@ class RoleTable extends React.Component {
       selectableRows: 'none',
       selectableRowsHeader: false,
     };
-    
+
     return (
       <Fragment>
         <div className={classes.table}>
@@ -170,13 +170,13 @@ class RoleTable extends React.Component {
     ]}
     options={options}
           />
-        </div>        
+        </div>
       </Fragment>
     );
   }
 }
 
-Roles.propTypes = {
+RoleTable.propTypes = {
   classes: PropTypes.object.isRequired
 };
 

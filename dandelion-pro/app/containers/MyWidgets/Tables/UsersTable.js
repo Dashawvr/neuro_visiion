@@ -164,13 +164,13 @@ class UsersTable extends React.Component {
     ]}
     options={options}
     />
-        </div>      
+        </div>
       </Fragment>
     );
   }
 }
 
-Users.propTypes = {
+UsersTable.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
