@@ -19,14 +19,14 @@ import { withRouter } from "react-router-dom";
 import { withTranslation } from 'react-i18next';
 
 const styles = theme => ({
+  iconSmall: {
+    fontSize: 20,
+  },
   button: {
     margin: theme.spacing(1),
   },
   rightIcon: {
     marginLeft: theme.spacing(1),
-  },
-  iconSmall: {
-    fontSize: 20,
   },
   table: {
     '& > div': {
@@ -46,18 +46,10 @@ const styles = theme => ({
     }
   }
 });
-class Dashboards extends React.Component {
-  state = {
-    variant: '',
-    message: '',
-    open: false,
-    id: null,
-  }
+
+class RoleTable extends React.Component {
 
   render() {
-    const {
-      id, open, variant, message
-    } = this.state;
     const { classes, data, t } = this.props;
     const options = {
       textLabels: {
@@ -105,39 +97,15 @@ class Dashboards extends React.Component {
       selectableRows: 'none',
       selectableRowsHeader: false,
     };
-    const handleDelete = (id) => {
-      if (id) {
-        request(`${URL}/api/dashboard/${id}`, DELETE).then(() => {
-          this.setState({ open: true, variant: 'success', message: 'Notification.success' });
-        }).catch((error) => {
-          this.setState({ open: true, variant: 'error', message: 'Notification.error' });
-        });
-      } else {
-        this.setState({ open: true, variant: 'warning', message: 'Notification.clickDelete' });
-      }
-    };
-    const handleEdit = (id) => {
-      if (id) {
-        this.props.history.push('/home/forms/edit/dashboard/?id=' + id);
-      } else {
-        this.setState({ open: true, variant: 'warning', message: 'Notification.clickEdit' });
-      }
-    };
-    const handleClose = (event, reason) => {
-      if (reason === 'clickaway') {
-        return;
-      }
-      this.setState({ open: false });
-    };
-
+    
     return (
       <Fragment>
         <div className={classes.table}>
           <MUIDataTable
-            title="Dashboards list"
+            title={t('TableRoles.title')}
             data={data}
             columns={[
-    {
+      {
         label: 'ID',
         name: 'id',
         options: {
@@ -145,71 +113,71 @@ class Dashboards extends React.Component {
         }
       },
       {
-        label: t('TableDashboards.name'),
+        label: t('TableRoles.name'),
         name: 'name',
         options: {
           filter: true
         }
-      },      
+      },
       {
-        label: 'Active',
-        name: 'enable',
+        label: t('TableRoles.create'),
+        name: 'create',
         options: {
           filter: true,
           customBodyRender: (value) => {
             if (value) {
-              return (<Chip label={t("TableDashboards.yes")} color="secondary" />);
+              return (<Chip label={t("TableRoles.yes")} color="secondary" />);
             }
             if (!value) {
-              return (<Chip label={t("TableDashboards.not")} color="primary" />);
+              return (<Chip label={t("TableRoles.not")} color="primary" />);
             }
-            return (<Chip label={t("TableDashboards.unknow")} />);
+            return (<Chip label={t("TableRoles.unknow")} />);
           }
         }
       },
       {
-        label: t("TableDashboards.role"),
-        name: 'roleId',
+        label: t('TableRoles.edit'),
+        name: 'edit',
         options: {
           filter: true,
+          customBodyRender: (value) => {
+            if (value) {
+              return (<Chip label={t("TableRoles.yes")} color="secondary" />);
+            }
+            if (!value) {
+              return (<Chip label={t("TableRoles.not")} color="primary" />);
+            }
+            return (<Chip label={t("TableRoles.unknow")} />);
+          }
         }
       },
       {
-        label: t("TableDashboards.user"),
-        name: 'userId',
+        label: t('TableRoles.delete'),
+        name: 'delete',
         options: {
           filter: true,
+          customBodyRender: (value) => {
+            if (value) {
+              return (<Chip label={t("TableRoles.yes")} color="secondary" />);
+            }
+            if (!value) {
+              return (<Chip label={t("TableRoles.not")} color="primary" />);
+            }
+            return (<Chip label={t("TableRoles.unknow")} />);
+          }
         }
       },
     ]}
-            options={options}
+    options={options}
           />
-        </div>
-        <div>
-          <br />
-          <br />
-          <Button onClick={() => this.props.history.push('/home/forms/add/dashboard')} className={classes.button} variant="contained" color="primary">
-          {t('Buttons.create')}
-            <AddCircleOutlineIcon className={classes.rightIcon} />
-          </Button>
-          <Button onClick={() => handleEdit(id)} className={classes.button} variant="contained" color="secondary">
-          {t('Buttons.edit')}
-            <CreateIcon className={classes.rightIcon} />
-          </Button>
-          <Button onClick={() => handleDelete(id)} className={classes.button} variant="contained" color="red">
-          {t('Buttons.delete')}
-            <DeleteIcon className={classes.rightIcon} />
-          </Button>
-          <br />
-        </div>
-        <Notification open={open} handleClose={() => handleClose()} variant={variant} message={t(message)} />
+        </div>        
       </Fragment>
     );
   }
 }
 
-Dashboards.propTypes = {
+Roles.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(withRouter(withTranslation()(Dashboards)));
+export default withStyles(styles)(withRouter(withTranslation()(RoleTable)));
