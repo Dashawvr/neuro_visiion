@@ -134,10 +134,6 @@ function SidebarContent(props) {
     switch (st) {
       case 'online':
         return classes.online;
-      case 'idle':
-        return classes.idle;
-      case 'bussy':
-        return classes.bussy;
       default:
         return classes.offline;
     }
