@@ -13,7 +13,6 @@ import MenuItem from "@material-ui/core/MenuItem";
 import axios from "axios";
 import history from "../../utils/history";
 import JsmpegPlayer from "../JsmpegPlayer/JsmpegPlayer";
-import { URL } from '../../containers/Axios/axiosForData';
 
 const videoOptions = {
   autoplay: true,
@@ -71,13 +70,13 @@ const Widget = (props) => {
   };
   useEffect(() => {
     const getVideo = async () => {
-      await axios.post(URL + "/api/widget_data/stream_play", options).then((res) => {
+      await axios.post("/api/widget_data/stream_play", options).then((res) => {
         setUrl(res.data.data.streamUrl);
       });
     }
     async function getCoordinates() {
       await axios
-        .get(URL + `/api/widget_coordinates/${props.coordinatesId}`)
+        .get(`/api/widget_coordinates/${props.coordinatesId}`)
         .then((res) => {
           setCoordinates(res.data.data.widgetCoordinates);
         })
@@ -107,7 +106,7 @@ const Widget = (props) => {
 
 
     axios
-      .patch(URL + `/api/widget_coordinates/${props.coordinatesId}`, coordinates)
+      .patch(`/api/widget_coordinates/${props.coordinatesId}`, coordinates)
       .then((res) => {
         console.log(res);
       })
@@ -117,25 +116,18 @@ const Widget = (props) => {
       });
   };
 
-  const user = JSON.parse(localStorage.getItem('user'));
-  let canEditScene = true;
-  let canEnableResizing = false;
-  if(user.id === 1 || user.id === 2) {
-    canEditScene = false;
-    canEnableResizing = true;
-  };
-
   const handleDelete = (e) => {
     setState(initialState);
     console.log(e.target.id);
     axios
-      .delete(URL + `/api/widget_data/${e.target.id}`)
+      .delete(`/api/widget_data/${e.target.id}`)
       .then()
       .catch((error) => {
         console.log(error);
         history.push("/home");
       });
   };
+
   switch (props.type) {
     case "table":
       switch (props.data) {
@@ -156,8 +148,6 @@ const Widget = (props) => {
               onDragStop={handlePosition}
               onResizeStop={handlePosition}
               onContextMenu={handleClick}
-              disableDragging={canEditScene}
-              enableResizing={canEnableResizing}
             >
               <div onDoubleClick={handleDoubleClickContent}>
                 <TableUsers />
@@ -366,8 +356,6 @@ const Widget = (props) => {
             onDragStop={handlePosition}
             onResizeStop={handlePosition}
             onContextMenu={handleClick}
-            disableDragging={canEditScene}
-            enableResizing={canEnableResizing}
           >
             <div onDoubleClick={handleDoubleClickContent}>
               <JsmpegPlayer
@@ -402,7 +390,7 @@ const Widget = (props) => {
         )
       }
     default:
-      console.log("Немає такого типу");
+     return(<div>Нема</div>)
   }
 };
 export default Widget;

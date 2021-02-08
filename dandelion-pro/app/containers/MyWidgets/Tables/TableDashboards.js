@@ -108,7 +108,7 @@ class TableDashboards extends React.Component {
         options: {
           filter: true
         }
-      },      
+      },
       {
         label: 'Active',
         name: 'enable',

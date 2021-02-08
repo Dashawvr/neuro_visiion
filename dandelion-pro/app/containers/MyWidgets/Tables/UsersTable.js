@@ -164,7 +164,7 @@ class UsersTable extends React.Component {
     ]}
     options={options}
     />
-        </div>      
+        </div>
       </Fragment>
     );
   }

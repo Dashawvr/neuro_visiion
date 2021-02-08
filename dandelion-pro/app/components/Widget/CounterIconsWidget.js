@@ -31,55 +31,60 @@ function CounterIconWidget(props) {
   const countOfUsers = users?users.data.data.users.count:''
   const countOfWidgets = widget_data?widget_data.data.data.WidgetDates.count:''
 
+  const user = JSON.parse(localStorage.getItem('user'))
 
   return (
     <div className={classes.rootCounterFull}>
-      <Grid container spacing={2}>
-        <Grid item xs={6} md={6}>
-          <CounterWidget
-            color={colorfull[0]}
-            start={0}
-            end={countOfWidgets}
-            duration={3}
-            title="Widgets"
-          >
-            <OndemandVideo className={classes.counterIcon} />
-          </CounterWidget>
-        </Grid>
-        <Grid item xs={6} md={6}>
-          <CounterWidget
-            color={colorfull[1]}
-            start={0}
-            end={countOfUsers}
-            duration={3}
-            title="Num of people"
-          >
-            <SupervisorAccount className={classes.counterIcon} />
-          </CounterWidget>
-        </Grid>
-        <Grid item xs={6} md={6}>
-          <CounterWidget
-            color={colorfull[2]}
-            start={0}
-            end={countOfRole}
-            duration={3}
-            title="Roles"
-          >
-            <Edit className={classes.counterIcon} />
-          </CounterWidget>
-        </Grid>
-        <Grid item xs={6} md={6}>
-          <CounterWidget
-            color={colorfull[3]}
-            start={0}
-            end={countOfDash}
-            duration={3}
-            title="Dashboards"
-          >
-            <CollectionsBookmark className={classes.counterIcon} />
-          </CounterWidget>
-        </Grid>
-      </Grid>
+      {
+        (user.roleId === 1) || (user.roleId === 2) ? (
+          <Grid container spacing={2}>
+            <Grid item xs={6} md={6}>
+              <CounterWidget
+                color={colorfull[0]}
+                start={0}
+                end={countOfWidgets}
+                duration={3}
+                title="Widgets"
+              >
+                <OndemandVideo className={classes.counterIcon} />
+              </CounterWidget>
+            </Grid>
+            <Grid item xs={6} md={6}>
+              <CounterWidget
+                color={colorfull[1]}
+                start={0}
+                end={countOfUsers}
+                duration={3}
+                title="Num of people"
+              >
+                <SupervisorAccount className={classes.counterIcon} />
+              </CounterWidget>
+            </Grid>
+            <Grid item xs={6} md={6}>
+              <CounterWidget
+                color={colorfull[2]}
+                start={0}
+                end={countOfRole}
+                duration={3}
+                title="Roles"
+              >
+                <Edit className={classes.counterIcon} />
+              </CounterWidget>
+            </Grid>
+            <Grid item xs={6} md={6}>
+              <CounterWidget
+                color={colorfull[3]}
+                start={0}
+                end={countOfDash}
+                duration={3}
+                title="Dashboards"
+              >
+                <CollectionsBookmark className={classes.counterIcon} />
+              </CounterWidget>
+            </Grid>
+          </Grid>
+        ):''
+      }
     </div>
   );
 }

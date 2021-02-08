@@ -63,10 +63,6 @@ function SidebarContent(props) {
     switch (st) {
       case 'online':
         return classes.online;
-      case 'idle':
-        return classes.idle;
-      case 'bussy':
-        return classes.bussy;
       default:
         return classes.offline;
     }
@@ -85,7 +81,6 @@ function SidebarContent(props) {
             className={classNames(classes.profile, classes.user)}
             style={{ opacity: 1 - (transform / 100), marginTop: transform * -0.3 }}
           >
-            {/* // TODO crete component with user basic info -> set user info from local storage */}
             <div>
               <Avatar
                 alt={dummy.user.name}
@@ -111,14 +106,6 @@ function SidebarContent(props) {
                 <MenuItem onClick={() => changeStatus('online')}>
                   <i className={classNames(classes.dotStatus, classes.online)}/>
                   Online
-                </MenuItem>
-                <MenuItem onClick={() => changeStatus('idle')}>
-                  <i className={classNames(classes.dotStatus, classes.idle)}/>
-                  Idle
-                </MenuItem>
-                <MenuItem onClick={() => changeStatus('bussy')}>
-                  <i className={classNames(classes.dotStatus, classes.bussy)}/>
-                  Bussy
                 </MenuItem>
                 <MenuItem onClick={() => changeStatus('offline')}>
                   <i className={classNames(classes.dotStatus, classes.offline)}/>
