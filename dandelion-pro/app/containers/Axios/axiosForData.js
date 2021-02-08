@@ -1,5 +1,5 @@
 /* eslint-disable import/prefer-default-export */
-export const URL = 'https://1be86f61ca79.ngrok.io';
+export const URL = 'https://6023b32ab8f9.ngrok.io';
 const token = localStorage.getItem('token');
 export const GET = {
   method: 'GET',

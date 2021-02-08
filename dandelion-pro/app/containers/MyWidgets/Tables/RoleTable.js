@@ -176,7 +176,7 @@ class RoleTable extends React.Component {
   }
 }
 
-Roles.propTypes = {
+RoleTable.propTypes = {
   classes: PropTypes.object.isRequired
 };
 

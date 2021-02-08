@@ -170,7 +170,7 @@ class UsersTable extends React.Component {
   }
 }
 
-Users.propTypes = {
+UsersTable.propTypes = {
   classes: PropTypes.object.isRequired
 };
 

@@ -7,6 +7,7 @@ import { Rnd } from 'react-rnd';
 import TableUsers from "../../containers/MyWidgets/WidgetTableUsers";
 import TableRole from "../../containers/MyWidgets/WidgetTableRole";
 import TableDashboards from "../../containers/MyWidgets/WidgetTableDashboards";
+import Map from "../../containers/MyWidgets/WidgetMap";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import axios from "axios";
@@ -145,10 +146,12 @@ const Widget = (props) => {
               onDoubleClick={handleDoubleClick}
               style={{
                 zIndex: props.zIndex,
-                // offsetTop: coordinates.y,
+                offsetTop: coordinates.y,
                 left: coordinates.x,
                 width: coordinates.width,
-                height: coordinates.height,
+                height: coordinates.height,              
+                margin: props.styles.size,
+                backgroundColor: props.styles.color,
               }}
               onDragStop={handlePosition}
               onResizeStop={handlePosition}
@@ -175,85 +178,86 @@ const Widget = (props) => {
                 </MenuItem>
               </Menu>
             </Rnd>
-            // <></>
           );
         case "role":
           return (
-            // <Rnd
-            //     className="widgetTable"
-            //     onDoubleClick={handleDoubleClick}
-            //     style={{
-            //       zIndex: props.zIndex,
-            //       // top: coordinates.y,
-            //       left: coordinates.x,
-            //       width: coordinates.width,
-            //       height: coordinates.height,
-            //     }}
-            //     onDragStop={handlePosition}
-            //     onResizeStop={handlePosition}
-            //     onContextMenu={handleClick}            
-            //     disableDragging={canEditScene}
-            //     enableResizing={canEnableResizing}
-            // >
-            //   <div onDoubleClick={handleDoubleClickContent}>
-            //     <TableRoles />
-            //   </div>
-            //   <Menu
-            //       keepMounted
-            //       open={state.mouseY !== null}
-            //       onClose={handleClose}
-            //       anchorReference="anchorPosition"
-            //       anchorPosition={
-            //         state.mouseY !== null && state.mouseX !== null
-            //             ? { top: state.mouseY, left: state.mouseX }
-            //             : undefined
-            //       }
-            //   >
-            //     <MenuItem onClick={handleDelete} id={props.id}>
-            //       Видалити
-            //     </MenuItem>
-            //   </Menu>
-            // </Rnd>
-            <></>
+            <Rnd
+                className="widgetTable"
+                onDoubleClick={handleDoubleClick}
+                style={{
+                  zIndex: props.zIndex,
+                  top: coordinates.y,
+                  left: coordinates.x,
+                  width: coordinates.width,
+                  height: coordinates.height,              
+                  margin: props.styles.size,
+                  backgroundColor: props.styles.color,
+                }}
+                onDragStop={handlePosition}
+                onResizeStop={handlePosition}
+                onContextMenu={handleClick}            
+                disableDragging={canEditScene}
+                enableResizing={canEnableResizing}
+            >
+              <div onDoubleClick={handleDoubleClickContent}>
+                <TableRoles />
+              </div>
+              <Menu
+                  keepMounted
+                  open={state.mouseY !== null}
+                  onClose={handleClose}
+                  anchorReference="anchorPosition"
+                  anchorPosition={
+                    state.mouseY !== null && state.mouseX !== null
+                        ? { top: state.mouseY, left: state.mouseX }
+                        : undefined
+                  }
+              >
+                <MenuItem onClick={handleDelete} id={props.id}>
+                  Видалити
+                </MenuItem>
+              </Menu>
+            </Rnd>
           );
         case "dashboard":
           return (
-            // <Rnd
-            //     className="widgetTable"
-            //     onDoubleClick={handleDoubleClick}
-            //     style={{
-            //       zIndex: props.zIndex,
-            //       // top: coordinates.y,
-            //       left: coordinates.x,
-            //       width: coordinates.width,
-            //       height: coordinates.height,
-            //     }}
-            //     onDragStop={handlePosition}
-            //     onResizeStop={handlePosition}
-            //     onContextMenu={handleClick}
-            //     disableDragging={canEditScene}
-            //     enableResizing={canEnableResizing}
-            // >
-            //   <div onDoubleClick={handleDoubleClickContent}>
-            //     <TableDashboards />
-            //   </div>
-            //   <Menu
-            //       keepMounted
-            //       open={state.mouseY !== null}
-            //       onClose={handleClose}
-            //       anchorReference="anchorPosition"
-            //       anchorPosition={
-            //         state.mouseY !== null && state.mouseX !== null
-            //             ? { top: state.mouseY, left: state.mouseX }
-            //             : undefined
-            //       }
-            //   >
-            //     <MenuItem onClick={handleDelete} id={props.id}>
-            //       Видалити
-            //     </MenuItem>
-            //   </Menu>
-            // </Rnd>
-            <></>
+            <Rnd
+                className="widgetTable"
+                onDoubleClick={handleDoubleClick}
+                style={{
+                  zIndex: props.zIndex,
+                  top: coordinates.y,
+                  left: coordinates.x,
+                  width: coordinates.width,
+                  height: coordinates.height,              
+                  margin: props.styles.size,
+                  backgroundColor: props.styles.color,
+                }}
+                onDragStop={handlePosition}
+                onResizeStop={handlePosition}
+                onContextMenu={handleClick}
+                disableDragging={canEditScene}
+                enableResizing={canEnableResizing}
+            >
+              <div onDoubleClick={handleDoubleClickContent}>
+                <TableDashboards />
+              </div>
+              <Menu
+                  keepMounted
+                  open={state.mouseY !== null}
+                  onClose={handleClose}
+                  anchorReference="anchorPosition"
+                  anchorPosition={
+                    state.mouseY !== null && state.mouseX !== null
+                        ? { top: state.mouseY, left: state.mouseX }
+                        : undefined
+                  }
+              >
+                <MenuItem onClick={handleDelete} id={props.id}>
+                  Видалити
+                </MenuItem>
+              </Menu>
+            </Rnd>
           );
         default:
           console.log("Немає такої таблиці");
@@ -261,86 +265,45 @@ const Widget = (props) => {
       break;
     case "map":
       return (
-        // <Rnd
-        //     className="widgetMap"
-        //     onDoubleClick={handleDoubleClick}
-        //     style={{
-        //       zIndex: props.zIndex,
-        //       // top: coordinates.y,
-        //       left: coordinates.x,
-        //       width: coordinates.width,
-        //       height: coordinates.height,
-        //     }}
-        //     onDragStop={handlePosition}
-        //     onResizeStop={handlePosition}
-        //     onContextMenu={handleClick}
-        //     disableDragging={canEditScene}
-        //     enableResizing={canEnableResizing}
-        // >
-        //   <Maps lat={props.data.lat} lon={props.data.lon} />
-        //   <Menu
-        //       keepMounted
-        //       open={state.mouseY !== null}
-        //       onClose={handleClose}
-        //       anchorReference="anchorPosition"
-        //       anchorPosition={
-        //         state.mouseY !== null && state.mouseX !== null
-        //             ? { top: state.mouseY, left: state.mouseX }
-        //             : undefined
-        //       }
-        //   >
-        //     <MenuItem onClick={handleDelete} id={props.id}>
-        //       Видалити
-        //     </MenuItem>
-        //   </Menu>
-        // </Rnd>
-        <></>
+        <Rnd
+            className="widgetMap"
+            onDoubleClick={handleDoubleClick}
+            style={{
+              zIndex: props.zIndex,
+              top: coordinates.y,
+              left: coordinates.x,
+              width: coordinates.width,
+              height: coordinates.height,              
+              margin: props.styles.size,
+              backgroundColor: props.styles.color,
+            }}
+            onDragStop={handlePosition}
+            onResizeStop={handlePosition}
+            onContextMenu={handleClick}
+            disableDragging={canEditScene}
+            enableResizing={canEnableResizing}
+        >
+          <Map lat={props.data.lat} lon={props.data.lon} markerLat={props.styles.lat} markerLon={props.styles.lon} />
+          <Menu
+              keepMounted
+              open={state.mouseY !== null}
+              onClose={handleClose}
+              anchorReference="anchorPosition"
+              anchorPosition={
+                state.mouseY !== null && state.mouseX !== null
+                    ? { top: state.mouseY, left: state.mouseX }
+                    : undefined
+              }
+          >
+            <MenuItem onClick={handleDelete} id={props.id}>
+              Видалити
+            </MenuItem>
+          </Menu>
+        </Rnd>
       );
-    case "string":
+    case "text":
       return (
-        // <Rnd
-        //     className="widgetText"
-        //     onDoubleClick={handleDoubleClick}
-        //     style={{
-        //       zIndex: props.zIndex,
-        //       top: coordinates.y,
-        //       left: coordinates.x,
-        //       width: coordinates.width,
-        //       height: coordinates.height,
-        //     }}
-        //     onDragStop={handlePosition}
-        //     onResizeStop={handlePosition}
-        //     onContextMenu={handleClick}        
-        //     disableDragging={canEditScene}
-        //     enableResizing={canEnableResizing}
-        // >
-        //   <div onDoubleClick={handleDoubleClickContent}>
-        //     <marquee behavior="scroll" direction="right" hspace="10px">
-        //       {props.data}
-        //     </marquee>
-        //   </div>
-        //   <Menu
-        //       keepMounted
-        //       open={state.mouseY !== null}
-        //       onClose={handleClose}
-        //       anchorReference="anchorPosition"
-        //       anchorPosition={
-        //         state.mouseY !== null && state.mouseX !== null
-        //             ? { top: state.mouseY, left: state.mouseX }
-        //             : undefined
-        //       }
-        //   >
-        //     <MenuItem onClick={handleDelete} id={props.id}>
-        //       Видалити
-        //     </MenuItem>
-        //   </Menu>
-        // </Rnd>
-        <></>
-      );
-    case "video":
-      if (url.length > 2) {
-        return (
-          <Rnd
+        <Rnd
             className="widgetText"
             onDoubleClick={handleDoubleClick}
             style={{
@@ -348,7 +311,57 @@ const Widget = (props) => {
               top: coordinates.y,
               left: coordinates.x,
               width: coordinates.width,
-              height: coordinates.height,
+              height: coordinates.height,              
+              margin: props.styles.size,
+              backgroundColor: props.styles.color,
+            }}
+            onDragStop={handlePosition}
+            onResizeStop={handlePosition}
+            onContextMenu={handleClick}        
+            disableDragging={canEditScene}
+            enableResizing={canEnableResizing}
+        >
+          <div onDoubleClick={handleDoubleClickContent}>
+            <marquee 
+            behavior="scroll" 
+            direction="right" 
+            hspace="10px"              
+            scrollamount={props.styles.speed}
+ >
+              <span style={{"fontSize": props.style.fontSize}} >{props.data}</span>
+            </marquee>
+          </div>
+          <Menu
+              keepMounted
+              open={state.mouseY !== null}
+              onClose={handleClose}
+              anchorReference="anchorPosition"
+              anchorPosition={
+                state.mouseY !== null && state.mouseX !== null
+                    ? { top: state.mouseY, left: state.mouseX }
+                    : undefined
+              }
+          >
+            <MenuItem onClick={handleDelete} id={props.id}>
+              Видалити
+            </MenuItem>
+          </Menu>
+        </Rnd>
+      );
+    case "video":
+      if (url.length > 2) {
+        return (
+          <Rnd
+            className="widgetVideo"
+            onDoubleClick={handleDoubleClick}
+            style={{
+              zIndex: props.zIndex,
+              top: coordinates.y,
+              left: coordinates.x,
+              width: coordinates.width,
+              height: coordinates.height,              
+              margin: props.styles.size,
+              backgroundColor: props.styles.color,
             }}
             onDragStop={handlePosition}
             onResizeStop={handlePosition}

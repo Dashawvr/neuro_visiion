@@ -275,22 +275,29 @@
 .widgetTable {
     overflow: scroll;
     overflow-x: hidden;
-    margin: 5px;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: white;
     color: white;
     font-weight: bold;
 }
 
 .widgetText {
     overflow: hidden;
-    margin: 5px;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #5635b3;
+    color: rgb(255, 255, 255);
+    font-weight: bold;
+}
+
+.widgetVideo {
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     color: rgb(255, 255, 255);
     font-weight: bold;
 }

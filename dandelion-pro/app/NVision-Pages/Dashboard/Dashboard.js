@@ -121,6 +121,7 @@ const Dashboard = (props) => {
                 key={widget.id}
                 id={widget.id}
                 zIndex={widget.zIndex}
+                styles={widget.styles}
               />
             );
           })}

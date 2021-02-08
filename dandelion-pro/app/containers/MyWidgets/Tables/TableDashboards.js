@@ -148,7 +148,7 @@ class TableDashboards extends React.Component {
   }
 }
 
-Dashboards.propTypes = {
+TableDashboards.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
