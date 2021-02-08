@@ -19,6 +19,7 @@ import {
 } from 'dan-components/Forms/ReduxFormMUI';
 import { initAction, clearAction } from 'dan-redux/actions/reduxFormActions';
 import history from '../../../../utils/history';
+import { withTranslation } from 'react-i18next';
 
 const renderRadioGroup = ({ input, ...rest }) => (
   <RadioGroup
@@ -63,6 +64,7 @@ class AddDashboard extends Component {
       submitting,
       roles,
       users,
+      t,
     } = this.props;
     return (
       <div>
@@ -70,13 +72,25 @@ class AddDashboard extends Component {
           <Grid item xs={12} md={6}>
             <Paper className={classes.root}>
               <form onSubmit={handleSubmit}>
+              <div>
+                  <Field
+                    name="name"
+                    component={TextFieldRedux}
+                    placeholder={t('AddDashboard.name')}
+                    label={t('AddDashboard.name')}
+                    validate={required}
+                    required
+                    ref={this.saveRef}
+                    className={classes.field}
+                  />
+                </div>
                 <div>
                   <FormControl className={classes.field}>
-                    <InputLabel htmlFor="role">Role</InputLabel>
+                    <InputLabel htmlFor="role">{t('AddDashboard.role')}</InputLabel>
                     <Field
                       name="role"
                       component={SelectRedux}
-                      placeholder="Role"
+                      placeholder={t('AddDashboard.role')}
                       required
                     >
                       {roles.map((r) => <MenuItem value={r.id}>{r.name}</MenuItem>)}
@@ -85,11 +99,11 @@ class AddDashboard extends Component {
                 </div>
                 <div>
                   <FormControl className={classes.field}>
-                    <InputLabel htmlFor="user">User</InputLabel>
+                    <InputLabel htmlFor="user">{t('AddDashboard.user')}</InputLabel>
                     <Field
                       name="user"
                       component={SelectRedux}
-                      placeholder="User"
+                      placeholder={t('AddDashboard.user')}
                       required
                     >
                       {users.map((u) => <MenuItem value={u.id}>{u.name}</MenuItem>)}
@@ -97,21 +111,21 @@ class AddDashboard extends Component {
                   </FormControl>
                 </div>
                 <div>
-                  <FormControlLabel control={<Field name="active" component={SwitchRedux} />} label="Active" />
+                  <FormControlLabel control={<Field name="active" component={SwitchRedux} />} label={t('AddDashboard.active')} />
                 </div>
                 <div>
                   <Button variant="contained" color="secondary" type="submit" disabled={submitting}>
-                    Submit
+                  {t('Buttons.submit')}
                   </Button>
                   <Button
                     type="button"
                     disabled={pristine || submitting}
                     onClick={reset}
                   >
-                    Reset
+                    {t('Buttons.reset')}
                   </Button>
                   <Button variant="contained" color="primary" onClick={() => history.goBack()}>
-                    Cancel
+                  {t('Buttons.cancel')}
                   </Button>
                 </div>
               </form>
@@ -154,4 +168,4 @@ const FormInit = connect(
   mapDispatchToProps,
 )(ReduxFormMapped);
 
-export default withStyles(styles)(FormInit);
+export default withStyles(styles)(withTranslation()(FormInit));

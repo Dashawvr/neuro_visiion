@@ -16,6 +16,7 @@ import { POST, URL } from '../../Axios/axiosForData';
 import Notification from '../../MyNotification/Notification';
 import { withRouter } from "react-router-dom";
 import axios from 'axios';
+import { withTranslation } from 'react-i18next';
 
 const parsed = new URLSearchParams(window.location.search);
 
@@ -62,9 +63,9 @@ class CreateWidgetMapForm extends React.Component {
       widgetCoordinatesId: parsed.get('coordinatesId'),
     };
     axios.post(`${URL}/api/widget_data/`, POST.data, {Authorization: localStorage.getItem('token')}).then(() => {
-      this.setState({ open: true, variant: 'success', message: 'Success create!' });
+      this.setState({ open: true, variant: 'success', message: 'Notification.success' });
     }).catch((error) => {
-      this.setState({ open: true, variant: 'error', message: 'Opps, failed to create!' });
+      this.setState({ open: true, variant: 'error', message: 'Notification.error' });
     });
     setTimeout(() => this.props.history.push('/home'), 1000);    
   }
@@ -73,6 +74,7 @@ class CreateWidgetMapForm extends React.Component {
     const title = brand.name + ' - Form';
     const description = brand.desc;
     const { message, variant, open } = this.state;
+    const { t } = this.props;
     return (
       <div>
         <Helmet>
@@ -83,15 +85,15 @@ class CreateWidgetMapForm extends React.Component {
           <meta property="twitter:title" content={title} />
           <meta property="twitter:description" content={description} />
         </Helmet>
-        <PapperBlock title="Add Widget Map" icon="ios-list-box-outline">
+        <PapperBlock title={t('AddWidgetMap.title')}icon="ios-list-box-outline">
           <div>
             <CreateWidgetMap onSubmit={(values) => this.showResult(values)} />
           </div>
         </PapperBlock>
-        <Notification open={open} handleClose={() => this.handleClose()} variant={variant} message={message} />
+        <Notification open={open} handleClose={() => this.handleClose()} variant={variant} message={t(message)} />
       </div>
     );
   }
 }
 
-export default withStyles(styles)(withRouter((CreateWidgetMapForm)));
+export default withStyles(styles)(withRouter(withTranslation()(CreateWidgetMapForm)));

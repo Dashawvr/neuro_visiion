@@ -14,7 +14,6 @@ import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import CreateIcon from '@material-ui/icons/Create';
 import { URL, DELETE } from '../../Axios/axiosForData';
 import request from '../../../utils/request';
-import Notification from '../../MyNotification/Notification';
 import { withRouter } from "react-router-dom";
 import { withTranslation } from 'react-i18next';
 
@@ -47,18 +46,8 @@ const styles = theme => ({
   }
 });
 
-class Users extends React.Component {
-  state = {
-    variant: '',
-    message: '',
-    open: false,
-    id: null,
-  }
-
+class UsersTable extends React.Component {
   render() {
-    const {
-      id, open, variant, message
-    } = this.state;
     const { classes, data, t } = this.props;
     const options = {
       textLabels: {
@@ -105,30 +94,6 @@ class Users extends React.Component {
       },
       selectableRows: 'none',
       selectableRowsHeader: false,
-    };
-    const handleDelete = (id) => {
-      if (id) {
-        request(`${URL}/api/users/${id}`, DELETE).then(() => {
-          this.setState({ open: true, variant: 'success', message: 'Notification.success' });
-        }).catch((error) => {
-          this.setState({ open: true, variant: 'error', message: 'Notification.error' });
-        });
-      } else {
-        this.setState({ open: true, variant: 'warning', message: 'Notification.clickDelete' });
-      }
-    };
-    const handleEdit = (id) => {
-      if (id) {
-        this.props.history.push('/home/forms/edit/user/?id=' + id);
-      } else {
-        this.setState({ open: true, variant: 'warning', message: 'Notification.clickEdit' });
-      }
-    };
-    const handleClose = (event, reason) => {
-      if (reason === 'clickaway') {
-        return;
-      }
-      this.setState({ open: false });
     };
 
     return (
@@ -199,25 +164,7 @@ class Users extends React.Component {
     ]}
     options={options}
     />
-        </div>
-        <div>
-          <br />
-          <br />
-          <Button onClick={() => this.props.history.push('/home/forms/add/user')} className={classes.button} variant="contained" color="primary">
-            {t('Buttons.create')}
-            <AddCircleOutlineIcon className={classes.rightIcon} />
-          </Button>
-          <Button onClick={() => handleEdit(id)} className={classes.button} variant="contained" color="secondary">
-            {t('Buttons.edit')}
-            <CreateIcon className={classes.rightIcon} />
-          </Button>
-          <Button onClick={() => handleDelete(id)} className={classes.button} variant="contained" color="red">
-            {t('Buttons.delete')}
-            <DeleteIcon className={classes.rightIcon} />
-          </Button>
-          <br />
-        </div>
-        <Notification open={open} handleClose={() => handleClose()} variant={variant} message={t(message)} />
+        </div>      
       </Fragment>
     );
   }
@@ -227,4 +174,4 @@ Users.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(withRouter(withTranslation()(Users)));
+export default withStyles(styles)(withRouter(withTranslation()(UsersTable)));

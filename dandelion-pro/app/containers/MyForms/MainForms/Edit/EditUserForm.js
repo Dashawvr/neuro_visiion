@@ -18,6 +18,7 @@ import history from '../../../../utils/history';
 import { URL, PATCH, GET } from '../../../Axios/axiosForData';
 import Notification from '../../../MyNotification/Notification';
 import axios from 'axios';
+import { withTranslation } from 'react-i18next';
 
 const parsed = queryString.parse(location.search);
 
@@ -79,9 +80,9 @@ class EditUserForm extends React.Component {
       roleId: roleId ? roleId : this.state.user.roleId,
     };
     axios.patch(`${URL}/api/users/${parsed.id}`, PATCH.data, {Authorization: localStorage.getItem('token')}).then(() => {
-      this.setState({ open: true, variant: 'success', message: 'Success save!' });
+      this.setState({ open: true, variant: 'success', message: 'Notification.success' });
     }).catch((error) => {
-      this.setState({ open: true, variant: 'error', message: 'Opps, failed to save!' });
+      this.setState({ open: true, variant: 'error', message: 'Notification.error' });
     });
   }
 
@@ -90,6 +91,7 @@ class EditUserForm extends React.Component {
     const description = brand.desc;
     const { user, roles } = this.state;
     const { message, variant, open } = this.state;
+    const { t } = this.props;
     this.state.roles.map((role) => {
       if (role.id === user.roleId) {
         user.roleId = role.name;
@@ -105,7 +107,7 @@ class EditUserForm extends React.Component {
           <meta property="twitter:title" content={title} />
           <meta property="twitter:description" content={description} />
         </Helmet>
-        <PapperBlock title="Edit User" icon="ios-list-box-outline">
+        <PapperBlock title={t('EditUser.title')} icon="ios-list-box-outline">
           <div>
             <EditUser
               onSubmit={(values) => this.showResult(values)}
@@ -117,10 +119,10 @@ class EditUserForm extends React.Component {
             />
           </div>
         </PapperBlock>
-        <Notification open={open} handleClose={() => this.handleClose()} variant={variant} message={message} />
+        <Notification open={open} handleClose={() => this.handleClose()} variant={variant} message={t(message)} />
       </div>
     );
   }
 }
 
-export default withStyles(styles)(EditUserForm);
+export default withStyles(styles)(withTranslation()(EditUserForm));

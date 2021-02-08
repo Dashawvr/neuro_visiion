@@ -17,6 +17,7 @@ import history from '../../../../utils/history';
 import { URL, PUT, GET } from '../../../Axios/axiosForData';
 import Notification from '../../../MyNotification/Notification';
 import axios from 'axios';
+import { withTranslation } from 'react-i18next';
 
 const parsed = queryString.parse(location.search);
 
@@ -61,6 +62,7 @@ class EditDashboardForm extends React.Component {
     let enabled = false;
     let userIdd = null;
     let roleIdd = null;
+    let name = null;
     values._root.entries.map((elem) => {
       if (elem[0] === 'active') {
         enabled = elem[1];
@@ -71,16 +73,20 @@ class EditDashboardForm extends React.Component {
       if (elem[0] === 'role') {
         roleIdd = elem[1];
       }
+      if (elem[0] === 'name') {
+        name = elem[1];
+      }
     });
     PUT.data = {
       enable: enabled,
       roleId: roleIdd ? roleIdd : this.state.dashboard.roleId,
       userId: userIdd ? userIdd : this.state.dashboard.userId,
+      name: name ? name : this.state.dashboard.name,
     };
     axios.put(`${URL}/api/dashboard/`, PUT.data, {Authorization: localStorage.getItem('token')}).then(() => {
-      this.setState({ open: true, variant: 'success', message: 'Success save!' });
+      this.setState({ open: true, variant: 'success', message: 'Notification.success' });
     }).catch((error) => {
-      this.setState({ open: true, variant: 'error', message: 'Opps, failed to save!' });
+      this.setState({ open: true, variant: 'error', message: 'Notification.error' });
     });
   }
 
@@ -88,6 +94,7 @@ class EditDashboardForm extends React.Component {
     const title = brand.name + ' - Form';
     const description = brand.desc;
     const { message, variant, open } = this.state;
+    const { t } = this.props;
     this.state.roles.map((role) => {
       if (role.id === this.state.dashboard.roleId) {
         this.state.role = role.name;
@@ -108,15 +115,15 @@ class EditDashboardForm extends React.Component {
           <meta property="twitter:title" content={title} />
           <meta property="twitter:description" content={description} />
         </Helmet>
-        <PapperBlock title="Create Dashboard" icon="ios-list-box-outline">
+        <PapperBlock title={t('EditDashboard.title')} icon="ios-list-box-outline">
           <div>
-            <EditDashboard onSubmit={(values) => this.showResult(values)} users={this.state.users} roles={this.state.roles} user={this.state.user} role={this.state.role} />
+            <EditDashboard onSubmit={(values) => this.showResult(values)} users={this.state.users} roles={this.state.roles} user={this.state.user} role={this.state.role} name={this.state.dashboard.name} />
           </div>
         </PapperBlock>
-        <Notification open={open} handleClose={() => this.handleClose()} variant={variant} message={message} />
+        <Notification open={open} handleClose={() => this.handleClose()} variant={variant} message={t(message)} />
       </div>
     );
   }
 }
 
-export default withStyles(styles)(EditDashboardForm);
+export default withStyles(styles)(withTranslation()(EditDashboardForm));

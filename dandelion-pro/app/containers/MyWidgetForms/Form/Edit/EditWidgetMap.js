@@ -14,6 +14,7 @@ import {
 } from 'dan-components/Forms/ReduxFormMUI';
 import { initAction, clearAction } from 'dan-redux/actions/reduxFormActions';
 import history from '../../../../utils/history';
+import { withTranslation } from 'react-i18next';
 
 const renderRadioGroup = ({ input, ...rest }) => (
   <RadioGroup
@@ -60,7 +61,8 @@ class EditWidgetMap extends Component {
       pristine,
       reset,
       submitting,
-      widget
+      widget,
+      t,
     } = this.props;
     return (
       <div>
@@ -73,7 +75,7 @@ class EditWidgetMap extends Component {
                     name="color"
                     component={TextFieldRedux}
                     label={widget.color}
-                    placeholder="Border Color"
+                    placeholder={p('EditWidgetMap.color')}
                     validate={required}
                     required
                     ref={this.saveRef}
@@ -85,7 +87,7 @@ class EditWidgetMap extends Component {
                     name="size"
                     component={TextFieldRedux}
                     label={widget.size}
-                    placeholder="Border Size (px)"
+                    placeholder={p('EditWidgetMap.size')}
                     validate={required}
                     required
                     ref={this.saveRef}
@@ -97,7 +99,7 @@ class EditWidgetMap extends Component {
                     name="lat"
                     component={TextFieldRedux}
                     label={widget.lat}
-                    placeholder="Marker Latitude"
+                    placeholder={p('EditWidgetMap.lat')}
                     validate={required}
                     required
                     ref={this.saveRef}
@@ -109,7 +111,7 @@ class EditWidgetMap extends Component {
                     name="lon"
                     component={TextFieldRedux}
                     label={widget.lon}
-                    placeholder="Marker Lontitude"
+                    placeholder={p('EditWidgetMap.lon')}
                     validate={required}
                     required
                     ref={this.saveRef}
@@ -118,17 +120,17 @@ class EditWidgetMap extends Component {
                 </div>             
                 <div>
                   <Button variant="contained" color="secondary" type="submit" disabled={submitting}>
-                    Submit
+                    {p('Buttons.submit')}
                   </Button>
                   <Button
                     type="button"
                     disabled={pristine || submitting}
                     onClick={reset}
                   >
-                    Reset
+                    {p('Buttons.reset')}
                   </Button>
                   <Button variant="contained" color="primary" onClick={() => history.goBack()}>
-                    Cancel
+                  {p('Buttons.cancel')}
                   </Button>
                 </div>
               </form>
@@ -171,4 +173,4 @@ const FormInit = connect(
   mapDispatchToProps,
 )(ReduxFormMapped);
 
-export default withStyles(styles)(FormInit);
+export default withStyles(styles)(withTranslation()(FormInit));

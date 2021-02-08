@@ -14,84 +14,13 @@ import MainMenu from './MainMenu';
 import styles from './sidebar-jss';
 import { connect } from "react-redux";
 import {SocketConnection} from "../../api/socket";
+import { withTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 
-const superuserCred = [
-  {
-    key: 'home',
-    name: 'Home',
-    icon: 'ios-home-outline',
-    linkParent: '/home',
-  },
-
-  {
-    key: 'roles',
-    name: 'Roles',
-    icon: 'ios-paper-outline',
-    linkParent: '/home/roles'
-
-  },
-
-  {
-    key: 'users',
-    name: 'Users',
-    icon: 'ios-person',
-    linkParent: '/home/users',
-  },
-  {
-    key: 'group',
-    name: 'User Group',
-    icon: 'ios-people',
-    linkParent: '/home/group'
-  },
-
-  {
-    key: 'maps',
-    name: 'Maps',
-    icon: 'ios-navigate-outline',
-    linkParent: '/home/maps',
-  },
-
-  {
-    key: 'tables',
-    name: 'Edit Panel',
-    icon: 'ios-appstore-outline',
-    linkParent: '/home/edit-panel'
-
-  },
-
-  {
-    key: 'widget',
-    name: 'Widgets',
-    icon: 'ios-laptop',
-    linkParent: '/home/widget'
-  },
-
-  {
-    key: 'no_child',
-    name: 'Stage',
-    icon: 'ios-document-outline',
-    linkParent: '/home/stage',
-  },
-];
-
-const userCred = [
-  {
-    key: 'home',
-    name: 'Home',
-    icon: 'ios-home-outline',
-    linkParent: '/home',
-  },
-
-  {
-    key: 'maps',
-    name: 'Maps',
-    icon: 'ios-navigate-outline',
-    linkParent: '/home/maps',
-  }
-];
 const socketConnection = new SocketConnection();
 
-function SidebarContent(props) {
+function SidebarContent(props) {  
+  const { t, i18n } = useTranslation();
   const [transform, setTransform] = useState(0);
   const handleScroll = (event) => {
     const scroll = event.target.scrollTop;
@@ -199,9 +128,80 @@ function SidebarContent(props) {
       >
         {
           (user.roleId === 1) || (user.roleId === 2) ? (
-              <MainMenu loadTransition={loadTransition} dataMenu={superuserCred} toggleDrawerOpen={toggleDrawerOpen}/>
+              <MainMenu loadTransition={loadTransition} dataMenu={[
+  {
+    key: 'home',
+    name: t('Menu.home'),
+    icon: 'ios-home-outline',
+    linkParent: '/home',
+  },
+
+  {
+    key: 'roles',
+    name: t('Menu.roles'),
+    icon: 'ios-paper-outline',
+    linkParent: '/home/roles'
+
+  },
+
+  {
+    key: 'users',
+    name: t('Menu.users'),
+    icon: 'ios-person',
+    linkParent: '/home/users',
+  },
+  {
+    key: 'group',
+    name: t('Menu.group'),
+    icon: 'ios-people',
+    linkParent: '/home/group'
+  },
+
+  {
+    key: 'maps',
+    name: t('Menu.maps'),
+    icon: 'ios-navigate-outline',
+    linkParent: '/home/maps',
+  },
+
+  {
+    key: 'tables',
+    name: t('Menu.editPanel'),
+    icon: 'ios-appstore-outline',
+    linkParent: '/home/edit-panel'
+
+  },
+
+  {
+    key: 'widget',
+    name: t('Menu.widgets'),
+    icon: 'ios-laptop',
+    linkParent: '/home/widget'
+  },
+
+  {
+    key: 'no_child',
+    name: t('Menu.stage'),
+    icon: 'ios-document-outline',
+    linkParent: '/home/stage',
+  },
+]} toggleDrawerOpen={toggleDrawerOpen}/>
             ) :
-            (<MainMenu loadTransition={loadTransition} dataMenu={userCred} toggleDrawerOpen={toggleDrawerOpen}/>)
+            (<MainMenu loadTransition={loadTransition} dataMenu={[
+  {
+    key: 'home',
+    name: t('Menu.home'),
+    icon: 'ios-home-outline',
+    linkParent: '/home',
+  },
+
+  {
+    key: 'maps',
+    name: t('Menu.maps'),
+    icon: 'ios-navigate-outline',
+    linkParent: '/home/maps',
+  }
+]} toggleDrawerOpen={toggleDrawerOpen}/>)
         }
       </div>
     </div>

@@ -17,6 +17,7 @@ import request from '../../../utils/request';
 import { URL, PATCH, GET } from '../../Axios/axiosForData';
 import Notification from '../../MyNotification/Notification';
 import axios from 'axios';
+import { withTranslation } from 'react-i18next';
 
 const parsed = queryString.parse(location.search);
 
@@ -81,9 +82,9 @@ class EditWidgetTextForm extends React.Component {
     }
     PATCH.data = this.state.widget;
     axios.patch(`${URL}/api/widget_data/${parsed.widgetId}`, PATCH.data, {Authorization: localStorage.getItem('token')}).then(() => {
-      this.setState({ open: true, variant: 'success', message: 'Success save!' });
+      this.setState({ open: true, variant: 'success', message: 'Notification.success' });
     }).catch((error) => {
-      this.setState({ open: true, variant: 'error', message: 'Opps, failed to save!' });
+      this.setState({ open: true, variant: 'error', message: 'Notification.error' });
     });
   }
 
@@ -91,6 +92,7 @@ class EditWidgetTextForm extends React.Component {
     const title = brand.name + ' - Form';
     const description = brand.desc;
     const { message, variant, open, styles } = this.state;
+    const { t } = this.props;
     return (
       <div>
         <Helmet>
@@ -101,7 +103,7 @@ class EditWidgetTextForm extends React.Component {
           <meta property="twitter:title" content={title} />
           <meta property="twitter:description" content={description} />
         </Helmet>
-        <PapperBlock title="Edit Widget Text" icon="ios-list-box-outline">
+        <PapperBlock title={t('EditWidgetText.title')} icon="ios-list-box-outline">
           <div>
             <EditWidgetMap
               onSubmit={(values) => this.showResult(values)}
@@ -115,4 +117,4 @@ class EditWidgetTextForm extends React.Component {
   }
 }
 
-export default withStyles(styles)(EditWidgetTextForm);
+export default withStyles(styles)(withTranslation()(EditWidgetTextForm));

@@ -19,6 +19,7 @@ import {
 } from 'dan-components/Forms/ReduxFormMUI';
 import { initAction, clearAction } from 'dan-redux/actions/reduxFormActions';
 import history from '../../../../utils/history';
+import { withTranslation } from 'react-i18next';
 
 const renderRadioGroup = ({ input, ...rest }) => (
   <RadioGroup
@@ -65,6 +66,8 @@ class EditDashboard extends Component {
       role,
       users,
       roles,
+      name,
+      t,
     } = this.props;
     return (
       <div>
@@ -72,13 +75,25 @@ class EditDashboard extends Component {
           <Grid item xs={12} md={6}>
             <Paper className={classes.root}>
               <form onSubmit={handleSubmit}>
+              <div>
+                  <Field
+                    name="name"
+                    component={TextFieldRedux}
+                    label={name}
+                    placeholder={t('EditDashboard.name')}
+                    validate={required}
+                    required
+                    ref={this.saveRef}
+                    className={classes.field}
+                  />
+                </div>
                 <div>
                   <FormControl className={classes.field}>
                     <InputLabel htmlFor="role">{role}</InputLabel>
                     <Field
                       name="role"
                       component={SelectRedux}
-                      placeholder="Role"
+                      placeholder={t('EditDashboard.role')}
                       required
                     >
                       {roles.map((r) => <MenuItem value={r.id}>{r.name}</MenuItem>)}
@@ -91,7 +106,7 @@ class EditDashboard extends Component {
                     <Field
                       name="user"
                       component={SelectRedux}
-                      placeholder="User"
+                      placeholder={t('EditDashboard.user')}
                       required
                     >
                       {users.map((u) => <MenuItem value={u.id}>{u.name}</MenuItem>)}
@@ -99,21 +114,21 @@ class EditDashboard extends Component {
                   </FormControl>
                 </div>
                 <div>
-                  <FormControlLabel control={<Field name="active" component={SwitchRedux} />} label="Active" />
+                  <FormControlLabel control={<Field name="active" component={SwitchRedux} />} label={t('EditDashboard.active')} />
                 </div>
                 <div>
                   <Button variant="contained" color="secondary" type="submit" disabled={submitting}>
-                    Submit
+                  {t('Buttons.submit')}
                   </Button>
                   <Button
                     type="button"
                     disabled={pristine || submitting}
                     onClick={reset}
                   >
-                    Reset
+                    {t('Buttons.reset')}
                   </Button>
                   <Button variant="contained" color="primary" onClick={() => history.goBack()}>
-                    Cancel
+                  {t('Buttons.cancel')}
                   </Button>
                 </div>
               </form>
@@ -156,4 +171,4 @@ const FormInit = connect(
   mapDispatchToProps,
 )(ReduxFormMapped);
 
-export default withStyles(styles)(FormInit);
+export default withStyles(styles)(withTranslation()(FormInit));

@@ -18,6 +18,7 @@ import history from '../../../../utils/history';
 import { URL, PATCH, GET } from '../../../Axios/axiosForData';
 import Notification from '../../../MyNotification/Notification';
 import axios from 'axios';
+import { withTranslation } from 'react-i18next';
 
 const parsed = queryString.parse(location.search);
 
@@ -68,9 +69,9 @@ class EditGroupForm extends React.Component {
       users: users ? users : this.state.group.users,
     };
     axios.patch(`${URL}/api/user_group/${parsed.id}`, PATCH.data, {Authorization: localStorage.getItem('token')}).then(() => {
-      this.setState({ open: true, variant: 'success', message: 'Success save!' });
+      this.setState({ open: true, variant: 'success', message: 'Notification.success' });
     }).catch((error) => {
-      this.setState({ open: true, variant: 'error', message: 'Opps, failed to save!' });
+      this.setState({ open: true, variant: 'error', message: 'Notification.error' });
     });
   }
 
@@ -79,6 +80,7 @@ class EditGroupForm extends React.Component {
     const description = brand.desc;
     const { group } = this.state;
     const { message, variant, open } = this.state;
+    const { t } = this.props;
     return (
       <div>
         <Helmet>
@@ -89,7 +91,7 @@ class EditGroupForm extends React.Component {
           <meta property="twitter:title" content={title} />
           <meta property="twitter:description" content={description} />
         </Helmet>
-        <PapperBlock title="Edit Group" icon="ios-list-box-outline">
+        <PapperBlock title={t('EditGroup.title')} icon="ios-list-box-outline">
           <div>
             <EditGroup
               onSubmit={(values) => this.showResult(values)}
@@ -98,10 +100,10 @@ class EditGroupForm extends React.Component {
             />
           </div>
         </PapperBlock>
-        <Notification open={open} handleClose={() => this.handleClose()} variant={variant} message={message} />
+        <Notification open={open} handleClose={() => this.handleClose()} variant={variant} message={t(message)} />
       </div>
     );
   }
 }
 
-export default withStyles(styles)(EditGroupForm);
+export default withStyles(styles)(withTranslation()(EditGroupForm));

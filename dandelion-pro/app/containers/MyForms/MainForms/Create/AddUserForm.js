@@ -17,6 +17,7 @@ import {
   URL, GET
 } from '../../../Axios/axiosForData';
 import Notification from '../../../MyNotification/Notification';
+import { withTranslation } from 'react-i18next';
 
 const styles = ({
   root: {
@@ -77,9 +78,9 @@ class AddUserForm extends React.Component {
       username: email,
     };
     axios.post(`${URL}/api/users/`, POST.data, {Authorization: localStorage.getItem('token')}).then(() => {
-        this.setState({ open: true, variant: 'success', message: 'Success created!' });
+        this.setState({ open: true, variant: 'success', message: 'Notification.success' });
       }).catch((error) => {
-        this.setState({ open: true, variant: 'error', message: 'Opps, failed to create!' });
+        this.setState({ open: true, variant: 'error', message: 'Notification.error' });
       });
   }
 
@@ -87,6 +88,7 @@ class AddUserForm extends React.Component {
     const title = brand.name + ' - Form';
     const description = brand.desc;
     const { message, variant, open } = this.state;
+    const { t } = this.props;
     return (
       <div>
         <Helmet>
@@ -97,15 +99,15 @@ class AddUserForm extends React.Component {
           <meta property="twitter:title" content={title} />
           <meta property="twitter:description" content={description} />
         </Helmet>
-        <PapperBlock title="Create User" icon="ios-list-box-outline">
+        <PapperBlock title={t('AddUser.title')} icon="ios-list-box-outline">
           <div>
             <AddUser onSubmit={(values) => this.showResult(values)} roles={this.state.roles} />
           </div>
         </PapperBlock>
-        <Notification open={open} handleClose={() => this.handleClose()} variant={variant} message={message} />
+        <Notification open={open} handleClose={() => this.handleClose()} variant={variant} message={t(message)} />
       </div>
     );
   }
 }
 
-export default withStyles(styles)(AddUserForm);
+export default withStyles(styles)(withTranslation()(AddUserForm));

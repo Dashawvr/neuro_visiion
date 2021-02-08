@@ -16,8 +16,18 @@ import request from '../../../utils/request';
 import { URL, DELETE } from '../../Axios/axiosForData';
 import Notification from '../../MyNotification/Notification';
 import { withRouter } from "react-router-dom";
+import { withTranslation } from 'react-i18next';
 
 const styles = theme => ({
+  iconSmall: {
+    fontSize: 20,
+  },
+  button: {
+    margin: theme.spacing(1),
+  },
+  rightIcon: {
+    marginLeft: theme.spacing(1),
+  },
   table: {
     '& > div': {
       overflow: 'auto'
@@ -43,78 +53,48 @@ class Roles extends React.Component {
     message: '',
     open: false,
     id: null,
-    columns: [
-      {
-        label: 'ID',
-        name: 'id',
-        options: {
-          filter: true
-        }
-      },
-      {
-        label: 'Name',
-        name: 'name',
-        options: {
-          filter: true
-        }
-      },
-      {
-        label: 'Create',
-        name: 'create',
-        options: {
-          filter: true,
-          customBodyRender: (value) => {
-            if (value) {
-              return (<Chip label="Yes" color="secondary" />);
-            }
-            if (!value) {
-              return (<Chip label="Not" color="primary" />);
-            }
-            return (<Chip label="Unknown" />);
-          }
-        }
-      },
-      {
-        label: 'Edit',
-        name: 'edit',
-        options: {
-          filter: true,
-          customBodyRender: (value) => {
-            if (value) {
-              return (<Chip label="Yes" color="secondary" />);
-            }
-            if (!value) {
-              return (<Chip label="Not" color="primary" />);
-            }
-            return (<Chip label="Unknown" />);
-          }
-        }
-      },
-      {
-        label: 'Delete',
-        name: 'delete',
-        options: {
-          filter: true,
-          customBodyRender: (value) => {
-            if (value) {
-              return (<Chip label="Yes" color="secondary" />);
-            }
-            if (!value) {
-              return (<Chip label="Not" color="primary" />);
-            }
-            return (<Chip label="Unknown" />);
-          }
-        }
-      },
-    ],
   }
 
   render() {
     const {
-      columns, id, open, variant, message
+      id, open, variant, message
     } = this.state;
-    const { classes, data } = this.props;
+    const { classes, data, t } = this.props;
     const options = {
+      textLabels: {
+        body: {
+          noMatch: t('MUIDATABLES.noMatch'),
+          toolTip: t('MUIDATABLES.toolTip'),
+          columnHeaderTooltip: column => `${t('MUIDATABLES.sort')} ${column.label}`
+        },
+        pagination: {
+          next: t('MUIDATABLES.next'),
+          previous: t('MUIDATABLES.previous'),
+          rowsPerPage: t('MUIDATABLES.rowsPerPage'),
+          displayRows: t('MUIDATABLES.displayRows'),
+        },
+        toolbar: {
+          search: t('MUIDATABLES.search'),
+          downloadCsv: t('MUIDATABLES.downloadCsv'),
+          print: t('MUIDATABLES.print'),
+          viewColumns: t('MUIDATABLES.viewColumns'),
+          filterTable: t('MUIDATABLES.filterTable'),
+        },
+        filter: {
+          all: t('MUIDATABLES.all'),
+          title: t('MUIDATABLES.title'),
+          reset: t('MUIDATABLES.reset'),
+        },
+        viewColumns: {
+          title: t('MUIDATABLES.titleShow'),
+          titleAria: t('MUIDATABLES.titleAria'),
+        },
+        selectedRows: {
+          text: t('MUIDATABLES.text'),
+          delete: t('MUIDATABLES.delete'),
+          deleteAria: t('MUIDATABLES.deleteAria'),
+        },
+      },
       filterType: 'dropdown',
       responsive: 'stacked',
       print: true,
@@ -129,19 +109,19 @@ class Roles extends React.Component {
     const handleDelete = (id) => {
       if (id) {
         request(`${URL}/api/role/${id}`, DELETE).then(() => {
-          this.setState({ open: true, variant: 'success', message: 'Success delete role!' });
+          this.setState({ open: true, variant: 'success', message: 'Notification.success' });
         }).catch((error) => {
-          this.setState({ open: true, variant: 'error', message: 'Opps, failed to delete!' });
+          this.setState({ open: true, variant: 'error', message: 'Notification.error' });
         });
       } else {
-        this.setState({ open: true, variant: 'warning', message: 'Click on row for delete!' });
+        this.setState({ open: true, variant: 'warning', message: 'Notification.clickDelete' });
       }
     };
     const handleEdit = (id) => {
       if (id) {
         this.props.history.push('/home/forms/edit/role/?id=' + id);
       } else {
-        this.setState({ open: true, variant: 'warning', message: 'Click on row for edit!' });
+        this.setState({ open: true, variant: 'warning', message: 'Notification.clickEdit' });
       }
     };
     const handleClose = (event, reason) => {
@@ -155,30 +135,93 @@ class Roles extends React.Component {
       <Fragment>
         <div className={classes.table}>
           <MUIDataTable
-            title="Roles list"
+            title={t('TableRoles.title')}
             data={data}
-            columns={columns}
-            options={options}
+            columns={[
+      {
+        label: 'ID',
+        name: 'id',
+        options: {
+          filter: true
+        }
+      },
+      {
+        label: t('TableRoles.name'),
+        name: 'name',
+        options: {
+          filter: true
+        }
+      },
+      {
+        label: t('TableRoles.create'),
+        name: 'create',
+        options: {
+          filter: true,
+          customBodyRender: (value) => {
+            if (value) {
+              return (<Chip label={t("TableRoles.yes")} color="secondary" />);
+            }
+            if (!value) {
+              return (<Chip label={t("TableRoles.not")} color="primary" />);
+            }
+            return (<Chip label={t("TableRoles.unknow")} />);
+          }
+        }
+      },
+      {
+        label: t('TableRoles.edit'),
+        name: 'edit',
+        options: {
+          filter: true,
+          customBodyRender: (value) => {
+            if (value) {
+              return (<Chip label={t("TableRoles.yes")} color="secondary" />);
+            }
+            if (!value) {
+              return (<Chip label={t("TableRoles.not")} color="primary" />);
+            }
+            return (<Chip label={t("TableRoles.unknow")} />);
+          }
+        }
+      },
+      {
+        label: t('TableRoles.delete'),
+        name: 'delete',
+        options: {
+          filter: true,
+          customBodyRender: (value) => {
+            if (value) {
+              return (<Chip label={t("TableRoles.yes")} color="secondary" />);
+            }
+            if (!value) {
+              return (<Chip label={t("TableRoles.not")} color="primary" />);
+            }
+            return (<Chip label={t("TableRoles.unknow")} />);
+          }
+        }
+      },
+    ]}
+    options={options}
           />
         </div>
         <div>
           <br />
           <br />
           <Button onClick={() => this.props.history.push('/home/forms/add/role')} className={classes.button} variant="contained" color="primary">
-            Create
+          {t('Buttons.create')}
             <AddCircleOutlineIcon className={classes.rightIcon} />
           </Button>
           <Button onClick={() => handleEdit(id)} className={classes.button} variant="contained" color="secondary">
-            Edit
+          {t('Buttons.edit')}
             <CreateIcon className={classes.rightIcon} />
           </Button>
           <Button onClick={() => handleDelete(id)} className={classes.button} variant="contained" color="red">
-            Delete
+          {t('Buttons.delete')}
             <DeleteIcon className={classes.rightIcon} />
           </Button>
           <br />
         </div>
-        <Notification open={open} handleClose={() => handleClose()} variant={variant} message={message} />
+        <Notification open={open} handleClose={() => handleClose()} variant={variant} message={t(message)} />
       </Fragment>
     );
   }
@@ -188,4 +231,4 @@ Roles.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(withRouter((Roles)));
+export default withStyles(styles)(withRouter(withTranslation()(Roles)));

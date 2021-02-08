@@ -14,6 +14,7 @@ import {
 } from 'dan-components/Forms/ReduxFormMUI';
 import { initAction, clearAction } from 'dan-redux/actions/reduxFormActions';
 import history from '../../../../utils/history';
+import { withTranslation } from 'react-i18next';
 
 const renderRadioGroup = ({ input, ...rest }) => (
   <RadioGroup
@@ -61,6 +62,7 @@ class EditWidgetText extends Component {
       reset,
       submitting,
       widget,
+      t,
     } = this.props;
     return (
       <div>
@@ -73,7 +75,7 @@ class EditWidgetText extends Component {
                     name="color"
                     component={TextFieldRedux}
                     label={widget.color}
-                    placeholder="Border Color (red, blue, green, black...)"
+                    placeholder={p('EditWidgetText.color')}
                     validate={required}
                     required
                     ref={this.saveRef}
@@ -85,7 +87,7 @@ class EditWidgetText extends Component {
                     name="size"
                     component={TextFieldRedux}
                     label={widget.size}
-                    placeholder="Border Size (px)"
+                    placeholder={p('EditWidgetText.size')}
                     validate={required}
                     required
                     ref={this.saveRef}
@@ -97,7 +99,7 @@ class EditWidgetText extends Component {
                     name="fontSize"
                     component={TextFieldRedux}
                     label={widget.fontSize}
-                    placeholder="Text Font Size (px)"
+                    placeholder={p('EditWidgetText.fontSize')}
                     validate={required}
                     required
                     ref={this.saveRef}
@@ -109,7 +111,7 @@ class EditWidgetText extends Component {
                     name="speed"
                     component={TextFieldRedux}
                     label={widget.speed}
-                    placeholder="Text Speed"
+                    placeholder={p('EditWidgetText.speed')}
                     validate={required}
                     required
                     ref={this.saveRef}
@@ -118,17 +120,17 @@ class EditWidgetText extends Component {
                 </div>              
                 <div>
                   <Button variant="contained" color="secondary" type="submit" disabled={submitting}>
-                    Submit
+                  {p('Buttons.submit')}
                   </Button>
                   <Button
                     type="button"
                     disabled={pristine || submitting}
                     onClick={reset}
                   >
-                    Reset
+                    {p('Buttons.reset')}
                   </Button>
                   <Button variant="contained" color="primary" onClick={() => history.goBack()}>
-                    Cancel
+                  {p('Buttons.cancel')}
                   </Button>
                 </div>
               </form>
@@ -171,4 +173,4 @@ const FormInit = connect(
   mapDispatchToProps,
 )(ReduxFormMapped);
 
-export default withStyles(styles)(FormInit);
+export default withStyles(styles)(withTranslation()(FormInit));

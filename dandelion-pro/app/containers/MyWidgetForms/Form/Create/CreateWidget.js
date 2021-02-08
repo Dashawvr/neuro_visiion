@@ -18,6 +18,7 @@ import {
 } from 'dan-components/Forms/ReduxFormMUI';
 import { initAction, clearAction } from 'dan-redux/actions/reduxFormActions';
 import history from '../../../../utils/history';
+import { withTranslation } from 'react-i18next';
 
 const renderRadioGroup = ({ input, ...rest }) => (
   <RadioGroup
@@ -62,6 +63,7 @@ class AddWidget extends Component {
       submitting,
       dashboards,
     } = this.props;
+    const { t } = this.props;
     return (
       <div>
         <Grid container spacing={3} alignItems="flex-start" direction="row" justify="center">
@@ -70,11 +72,11 @@ class AddWidget extends Component {
               <form onSubmit={handleSubmit}>
                 <div>
                   <FormControl className={classes.field}>
-                    <InputLabel htmlFor="dashboardId">Dashboard</InputLabel>
+                    <InputLabel htmlFor="dashboardId">{t('AddWidget.dashboard')}</InputLabel>
                     <Field
                       name="dashboardId"
                       component={SelectRedux}
-                      placeholder="Dashboard"
+                      placeholder={t('AddWidget.dashboard')}
                       required
                     >
                       {dashboards.map((d) => <MenuItem value={d.id}> {d.id} </MenuItem>)}
@@ -83,33 +85,33 @@ class AddWidget extends Component {
                 </div>
                 <div>
                   <FormControl className={classes.field}>
-                    <InputLabel htmlFor="widgetType">Widget Type</InputLabel>
+                    <InputLabel htmlFor="widgetType">{t('AddWidget.type')}</InputLabel>
                     <Field
                       name="widgetType"
                       component={SelectRedux}
-                      placeholder="Widget Type"
+                      placeholder={t('AddWidget.type')}
                       required
                     >
-                      <MenuItem value="table">Table</MenuItem>
-                      <MenuItem value="video">Video</MenuItem>
-                      <MenuItem value="text">Text</MenuItem>
-                      <MenuItem value="map">Map</MenuItem>
+                      <MenuItem value="table">{t('AddWidget.table')}</MenuItem>
+                      <MenuItem value="video">{t('AddWidget.video')}</MenuItem>
+                      <MenuItem value="text">{t('AddWidget.text')}</MenuItem>
+                      <MenuItem value="map">{t('AddWidget.map')}</MenuItem>
                     </Field>
                   </FormControl>
                 </div>
                 <div>
                   <Button variant="contained" color="secondary" type="submit" disabled={submitting}>
-                    Submit
+                  {t('Buttons.submit')}
                   </Button>
                   <Button
                     type="button"
                     disabled={pristine || submitting}
                     onClick={reset}
                   >
-                    Reset
+                    {t('Buttons.reset')}
                   </Button>
                   <Button variant="contained" color="primary" onClick={() => history.goBack()}>
-                    Cancel
+                  {t('Buttons.cancel')}
                   </Button>
                 </div>
               </form>
@@ -152,4 +154,4 @@ const FormInit = connect(
   mapDispatchToProps,
 )(ReduxFormMapped);
 
-export default withStyles(styles)(FormInit);
+export default withStyles(styles)(withTranslation()(FormInit));

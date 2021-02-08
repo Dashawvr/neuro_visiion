@@ -3,6 +3,7 @@ import { Helmet } from 'react-helmet';
 import brand from 'dan-api/dummy/brand';
 import { Route } from 'react-router-dom';
 import { ErrorWrap } from 'dan-components';
+import { withTranslation } from 'react-i18next';
 
 const title = brand.name + ' - Access Denied';
 const description = brand.desc;
@@ -13,6 +14,7 @@ const AccessDenied = () => (
       if (staticContext) {
         staticContext.status = 403; // eslint-disable-line
       }
+      const { t } = this.props;
       return (
         <div>
           <Helmet>
@@ -23,11 +25,11 @@ const AccessDenied = () => (
             <meta property="twitter:title" content={title} />
             <meta property="twitter:description" content={description} />
           </Helmet>
-          <ErrorWrap title="403" desc="Oops, You Are Dont Have Access :(" />
+          <ErrorWrap title="403" desc={t('AccessDenied.desc')} />
         </div>
       );
     }}
   />
 );
 
-export default AccessDenied;
+export default withTranslation()(AccessDenied);

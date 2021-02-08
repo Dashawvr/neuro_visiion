@@ -18,6 +18,7 @@ import {
 } from 'dan-components/Forms/ReduxFormMUI';
 import { initAction, clearAction } from 'dan-redux/actions/reduxFormActions';
 import history from '../../../../utils/history';
+import { withTranslation } from 'react-i18next';
 
 const renderRadioGroup = ({ input, ...rest }) => (
   <RadioGroup
@@ -74,6 +75,7 @@ class AddUser extends Component {
       reset,
       submitting,
       roles,
+      t,
     } = this.props;
     return (
       <div>
@@ -85,8 +87,8 @@ class AddUser extends Component {
                   <Field
                     name="name"
                     component={TextFieldRedux}
-                    placeholder="Name"
-                    label="Name"
+                    placeholder={t('AddUser.name')}
+                    label={t('AddUser.name')}
                     validate={required}
                     required
                     ref={this.saveRef}
@@ -97,8 +99,8 @@ class AddUser extends Component {
                   <Field
                     name="lastName"
                     component={TextFieldRedux}
-                    placeholder="LastName"
-                    label="Last Name"
+                    placeholder={t('AddUser.lastName')}
+                    label={t('AddUser.lastName')}
                     validate={required}
                     required
                     ref={this.saveRef}
@@ -109,8 +111,8 @@ class AddUser extends Component {
                   <Field
                     name="email"
                     component={TextFieldRedux}
-                    placeholder="Email Field"
-                    label="Email"
+                    placeholder={t('AddUser.email')}
+                    label={t('AddUser.email')}
                     required
                     validate={[required, email]}
                     className={classes.field}
@@ -120,8 +122,8 @@ class AddUser extends Component {
                   <Field
                     name="password"
                     component={TextFieldRedux}
-                    placeholder="Password"
-                    label="Password"
+                    placeholder={t('AddUser.password')}
+                    label={t('AddUser.password')}
                     validate={[required, password]}
                     required
                     ref={this.saveRef}
@@ -131,7 +133,7 @@ class AddUser extends Component {
                 </div>
                 <div>
                   <FormControl className={classes.field}>
-                    <InputLabel htmlFor="role">Role</InputLabel>
+                    <InputLabel htmlFor="role">{t('AddUser.role')}</InputLabel>
                     <Field
                       name="role"
                       component={SelectRedux}
@@ -144,17 +146,17 @@ class AddUser extends Component {
                 </div>
                 <div>
                   <Button variant="contained" color="secondary" type="submit" disabled={submitting}>
-                    Submit
+                    {t('Buttons.submit')}
                   </Button>
                   <Button
                     type="button"
                     disabled={pristine || submitting}
                     onClick={reset}
                   >
-                    Reset
+                    {t('Buttons.reset')}
                   </Button>
                   <Button variant="contained" color="primary" onClick={() => history.goBack()}>
-                    Cancel
+                  {t('Buttons.cancel')}
                   </Button>
                 </div>
               </form>
@@ -197,4 +199,4 @@ const FormInit = connect(
   mapDispatchToProps,
 )(ReduxFormMapped);
 
-export default withStyles(styles)(FormInit);
+export default withStyles(styles)(withTranslation()(FormInit));
