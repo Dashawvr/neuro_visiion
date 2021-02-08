@@ -147,7 +147,9 @@ const Widget = (props) => {
               }}
               onDragStop={handlePosition}
               onResizeStop={handlePosition}
-              onContextMenu={handleClick}
+              onContextMenu={handleClick}         
+              disableDragging={canEditScene}
+              enableResizing={canEnableResizing}
             >
               <div onDoubleClick={handleDoubleClickContent}>
                 <TableUsers />
