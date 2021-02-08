@@ -12,6 +12,5 @@ export const getDashboards = (id) => {
           payload: res
         })
       });
-
   }
 }

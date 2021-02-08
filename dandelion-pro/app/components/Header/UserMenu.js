@@ -142,7 +142,6 @@ function UserMenu(props) {
           <ListItemIcon>
             <ExitToApp />
           </ListItemIcon>
-          <ExitToApp/>
           Log Out
         </MenuItem>
       </Menu>
