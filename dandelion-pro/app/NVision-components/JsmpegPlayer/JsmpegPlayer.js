@@ -10,7 +10,7 @@ export default class JsmpegPlayer extends Component {
       videoWrapper: null,
     };
   }
-
+//TODO ЛОГІНУ І ПАРОЛЮ , З ДОМЕННОМУ ІМЕНІ  . display hide for Sidebar
   render() {
     return (
       <div
