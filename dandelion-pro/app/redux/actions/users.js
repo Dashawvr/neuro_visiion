@@ -7,7 +7,6 @@ export const getUsers = () => {
     axios
       .get(`${URL}/api/users`)
       .then((res) => {
-        console.log(res, 'users')
         dispatch ({
           type: GET_USERS,
           payload: res

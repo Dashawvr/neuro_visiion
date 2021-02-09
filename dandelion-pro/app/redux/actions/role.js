@@ -7,7 +7,6 @@ export const getRole = () => {
     axios
       .get(`${URL}/api/role`)
       .then((res) => {
-        console.log(res, 'roles')
         dispatch ({
           type: GET_ROLE,
           payload: res

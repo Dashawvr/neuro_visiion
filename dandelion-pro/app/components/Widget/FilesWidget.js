@@ -26,7 +26,6 @@ function FilesWidget(props) {
       .get( URL +'/api/cpu/info/')
       .then((response) => {
         setInfo(response.data.data.info);
-        console.log(response);
       })
       .catch((error) => {
         console.error(error);
