@@ -18,8 +18,8 @@ import { withTranslation } from 'react-i18next';
 import { useTranslation } from 'react-i18next';
 
 const socketConnection = new SocketConnection();
-
-function SidebarContent(props) {  
+//TODO display: hide for SideBar
+function SidebarContent(props) {
   const { t, i18n } = useTranslation();
   const [transform, setTransform] = useState(0);
   const handleScroll = (event) => {
