@@ -14,7 +14,7 @@ import AddGroup from '../../Forms/Create/AddGroup';
 import request from '../../../../utils/request';
 import axios from 'axios';
 import {
-  URL, GET
+  URL, GET, POST
 } from '../../../Axios/axiosForData';
 import Notification from '../../../MyNotification/Notification';
 import { withTranslation } from 'react-i18next';
@@ -31,6 +31,7 @@ class AddGroupForm extends React.Component {
     message: '',
     open: false,
     users: [],
+    selectedUsers: [],
   }
 
   componentDidMount() {
@@ -52,11 +53,12 @@ class AddGroupForm extends React.Component {
     values._root.entries.map((elem) => {
       if (elem[0] === 'name') {
         name = elem[1];
-      }
-      if (elem[0] === 'users') {
-        users = elem[1];
       }      
     });
+    this.state.selectedUsers.map(user => {
+      users.push(user.value);
+    })
+    console.log(users);
     POST.data = {
       name: name,
       users: users,
@@ -68,11 +70,16 @@ class AddGroupForm extends React.Component {
       });
   }
 
+  
+
   render() {
     const title = brand.name + ' - Form';
     const description = brand.desc;
     const { message, variant, open } = this.state;
     const { t } = this.props;
+    const getUsers = (values) => {
+      this.setState({selectedUsers: values});
+    }
     return (
       <div>
         <Helmet>
@@ -85,7 +92,7 @@ class AddGroupForm extends React.Component {
         </Helmet>
         <PapperBlock title={t('AddGroup.title')} icon="ios-list-box-outline">
           <div>
-            <AddGroup onSubmit={(values) => this.showResult(values)} users={this.state.users} />
+            <AddGroup onSubmit={(values) => this.showResult(values)} users={this.state.users} getUsers={getUsers} />
           </div>
         </PapperBlock>
         <Notification open={open} handleClose={() => this.handleClose()} variant={variant} message={t(message)} />

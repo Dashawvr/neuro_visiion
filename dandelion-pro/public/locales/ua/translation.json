@@ -90,6 +90,7 @@
         "delete": "Видаляння"
     },
     "AddWidgetTable": {
+        "name": "Ім'я",
         "title": "Створити віджет таблиця",
         "table": "Таблиця",
         "roles": "Ролі",
@@ -97,14 +98,17 @@
         "dashboards": "Сцени"
     },
     "AddWidgetText": {
+        "name": "Ім'я",
         "text": "Текст",
         "title": "Створити віджет текст"
     },
     "AddWidgetVideo": {
+        "name": "Ім'я",
         "url": "RTSP",
         "title": "Створити віджет відео"
     },
     "AddWidgetMap": {
+        "name": "Ім'я",
         "lat": "Широта",
         "lon": "Довгота",
         "title": "Створити віджет карта"

@@ -4,6 +4,7 @@ import TextField from '@material-ui/core/TextField';
 import Select from '@material-ui/core/Select';
 import Checkbox from '@material-ui/core/Checkbox';
 import Switch from '@material-ui/core/Switch';
+import NoSsr from '@material-ui/core/NoSsr';
 
 /* Textfield */
 export const TextFieldRedux = ({ meta: { touched, error }, input, ...rest }) => (
@@ -35,6 +36,24 @@ export const SelectRedux = ({ input, children, ...rest }) => (
 );
 
 SelectRedux.propTypes = {
+  input: PropTypes.object.isRequired,
+  children: PropTypes.node.isRequired,
+};
+/* End */
+
+/* Select */
+export const MultiSelectRedux = ({ input, children, ...rest }) => (
+  <NoSsr>
+  <Select
+    {...input}
+    {...rest}
+  >
+    {children}
+  </Select>
+  </NoSsr>
+);
+
+MultiSelectRedux.propTypes = {
   input: PropTypes.object.isRequired,
   children: PropTypes.node.isRequired,
 };

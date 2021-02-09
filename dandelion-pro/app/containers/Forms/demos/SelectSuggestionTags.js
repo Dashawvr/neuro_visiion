@@ -333,7 +333,7 @@ const components = {
   ValueContainer,
 };
 
-export default function SelectSuggestions() {
+export default function SelectSuggestions(props) {
   const classes = useStyles();
   const theme = useTheme();
   const [multi, setMulti] = React.useState(null);
@@ -360,17 +360,17 @@ export default function SelectSuggestions() {
           styles={selectStyles}
           inputId="react-select-multiple"
           TextFieldProps={{
-            label: 'Countries',
+            label: props.title,
             InputLabelProps: {
               htmlFor: 'react-select-multiple',
               shrink: true,
             },
-            placeholder: 'Select multiple countries',
+            placeholder: props.desc,
           }}
-          options={suggestions}
+          options={props.data}
           components={components}
-          value={multi}
-          onChange={handleChangeMulti}
+          value={props.value}
+          onChange={props.handleChangeMulti}
           isMulti
         />
       </NoSsr>

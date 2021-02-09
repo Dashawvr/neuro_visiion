@@ -19,6 +19,7 @@ import {
 import { initAction, clearAction } from 'dan-redux/actions/reduxFormActions';
 import history from '../../../../utils/history';
 import { withTranslation } from 'react-i18next';
+import SelectSuggestionTags from '../../../Forms/demos/SelectSuggestionTags';
 
 const renderRadioGroup = ({ input, ...rest }) => (
   <RadioGroup
@@ -58,6 +59,9 @@ const styles = theme => ({
 });
 
 class EditGroup extends Component {
+  state = {
+    selectUsers: [],
+  }
   render() {
     const {
       classes,
@@ -68,7 +72,13 @@ class EditGroup extends Component {
       name,
       users,
       t,
+      getUsers,
     } = this.props;
+    const handleChangeMulti = (value) => {
+      this.setState({selectUsers: value});
+      getUsers(this.state.selectUsers);
+      console.log(this.state.selectUsers);
+    };
     return (
       <div>
         <Grid container spacing={3} alignItems="flex-start" direction="row" justify="center">
@@ -87,19 +97,16 @@ class EditGroup extends Component {
                     className={classes.field}
                   />
                 </div>
-                <div>
-                  <FormControl className={classes.field}>
-                    <InputLabel htmlFor="users">{users}</InputLabel>
-                    <Field
-                      name="users"
-                      component={SelectRedux}
-                      placeholder="Selection"
-                      required
-                    >
-                      {users.map((user) => <MenuItem value={user.id}>{user.name}</MenuItem>)}
-                    </Field>
-                  </FormControl>
-                </div>
+                <SelectSuggestionTags 
+                data={users.map(user => ({
+                  value: user.id,
+                  label: user.name + ' ' + user.surName
+                }))} 
+                title='Користувачі' 
+                desc='Виберіть користувачів' 
+                value={this.state.selectUsers}
+                handleChangeMulti={handleChangeMulti}  
+                />
                 <div>
                   <Button variant="contained" color="secondary" type="submit" disabled={submitting}>
                   {t('Buttons.submit')}

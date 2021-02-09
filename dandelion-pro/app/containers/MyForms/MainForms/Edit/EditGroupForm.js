@@ -39,7 +39,7 @@ class EditGroupForm extends React.Component {
 
   componentDidMount() {
     request(`${URL}/api/user_group/${parsed.id}`, GET).then((res) => {
-      this.setState({ user: res.data.user_group });
+      this.setState({ group: res.data.user_group });
     });
     request(`${URL}/api/users/`, GET).then((res) => {
       this.setState({ users: res.data.users.rows });
@@ -81,6 +81,9 @@ class EditGroupForm extends React.Component {
     const { group } = this.state;
     const { message, variant, open } = this.state;
     const { t } = this.props;
+    const getUsers = (values) => {
+      this.setState({selectedUsers: values});
+    }
     return (
       <div>
         <Helmet>
@@ -96,7 +99,8 @@ class EditGroupForm extends React.Component {
             <EditGroup
               onSubmit={(values) => this.showResult(values)}
               name={group.name ? group.name : ''}
-              users={group.users ? group.users : ''}
+              users={this.state.users} 
+              getUsers={getUsers}
             />
           </div>
         </PapperBlock>

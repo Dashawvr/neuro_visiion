@@ -41,12 +41,22 @@ class CreateWidgetVideoForm extends React.Component {
   };
 
   showResult(values) {
-    const data = values._root.entries[0][1];
+    let name = null;
+    let data = null;
+    values._root.entries.map((elem) => {
+      if (elem[0] === 'name') {
+        name = elem[1];
+      }
+      if (elem[0] === 'data') {
+        data = elem[1];
+      }
+    });
     const user = JSON.parse(localStorage.getItem('user'));
     POST.data = {
       type: parsed.get('type'),
       authorId: user.id,
       data: data,
+      name: name,
       dashboardId: parsed.get('dashboardId'),
       widgetCoordinatesId: parsed.get('coordinatesId'),
     };

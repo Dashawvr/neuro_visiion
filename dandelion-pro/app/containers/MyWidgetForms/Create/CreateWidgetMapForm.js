@@ -44,12 +44,16 @@ class CreateWidgetMapForm extends React.Component {
     const user = JSON.parse(localStorage.getItem('user'));
     let lon = null;
     let lat = null;
+    let name = null;
     values._root.entries.map((elem) => {
       if (elem[0] === 'lat') {
         lat = elem[1];
       }
       if (elem[0] === 'lon') {
         lon = elem[1];
+      }
+      if (elem[0] === 'name') {
+        name = elem[1];
       }
     });
     POST.data = {
@@ -59,6 +63,7 @@ class CreateWidgetMapForm extends React.Component {
         lat,
         lon,
       },
+      name: name,
       dashboardId: parsed.get('dashboardId'),
       widgetCoordinatesId: parsed.get('coordinatesId'),
     };

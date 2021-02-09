@@ -4,18 +4,15 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import { Field, reduxForm } from 'redux-form/immutable';
-import MenuItem from '@material-ui/core/MenuItem';
 import Grid from '@material-ui/core/Grid';
 import RadioGroup from '@material-ui/core/RadioGroup';
-import FormControl from '@material-ui/core/FormControl';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Button from '@material-ui/core/Button';
-import InputLabel from '@material-ui/core/InputLabel';
 import {
-  SelectRedux,
   TextFieldRedux,
 } from 'dan-components/Forms/ReduxFormMUI';
+import SelectSuggestionTags from '../../../Forms/demos/SelectSuggestionTags';
 import { initAction, clearAction } from 'dan-redux/actions/reduxFormActions';
 import history from '../../../../utils/history';
 import { withTranslation } from 'react-i18next';
@@ -57,6 +54,10 @@ const styles = theme => ({
 });
 
 class AddGroup extends Component {
+  state = {
+    selectUsers: [],
+  }
+  
   render() {
     const {
       classes,
@@ -66,7 +67,13 @@ class AddGroup extends Component {
       submitting,
       users,
       t,
+      getUsers,
     } = this.props;
+    const handleChangeMulti = (value) => {
+      this.setState({selectUsers: value});
+      getUsers(this.state.selectUsers);
+      console.log(this.state.selectUsers);
+    };
     return (
       <div>
         <Grid container spacing={3} alignItems="flex-start" direction="row" justify="center">
@@ -85,19 +92,16 @@ class AddGroup extends Component {
                     className={classes.field}
                   />
                 </div>
-                <div>
-                  <FormControl className={classes.field}>
-                    <InputLabel htmlFor="users">{t('AddGroup.users')}</InputLabel>
-                    <Field
-                      name="users"
-                      component={SelectRedux}
-                      placeholder="Selection"
-                      required
-                    >
-                      {users.map((u) => <MenuItem value={u.id}>{u.name}</MenuItem>)}
-                    </Field>
-                  </FormControl>
-                </div>
+                <SelectSuggestionTags 
+                data={users.map(user => ({
+                  value: user.id,
+                  label: user.name + ' ' + user.surName
+                }))} 
+                title='Користувачі' 
+                desc='Виберіть користувачів' 
+                value={this.state.selectUsers}
+                handleChangeMulti={handleChangeMulti}  
+                />
                 <div>
                   <Button variant="contained" color="secondary" type="submit" disabled={submitting}>
                   {t('Buttons.submit')}

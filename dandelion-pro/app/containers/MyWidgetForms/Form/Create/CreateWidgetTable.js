@@ -10,6 +10,7 @@ import { connect } from 'react-redux';
 import Button from '@material-ui/core/Button';
 import {
   SelectRedux,
+  TextFieldRedux,
 } from 'dan-components/Forms/ReduxFormMUI';
 import { initAction, clearAction } from 'dan-redux/actions/reduxFormActions';
 import FormControl from '@material-ui/core/FormControl';
@@ -26,6 +27,9 @@ const renderRadioGroup = ({ input, ...rest }) => (
     onChange={(event, value) => input.onChange(value)}
   />
 );
+
+
+const required = value => (value == null ? 'Required' : undefined);
 
 const styles = theme => ({
   root: {
@@ -67,6 +71,18 @@ class CreateWidgetTable extends Component {
           <Grid item xs={12} md={6}>
             <Paper className={classes.root}>
               <form onSubmit={handleSubmit}>
+              <div>
+                  <Field
+                    name="name"
+                    component={TextFieldRedux}
+                    placeholder={t('AddWidgetTable.name')}
+                    label={t('AddWidgetTable.name')}
+                    validate={required}
+                    required
+                    ref={this.saveRef}
+                    className={classes.field}
+                  />
+                </div>
                 <div>
                   <FormControl className={classes.field}>
                     <InputLabel htmlFor="table">{t('AddWidgetTable.table')}</InputLabel>

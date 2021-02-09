@@ -90,6 +90,7 @@
         "delete": "Delete"
     },
     "AddWidgetTable": {
+        "name": "Name",
         "title": "Create Widget Table",
         "table": "Table",
         "roles": "Roles",
@@ -97,14 +98,17 @@
         "dashboards": "Dashboards"
     },
     "AddWidgetText": {
+        "name": "Name",
         "text": "Text",
         "title": "Create Widget Text"
     },
     "AddWidgetVideo": {
+        "name": "Name",
         "url": "RTSP",
         "title": "Create Widget Video"
     },
     "AddWidgetMap": {
+        "name": "Name",
         "lat": "Latitude",
         "lon": "Lontitude",
         "title": "Create Widget Map"

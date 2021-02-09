@@ -67,6 +67,18 @@ class CreateWidgetMap extends Component {
           <Grid item xs={12} md={6}>
             <Paper className={classes.root}>
               <form onSubmit={handleSubmit}>
+              <div>
+                  <Field
+                    name="name"
+                    component={TextFieldRedux}
+                    placeholder={t('AddWidgetMap.name')}
+                    label={t('AddWidgetMap.name')}
+                    validate={required}
+                    required
+                    ref={this.saveRef}
+                    className={classes.field}
+                  />
+                </div>
                 <div>
                   <Field
                     name="lan"
