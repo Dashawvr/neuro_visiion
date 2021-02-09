@@ -119,7 +119,7 @@ class UsersGroups extends React.Component {
     };
     const handleEdit = (id) => {
       if (id) {
-        this.props.history.push('/home/forms/edit/user_group/?id=' + id);
+        this.props.history.push('/home/forms/edit/group/?id=' + id);
       } else {
         this.setState({ open: true, variant: 'warning', message: 'Notification.clickEdit' });
       }
