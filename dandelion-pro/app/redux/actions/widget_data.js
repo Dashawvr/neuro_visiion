@@ -8,7 +8,6 @@ export const getWidgetData = () => {
     axios
       .get(`${URL}/api/widget_data`)
       .then((res) => {
-        console.log(res, 'widget_data')
         dispatch ({
           type: GET_WIDGET_DATA,
           payload: res
