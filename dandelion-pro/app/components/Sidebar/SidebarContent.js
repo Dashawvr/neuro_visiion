@@ -18,7 +18,6 @@ import { withTranslation } from 'react-i18next';
 import { useTranslation } from 'react-i18next';
 
 const socketConnection = new SocketConnection();
-//TODO display: hide for SideBar
 function SidebarContent(props) {
   const { t, i18n } = useTranslation();
   const [transform, setTransform] = useState(0);
@@ -90,8 +89,8 @@ function SidebarContent(props) {
             </div>
             <div>
               <h4>{user.name}</h4>
-              <Button size="small" onClick={openMenuStatus}>
-                <i className={classNames(classes.dotStatus, changeStatus(status))}/>
+              <Button size="small">
+                <i className={classNames(classes.dotStatus, setStatus(status))}/>
                 {status}
               </Button>
               <Menu

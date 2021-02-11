@@ -357,7 +357,7 @@ const Widget = (props) => {
       if (url.length > 2) {
         return (
           <Rnd
-            // className="widgetVideo"
+            className="widgetVideo"
             onDoubleClick={handleDoubleClick}
             style={{
               zIndex: props.zIndex,
