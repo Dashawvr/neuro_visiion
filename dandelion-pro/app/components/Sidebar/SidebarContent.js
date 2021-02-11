@@ -81,21 +81,19 @@ function SidebarContent(props) {
             className={classNames(classes.profile, classes.user)}
             style={{ opacity: 1 - (transform / 100), marginTop: transform * -0.3 }}
           >
+
             <div>
               <Avatar
-                alt={dummy.user.name}
                 src={dummy.user.avatar}
                 className={classNames(classes.avatar, classes.bigAvatar)}
               />
+            </div>
+            <div>
               <h4>{user.name}</h4>
               <Button size="small" onClick={openMenuStatus}>
-                <i className={classNames(classes.dotStatus, setStatus(status))}/>
+                <i className={classNames(classes.dotStatus, changeStatus(status))}/>
                 {status}
               </Button>
-            </div>
-
-            <div>
-
               <Menu
                 id="status-menu"
                 anchorEl={anchorEl}
@@ -103,14 +101,14 @@ function SidebarContent(props) {
                 onClose={closeMenuStatus}
                 className={classes.statusMenu}
               >
-                <MenuItem onClick={() => changeStatus('online')}>
-                  <i className={classNames(classes.dotStatus, classes.online)}/>
-                  Online
-                </MenuItem>
-                <MenuItem onClick={() => changeStatus('offline')}>
-                  <i className={classNames(classes.dotStatus, classes.offline)}/>
-                  Offline
-                </MenuItem>
+                  <MenuItem onClick={() => changeStatus('online')}>
+                    <i className={classNames(classes.dotStatus, classes.online)}/>
+                    Online
+                  </MenuItem>
+                  <MenuItem onClick={() => changeStatus('offline')}>
+                    <i className={classNames(classes.dotStatus, classes.offline)}/>
+                    Offline
+                  </MenuItem>
               </Menu>
             </div>
           </div>
