@@ -5,7 +5,7 @@ import { useHistory, Redirect } from "react-router-dom";
 import "../../NVision-styles/style.css";
 import { Rnd } from 'react-rnd';
 import TableUsers from "../../containers/MyWidgets/WidgetTableUsers";
-import TableRole from "../../containers/MyWidgets/WidgetTableRole";
+import TableRoles from "../../containers/MyWidgets/WidgetTableRole";
 import TableDashboards from "../../containers/MyWidgets/WidgetTableDashboards";
 import Map from "../../containers/MyWidgets/WidgetMap";
 import Menu from "@material-ui/core/Menu";
@@ -95,6 +95,17 @@ const Widget = (props) => {
     setState(initialState);
   };
 
+  let canEditScene = undefined;
+  let canEnableResizing = undefined;
+  const user = JSON.parse(localStorage.getItem('user'));
+  if (user.id === 1 || user.id === 2) {
+    canEnableResizing = true;
+    canEditScene = false;
+  } else {
+    canEnableResizing = false;
+    canEditScene = true;
+  }
+
   const handlePosition = (e) => {
     delete coordinates.id;
     delete coordinates.createdAt;
@@ -152,13 +163,13 @@ const Widget = (props) => {
                 offsetTop: coordinates.y,
                 left: coordinates.x,
                 width: coordinates.width,
-                height: coordinates.height,              
+                height: coordinates.height,
                 margin: props.styles.size,
                 backgroundColor: props.styles.color,
               }}
               onDragStop={handlePosition}
               onResizeStop={handlePosition}
-              onContextMenu={handleClick}         
+              onContextMenu={handleClick}
               disableDragging={canEditScene}
               enableResizing={canEnableResizing}
             >
@@ -192,13 +203,13 @@ const Widget = (props) => {
                   top: coordinates.y,
                   left: coordinates.x,
                   width: coordinates.width,
-                  height: coordinates.height,              
+                  height: coordinates.height,
                   margin: props.styles.size,
                   backgroundColor: props.styles.color,
                 }}
                 onDragStop={handlePosition}
                 onResizeStop={handlePosition}
-                onContextMenu={handleClick}            
+                onContextMenu={handleClick}
                 disableDragging={canEditScene}
                 enableResizing={canEnableResizing}
             >
@@ -232,7 +243,7 @@ const Widget = (props) => {
                   top: coordinates.y,
                   left: coordinates.x,
                   width: coordinates.width,
-                  height: coordinates.height,              
+                  height: coordinates.height,
                   margin: props.styles.size,
                   backgroundColor: props.styles.color,
                 }}
@@ -276,7 +287,7 @@ const Widget = (props) => {
               top: coordinates.y,
               left: coordinates.x,
               width: coordinates.width,
-              height: coordinates.height,              
+              height: coordinates.height,
               margin: props.styles.size,
               backgroundColor: props.styles.color,
             }}
@@ -303,6 +314,7 @@ const Widget = (props) => {
             </MenuItem>
           </Menu>
         </Rnd>
+        // <></>
       );
     case "text":
       return (
@@ -314,21 +326,21 @@ const Widget = (props) => {
               top: coordinates.y,
               left: coordinates.x,
               width: coordinates.width,
-              height: coordinates.height,              
+              height: coordinates.height,
               margin: props.styles.size,
               backgroundColor: props.styles.color,
             }}
             onDragStop={handlePosition}
             onResizeStop={handlePosition}
-            onContextMenu={handleClick}        
+            onContextMenu={handleClick}
             disableDragging={canEditScene}
             enableResizing={canEnableResizing}
         >
           <div onDoubleClick={handleDoubleClickContent}>
-            <marquee 
-            behavior="scroll" 
-            direction="right" 
-            hspace="10px"              
+            <marquee
+            behavior="scroll"
+            direction="right"
+            hspace="10px"
             scrollamount={props.styles.speed}
  >
               <span style={{"fontSize": props.styles.fontSize}} >{props.data}</span>
@@ -350,6 +362,7 @@ const Widget = (props) => {
             </MenuItem>
           </Menu>
         </Rnd>
+ //        <></>
       );
     case "video":
       if (url.length > 2) {
@@ -362,7 +375,7 @@ const Widget = (props) => {
               top: coordinates.y,
               left: coordinates.x,
               width: coordinates.width,
-              height: coordinates.height,              
+              height: coordinates.height,
               margin: props.styles.size,
               backgroundColor: props.styles.color,
             }}

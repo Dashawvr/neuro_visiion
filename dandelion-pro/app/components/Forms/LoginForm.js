@@ -93,11 +93,11 @@ class LoginForm extends React.Component {
             <div className={classes.btnArea}>
               <Button variant="outlined" size="small" className={classes.redBtn} type="button">
                 <AllInclusive className={classNames(classes.leftIcon, classes.iconSmall)}/>
-                With Google
+                With Login & Password
               </Button>
               <Button variant="outlined" size="small" className={classes.blueBtn} type="button">
                 <Brightness5 className={classNames(classes.leftIcon, classes.iconSmall)}/>
-                With Facebook
+                With Domain Name
               </Button>
             </div>
             <ContentDivider content="Or sign in with email"/>

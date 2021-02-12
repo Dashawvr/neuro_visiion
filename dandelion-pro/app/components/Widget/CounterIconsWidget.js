@@ -26,10 +26,10 @@ function CounterIconWidget(props) {
     props.getWidgetData()
   }, [])
 
-  const countOfDash = dashboards?dashboards.data.data.dashboard.rows.length:''
-  const countOfRole  = roles?roles.data.data.roles.count:''
-  const countOfUsers = users?users.data.data.users.count:''
-  const countOfWidgets = widget_data?widget_data.data.data.WidgetDates.count:''
+  const countOfDash = Number(dashboards?dashboards.data.data.dashboard.rows.length:'')
+  const countOfRole  = Number(roles?roles.data.data.roles.count:'')
+  const countOfUsers = Number(users?users.data.data.users.count:'')
+  const countOfWidgets = Number(widget_data?widget_data.data.data.WidgetDates.count:'')
 
   const user = JSON.parse(localStorage.getItem('user'))
 

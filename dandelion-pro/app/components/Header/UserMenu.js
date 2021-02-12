@@ -88,7 +88,7 @@ function UserMenu(props) {
   const { anchorEl, openMenu } = menuState;
   const { anchorElLanguage, openMenuLanguage } = languageState;
   return (
-    <div>    
+    <div>
     <IconButton
         aria-haspopup="true"
         onClick={handleLanguageMenu('language')}
@@ -155,7 +155,7 @@ function UserMenu(props) {
         <div className={messageStyles.messageInfo}>
           <ListItemText primary='Українська' secondary='Ukrainian' />
         </div>
-      </MenuItem>      
+      </MenuItem>
       </Menu>
 
       <Menu
@@ -182,7 +182,7 @@ function UserMenu(props) {
           dashboards ?
             (dashboards.data.data.dashboard.rows.map((el) => {
               return (
-                <>
+                <div key={el.id}>
                   <MenuItem onClick={() => {
                     history.push(`/home/dashboard/${el.id}`)
                     handleClose()
@@ -192,7 +192,7 @@ function UserMenu(props) {
                     </div>
                   </MenuItem>
                   <Divider variant="inset"/>
-                </>
+                </div>
               )
             })) : ''
         }
@@ -221,9 +221,6 @@ function UserMenu(props) {
           logOut()
           history.push('/')
         }}>
-          <ListItemIcon>
-            <ExitToApp />
-          </ListItemIcon>
           <ExitToApp/>
           {t('Menu.logOut')}
         </MenuItem>

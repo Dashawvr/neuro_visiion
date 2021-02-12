@@ -19,14 +19,13 @@ function FilesWidget(props) {
   const { classes } = props
   const [info, setInfo] = useState([]);
 
-  const used = (info.usedGb/(info.totalGb / 100)).toFixed(1)
+  const used = Number((info.usedGb/(info.totalGb / 100)).toFixed(1))
 
   const getInfo = () => {
     axios
       .get( URL +'/api/cpu/info/')
       .then((response) => {
         setInfo(response.data.data.info);
-        console.log(response);
       })
       .catch((error) => {
         console.error(error);

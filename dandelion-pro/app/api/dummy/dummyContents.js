@@ -3,7 +3,7 @@ const dummyContents = {
   user: {
     name: 'Neuro Vision',
     title: 'Administrator',
-    avatar: avatarApi[6],
+    avatar: avatarApi[1],
     status: 'online'
   },
   text: {
