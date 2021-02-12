@@ -7,6 +7,7 @@ const Maps = (props) => {
       center={[props.lat, props.lon]}
       zoom={10}
       scrollWheelZoom={false}
+      dragging={false}
     >
       <TileLayer
         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'

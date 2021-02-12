@@ -116,6 +116,17 @@ const Widget = (props) => {
       });
   };
 
+  let canEditScene = undefined;
+  let canEnableResizing = undefined;
+  const user = JSON.parse(localStorage.getItem('user'));
+  if (user.id === 1 || user.id === 2) {
+    canEnableResizing = true;
+    canEditScene = false;
+  } else {
+    canEnableResizing = false;
+    canEditScene = true;
+  }
+
   const handleDelete = (e) => {
     setState(initialState);
     console.log(e.target.id);
@@ -320,7 +331,7 @@ const Widget = (props) => {
             hspace="10px"              
             scrollamount={props.styles.speed}
  >
-              <span style={{"fontSize": props.style.fontSize}} >{props.data}</span>
+              <span style={{"fontSize": props.styles.fontSize}} >{props.data}</span>
             </marquee>
           </div>
           <Menu
