@@ -10,13 +10,14 @@ import Divider from '@material-ui/core/Divider';
 import styles from './widget-jss';
 import PapperBlock from '../PapperBlock/PapperBlock';
 import { URL } from '../../containers/Axios/axiosForData'
+import { withTranslation } from 'react-i18next';
 
 import axios from "axios";
 
 
 function FilesWidget(props) {
 
-  const { classes } = props
+  const { classes, t } = props
   const [info, setInfo] = useState([]);
 
   const used = Number((info.usedGb/(info.totalGb / 100)).toFixed(1))
@@ -39,7 +40,7 @@ function FilesWidget(props) {
   return (
     <Grid container spacing={3}>
       <Grid item md={4} sm={12} xs={12}>
-        <PapperBlock whiteBg noMargin title="Your Storage" icon="ios-cloud-outline" desc="">
+        <PapperBlock whiteBg noMargin title={t("FilesWidget.title")} icon="ios-cloud-outline" desc="">
           {
             info.totalGb? (
               <div className={classes.secondaryWrap}>
@@ -51,11 +52,11 @@ function FilesWidget(props) {
                 <ul className={classes.storageInfo}>
                   <li>
                     <Typography variant="h6" color="primary" gutterBottom>{info.usedGb}</Typography>
-                    <Typography variant="caption" gutterBottom>{used}% used</Typography>
+                    <Typography variant="caption" gutterBottom>{used}{t("FilesWidget.used")}</Typography>
                   </li>
                   <li>
                     <Typography variant="h6" gutterBottom>{info.totalGb}</Typography>
-                    <Typography variant="caption" gutterBottom>total storage</Typography>
+                    <Typography variant="caption" gutterBottom>{t("FilesWidget.total")}</Typography>
                   </li>
                 </ul>
               </div>
@@ -65,18 +66,18 @@ function FilesWidget(props) {
           <Divider className={classes.divider}/>
           <Grid container justify="center">
             <Button color="secondary" variant="contained" className={classes.button}>
-              Upgrade Space
+            {t("FilesWidget.upgrade")}
             </Button>
           </Grid>
         </PapperBlock>
       </Grid>
       <Grid item md={4} sm={12} xs={12}>
-        <PapperBlock title="Operation System" icon="ion-ios-world" whiteBg desc="">
+        <PapperBlock title={t("SystemWidget.title")} icon="ion-ios-world" whiteBg desc="">
           <div className={classes.albumRoot}>
-            Your platform:  {window.navigator.platform}
+          {t("SystemWidget.platform")}  {window.navigator.platform}
           </div>
           <div className={classes.albumRoot}>
-            Your agent: {window.navigator.userAgent}
+          {t("SystemWidget.agent")} {window.navigator.userAgent}
           </div>
           <Divider className={classes.divider}/>
           {/*<Grid container justify="center">*/}
@@ -94,4 +95,4 @@ FilesWidget.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(FilesWidget);
+export default withStyles(styles)(withTranslation()(FilesWidget));

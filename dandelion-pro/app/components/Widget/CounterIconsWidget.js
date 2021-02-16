@@ -14,11 +14,12 @@ import { getDashboards } from "../../redux/actions/dashboards";
 import { getRole } from "../../redux/actions/role";
 import { getUsers } from "../../redux/actions/users";
 import { getWidgetData } from "../../redux/actions/widget_data";
+import { withTranslation } from 'react-i18next';
 
 
 function CounterIconWidget(props) {
 
-  const { classes, dashboards, roles, users, widget_data } = props;
+  const { classes, dashboards, roles, users, widget_data, t } = props;
 
   useEffect(() => {
     props.getRoles()
@@ -44,7 +45,7 @@ function CounterIconWidget(props) {
                 start={0}
                 end={countOfWidgets}
                 duration={3}
-                title="Widgets"
+                title={t("CounterWidget.widgets")}
               >
                 <OndemandVideo className={classes.counterIcon} />
               </CounterWidget>
@@ -55,7 +56,7 @@ function CounterIconWidget(props) {
                 start={0}
                 end={countOfUsers}
                 duration={3}
-                title="Num of people"
+                title={t("CounterWidget.people")}
               >
                 <SupervisorAccount className={classes.counterIcon} />
               </CounterWidget>
@@ -66,7 +67,7 @@ function CounterIconWidget(props) {
                 start={0}
                 end={countOfRole}
                 duration={3}
-                title="Roles"
+                title={t("CounterWidget.roles")}
               >
                 <Edit className={classes.counterIcon} />
               </CounterWidget>
@@ -77,7 +78,7 @@ function CounterIconWidget(props) {
                 start={0}
                 end={countOfDash}
                 duration={3}
-                title="Dashboards"
+                title={t("CounterWidget.dashboards")}
               >
                 <CollectionsBookmark className={classes.counterIcon} />
               </CounterWidget>
@@ -105,4 +106,4 @@ export default connect(mapStateToProps, {
   getRoles: getRole,
   getUsers: getUsers,
   getWidgetData: getWidgetData
-})(withStyles(styles)(CounterIconWidget));
+})(withStyles(styles)(withTranslation()(CounterIconWidget)));

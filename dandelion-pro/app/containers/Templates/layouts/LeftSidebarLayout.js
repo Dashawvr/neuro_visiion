@@ -13,6 +13,7 @@ import {
 import dataMenu from 'dan-api/ui/menu';
 import Decoration from '../Decoration';
 import styles from '../appStyles-jss';
+import { withTranslation } from 'react-i18next';
 
 function LeftSidebarLayout(props) {
   const {
@@ -31,7 +32,6 @@ function LeftSidebarLayout(props) {
     place,
     titleException,
     handleOpenGuide,
-
   } = props;
   const location = history.location.pathname.split('/').includes('dashboard')
   return (
@@ -68,7 +68,7 @@ function LeftSidebarLayout(props) {
         <section className={`${classNames(classes.mainWrap, classes.sidebarLayout)}`}>
           {(titleException.indexOf(history.location.pathname) < 0&&!location) && (
             <div className={classes.pageTitle}>
-              <Typography component="h4" className={`${bgPosition === 'header' ? classes.darkTitle : classes.lightTitle} ${location?'black':''}`} variant="h4">{place}</Typography>
+              <Typography component="h4" className={`${bgPosition === 'header' ? classes.darkTitle : classes.lightTitle} ${location?'black':''}`} variant="h4"></Typography>
               <BreadCrumb separator=" / " theme={`${bgPosition === 'header' ? 'dark' : 'light'}${location?'black':''}`} location={history.location} />
             </div>
           )}
@@ -107,4 +107,4 @@ LeftSidebarLayout.propTypes = {
   handleOpenGuide: PropTypes.func.isRequired
 };
 
-export default (withStyles(styles)(LeftSidebarLayout));
+export default (withStyles(styles)(withTranslation()(LeftSidebarLayout)));

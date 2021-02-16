@@ -15,6 +15,8 @@ import {
 import { initAction, clearAction } from 'dan-redux/actions/reduxFormActions';
 import history from '../../../../utils/history';
 import { withTranslation } from 'react-i18next';
+import { SketchPicker } from 'react-color';
+import Typography from '@material-ui/core/Typography';
 
 const renderRadioGroup = ({ input, ...rest }) => (
   <RadioGroup
@@ -51,9 +53,23 @@ const styles = theme => ({
     margin: theme.spacing(4),
     textAlign: 'center'
   },
+  divider: {
+    width: '100%',
+    marginBottom: 20,
+    marginLeft: "35%",
+  },
+  dividerText: {
+    width: '100%',
+    marginBottom: 10,
+    marginLeft: "40%",
+  }
 });
 
 class EditWidgetMap extends Component {
+  state = {
+    background: this.props.widget.color,
+  };
+
   render() {
     const {
       classes,
@@ -63,7 +79,12 @@ class EditWidgetMap extends Component {
       submitting,
       widget,
       t,
+      color
     } = this.props;
+    const handleChangeComplete = (color) => {
+      this.setState({ background: color.hex });
+      color(color.hex);
+    };
     return (
       <div>
         <Grid container spacing={3} alignItems="flex-start" direction="row" justify="center">
@@ -71,15 +92,11 @@ class EditWidgetMap extends Component {
             <Paper className={classes.root}>
               <form onSubmit={handleSubmit}>
                 <div>
-                  <Field
-                    name="color"
-                    component={TextFieldRedux}
-                    label={widget.color}
-                    placeholder={p('EditWidgetMap.color')}
-                    validate={required}
-                    required
-                    ref={this.saveRef}
-                    className={classes.field}
+                  <Typography variant="subtitle1" className={classes.dividerText}>{t('EditWidgetMap.color')}</Typography>
+                  <SketchPicker
+                    color={ this.state.background }
+                    onChangeComplete={ handleChangeComplete }
+                    className={classes.divider}
                   />
                 </div>
                 <div>
@@ -87,19 +104,31 @@ class EditWidgetMap extends Component {
                     name="size"
                     component={TextFieldRedux}
                     label={widget.size}
-                    placeholder={p('EditWidgetMap.size')}
+                    placeholder={t('EditWidgetMap.size')}
                     validate={required}
                     required
                     ref={this.saveRef}
                     className={classes.field}
                   />
-                </div>   
+                </div>  
+                <div>
+                  <Field
+                    name="borderRadius"
+                    component={TextFieldRedux}
+                    label={widget.borderRadius}
+                    placeholder={t('EditWidgetMap.borderRadius')}
+                    validate={required}
+                    required
+                    ref={this.saveRef}
+                    className={classes.field}
+                  />
+                </div> 
                 <div>
                   <Field
                     name="lat"
                     component={TextFieldRedux}
                     label={widget.lat}
-                    placeholder={p('EditWidgetMap.lat')}
+                    placeholder={t('EditWidgetMap.lat')}
                     validate={required}
                     required
                     ref={this.saveRef}
@@ -111,7 +140,7 @@ class EditWidgetMap extends Component {
                     name="lon"
                     component={TextFieldRedux}
                     label={widget.lon}
-                    placeholder={p('EditWidgetMap.lon')}
+                    placeholder={t('EditWidgetMap.lon')}
                     validate={required}
                     required
                     ref={this.saveRef}
@@ -120,17 +149,17 @@ class EditWidgetMap extends Component {
                 </div>             
                 <div>
                   <Button variant="contained" color="secondary" type="submit" disabled={submitting}>
-                    {p('Buttons.submit')}
+                    {t('Buttons.submit')}
                   </Button>
                   <Button
                     type="button"
                     disabled={pristine || submitting}
                     onClick={reset}
                   >
-                    {p('Buttons.reset')}
+                    {t('Buttons.reset')}
                   </Button>
                   <Button variant="contained" color="primary" onClick={() => history.goBack()}>
-                  {p('Buttons.cancel')}
+                  {t('Buttons.cancel')}
                   </Button>
                 </div>
               </form>

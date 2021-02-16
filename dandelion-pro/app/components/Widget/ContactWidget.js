@@ -34,10 +34,11 @@ import Typography from '@material-ui/core/Typography';
 import messageStyles from 'dan-styles/Messages.scss';
 import dataContact from '../../containers/SampleApps/Contact/api/contactData';
 import styles from './widget-jss';
+import { withTranslation } from 'react-i18next';
 
 /* Tab Container */
 function TabContainer(props) {
-  const { children } = props;
+  const { children, t } = props;
   return (
     <Typography component="div" style={{ padding: 8 * 3 }}>
       {children}
@@ -297,7 +298,7 @@ function ContactWidget(props) {
     setAnchorElAction(null);
   };
 
-  const { classes } = props;
+  const { classes, t } = props;
   const open = Boolean(anchorEl);
   const openAct = Boolean(anchorElAction);
   return (
@@ -369,11 +370,11 @@ function ContactWidget(props) {
               textColor="primary"
               variant="fullWidth"
             >
-              <Tab label="Contacts" icon={<AccountBox />} />
+              <Tab label={t("ContactWidget.contact")} icon={<AccountBox />} />
               <Tab
                 label={(
                   <Badge className={classes.tabNotif} color="secondary" badgeContent={4}>
-                    Messages
+                    {t("ContactWidget.messages")}
                   </Badge>
                 )}
                 icon={<Chat />}
@@ -381,7 +382,7 @@ function ContactWidget(props) {
               <Tab
                 label={(
                   <Badge className={classes.tabNotif} color="secondary" badgeContent={4}>
-                    Notifications
+                    {t("ContactWidget.notifications")}
                   </Badge>
                 )}
                 icon={<NotificationsActive />}
@@ -401,4 +402,4 @@ ContactWidget.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(ContactWidget);
+export default withStyles(styles)(withTranslation()(ContactWidget));

@@ -127,17 +127,6 @@ const Widget = (props) => {
       });
   };
 
-  let canEditScene = undefined;
-  let canEnableResizing = undefined;
-  const user = JSON.parse(localStorage.getItem('user'));
-  if (user.id === 1 || user.id === 2) {
-    canEnableResizing = true;
-    canEditScene = false;
-  } else {
-    canEnableResizing = false;
-    canEditScene = true;
-  }
-
   const handleDelete = (e) => {
     setState(initialState);
     console.log(e.target.id);
@@ -164,7 +153,8 @@ const Widget = (props) => {
                 left: coordinates.x,
                 width: coordinates.width,
                 height: coordinates.height,
-                margin: props.styles.size,
+                border: `${props.styles.size}px solid ${props.styles.color}`,
+                borderRadius: props.styles.borderRadius,
                 backgroundColor: props.styles.color,
               }}
               onDragStop={handlePosition}
@@ -204,7 +194,8 @@ const Widget = (props) => {
                   left: coordinates.x,
                   width: coordinates.width,
                   height: coordinates.height,
-                  margin: props.styles.size,
+                  border: `${props.styles.size}px solid ${props.styles.color}`,
+                  borderRadius: props.styles.borderRadius,
                   backgroundColor: props.styles.color,
                 }}
                 onDragStop={handlePosition}
@@ -244,7 +235,8 @@ const Widget = (props) => {
                   left: coordinates.x,
                   width: coordinates.width,
                   height: coordinates.height,
-                  margin: props.styles.size,
+                  border: `${props.styles.size}px solid ${props.styles.color}`,
+                  borderRadius: props.styles.borderRadius,
                   backgroundColor: props.styles.color,
                 }}
                 onDragStop={handlePosition}
@@ -288,7 +280,8 @@ const Widget = (props) => {
               left: coordinates.x,
               width: coordinates.width,
               height: coordinates.height,
-              margin: props.styles.size,
+              border: `${props.styles.size}px solid ${props.styles.color}`,
+              borderRadius: props.styles.borderRadius,
               backgroundColor: props.styles.color,
             }}
             onDragStop={handlePosition}
@@ -327,7 +320,8 @@ const Widget = (props) => {
               left: coordinates.x,
               width: coordinates.width,
               height: coordinates.height,
-              margin: props.styles.size,
+              border: `${props.styles.size}px solid ${props.styles.color}`,
+              borderRadius: props.styles.borderRadius,
               backgroundColor: props.styles.color,
             }}
             onDragStop={handlePosition}
@@ -342,8 +336,9 @@ const Widget = (props) => {
             direction="right"
             hspace="10px"
             scrollamount={props.styles.speed}
- >
-              <span style={{"fontSize": props.styles.fontSize}} >{props.data}</span>
+            fontSize={props.styles.fontSize}
+            >
+            {props.data}
             </marquee>
           </div>
           <Menu
@@ -376,7 +371,8 @@ const Widget = (props) => {
               left: coordinates.x,
               width: coordinates.width,
               height: coordinates.height,
-              margin: props.styles.size,
+              border: `${props.styles.size}px solid ${props.styles.color}`,
+              borderRadius: props.styles.borderRadius,
               backgroundColor: props.styles.color,
             }}
             onDragStop={handlePosition}

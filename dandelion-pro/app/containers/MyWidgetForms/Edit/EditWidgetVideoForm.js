@@ -34,12 +34,14 @@ class EditWidgetVideoForm extends React.Component {
     open: false,
     widget: {},
     styles: {},
+    color: undefined,
   }
 
   componentDidMount() {
     request(`${URL}/api/widget_data/${parsed.widgetId}`, GET).then((res) => {
       this.setState({ widget: res.data.widgetData });
       this.setState({ styles: res.data.widgetData.styles });
+      this.setState({ color: res.data.widgetData.styles.color });
     });
   }
 
@@ -50,14 +52,17 @@ class EditWidgetVideoForm extends React.Component {
     this.setState({ open: false });
   };
 
+  getColor = (value) => {
+    this.setState({ color: value});
+  }
+
   showResult(values) {
     let color = undefined;
     let size = undefined;
-    let lon = undefined;
-    let lat = undefined;
+    let borderRadius = undefined;
     values._root.entries.map((elem) => {
-      if (elem[0] === 'color') {
-        color = elem[1];
+      if (elem[0] === 'borderRadius') {
+        borderRadius = elem[1];
       }
       if (elem[0] === 'size') {
         size = elem[1];
@@ -69,7 +74,8 @@ class EditWidgetVideoForm extends React.Component {
     delete this.state.widget.styles;
     
     this.state.widget.styles = {
-      color: color,
+      borderRadius: borderRadius,
+      color: this.state.color,
       size: size,
     }
     PATCH.data = this.state.widget;
@@ -100,10 +106,11 @@ class EditWidgetVideoForm extends React.Component {
             <EditWidgetMap
               onSubmit={(values) => this.showResult(values)}
               widget={styles}
+              color={(value) => this.getColor(value)}
             />
           </div>
         </PapperBlock>
-        <Notification open={open} handleClose={() => this.handleClose()} variant={variant} message={message} />
+        <Notification open={open} handleClose={() => this.handleClose()} variant={variant} message={t(message)} />
       </div>
     );
   }

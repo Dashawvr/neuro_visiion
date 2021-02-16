@@ -12,7 +12,7 @@ import brand from 'dan-api/dummy/brand';
 import { withStyles } from '@material-ui/core/styles';
 import { PapperBlock } from 'dan-components';
 import queryString from 'query-string';
-import EditWidgetMap from '../Form/Edit/EditWidgetMap';
+import EditWidgetText from '../Form/Edit/EditWidgetText';
 import request from '../../../utils/request';
 import { URL, PATCH, GET } from '../../Axios/axiosForData';
 import Notification from '../../MyNotification/Notification';
@@ -34,12 +34,14 @@ class EditWidgetTextForm extends React.Component {
     open: false,
     widget: {},
     styles: {},
+    color: undefined,
   }
 
   componentDidMount() {
     request(`${URL}/api/widget_data/${parsed.widgetId}`, GET).then((res) => {
       this.setState({ widget: res.data.widgetData });
       this.setState({ styles: res.data.widgetData.styles });
+      this.setState({ color: res.data.widgetData.styles.color });
     });
   }
 
@@ -50,20 +52,24 @@ class EditWidgetTextForm extends React.Component {
     this.setState({ open: false });
   };
 
+  getColor = (value) => {
+    this.setState({ color: value});
+  }
+
   showResult(values) {
-    let color = undefined;
+    let borderRadius = undefined;
     let size = undefined;
     let lon = undefined;
     let lat = undefined;
     values._root.entries.map((elem) => {
-      if (elem[0] === 'color') {
-        color = elem[1];
+      if (elem[0] === 'borderRadius') {
+        borderRadius = elem[1];
       }
       if (elem[0] === 'size') {
         size = elem[1];
       }
       if (elem[0] === 'speed') {
-        speed = Number(elem[1]);
+        speed = elem[1];
       }
       if (elem[0] === 'fontSize') {
         fontSize = elem[1];
@@ -75,7 +81,8 @@ class EditWidgetTextForm extends React.Component {
     delete this.state.widget.styles;
     
     this.state.widget.styles = {
-      color: color,
+      borderRadius: borderRadius ? borderRadius : this.state.widget.styles.borderRadius,
+      color: this.state.color,
       size: size,
       speed: speed,
       fontSize: fontSize,
@@ -105,13 +112,14 @@ class EditWidgetTextForm extends React.Component {
         </Helmet>
         <PapperBlock title={t('EditWidgetText.title')} icon="ios-list-box-outline">
           <div>
-            <EditWidgetMap
+            <EditWidgetText
               onSubmit={(values) => this.showResult(values)}
               widget={styles}
+              color={(value) => this.getColor(value)}
             />
           </div>
         </PapperBlock>
-        <Notification open={open} handleClose={() => this.handleClose()} variant={variant} message={message} />
+        <Notification open={open} handleClose={() => this.handleClose()} variant={variant} message={t(message)} />
       </div>
     );
   }
