@@ -177,6 +177,13 @@ function SidebarContent(props) {
   },
 
   {
+    key: 'deleteWidget',
+    name: t('DeleteWidget.title'),
+    icon: 'ion-android-delete',
+    linkParent: '/home/delete/widget'
+  },
+
+  {
     key: 'no_child',
     name: t('Menu.stage'),
     icon: 'ios-document-outline',

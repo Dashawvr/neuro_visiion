@@ -13,6 +13,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import axios from "axios";
 import history from "../../utils/history";
 import JsmpegPlayer from "../JsmpegPlayer/JsmpegPlayer";
+import { URL } from '../../containers/Axios/axiosForData';
 
 const videoOptions = {
   autoplay: true,
@@ -76,9 +77,17 @@ const Widget = (props) => {
     }
     async function getCoordinates() {
       await axios
-        .get(`/api/widget_coordinates/${props.coordinatesId}`)
+        .get(`${URL}/api/widget_coordinates/${props.coordinatesId}`)
         .then((res) => {
-          setCoordinates(res.data.data.widgetCoordinates);
+          const data = res.data.data.widgetCoordinates;
+          setCoordinates(
+            {
+              x: data.x,
+              y: data.y,
+              width: data.width,
+              height: data.height
+            }
+            );
         })
         .catch((error) => {
           return <Redirect to="/accessdenied" />;
@@ -110,14 +119,9 @@ const Widget = (props) => {
     delete coordinates.id;
     delete coordinates.createdAt;
     delete coordinates.updatedAt;
-    coordinates.x = e.target.getBoundingClientRect().left + 660;
-    coordinates.y = e.target.getBoundingClientRect().top - 70;
-    coordinates.width = e.target.clientWidth;
-    coordinates.height = e.target.clientHeight;
-
 
     axios
-      .patch(`/api/widget_coordinates/${props.coordinatesId}`, coordinates)
+      .patch(`${URL}/api/widget_coordinates/${props.coordinatesId}`, coordinates)
       .then((res) => {
         console.log(res);
       })
@@ -127,17 +131,6 @@ const Widget = (props) => {
       });
   };
 
-  const handleDelete = (e) => {
-    setState(initialState);
-    console.log(e.target.id);
-    axios
-      .delete(`/api/widget_data/${e.target.id}`)
-      .then()
-      .catch((error) => {
-        console.log(error);
-        history.push("/home");
-      });
-  };
 
   switch (props.type) {
     case "table":
@@ -147,40 +140,30 @@ const Widget = (props) => {
             <Rnd
               className="widgetTable"
               onDoubleClick={handleDoubleClick}
+              size={{ width: coordinates.width,  height: coordinates.height }}
+              position={{ x: coordinates.x, y: coordinates.y }}
               style={{
                 zIndex: props.zIndex,
-                offsetTop: coordinates.y,
-                left: coordinates.x,
-                width: coordinates.width,
-                height: coordinates.height,
                 border: `${props.styles.size}px solid ${props.styles.color}`,
                 borderRadius: props.styles.borderRadius,
                 backgroundColor: props.styles.color,
               }}
-              onDragStop={handlePosition}
-              onResizeStop={handlePosition}
-              onContextMenu={handleClick}
+              onDragStop={(e, d) => { 
+                setCoordinates({ x: d.x, y: d.y }); 
+                handlePosition();
+              }}
+              onResizeStop={(e, direction, ref, delta, position) => {
+                setCoordinates({
+                  width: ref.style.width,
+                  height: ref.style.height,
+                  ...position,
+                }); 
+                handlePosition();
+              }}
               disableDragging={canEditScene}
               enableResizing={canEnableResizing}
             >
-              <div onDoubleClick={handleDoubleClickContent}>
-                <TableUsers />
-              </div>
-              <Menu
-                keepMounted
-                open={state.mouseY !== null}
-                onClose={handleClose}
-                anchorReference="anchorPosition"
-                anchorPosition={
-                  state.mouseY !== null && state.mouseX !== null
-                    ? { top: state.mouseY, left: state.mouseX }
-                    : undefined
-                }
-              >
-                <MenuItem onClick={handleDelete} id={props.id}>
-                  Видалити
-                </MenuItem>
-              </Menu>
+              <TableUsers />
             </Rnd>
           );
         case "role":
@@ -190,38 +173,26 @@ const Widget = (props) => {
                 onDoubleClick={handleDoubleClick}
                 style={{
                   zIndex: props.zIndex,
-                  top: coordinates.y,
-                  left: coordinates.x,
-                  width: coordinates.width,
-                  height: coordinates.height,
                   border: `${props.styles.size}px solid ${props.styles.color}`,
                   borderRadius: props.styles.borderRadius,
                   backgroundColor: props.styles.color,
                 }}
-                onDragStop={handlePosition}
-                onResizeStop={handlePosition}
-                onContextMenu={handleClick}
+                onDragStop={(e, d) => { 
+                  setCoordinates({ x: d.x, y: d.y });
+                  handlePosition(); 
+                }}
+                onResizeStop={(e, direction, ref, delta, position) => {
+                  setCoordinates({
+                    width: ref.style.width,
+                    height: ref.style.height,
+                    ...position,
+                  });
+                handlePosition();
+                }}
                 disableDragging={canEditScene}
                 enableResizing={canEnableResizing}
             >
-              <div onDoubleClick={handleDoubleClickContent}>
-                <TableRoles />
-              </div>
-              <Menu
-                  keepMounted
-                  open={state.mouseY !== null}
-                  onClose={handleClose}
-                  anchorReference="anchorPosition"
-                  anchorPosition={
-                    state.mouseY !== null && state.mouseX !== null
-                        ? { top: state.mouseY, left: state.mouseX }
-                        : undefined
-                  }
-              >
-                <MenuItem onClick={handleDelete} id={props.id}>
-                  Видалити
-                </MenuItem>
-              </Menu>
+              <TableRoles />
             </Rnd>
           );
         case "dashboard":
@@ -231,38 +202,26 @@ const Widget = (props) => {
                 onDoubleClick={handleDoubleClick}
                 style={{
                   zIndex: props.zIndex,
-                  top: coordinates.y,
-                  left: coordinates.x,
-                  width: coordinates.width,
-                  height: coordinates.height,
                   border: `${props.styles.size}px solid ${props.styles.color}`,
                   borderRadius: props.styles.borderRadius,
                   backgroundColor: props.styles.color,
                 }}
-                onDragStop={handlePosition}
-                onResizeStop={handlePosition}
-                onContextMenu={handleClick}
+                onDragStop={(e, d) => { 
+                  setCoordinates({ x: d.x, y: d.y });
+                  handlePosition(); 
+                }}
+                onResizeStop={(e, direction, ref, delta, position) => {
+                  setCoordinates({
+                    width: ref.style.width,
+                    height: ref.style.height,
+                    ...position,
+                  });
+                  handlePosition();
+                }}
                 disableDragging={canEditScene}
                 enableResizing={canEnableResizing}
             >
-              <div onDoubleClick={handleDoubleClickContent}>
-                <TableDashboards />
-              </div>
-              <Menu
-                  keepMounted
-                  open={state.mouseY !== null}
-                  onClose={handleClose}
-                  anchorReference="anchorPosition"
-                  anchorPosition={
-                    state.mouseY !== null && state.mouseX !== null
-                        ? { top: state.mouseY, left: state.mouseX }
-                        : undefined
-                  }
-              >
-                <MenuItem onClick={handleDelete} id={props.id}>
-                  Видалити
-                </MenuItem>
-              </Menu>
+              <TableDashboards />
             </Rnd>
           );
         default:
@@ -276,88 +235,66 @@ const Widget = (props) => {
             onDoubleClick={handleDoubleClick}
             style={{
               zIndex: props.zIndex,
-              top: coordinates.y,
-              left: coordinates.x,
-              width: coordinates.width,
-              height: coordinates.height,
               border: `${props.styles.size}px solid ${props.styles.color}`,
               borderRadius: props.styles.borderRadius,
               backgroundColor: props.styles.color,
             }}
-            onDragStop={handlePosition}
-            onResizeStop={handlePosition}
-            onContextMenu={handleClick}
+            onDragStop={(e, d) => { 
+                  setCoordinates({ x: d.x, y: d.y });
+                  handlePosition(); 
+                }}
+            onResizeStop={(e, direction, ref, delta, position) => {
+              setCoordinates({
+                width: ref.style.width,
+                height: ref.style.height,
+                ...position,
+              });
+              handlePosition();
+            }}
             disableDragging={canEditScene}
             enableResizing={canEnableResizing}
         >
           <Map lat={props.data.lat} lon={props.data.lon} markerLat={props.styles.lat} markerLon={props.styles.lon} />
-          <Menu
-              keepMounted
-              open={state.mouseY !== null}
-              onClose={handleClose}
-              anchorReference="anchorPosition"
-              anchorPosition={
-                state.mouseY !== null && state.mouseX !== null
-                    ? { top: state.mouseY, left: state.mouseX }
-                    : undefined
-              }
-          >
-            <MenuItem onClick={handleDelete} id={props.id}>
-              Видалити
-            </MenuItem>
-          </Menu>
         </Rnd>
-        // <></>
       );
     case "text":
       return (
         <Rnd
             className="widgetText"
             onDoubleClick={handleDoubleClick}
+            size={{ width: coordinates.width,  height: coordinates.height }}
+            position={{ x: coordinates.x, y: coordinates.y }}
             style={{
               zIndex: props.zIndex,
-              top: coordinates.y,
-              left: coordinates.x,
-              width: coordinates.width,
-              height: coordinates.height,
               border: `${props.styles.size}px solid ${props.styles.color}`,
               borderRadius: props.styles.borderRadius,
               backgroundColor: props.styles.color,
             }}
-            onDragStop={handlePosition}
-            onResizeStop={handlePosition}
-            onContextMenu={handleClick}
+            onDragStop={(e, d) => { 
+                  setCoordinates({ x: d.x, y: d.y });
+                  handlePosition(); 
+                }}
+            onResizeStop={(e, direction, ref, delta, position) => {
+              setCoordinates({
+                width: ref.style.width,
+                height: ref.style.height,
+                ...position,
+              });
+              handlePosition();
+            }}
             disableDragging={canEditScene}
             enableResizing={canEnableResizing}
-        >
-          <div onDoubleClick={handleDoubleClickContent}>
-            <marquee
-            behavior="scroll"
-            direction="right"
-            hspace="10px"
-            scrollamount={props.styles.speed}
-            fontSize={props.styles.fontSize}
-            >
-            {props.data}
-            </marquee>
-          </div>
-          <Menu
-              keepMounted
-              open={state.mouseY !== null}
-              onClose={handleClose}
-              anchorReference="anchorPosition"
-              anchorPosition={
-                state.mouseY !== null && state.mouseX !== null
-                    ? { top: state.mouseY, left: state.mouseX }
-                    : undefined
-              }
+        >          
+          <marquee
+          behavior="scroll"
+          direction="right"
+          hspace="10px"
+          scrollamount={props.styles.speed}
+          fontSize={props.styles.fontSize}
           >
-            <MenuItem onClick={handleDelete} id={props.id}>
-              Видалити
-            </MenuItem>
-          </Menu>
+            {props.data}
+          </marquee>
         </Rnd>
- //        <></>
       );
     case "video":
       if (url.length > 2) {
@@ -367,17 +304,22 @@ const Widget = (props) => {
             onDoubleClick={handleDoubleClick}
             style={{
               zIndex: props.zIndex,
-              top: coordinates.y,
-              left: coordinates.x,
-              width: coordinates.width,
-              height: coordinates.height,
               border: `${props.styles.size}px solid ${props.styles.color}`,
               borderRadius: props.styles.borderRadius,
               backgroundColor: props.styles.color,
             }}
-            onDragStop={handlePosition}
-            onResizeStop={handlePosition}
-            onContextMenu={handleClick}
+            onDragStop={(e, d) => { 
+              setCoordinates({ x: d.x, y: d.y });
+              handlePosition(); 
+            }}
+            onResizeStop={(e, direction, ref, delta, position) => {
+              setCoordinates({
+                width: ref.style.width,
+                height: ref.style.height,
+                ...position,
+              });
+              handlePosition();
+            }}
           >
             <div onDoubleClick={handleDoubleClickContent}>
               <JsmpegPlayer
@@ -387,23 +329,7 @@ const Widget = (props) => {
                 overlayOptions={videoOverlayOptions}
                 onRef={(ref) => (jsmpegPlayer = ref)}
               />
-            </div>
-            <Menu
-              keepMounted
-              open={state.mouseY !== null}
-              onClose={handleClose}
-              anchorReference="anchorPosition"
-              anchorPosition={
-                state.mouseY !== null && state.mouseX !== null
-                  ? {top: state.mouseY, left: state.mouseX}
-                  : undefined
-              }
-            >
-              <MenuItem onClick={handleDelete} id={props.id}>
-                Видалити
-              </MenuItem>
-              <MenuItem onClick={handleClose}>Редагувати</MenuItem>
-            </Menu>
+            </div>            
           </Rnd>
         );
       } else {

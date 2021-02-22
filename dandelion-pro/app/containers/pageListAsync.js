@@ -429,7 +429,10 @@ export const DashboardTable = loadable(() =>
   fallback: <Loading />,
 });
 
-
+export const DeleteWidgetForm = loadable(() =>
+  import ('./MyWidgetForms/Delete/DeleteWidgetForm'), {
+  fallback: <Loading />,
+});
 export const EditWidgetVideoForm = loadable(() =>
   import ('./MyWidgetForms/Edit/EditWidgetVideoForm'), {
   fallback: <Loading />,

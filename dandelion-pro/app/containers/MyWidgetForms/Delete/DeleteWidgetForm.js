@@ -11,13 +11,14 @@ import { Helmet } from 'react-helmet';
 import brand from 'dan-api/dummy/brand';
 import { withStyles } from '@material-ui/core/styles';
 import { PapperBlock } from 'dan-components';
-import EditWidgets from './EditWidgets';
-import request from '../../utils/request';
+import DeleteWidget from '../Form/Delete/DeleteWidget';
+import request from '../../../utils/request';
 import {
   URL, GET
-} from '../../containers/Axios/axiosForData';
-import Notification from '../../containers/MyNotification/Notification';
+} from '../../../containers/Axios/axiosForData';
+import Notification from '../../../containers/MyNotification/Notification';
 import { withRouter } from "react-router-dom";
+import axios from 'axios';
 
 const styles = ({
   root: {
@@ -25,7 +26,7 @@ const styles = ({
   }
 });
 
-class EditPanel extends React.Component {
+class DeleteWidgetForm extends React.Component {
   state = {
     variant: '',
     message: '',
@@ -51,35 +52,24 @@ class EditPanel extends React.Component {
   handleDashboard(value) {
     let dashboardId = value.target.value;
     request(`${URL}/api/dashboard/${dashboardId}`, GET).then((res) => {
-        this.setState({ widgets: res.data.Dashboard.widget_data });
-      });
+      this.setState({ widgets: res.data.Dashboard.widget_data });
+    });
   };
 
-  redirectToEdit(type, widgetId) {
-    switch (type) {
-      case 'video':
-        this.props.history.push('/home/forms/edit/video?widgetId=' + widgetId);
-        break;
-      case 'map':
-        this.props.history.push('/home/forms/edit/map?widgetId=' + widgetId);
-        break;
-      case 'table':
-        this.props.history.push('/home/forms/edit/table?widgetId=' + widgetId);
-        break;
-      case 'text':
-        this.props.history.push('/home/forms/edit/text?widgetId=' + widgetId);
-        break;
-    }
-  }
+  
 
-  async showResult(values) {
+  showResult(values) {
     let widgetId = values._root.entries[1][1];
 
-
-    request(`${URL}/api/widget_data/${widgetId}`, GET).then((res) => {
-        this.setState({ widget: res.data.widgetData });
+    axios
+      .delete(`${URL}/api/widget_data/${widgetId}`)
+      .then(() => {
+        this.setState({open: true, variant: 'success', message: 'Success delete widget!'})
+      })
+      .catch((error) => {
+        console.log(error);        
+        this.setState({open: true, variant: 'error', message: 'Error delete widget!'})
       });
-      setTimeout(() => this.redirectToEdit(this.state.widget.type, widgetId), 2000);
   }
 
   render() {
@@ -96,9 +86,9 @@ class EditPanel extends React.Component {
           <meta property="twitter:title" content={title} />
           <meta property="twitter:description" content={description} />
         </Helmet>
-        <PapperBlock title="Edit Widget" icon="ios-list-box-outline">
+        <PapperBlock title="Delete Widget" icon="ios-list-box-outline">
           <div>
-            <EditWidgets onSubmit={(values) => this.showResult(values)} widgets={this.state.widgets} handleDashboard={(value) => this.handleDashboard(value)} dashboards={this.state.dashboards} />
+            <DeleteWidget onSubmit={(values) => this.showResult(values)} widgets={this.state.widgets} handleDashboard={(value) => this.handleDashboard(value)} dashboards={this.state.dashboards} />
           </div>
         </PapperBlock>
         <Notification open={open} handleClose={() => this.handleClose()} variant={variant} message={message} />
@@ -107,4 +97,4 @@ class EditPanel extends React.Component {
   }
 }
 
-export default withStyles(styles)(withRouter((EditPanel)));
+export default withStyles(styles)(withRouter((DeleteWidgetForm)));

@@ -12,7 +12,7 @@ import {
   CreateWidgetMapForm, CreateWidgetTableForm,
   PersonalDashboard, DashboardNew, EditPanel,
   StreetViewMap, EditWidgetVideoForm, EditWidgetTableForm, EditWidgetTextForm, EditWidgetMapForm,
-  UsersGroupsTable, AddGroupForm, EditGroupForm,
+  UsersGroupsTable, AddGroupForm, EditGroupForm, DeleteWidgetForm,
 } from '../pageListAsync';
 
 function useInterval(callback, delay) {
@@ -57,6 +57,7 @@ function Application(props) {
             <Route path="/home/users"  component={UserTable}/>
             <Route path="/home/group"  component={UsersGroupsTable}/>
             <Route path="/home/edit-panel"  component={EditPanel}/>
+            <Route path="/home/delete/widget"  component={DeleteWidgetForm}/>
             <Route path="/home/maps"  component={StreetViewMap}/>
             <Route path="/home/stage"  component={DashboardTable}/>
             <Route path="/home/dashboard/:id"  component={DashboardNew}/>

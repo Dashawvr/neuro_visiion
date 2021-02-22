@@ -35,7 +35,7 @@ function PersonalDashboard(props) {
 
   useEffect(() => {
     socketConnection.connect();
-    socketConnection.setOnline()
+    socketConnection.setOnline();
   },[])
 
   useBeforeunload(() => "Are you sure to close this tab?")

@@ -269,5 +269,8 @@
     },
     "BreadCrumb": {
         "1": "You are here: "
+    },
+    "DeleteWidget": {
+        "title": "Delete Widget"
     }
 }
