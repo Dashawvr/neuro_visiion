@@ -8,7 +8,6 @@ import styles from 'dan-components/Forms/user-jss';
 import { withRouter, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { URL } from "../../Axios/axiosForData";
-
 import axios from "axios";
 import { onSignIn } from "../../../redux/actions/login";
 import { SocketConnection } from "../../../api/socket";
@@ -38,6 +37,7 @@ class Login extends React.Component {
   };
 
   getLogin = () => {
+    console.log(process.env.REACT_APP_API_URL)
     axios
       .post(URL + "/api/auth/login", this.state)
       .then((response) => {

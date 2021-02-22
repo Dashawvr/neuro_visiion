@@ -99,11 +99,6 @@ const Widget = (props) => {
     getCoordinates();
   }, []);
 
-
-  const handleClose = () => {
-    setState(initialState);
-  };
-
   let canEditScene = undefined;
   let canEnableResizing = undefined;
   const user = JSON.parse(localStorage.getItem('user'));
@@ -149,7 +144,7 @@ const Widget = (props) => {
                 backgroundColor: props.styles.color,
               }}
               onDragStop={(e, d) => { 
-                setCoordinates({ x: d.x, y: d.y }); 
+                setCoordinates({ x: d.x, y: d.y, width: coordinates.width, height: coordinates.height }); 
                 handlePosition();
               }}
               onResizeStop={(e, direction, ref, delta, position) => {
@@ -171,6 +166,8 @@ const Widget = (props) => {
             <Rnd
                 className="widgetTable"
                 onDoubleClick={handleDoubleClick}
+                size={{ width: coordinates.width,  height: coordinates.height }}
+                position={{ x: coordinates.x, y: coordinates.y }}
                 style={{
                   zIndex: props.zIndex,
                   border: `${props.styles.size}px solid ${props.styles.color}`,
@@ -178,7 +175,7 @@ const Widget = (props) => {
                   backgroundColor: props.styles.color,
                 }}
                 onDragStop={(e, d) => { 
-                  setCoordinates({ x: d.x, y: d.y });
+                  setCoordinates({ x: d.x, y: d.y, width: coordinates.width, height: coordinates.height });
                   handlePosition(); 
                 }}
                 onResizeStop={(e, direction, ref, delta, position) => {
@@ -200,6 +197,8 @@ const Widget = (props) => {
             <Rnd
                 className="widgetTable"
                 onDoubleClick={handleDoubleClick}
+                size={{ width: coordinates.width,  height: coordinates.height }}
+                position={{ x: coordinates.x, y: coordinates.y }}
                 style={{
                   zIndex: props.zIndex,
                   border: `${props.styles.size}px solid ${props.styles.color}`,
@@ -207,7 +206,7 @@ const Widget = (props) => {
                   backgroundColor: props.styles.color,
                 }}
                 onDragStop={(e, d) => { 
-                  setCoordinates({ x: d.x, y: d.y });
+                  setCoordinates({ x: d.x, y: d.y, width: coordinates.width, height: coordinates.height });
                   handlePosition(); 
                 }}
                 onResizeStop={(e, direction, ref, delta, position) => {
@@ -233,6 +232,8 @@ const Widget = (props) => {
         <Rnd
             className="widgetMap"
             onDoubleClick={handleDoubleClick}
+            size={{ width: coordinates.width,  height: coordinates.height }}
+            position={{ x: coordinates.x, y: coordinates.y }}
             style={{
               zIndex: props.zIndex,
               border: `${props.styles.size}px solid ${props.styles.color}`,
@@ -240,7 +241,7 @@ const Widget = (props) => {
               backgroundColor: props.styles.color,
             }}
             onDragStop={(e, d) => { 
-                  setCoordinates({ x: d.x, y: d.y });
+                  setCoordinates({ x: d.x, y: d.y, width: coordinates.width, height: coordinates.height });
                   handlePosition(); 
                 }}
             onResizeStop={(e, direction, ref, delta, position) => {
@@ -271,7 +272,7 @@ const Widget = (props) => {
               backgroundColor: props.styles.color,
             }}
             onDragStop={(e, d) => { 
-                  setCoordinates({ x: d.x, y: d.y });
+                  setCoordinates({ x: d.x, y: d.y, width: coordinates.width, height: coordinates.height });
                   handlePosition(); 
                 }}
             onResizeStop={(e, direction, ref, delta, position) => {
@@ -308,8 +309,10 @@ const Widget = (props) => {
               borderRadius: props.styles.borderRadius,
               backgroundColor: props.styles.color,
             }}
+            size={{ width: coordinates.width,  height: coordinates.height }}
+            position={{ x: coordinates.x, y: coordinates.y }}
             onDragStop={(e, d) => { 
-              setCoordinates({ x: d.x, y: d.y });
+              setCoordinates({ x: d.x, y: d.y, width: coordinates.width, height: coordinates.height });
               handlePosition(); 
             }}
             onResizeStop={(e, direction, ref, delta, position) => {

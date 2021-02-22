@@ -1,5 +1,6 @@
 /* eslint-disable import/prefer-default-export */
-export const URL = 'https://d9fc82c01110.ngrok.io';
+import config from '../../../config.json'
+export const URL = config.API_URL;
 const token = localStorage.getItem('token');
 export const GET = {
   method: 'GET',
