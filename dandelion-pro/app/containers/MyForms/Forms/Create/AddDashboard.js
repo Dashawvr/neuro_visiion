@@ -16,6 +16,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import {
   SelectRedux,
   SwitchRedux,
+  TextFieldRedux
 } from 'dan-components/Forms/ReduxFormMUI';
 import { initAction, clearAction } from 'dan-redux/actions/reduxFormActions';
 import history from '../../../../utils/history';
@@ -78,8 +79,6 @@ class AddDashboard extends Component {
                     component={TextFieldRedux}
                     placeholder={t('AddDashboard.name')}
                     label={t('AddDashboard.name')}
-                    validate={required}
-                    required
                     ref={this.saveRef}
                     className={classes.field}
                   />
@@ -91,7 +90,6 @@ class AddDashboard extends Component {
                       name="role"
                       component={SelectRedux}
                       placeholder={t('AddDashboard.role')}
-                      required
                     >
                       {roles.map((r) => <MenuItem value={r.id}>{r.name}</MenuItem>)}
                     </Field>
@@ -104,7 +102,6 @@ class AddDashboard extends Component {
                       name="user"
                       component={SelectRedux}
                       placeholder={t('AddDashboard.user')}
-                      required
                     >
                       {users.map((u) => <MenuItem value={u.id}>{u.name}</MenuItem>)}
                     </Field>
