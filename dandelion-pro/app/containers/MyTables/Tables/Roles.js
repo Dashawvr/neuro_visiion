@@ -152,54 +152,54 @@ class Roles extends React.Component {
           filter: true
         }
       },
-      {
-        label: t('TableRoles.create'),
-        name: 'create',
-        options: {
-          filter: true,
-          customBodyRender: (value) => {
-            if (value) {
-              return (<Chip label={t("TableRoles.yes")} color="secondary" />);
-            }
-            if (!value) {
-              return (<Chip label={t("TableRoles.not")} color="primary" />);
-            }
-            return (<Chip label={t("TableRoles.unknow")} />);
-          }
-        }
-      },
-      {
-        label: t('TableRoles.edit'),
-        name: 'edit',
-        options: {
-          filter: true,
-          customBodyRender: (value) => {
-            if (value) {
-              return (<Chip label={t("TableRoles.yes")} color="secondary" />);
-            }
-            if (!value) {
-              return (<Chip label={t("TableRoles.not")} color="primary" />);
-            }
-            return (<Chip label={t("TableRoles.unknow")} />);
-          }
-        }
-      },
-      {
-        label: t('TableRoles.delete'),
-        name: 'delete',
-        options: {
-          filter: true,
-          customBodyRender: (value) => {
-            if (value) {
-              return (<Chip label={t("TableRoles.yes")} color="secondary" />);
-            }
-            if (!value) {
-              return (<Chip label={t("TableRoles.not")} color="primary" />);
-            }
-            return (<Chip label={t("TableRoles.unknow")} />);
-          }
-        }
-      },
+      // {
+      //   label: t('TableRoles.create'),
+      //   name: 'create',
+      //   options: {
+      //     filter: true,
+      //     customBodyRender: (value) => {
+      //       if (value) {
+      //         return (<Chip label={t("TableRoles.yes")} color="secondary" />);
+      //       }
+      //       if (!value) {
+      //         return (<Chip label={t("TableRoles.not")} color="primary" />);
+      //       }
+      //       return (<Chip label={t("TableRoles.unknow")} />);
+      //     }
+      //   }
+      // },
+      // {
+      //   label: t('TableRoles.edit'),
+      //   name: 'edit',
+      //   options: {
+      //     filter: true,
+      //     customBodyRender: (value) => {
+      //       if (value) {
+      //         return (<Chip label={t("TableRoles.yes")} color="secondary" />);
+      //       }
+      //       if (!value) {
+      //         return (<Chip label={t("TableRoles.not")} color="primary" />);
+      //       }
+      //       return (<Chip label={t("TableRoles.unknow")} />);
+      //     }
+      //   }
+      // },
+      // {
+      //   label: t('TableRoles.delete'),
+      //   name: 'delete',
+      //   options: {
+      //     filter: true,
+      //     customBodyRender: (value) => {
+      //       if (value) {
+      //         return (<Chip label={t("TableRoles.yes")} color="secondary" />);
+      //       }
+      //       if (!value) {
+      //         return (<Chip label={t("TableRoles.not")} color="primary" />);
+      //       }
+      //       return (<Chip label={t("TableRoles.unknow")} />);
+      //     }
+      //   }
+      // },
     ]}
     options={options}
           />
