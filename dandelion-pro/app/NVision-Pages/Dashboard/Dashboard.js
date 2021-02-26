@@ -122,6 +122,7 @@ const Dashboard = (props) => {
                 id={widget.id}
                 zIndex={widget.zIndex}
                 styles={widget.styles}
+                coordinate={widget.widget_coordinate}
               />
             );
           })}

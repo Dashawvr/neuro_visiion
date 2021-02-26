@@ -64,13 +64,13 @@ axios.defaults.headers.common = {
 const render = messages => {
   ReactDOM.render(
     <Provider store={store}>
-      <LanguageProvider messages={messages}>
+      {/* <LanguageProvider messages={messages}> */}
       <Suspense fallback="loading...">
         <BrowserRouter history={history}>
           <App />
         </BrowserRouter>
       </Suspense>
-      </LanguageProvider>
+      {/* </LanguageProvider> */}
     </Provider>,
     MOUNT_NODE,
   );
