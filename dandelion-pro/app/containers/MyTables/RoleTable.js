@@ -33,12 +33,12 @@ class RoleTable extends Component {
   render() {
     const title = brand.name + ' - Table';
     const description = brand.desc;
-    this.state.roles.map((role) => {
-      role.create = role.access_right.canCreateUser;
-      role.edit = role.access_right.canUpdateUser;
-      role.delete = role.access_right.canDeleteUser;
-      console.log('success');
-    });
+    // this.state.roles.map((role) => {
+    //   role.create = role.access_right.canCreateUser;
+    //   role.edit = role.access_right.canUpdateUser;
+    //   role.delete = role.access_right.canDeleteUser;
+    //   console.log('success');
+    // });
     console.log(this.state.roles);
     return (
       <div>
