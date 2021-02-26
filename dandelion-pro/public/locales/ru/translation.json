@@ -272,5 +272,8 @@
     },
     "DeleteWidget": {
         "title": "Удалить Виджет"
+    },
+    "CreateWidget": {
+        "title": "Создать Виджет"
     }
 }

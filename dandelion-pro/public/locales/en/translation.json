@@ -272,5 +272,8 @@
     },
     "DeleteWidget": {
         "title": "Delete Widget"
+    },
+    "CreateWidget": {
+        "title": "Create Widget"
     }
 }

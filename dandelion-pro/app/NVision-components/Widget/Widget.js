@@ -75,19 +75,11 @@ const Widget = (props) => {
         setUrl(res.data.data.streamUrl);
       });
     }
-    async function getCoordinates() {
-      await axios
+    function getCoordinates() {
+      axios
         .get(`${URL}/api/widget_coordinates/${props.coordinatesId}`)
         .then((res) => {
-          const data = res.data.data.widgetCoordinates;
-          setCoordinates(
-            {
-              x: data.x,
-              y: data.y,
-              width: data.width,
-              height: data.height
-            }
-            );
+          setCoordinates(res.data.data.widgetCoordinates);
         })
         .catch((error) => {
           return <Redirect to="/accessdenied" />;
@@ -110,11 +102,10 @@ const Widget = (props) => {
     canEditScene = true;
   }
 
-  const handlePosition = (e) => {
-    delete coordinates.id;
-    delete coordinates.createdAt;
-    delete coordinates.updatedAt;
-
+  const handlePosition = () => {
+    delete coordinates.id
+    delete coordinates.createdAt
+    deletecoordinates.updatedAt
     axios
       .patch(`${URL}/api/widget_coordinates/${props.coordinatesId}`, coordinates)
       .then((res) => {
@@ -128,136 +119,136 @@ const Widget = (props) => {
 
 
   switch (props.type) {
-    case "table":
-      switch (props.data) {
-        case "users":
-          return (
-            <Rnd
-              className="widgetTable"
-              onDoubleClick={handleDoubleClick}
-              size={{ width: coordinates.width,  height: coordinates.height }}
-              position={{ x: coordinates.x, y: coordinates.y }}
-              style={{
-                zIndex: props.zIndex,
-                border: `${props.styles.size}px solid ${props.styles.color}`,
-                borderRadius: props.styles.borderRadius,
-                backgroundColor: props.styles.color,
-              }}
-              onDragStop={(e, d) => { 
-                setCoordinates({ x: d.x, y: d.y, width: coordinates.width, height: coordinates.height }); 
-                handlePosition();
-              }}
-              onResizeStop={(e, direction, ref, delta, position) => {
-                setCoordinates({
-                  width: ref.style.width,
-                  height: ref.style.height,
-                  ...position,
-                }); 
-                handlePosition();
-              }}
-              disableDragging={canEditScene}
-              enableResizing={canEnableResizing}
-            >
-              <TableUsers />
-            </Rnd>
-          );
-        case "role":
-          return (
-            <Rnd
-                className="widgetTable"
-                onDoubleClick={handleDoubleClick}
-                size={{ width: coordinates.width,  height: coordinates.height }}
-                position={{ x: coordinates.x, y: coordinates.y }}
-                style={{
-                  zIndex: props.zIndex,
-                  border: `${props.styles.size}px solid ${props.styles.color}`,
-                  borderRadius: props.styles.borderRadius,
-                  backgroundColor: props.styles.color,
-                }}
-                onDragStop={(e, d) => { 
-                  setCoordinates({ x: d.x, y: d.y, width: coordinates.width, height: coordinates.height });
-                  handlePosition(); 
-                }}
-                onResizeStop={(e, direction, ref, delta, position) => {
-                  setCoordinates({
-                    width: ref.style.width,
-                    height: ref.style.height,
-                    ...position,
-                  });
-                handlePosition();
-                }}
-                disableDragging={canEditScene}
-                enableResizing={canEnableResizing}
-            >
-              <TableRoles />
-            </Rnd>
-          );
-        case "dashboard":
-          return (
-            <Rnd
-                className="widgetTable"
-                onDoubleClick={handleDoubleClick}
-                size={{ width: coordinates.width,  height: coordinates.height }}
-                position={{ x: coordinates.x, y: coordinates.y }}
-                style={{
-                  zIndex: props.zIndex,
-                  border: `${props.styles.size}px solid ${props.styles.color}`,
-                  borderRadius: props.styles.borderRadius,
-                  backgroundColor: props.styles.color,
-                }}
-                onDragStop={(e, d) => { 
-                  setCoordinates({ x: d.x, y: d.y, width: coordinates.width, height: coordinates.height });
-                  handlePosition(); 
-                }}
-                onResizeStop={(e, direction, ref, delta, position) => {
-                  setCoordinates({
-                    width: ref.style.width,
-                    height: ref.style.height,
-                    ...position,
-                  });
-                  handlePosition();
-                }}
-                disableDragging={canEditScene}
-                enableResizing={canEnableResizing}
-            >
-              <TableDashboards />
-            </Rnd>
-          );
-        default:
-          console.log("Немає такої таблиці");
-      }
-      break;
-    case "map":
-      return (
-        <Rnd
-            className="widgetMap"
-            onDoubleClick={handleDoubleClick}
-            size={{ width: coordinates.width,  height: coordinates.height }}
-            position={{ x: coordinates.x, y: coordinates.y }}
-            style={{
-              zIndex: props.zIndex,
-              border: `${props.styles.size}px solid ${props.styles.color}`,
-              borderRadius: props.styles.borderRadius,
-              backgroundColor: props.styles.color,
-            }}
-            onDragStop={(e, d) => { 
-                  setCoordinates({ x: d.x, y: d.y, width: coordinates.width, height: coordinates.height });
-                  handlePosition(); 
-                }}
-            onResizeStop={(e, direction, ref, delta, position) => {
-              setCoordinates({
-                width: ref.style.width,
-                height: ref.style.height,
-                ...position,
-              });
-              handlePosition();
-            }}
-            disableDragging={canEditScene}
-            enableResizing={canEnableResizing}
-        >
-          <Map lat={props.data.lat} lon={props.data.lon} markerLat={props.styles.lat} markerLon={props.styles.lon} />
-        </Rnd>
-      );
+    // case "table":
+    //   switch (props.data) {
+    //     case "users":
+    //       return (
+    //         <Rnd
+    //           className="widgetTable"
+    //           onDoubleClick={handleDoubleClick}
+    //           size={{ width: coordinates.width,  height: coordinates.height }}
+    //           position={{ x: coordinates.x, y: coordinates.y }}
+    //           style={{
+    //             zIndex: props.zIndex,
+    //             border: `${props.styles.size}px solid ${props.styles.color}`,
+    //             borderRadius: props.styles.borderRadius,
+    //             backgroundColor: props.styles.color,
+    //           }}
+    //           onDragStop={(e, d) => { 
+    //             setCoordinates({ x: d.x, y: d.y, width: coordinates.width, height: coordinates.height }); 
+    //             handlePosition();
+    //           }}
+    //           onResizeStop={(e, direction, ref, delta, position) => {
+    //             setCoordinates({
+    //               width: ref.style.width,
+    //               height: ref.style.height,
+    //               ...position,
+    //             }); 
+    //             handlePosition();
+    //           }}
+    //           disableDragging={canEditScene}
+    //           enableResizing={canEnableResizing}
+    //         >
+    //           <TableUsers />
+    //         </Rnd>
+    //       );
+    //     case "role":
+    //       return (
+    //         <Rnd
+    //             className="widgetTable"
+    //             onDoubleClick={handleDoubleClick}
+    //             size={{ width: coordinates.width,  height: coordinates.height }}
+    //             position={{ x: coordinates.x, y: coordinates.y }}
+    //             style={{
+    //               zIndex: props.zIndex,
+    //               border: `${props.styles.size}px solid ${props.styles.color}`,
+    //               borderRadius: props.styles.borderRadius,
+    //               backgroundColor: props.styles.color,
+    //             }}
+    //             onDragStop={(e, d) => { 
+    //               setCoordinates({ x: d.x, y: d.y, width: coordinates.width, height: coordinates.height });
+    //               handlePosition(); 
+    //             }}
+    //             onResizeStop={(e, direction, ref, delta, position) => {
+    //               setCoordinates({
+    //                 width: ref.style.width,
+    //                 height: ref.style.height,
+    //                 ...position,
+    //               });
+    //             handlePosition();
+    //             }}
+    //             disableDragging={canEditScene}
+    //             enableResizing={canEnableResizing}
+    //         >
+    //           <TableRoles />
+    //         </Rnd>
+    //       );
+    //     case "dashboard":
+    //       return (
+    //         <Rnd
+    //             className="widgetTable"
+    //             onDoubleClick={handleDoubleClick}
+    //             size={{ width: coordinates.width,  height: coordinates.height }}
+    //             position={{ x: coordinates.x, y: coordinates.y }}
+    //             style={{
+    //               zIndex: props.zIndex,
+    //               border: `${props.styles.size}px solid ${props.styles.color}`,
+    //               borderRadius: props.styles.borderRadius,
+    //               backgroundColor: props.styles.color,
+    //             }}
+    //             onDragStop={(e, d) => { 
+    //               setCoordinates({ x: d.x, y: d.y, width: coordinates.width, height: coordinates.height });
+    //               handlePosition(); 
+    //             }}
+    //             onResizeStop={(e, direction, ref, delta, position) => {
+    //               setCoordinates({
+    //                 width: ref.style.width,
+    //                 height: ref.style.height,
+    //                 ...position,
+    //               });
+    //               handlePosition();
+    //             }}
+    //             disableDragging={canEditScene}
+    //             enableResizing={canEnableResizing}
+    //         >
+    //           <TableDashboards />
+    //         </Rnd>
+    //       );
+    //     default:
+    //       console.log("Немає такої таблиці");
+    //   }
+    //   break;
+    // case "map":
+    //   return (
+    //     <Rnd
+    //         className="widgetMap"
+    //         onDoubleClick={handleDoubleClick}
+    //         size={{ width: coordinates.width,  height: coordinates.height }}
+    //         position={{ x: coordinates.x, y: coordinates.y }}
+    //         style={{
+    //           zIndex: props.zIndex,
+    //           border: `${props.styles.size}px solid ${props.styles.color}`,
+    //           borderRadius: props.styles.borderRadius,
+    //           backgroundColor: props.styles.color,
+    //         }}
+    //         onDragStop={(e, d) => { 
+    //               setCoordinates({ x: d.x, y: d.y, width: coordinates.width, height: coordinates.height });
+    //               handlePosition(); 
+    //             }}
+    //         onResizeStop={(e, direction, ref, delta, position) => {
+    //           setCoordinates({
+    //             width: ref.style.width,
+    //             height: ref.style.height,
+    //             ...position,
+    //           });
+    //           handlePosition();
+    //         }}
+    //         disableDragging={canEditScene}
+    //         enableResizing={canEnableResizing}
+    //     >
+    //       <Map lat={props.data.lat} lon={props.data.lon} markerLat={props.styles.lat} markerLon={props.styles.lon} />
+    //     </Rnd>
+    //   );
     case "text":
       return (
         <Rnd
@@ -272,19 +263,21 @@ const Widget = (props) => {
               backgroundColor: props.styles.color,
             }}
             onDragStop={(e, d) => { 
-                  setCoordinates({ x: d.x, y: d.y, width: coordinates.width, height: coordinates.height });
-                  handlePosition(); 
-                }}
+              console.log(coordinates)
+              setCoordinates({...coordinates, x: d.x, y: d.y });
+
+                  // handlePosition(); 
+            }}
             onResizeStop={(e, direction, ref, delta, position) => {
               setCoordinates({
                 width: ref.style.width,
                 height: ref.style.height,
-                ...position,
+                ...coordinates,
               });
-              handlePosition();
+              // handlePosition();
             }}
-            disableDragging={canEditScene}
-            enableResizing={canEnableResizing}
+            // disableDragging={canEditScene}
+            // enableResizing={canEnableResizing}
         >          
           <marquee
           behavior="scroll"
@@ -297,51 +290,51 @@ const Widget = (props) => {
           </marquee>
         </Rnd>
       );
-    case "video":
-      if (url.length > 2) {
-        return (
-          <Rnd
-            className="widgetVideo"
-            onDoubleClick={handleDoubleClick}
-            style={{
-              zIndex: props.zIndex,
-              border: `${props.styles.size}px solid ${props.styles.color}`,
-              borderRadius: props.styles.borderRadius,
-              backgroundColor: props.styles.color,
-            }}
-            size={{ width: coordinates.width,  height: coordinates.height }}
-            position={{ x: coordinates.x, y: coordinates.y }}
-            onDragStop={(e, d) => { 
-              setCoordinates({ x: d.x, y: d.y, width: coordinates.width, height: coordinates.height });
-              handlePosition(); 
-            }}
-            onResizeStop={(e, direction, ref, delta, position) => {
-              setCoordinates({
-                width: ref.style.width,
-                height: ref.style.height,
-                ...position,
-              });
-              handlePosition();
-            }}
-          >
-            <div onDoubleClick={handleDoubleClickContent}>
-              <JsmpegPlayer
-                wrapperClassName={`video-wrapper-${props.id}`}
-                videoUrl={url}
-                options={videoOptions}
-                overlayOptions={videoOverlayOptions}
-                onRef={(ref) => (jsmpegPlayer = ref)}
-              />
-            </div>            
-          </Rnd>
-        );
-      } else {
-        return (
-          <></>
-        )
-      }
+  //   case "video":
+  //     if (url.length > 2) {
+  //       return (
+  //         <Rnd
+  //           className="widgetVideo"
+  //           onDoubleClick={handleDoubleClick}
+  //           style={{
+  //             zIndex: props.zIndex,
+  //             border: `${props.styles.size}px solid ${props.styles.color}`,
+  //             borderRadius: props.styles.borderRadius,
+  //             backgroundColor: props.styles.color,
+  //           }}
+  //           size={{ width: coordinates.width,  height: coordinates.height }}
+  //           position={{ x: coordinates.x, y: coordinates.y }}
+  //           onDragStop={(e, d) => { 
+  //             setCoordinates({ x: d.x, y: d.y, width: coordinates.width, height: coordinates.height });
+  //             handlePosition(); 
+  //           }}
+  //           onResizeStop={(e, direction, ref, delta, position) => {
+  //             setCoordinates({
+  //               width: ref.style.width,
+  //               height: ref.style.height,
+  //               ...position,
+  //             });
+  //             handlePosition();
+  //           }}
+  //         >
+  //           <div onDoubleClick={handleDoubleClickContent}>
+  //             <JsmpegPlayer
+  //               wrapperClassName={`video-wrapper-${props.id}`}
+  //               videoUrl={url}
+  //               options={videoOptions}
+  //               overlayOptions={videoOverlayOptions}
+  //               onRef={(ref) => (jsmpegPlayer = ref)}
+  //             />
+  //           </div>            
+  //         </Rnd>
+  //       );
+  //     } else {
+  //       return (
+  //         <></>
+  //       )
+  //     }
     default:
-     return(<div>Нема</div>)
+     return(<></>)
   }
 };
 export default Widget;
