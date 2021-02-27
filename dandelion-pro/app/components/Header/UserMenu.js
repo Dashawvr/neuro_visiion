@@ -73,7 +73,8 @@ function UserMenu(props) {
 
   const logOut = async () => {
     await socketConnection.setOffline();
-    localStorage.clear();
+    localStorage.clear();    
+    history.push('/login')
   };
 
 
@@ -219,7 +220,6 @@ function UserMenu(props) {
       >
         <MenuItem onClick={() => {
           logOut()
-          history.push('/')
         }}>
           <ExitToApp/>
           {t('Menu.logOut')}

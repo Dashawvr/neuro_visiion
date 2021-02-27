@@ -203,6 +203,7 @@
     "socket.io-client": "^2.3.0",
     "tunnel-agent": "^0.6.0",
     "use-light-switch": "^1.0.1",
+    "use-state-with-callback": "^2.0.3",
     "warning": "4.0.2"
   },
   "devDependencies": {
