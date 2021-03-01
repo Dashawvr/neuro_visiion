@@ -59,8 +59,6 @@ class EditWidgetTableForm extends React.Component {
   showResult(values) {
     let borderRadius = undefined;
     let size = undefined;
-    let lon = undefined;
-    let lat = undefined;
     values._root.entries.map((elem) => {
       if (elem[0] === 'borderRadius') {
         borderRadius = elem[1];

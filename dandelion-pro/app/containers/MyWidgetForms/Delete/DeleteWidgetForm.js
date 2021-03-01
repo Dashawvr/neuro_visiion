@@ -19,6 +19,7 @@ import {
 import Notification from '../../../containers/MyNotification/Notification';
 import { withRouter } from "react-router-dom";
 import axios from 'axios';
+import { withTranslation } from 'react-i18next';
 
 const styles = ({
   root: {
@@ -75,7 +76,8 @@ class DeleteWidgetForm extends React.Component {
   render() {
     const title = brand.name + ' - Form';
     const description = brand.desc;
-    const { message, variant, open } = this.state;
+    const { message, variant, open } = this.state;    
+    const { t } = this.props;
     return (
       <div>
         <Helmet>
@@ -86,7 +88,7 @@ class DeleteWidgetForm extends React.Component {
           <meta property="twitter:title" content={title} />
           <meta property="twitter:description" content={description} />
         </Helmet>
-        <PapperBlock title="Delete Widget" icon="ios-list-box-outline">
+        <PapperBlock title={t('DeleteWidget.title')} icon="ios-list-box-outline">
           <div>
             <DeleteWidget onSubmit={(values) => this.showResult(values)} widgets={this.state.widgets} handleDashboard={(value) => this.handleDashboard(value)} dashboards={this.state.dashboards} />
           </div>
@@ -97,4 +99,4 @@ class DeleteWidgetForm extends React.Component {
   }
 }
 
-export default withStyles(styles)(withRouter((DeleteWidgetForm)));
+export default withStyles(styles)(withRouter(withTranslation()(DeleteWidgetForm)));

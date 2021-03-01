@@ -60,6 +60,12 @@ class CreateWidgetTextForm extends React.Component {
       name: name,
       dashboardId: parsed.get('dashboardId'),
       widgetCoordinatesId: parsed.get('coordinatesId'),
+      styles: {
+        borderRadius: 0,
+        color: '#000000',
+        size: 5,
+      },
+      z_index: 1,
     };
     console.log(POST.data);
     axios.post(`${URL}/api/widget_data/`, POST.data, {Authorization: localStorage.getItem('token')}).then(() => {
@@ -67,7 +73,7 @@ class CreateWidgetTextForm extends React.Component {
     }).catch((error) => {
       this.setState({ open: true, variant: 'error', message: 'Notification.error' });
     });
-    setTimeout(() => this.props.history.push('/home'), 1000);  
+    // setTimeout(() => this.props.history.push('/home'), 1000);  
   }
 
   render() {

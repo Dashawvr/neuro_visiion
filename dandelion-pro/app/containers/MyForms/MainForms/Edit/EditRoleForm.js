@@ -79,9 +79,9 @@ class EditRoleForm extends React.Component {
       canDeleteUser: canDelete ? canDelete : this.state.accessRight.canDeleteUser,
       canUpdateUser: update ? update : this.state.accessRight.canUpdateUser,
       roleId: this.state.role.id,
-      desc: this.state.accessRight.desc,
+      // desc: this.state.accessRight.desc,
     };
-    axios.put(`${URL}/api/role/`, PUT.data, {Authorization: localStorage.getItem('token')});
+    axios.put(`${URL}/api/role/` + this.state.accessRight.roleId, PUT.data, {Authorization: localStorage.getItem('token')});
     axios.patch(`${URL}/api/access_right/` + this.state.accessRight.id, PATCH.data, {Authorization: localStorage.getItem('token')}).then(() => {
       this.setState({ open: true, variant: 'success', message: 'Notification.success' });
     }).catch((error) => {

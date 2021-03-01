@@ -59,13 +59,19 @@ class CreateWidgetTableForm extends React.Component {
       name: name,
       dashboardId: parsed.get('dashboardId'),
       widgetCoordinatesId: parsed.get('coordinatesId'),
+      styles: {
+        borderRadius: 0,
+        color: '#000000',
+        size: 5,
+      },
+      z_index: 1,
     };
     axios.post(`${URL}/api/widget_data/`, POST.data, {Authorization: localStorage.getItem('token')}).then(() => {
       this.setState({ open: true, variant: 'success', message: 'Notification.success' });
     }).catch((error) => {
       this.setState({ open: true, variant: 'error', message: 'Notification.error' });
     });
-    setTimeout(() => this.props.history.push('/home'), 1000);    
+    // setTimeout(() => this.props.history.push('/home'), 1000);    
   }
 
   render() {

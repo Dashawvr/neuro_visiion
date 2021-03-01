@@ -27,7 +27,8 @@
         "unknow": "Unknow",
         "title": "Dashboards list",
         "role": "Role",
-        "user": "User"
+        "user": "User",
+        "active": "Active"
     },    
     "TableGroups": {
         "name": "Name",        
@@ -163,7 +164,7 @@
         "roles": "Roles",
         "group": "User Group",
         "maps": "Maps",
-        "editPanel": "Edit Panel",
+        "editPanel": "Edit Widget",
         "widgets": "Widgets",
         "stage": "Stage"
     },
@@ -271,7 +272,14 @@
         "1": "You are here: "
     },
     "DeleteWidget": {
-        "title": "Delete Widget"
+        "title": "Delete Widget",
+        "widget": "Widget",
+        "dashboard": "Dashboard"
+    },
+    "EditWidget": {
+        "title": "Edit Widget",
+        "widget": "Widget",
+        "dashboard": "Dashboard"
     },
     "CreateWidget": {
         "title": "Create Widget"

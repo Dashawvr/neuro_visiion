@@ -14,7 +14,7 @@ import AddUser from '../../Forms/Create/AddUser';
 import request from '../../../../utils/request';
 import axios from 'axios';
 import {
-  URL, GET
+  URL, GET, POST
 } from '../../../Axios/axiosForData';
 import Notification from '../../../MyNotification/Notification';
 import { withTranslation } from 'react-i18next';

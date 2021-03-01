@@ -83,7 +83,7 @@ class EditWidgetVideo extends Component {
     } = this.props;
     const handleChangeComplete = (color) => {
       this.setState({ background: color.hex });
-      color(color.hex);
+      this.props.color(color.hex);
     };
     return (
       <div>

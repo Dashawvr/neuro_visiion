@@ -57,19 +57,19 @@ class EditWidgetMapForm extends React.Component {
   }
 
   showResult(values) {
-    let borerRadius = undefined;
+    let borderRadius = undefined;
     let size = undefined;
     let lon = undefined;
     let lat = undefined;
     values._root.entries.map((elem) => {
-      if (elem[0] === 'borerRadius') {
-        borerRadius = elem[1];
+      if (elem[0] === 'borderRadius') {
+        borderRadius = elem[1];
       }
       if (elem[0] === 'size') {
         size = elem[1];
       }
       if (elem[0] === 'lon') {
-        lon = Number(elem[1]);
+        lon = elem[1];
       }
       if (elem[0] === 'lat') {
         lat = elem[1];
@@ -81,7 +81,7 @@ class EditWidgetMapForm extends React.Component {
     delete this.state.widget.styles;
     
     this.state.widget.styles = {
-      borerRadius: borerRadius,
+      borderRadius: borderRadius,
       color: this.state.color,
       size: size,
       lon: lon,

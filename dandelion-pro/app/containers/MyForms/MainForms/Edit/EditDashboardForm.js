@@ -13,7 +13,6 @@ import { PapperBlock } from 'dan-components';
 import queryString from 'query-string';
 import EditDashboard from '../../Forms/Edit/EditDashboard';
 import request from '../../../../utils/request';
-import history from '../../../../utils/history';
 import { URL, PUT, GET } from '../../../Axios/axiosForData';
 import Notification from '../../../MyNotification/Notification';
 import axios from 'axios';
@@ -83,7 +82,7 @@ class EditDashboardForm extends React.Component {
       userId: userIdd ? userIdd : this.state.dashboard.userId,
       name: name ? name : this.state.dashboard.name,
     };
-    axios.put(`${URL}/api/dashboard/`, PUT.data, {Authorization: localStorage.getItem('token')}).then(() => {
+    axios.put(`${URL}/api/dashboard/${parsed.id}`, PUT.data, {Authorization: localStorage.getItem('token')}).then(() => {
       this.setState({ open: true, variant: 'success', message: 'Notification.success' });
     }).catch((error) => {
       this.setState({ open: true, variant: 'error', message: 'Notification.error' });

@@ -53,6 +53,19 @@ class UsersGroups extends React.Component {
     message: '',
     open: false,
     id: null,
+    prevRow: undefined,
+    row: undefined
+  }
+
+  changeRowColor(index){
+    let row = document.getElementById(`MUIDataTableBodyRow-${index}`);
+
+    if (this.state.prevRow !== undefined) {
+      this.state.row.style.background = '';
+    }
+
+    row.setAttribute('style', 'background: #DEDFE0');
+    this.setState({ prevRow: index, row: row });
   }
 
   render() {
@@ -100,15 +113,17 @@ class UsersGroups extends React.Component {
       print: true,
       rowsPerPage: 5,
       page: 0,
-      onRowClick: (rowData) => {
-        this.setState({ id: rowData[0] });
+      onRowClick: (rowData, rowIndex) => {
+        this.setState({ id: rowData[0] }, () => {
+          this.changeRowColor(rowIndex.rowIndex);
+        });
       },
       selectableRows: 'none',
       selectableRowsHeader: false,
     };
     const handleDelete = (id) => {
       if (id) {
-        request(`${URL}/api/users_group/${id}`, DELETE).then(() => {
+        request(`${URL}/api/user_group/${id}`, DELETE).then(() => {
           this.setState({ open: true, variant: 'success', message: 'Notification.success' });
         }).catch((error) => {
           this.setState({ open: true, variant: 'error', message: 'Notification.error' });

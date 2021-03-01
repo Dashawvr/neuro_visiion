@@ -79,11 +79,10 @@ class EditWidgetMap extends Component {
       submitting,
       widget,
       t,
-      color
     } = this.props;
     const handleChangeComplete = (color) => {
       this.setState({ background: color.hex });
-      color(color.hex);
+      this.props.color(color.hex);
     };
     return (
       <div>
@@ -94,7 +93,7 @@ class EditWidgetMap extends Component {
                 <div>
                   <Typography variant="subtitle1" className={classes.dividerText}>{t('EditWidgetMap.color')}</Typography>
                   <SketchPicker
-                    color={ this.state.background }
+                    color={widget.color}
                     onChangeComplete={ handleChangeComplete }
                     className={classes.divider}
                   />

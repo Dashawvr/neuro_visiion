@@ -70,8 +70,9 @@ class AddGroup extends Component {
       getUsers,
     } = this.props;
     const handleChangeMulti = (value) => {
-      this.setState({selectUsers: value});
-      getUsers(this.state.selectUsers);
+      this.setState({selectUsers: value}, () => {
+        getUsers(this.state.selectUsers);
+      });
       console.log(this.state.selectUsers);
     };
     return (

@@ -52,10 +52,10 @@ class AddWidgetForm extends React.Component {
 
   async showResult(values) {
     const data = {
-      x: 850,
-      y: 200,
-      width: 300,
-      height: 150,
+      x: 350,
+      y: 30,
+      width: "300px",
+      height: "150px",
     };
     let dashboardId = null;
     let type = null;

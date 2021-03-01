@@ -41,7 +41,8 @@ class LoginForm extends React.Component {
   state = {
     showPassword: false,
     email: '',
-    password: ''
+    password: '',
+    page: 1
   }
 
   handleClickShowPassword = () => {
@@ -52,6 +53,14 @@ class LoginForm extends React.Component {
   handleMouseDownPassword = event => {
     event.preventDefault();
   };
+
+  handlePageDomain = () => {
+    this.setState({page: 2});
+  }
+  
+  handlePageEmail = () => {
+    this.setState({page: 1});    
+  }
 
   render() {
     const {
@@ -66,43 +75,11 @@ class LoginForm extends React.Component {
       email
     } = this.props;
     const { showPassword } = this.state;
-    return (
-      <Fragment>
-        <Hidden mdUp>
-          <NavLink to="/" className={classNames(classes.brand, classes.outer)}>
-            <img src={logo} alt={brand.name}/>
-            Neuro Vision
-          </NavLink>
-        </Hidden>
-        <Paper className={classNames(classes.paperWrap, deco && classes.petal)}>
-          <Hidden smDown>
-            <div className={classes.topBar}>
-              <NavLink to="/" className={classes.brand}>
-                <img src={logo} alt={brand.name}/>
-                Neuro Vision
-              </NavLink>
-            </div>
-          </Hidden>
-          <Typography variant="h4" className={classes.title} gutterBottom>
-            Log In
-          </Typography>
-          <Typography variant="caption" className={classes.subtitle} gutterBottom align="center">
-            Integration platform for video surveillance
-          </Typography>
-          <section className={classes.socmedLogin}>
-            <div className={classes.btnArea}>
-              <Button variant="outlined" size="small" className={classes.redBtn} type="button">
-                <AllInclusive className={classNames(classes.leftIcon, classes.iconSmall)}/>
-                With Login & Password
-              </Button>
-              <Button variant="outlined" size="small" className={classes.blueBtn} type="button">
-                <Brightness5 className={classNames(classes.leftIcon, classes.iconSmall)}/>
-                With Domain Name
-              </Button>
-            </div>
-            <ContentDivider content="Or sign in with email"/>
-          </section>
-          <section className={classes.formWrap}>
+    
+    let renderPage;
+    if (this.state.page === 1) {
+      renderPage = 
+      <section className={classes.formWrap}>
             <form onSubmit={handleSubmit}>
               <div>
                 <FormControl className={classes.formControl}>
@@ -155,6 +132,104 @@ class LoginForm extends React.Component {
               </div>
             </form>
           </section>
+    } else {
+      renderPage = 
+      <section className={classes.formWrap}>
+            <form onSubmit={handleSubmit}>
+              <div>
+                <FormControl className={classes.formControl}>
+                  <Field
+                    name="email"
+                    component={TextFieldRedux}
+                    placeholder="Your Domain"
+                    label="Your Domain"
+                    required
+                    className={classes.field}
+                    value={email}
+                    onChange={onChangeEmail}
+                  />
+                </FormControl>
+              </div>
+              <div>
+                <FormControl className={classes.formControl}>
+                  <Field
+                    name="password"
+                    component={TextFieldRedux}
+                    onChange={onChangePassword}
+                    value={password}
+                    type={showPassword ? 'text' : 'password'}
+                    label="Your Domain Password"
+                    InputProps={{
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          <IconButton
+                            aria-label="Toggle password visibility"
+                            onClick={this.handleClickShowPassword}
+                            onMouseDown={this.handleMouseDownPassword}
+                          >
+                            {showPassword ? <VisibilityOff/> : <Visibility/>}
+                          </IconButton>
+                        </InputAdornment>
+                      )
+                    }}
+                    required
+                    validate={required}
+                    className={classes.field}
+                  />
+                </FormControl>
+              </div>
+              <div className={classes.btnArea}>
+                <Button variant="contained" color="primary" size="large" type="submit">
+                  Continue
+                  <ArrowForward className={classNames(classes.rightIcon, classes.iconSmall)}
+                                disabled={submitting || pristine}/>
+                </Button>
+              </div>
+            </form>
+          </section>
+    }
+
+
+
+
+
+    return (
+      <Fragment>
+        <Hidden mdUp>
+          <NavLink to="/" className={classNames(classes.brand, classes.outer)}>
+            <img src={logo} alt={brand.name}/>
+            Neuro Vision
+          </NavLink>
+        </Hidden>
+        <Paper className={classNames(classes.paperWrap, deco && classes.petal)}>
+          <Hidden smDown>
+            <div className={classes.topBar}>
+              <NavLink to="/" className={classes.brand}>
+                <img src={logo} alt={brand.name}/>
+                Neuro Vision
+              </NavLink>
+            </div>
+          </Hidden>
+          <Typography variant="h4" className={classes.title} gutterBottom>
+            Log In
+          </Typography>
+          <Typography variant="caption" className={classes.subtitle} gutterBottom align="center">
+            Integration platform for video surveillance
+          </Typography>
+          <section className={classes.socmedLogin}>
+            <div className={classes.btnArea}>
+              <Button variant="outlined" size="small" className={classes.redBtn} type="button" onClick={this.handlePageEmail}>
+                <AllInclusive className={classNames(classes.leftIcon, classes.iconSmall)}/>
+                With Login & Password
+              </Button>
+              <Button variant="outlined" size="small" className={classes.blueBtn} type="button" onClick={this.handlePageDomain}>
+                <Brightness5 className={classNames(classes.leftIcon, classes.iconSmall)}/>
+                With Domain Name
+              </Button>
+            </div>
+            <ContentDivider content="            "/>
+          </section>
+          {renderPage}
         </Paper>
       </Fragment>
     );

@@ -18,6 +18,7 @@ import {
 } from '../../containers/Axios/axiosForData';
 import Notification from '../../containers/MyNotification/Notification';
 import { withRouter } from "react-router-dom";
+import { withTranslation } from 'react-i18next';
 
 const styles = ({
   root: {
@@ -85,7 +86,8 @@ class EditPanel extends React.Component {
   render() {
     const title = brand.name + ' - Form';
     const description = brand.desc;
-    const { message, variant, open } = this.state;
+    const { message, variant, open } = this.state;    
+    const { t } = this.props;
     return (
       <div>
         <Helmet>
@@ -96,7 +98,7 @@ class EditPanel extends React.Component {
           <meta property="twitter:title" content={title} />
           <meta property="twitter:description" content={description} />
         </Helmet>
-        <PapperBlock title="Edit Widget" icon="ios-list-box-outline">
+        <PapperBlock title={t('EditWidget.title')} icon="ios-list-box-outline">
           <div>
             <EditWidgets onSubmit={(values) => this.showResult(values)} widgets={this.state.widgets} handleDashboard={(value) => this.handleDashboard(value)} dashboards={this.state.dashboards} />
           </div>
@@ -107,4 +109,4 @@ class EditPanel extends React.Component {
   }
 }
 
-export default withStyles(styles)(withRouter((EditPanel)));
+export default withStyles(styles)(withRouter(withTranslation()(EditPanel)));

@@ -162,13 +162,6 @@ function SidebarContent(props) {
   },
 
   {
-    key: 'tables',
-    name: t('Menu.editPanel'),
-    icon: 'ios-appstore-outline',
-    linkParent: '/home/edit-panel'
-  },
-
-  {
     key: 'deleteWidget',
     name: t('Menu.widgets'),
     icon: 'ios-laptop',
@@ -178,9 +171,14 @@ function SidebarContent(props) {
       linkParent: '/home/delete/widget'
       },
       {
-      key: 'deleteWidget',
+      key: 'createWidget',
       name: t('CreateWidget.title'),    
       linkParent: '/home/widget'
+      },
+      {
+        key: 'editWidget',
+        name: t('Menu.editPanel'),
+        linkParent: '/home/edit-panel'
       },
     ]
   },

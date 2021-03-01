@@ -33,7 +33,7 @@ class AddRoleForm extends React.Component {
     open: false,
   }
 
-  showResult(values) {
+  async showResult(values) {
     let name = null;
     let important = null;
     let create = false;
@@ -57,19 +57,20 @@ class AddRoleForm extends React.Component {
       }
     });
     POST.data = {
-      name,
+      name: name,
       role: important,
     };
     const data = {
       canCreateUser: create,
       canUpdateUser: edit,
       canDeleteUser: canDelete,
+      roleId: null
     };
-    request(`${URL}/api/role/`, POST).then((res) => {
-      data.roleId = res.data.newRole.id;
+    await axios.post(`${URL}/api/role/`, POST.data).then((res) => {
+      data.roleId = res.data.data.newRole.id;
     });
     POST.data = data;
-    axios.post(`${URL}/api/access_right/`, POST.data, {Authorization: localStorage.getItem('token')}).then(() => {
+    await axios.post(`${URL}/api/access_right/`, POST.data, {Authorization: localStorage.getItem('token')}).then(() => {
       this.setState({ open: true, variant: 'success', message: 'Notification.success' });
     }).catch((error) => {
       this.setState({ open: true, variant: 'error', message: 'Notification.error' });

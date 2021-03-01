@@ -57,7 +57,6 @@ class EditWidgetVideoForm extends React.Component {
   }
 
   showResult(values) {
-    let color = undefined;
     let size = undefined;
     let borderRadius = undefined;
     values._root.entries.map((elem) => {

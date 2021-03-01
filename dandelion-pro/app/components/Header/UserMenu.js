@@ -74,7 +74,7 @@ function UserMenu(props) {
   const logOut = async () => {
     await socketConnection.setOffline();
     localStorage.clear();    
-    history.push('/login')
+    history.push('/')
   };
 
 

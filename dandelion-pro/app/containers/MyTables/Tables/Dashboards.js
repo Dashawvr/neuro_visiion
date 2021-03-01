@@ -52,6 +52,19 @@ class Dashboards extends React.Component {
     message: '',
     open: false,
     id: null,
+    prevRow: undefined,
+    row: undefined
+  }
+
+  changeRowColor(index){
+    let row = document.getElementById(`MUIDataTableBodyRow-${index}`);
+
+    if (this.state.prevRow !== undefined) {
+      this.state.row.style.background = '';
+    }
+
+    row.setAttribute('style', 'background: #DEDFE0');
+    this.setState({ prevRow: index, row: row });
   }
 
   render() {
@@ -99,12 +112,23 @@ class Dashboards extends React.Component {
       print: true,
       rowsPerPage: 5,
       page: 0,
-      onRowClick: (rowData) => {
-        this.setState({ id: rowData[0] });
+      onRowClick: (rowData, rowIndex) => {
+        this.setState({ id: rowData[0] }, () => {
+          this.changeRowColor(rowIndex.rowIndex);
+        });
       },
       selectableRows: 'none',
       selectableRowsHeader: false,
     };
+
+    const handleEditDashboard = (id) => {
+      if (id) {
+        this.props.history.push(`/home/dashboard/${id}`);
+      } else {
+        this.setState({ open: true, variant: 'warning', message: 'Notification.clickEdit' });
+      }
+    }
+
     const handleDelete = (id) => {
       if (id) {
         request(`${URL}/api/dashboard/${id}`, DELETE).then(() => {
@@ -134,7 +158,7 @@ class Dashboards extends React.Component {
       <Fragment>
         <div className={classes.table}>
           <MUIDataTable
-            title="Dashboards list"
+            title={t('TableDashboards.title')}
             data={data}
             columns={[
     {
@@ -152,7 +176,7 @@ class Dashboards extends React.Component {
         }
       },      
       {
-        label: 'Active',
+        label: t('TableDashboards.active'),
         name: 'enable',
         options: {
           filter: true,
@@ -199,6 +223,10 @@ class Dashboards extends React.Component {
           <Button onClick={() => handleDelete(id)} className={classes.button} variant="contained" color="red">
           {t('Buttons.delete')}
             <DeleteIcon className={classes.rightIcon} />
+          </Button>
+          <Button onClick={() => handleEditDashboard(id)} className={classes.button} variant="contained" color="red">
+            Edit on Scene
+            <CreateIcon className={classes.rightIcon} />
           </Button>
           <br />
         </div>

@@ -17,6 +17,7 @@ import {
 } from 'dan-components/Forms/ReduxFormMUI';
 import { initAction, clearAction } from 'dan-redux/actions/reduxFormActions';
 import history from '../../../../utils/history';
+import { withTranslation } from 'react-i18next';
 
 const renderRadioGroup = ({ input, ...rest }) => (
   <RadioGroup
@@ -62,7 +63,8 @@ class DeleteWidget extends Component {
       dashboards,
       widgets,
       handleDashboard,
-    } = this.props;
+    } = this.props;    
+    const { t } = this.props;
     return (
       <div>
         <Grid container spacing={3} alignItems="flex-start" direction="row" justify="center">
@@ -71,11 +73,11 @@ class DeleteWidget extends Component {
               <form onSubmit={handleSubmit}>
                 <div>
                   <FormControl className={classes.field}>
-                    <InputLabel htmlFor="dashboardId">Dashboard</InputLabel>
+                    <InputLabel htmlFor="dashboardId">{t('DeleteWidget.dashboard')}</InputLabel>
                     <Field
                       name="dashboardId"
                       component={SelectRedux}
-                      placeholder="Dashboard"
+                      placeholder={t('DeleteWidget.dashboard')} 
                       required
                       onChange={handleDashboard}
                     >
@@ -85,11 +87,11 @@ class DeleteWidget extends Component {
                 </div>
                 <div>
                   <FormControl className={classes.field}>
-                    <InputLabel htmlFor="widget">Widget</InputLabel>
+                    <InputLabel htmlFor="widget">{t('DeleteWidget.widget')}</InputLabel>
                     <Field
                       name="widget"
                       component={SelectRedux}
-                      placeholder="Widget"
+                      placeholder={t('DeleteWidget.widget')} 
                       required
                     >
                     {widgets.map((w) => <MenuItem value={w.id}>{w.name}</MenuItem>)}                      
@@ -98,17 +100,17 @@ class DeleteWidget extends Component {
                 </div>
                 <div>
                   <Button variant="contained" color="secondary" type="submit" disabled={submitting}>
-                    Delete
+                  {t('Buttons.delete')}
                   </Button>
                   <Button
                     type="button"
                     disabled={pristine || submitting}
                     onClick={reset}
                   >
-                    Reset
+                    {t('Buttons.reset')}
                   </Button>
                   <Button variant="contained" color="primary" onClick={() => history.goBack()}>
-                    Cancel
+                  {t('Buttons.cancel')}
                   </Button>
                 </div>
               </form>
@@ -151,4 +153,4 @@ const FormInit = connect(
   mapDispatchToProps,
 )(ReduxFormMapped);
 
-export default withStyles(styles)(FormInit);
+export default withStyles(styles)(withTranslation()(FormInit));
