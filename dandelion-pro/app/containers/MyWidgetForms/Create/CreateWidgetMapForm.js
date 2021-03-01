@@ -70,6 +70,8 @@ class CreateWidgetMapForm extends React.Component {
         borderRadius: 0,
         color: '#000000',
         size: 5,
+        lat: lat,
+        lon: lon
       },
       z_index: 1,
     };
@@ -82,7 +84,7 @@ class CreateWidgetMapForm extends React.Component {
   }
 
   render() {
-    const title = brand.name + ' - Form';
+    const title = brand.name + ' - Map';
     const description = brand.desc;
     const { message, variant, open } = this.state;
     const { t } = this.props;

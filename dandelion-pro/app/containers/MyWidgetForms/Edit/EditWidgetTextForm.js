@@ -59,6 +59,8 @@ class EditWidgetTextForm extends React.Component {
   showResult(values) {
     let borderRadius = undefined;
     let size = undefined;
+    let fontSize = undefined;
+    let speed = undefined;
     values._root.entries.map((elem) => {
       if (elem[0] === 'borderRadius') {
         borderRadius = elem[1];

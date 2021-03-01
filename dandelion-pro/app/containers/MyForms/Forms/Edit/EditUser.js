@@ -97,7 +97,7 @@ class EditUser extends Component {
                 </div>
                 <div>
                   <Field
-                    name="lastName"
+                    name="surName"
                     component={TextFieldRedux}
                     label={lastName}
                     placeholder={t('EditUser.lastName')}

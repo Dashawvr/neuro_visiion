@@ -81,7 +81,7 @@ class CreateWidgetMap extends Component {
                 </div>
                 <div>
                   <Field
-                    name="lan"
+                    name="lat"
                     component={TextFieldRedux}
                     placeholder={t('AddWidgetMap.lat')}
                     label={t('AddWidgetMap.lat')}
