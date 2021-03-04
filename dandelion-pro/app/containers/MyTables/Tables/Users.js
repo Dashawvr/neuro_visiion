@@ -18,6 +18,7 @@ import Notification from '../../MyNotification/Notification';
 import { withRouter } from "react-router-dom";
 import { withTranslation } from 'react-i18next';
 import { Rowing } from '@material-ui/icons';
+import { AlertDialog } from '../../MyNotification/AlertDialog';
 
 const styles = theme => ({
   button: {
@@ -55,7 +56,8 @@ class Users extends React.Component {
     open: false,
     id: null,
     prevRow: undefined,
-    row: undefined
+    row: undefined,
+    openModal: false,
   }
 
   changeRowColor(index){
@@ -123,6 +125,14 @@ class Users extends React.Component {
       selectableRowsHeader: false,
     };
 
+    const handleModal = (id) => {
+      if (id) {
+        this.setState({ openModal: true });
+      } else {
+        this.setState({ open: true, variant: 'warning', message: 'Notification.clickDelete' });
+      }
+    }
+
     const handleDelete = (id) => {
       if (id) {
         request(`${URL}/api/users/${id}`, DELETE).then(() => {
@@ -130,6 +140,7 @@ class Users extends React.Component {
         }).catch((error) => {
           this.setState({ open: true, variant: 'error', message: 'Notification.error' });
         });
+        this.setState({ openModal: false });
       } else {
         this.setState({ open: true, variant: 'warning', message: 'Notification.clickDelete' });
       }
@@ -228,12 +239,13 @@ class Users extends React.Component {
             {t('Buttons.edit')}
             <CreateIcon className={classes.rightIcon} />
           </Button>
-          <Button onClick={() => handleDelete(id)} className={classes.button} variant="contained" color="red">
+          <Button onClick={() => handleModal(id)} className={classes.button} variant="contained" color="red">
             {t('Buttons.delete')}
             <DeleteIcon className={classes.rightIcon} />
           </Button>
           <br />
         </div>
+        <AlertDialog open={this.state.openModal} title={t("Modal.title")} desc={t("Modal.desc") + this.state.id} onClose={() => this.setState({ openModal: false})} onDelete={() => handleDelete(id)} cancel={t("Modal.cancel")} deleteText={t("Modal.delete")} />
         <Notification open={open} handleClose={() => handleClose()} variant={variant} message={t(message)} />
       </Fragment>
     );

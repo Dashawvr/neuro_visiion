@@ -17,6 +17,7 @@ import { URL, DELETE } from '../../Axios/axiosForData';
 import Notification from '../../MyNotification/Notification';
 import { withRouter } from "react-router-dom";
 import { withTranslation } from 'react-i18next';
+import { AlertDialog } from '../../MyNotification/AlertDialog';
 
 const styles = theme => ({
   iconSmall: {
@@ -54,7 +55,8 @@ class Roles extends React.Component {
     open: false,
     id: null,
     prevRow: undefined,
-    row: undefined
+    row: undefined,
+    openModal: false,
   }
 
   changeRowColor(index){
@@ -121,6 +123,15 @@ class Roles extends React.Component {
       selectableRows: 'none',
       selectableRowsHeader: false,
     };
+
+    const handleModal = (id) => {
+      if (id) {
+        this.setState({ openModal: true });
+      } else {
+        this.setState({ open: true, variant: 'warning', message: 'Notification.clickDelete' });
+      }
+    }
+
     const handleDelete = (id) => {
       if (id) {
         request(`${URL}/api/role/${id}`, DELETE).then(() => {
@@ -128,6 +139,7 @@ class Roles extends React.Component {
         }).catch((error) => {
           this.setState({ open: true, variant: 'error', message: 'Notification.error' });
         });
+        this.setState({ openModal: false });
       } else {
         this.setState({ open: true, variant: 'warning', message: 'Notification.clickDelete' });
       }
@@ -230,13 +242,14 @@ class Roles extends React.Component {
           {t('Buttons.edit')}
             <CreateIcon className={classes.rightIcon} />
           </Button>
-          <Button onClick={() => handleDelete(id)} className={classes.button} variant="contained" color="red">
+          <Button onClick={() => handleModal(id)} className={classes.button} variant="contained" color="red">
           {t('Buttons.delete')}
             <DeleteIcon className={classes.rightIcon} />
           </Button>
           <br />
         </div>
         <Notification open={open} handleClose={() => handleClose()} variant={variant} message={t(message)} />
+        <AlertDialog open={this.state.openModal} title={t("Modal.title")} desc={t("Modal.desc") + this.state.id} onClose={() => this.setState({ openModal: false})} onDelete={() => handleDelete(id)} cancel={t("Modal.cancel")} deleteText={t("Modal.delete")} />
       </Fragment>
     );
   }

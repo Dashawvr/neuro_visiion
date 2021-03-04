@@ -1,13 +1,13 @@
 {
-  "name": "dandelion_pro",
+  "name": "vision_micro_gis",
   "version": "1.9.0",
-  "description": "React website tempate with focus on perfomance and design",
+  "description": "Vision Micro-GIS",
   "private": true,
   "engines": {
     "npm": ">=5",
     "node": ">=8.15.1"
   },
-  "author": "Dandelion Pro Team",
+  "author": "Vision Micro-GIS",
   "license": "Envato Regular License",
   "scripts": {
     "analyze:clean": "rimraf stats.json",

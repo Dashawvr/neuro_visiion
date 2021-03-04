@@ -43,7 +43,7 @@ function MenuContent(props) {
           {getMenus(menuList)}
         </List>
         <Typography variant="caption" className={classes.copyright}>
-          &copy; 2020 Dandelion Designs
+          &copy; 2020 Vision Micro-GIS
           <br />
           All Right Reserved
         </Typography>

@@ -17,6 +17,7 @@ import { URL, DELETE } from '../../Axios/axiosForData';
 import Notification from '../../MyNotification/Notification';
 import { withRouter } from "react-router-dom";
 import { withTranslation } from 'react-i18next';
+import { AlertDialog } from '../../MyNotification/AlertDialog';
 
 const styles = theme => ({
   button: {
@@ -53,7 +54,8 @@ class Dashboards extends React.Component {
     open: false,
     id: null,
     prevRow: undefined,
-    row: undefined
+    row: undefined,
+    openModal: false,
   }
 
   changeRowColor(index){
@@ -120,6 +122,13 @@ class Dashboards extends React.Component {
       selectableRows: 'none',
       selectableRowsHeader: false,
     };
+    const handleModal = (id) => {
+      if (id) {
+        this.setState({ openModal: true });
+      } else {
+        this.setState({ open: true, variant: 'warning', message: 'Notification.clickDelete' });
+      }
+    }
 
     const handleEditDashboard = (id) => {
       if (id) {
@@ -136,13 +145,14 @@ class Dashboards extends React.Component {
         }).catch((error) => {
           this.setState({ open: true, variant: 'error', message: 'Notification.error' });
         });
+        this.setState({ openModal: false });
       } else {
         this.setState({ open: true, variant: 'warning', message: 'Notification.clickDelete' });
       }
     };
     const handleEdit = (id) => {
       if (id) {
-        this.props.history.push('/home/forms/edit/dashboard/?id=' + id);
+        this.props.history.push('/home/forms/edit/scene/?id=' + id);
       } else {
         this.setState({ open: true, variant: 'warning', message: 'Notification.clickEdit' });
       }
@@ -212,7 +222,7 @@ class Dashboards extends React.Component {
         <div>
           <br />
           <br />
-          <Button onClick={() => this.props.history.push('/home/forms/add/dashboard')} className={classes.button} variant="contained" color="primary">
+          <Button onClick={() => this.props.history.push('/home/forms/add/scene')} className={classes.button} variant="contained" color="primary">
           {t('Buttons.create')}
             <AddCircleOutlineIcon className={classes.rightIcon} />
           </Button>
@@ -220,7 +230,7 @@ class Dashboards extends React.Component {
           {t('Buttons.edit')}
             <CreateIcon className={classes.rightIcon} />
           </Button>
-          <Button onClick={() => handleDelete(id)} className={classes.button} variant="contained" color="red">
+          <Button onClick={() => handleModal(id)} className={classes.button} variant="contained" color="red">
           {t('Buttons.delete')}
             <DeleteIcon className={classes.rightIcon} />
           </Button>
@@ -231,6 +241,7 @@ class Dashboards extends React.Component {
           <br />
         </div>
         <Notification open={open} handleClose={() => handleClose()} variant={variant} message={t(message)} />
+        <AlertDialog open={this.state.openModal} title={t("Modal.title")} desc={t("Modal.desc") + this.state.id} onClose={() => this.setState({ openModal: false})} onDelete={() => handleDelete(id)} cancel={t("Modal.cancel")} deleteText={t("Modal.delete")} />
       </Fragment>
     );
   }

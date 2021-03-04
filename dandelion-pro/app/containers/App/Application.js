@@ -70,11 +70,11 @@ function Application(props) {
             <Route path="/home/forms/add/text" component={CreateWidgetTextForm} />
             <Route path="/home/forms/add/map" component={CreateWidgetMapForm} />
             <Route path="/home/forms/add/table" component={CreateWidgetTableForm} />
-            <Route path="/home/forms/edit/dashboard" component={EditDashboardForm} />
+            <Route path="/home/forms/edit/scene" component={EditDashboardForm} />
             <Route path="/home/forms/edit/role" component={EditRoleForm} />
             <Route path="/home/forms/edit/user" component={EditUserForm} />
             <Route path="/home/forms/edit/group" component={EditGroupForm} />
-            <Route path="/home/forms/add/dashboard" component={AddDashboardForm} />
+            <Route path="/home/forms/add/scene" component={AddDashboardForm} />
             <Route path="/home/forms/add/role" component={AddRoleForm} />
             <Route path="/home/forms/add/user" component={AddUserForm} />
             <Route path="/home/forms/add/group" component={AddGroupForm} />

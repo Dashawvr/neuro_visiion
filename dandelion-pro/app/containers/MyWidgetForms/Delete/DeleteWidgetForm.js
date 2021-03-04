@@ -17,6 +17,7 @@ import {
   URL, GET
 } from '../../../containers/Axios/axiosForData';
 import Notification from '../../../containers/MyNotification/Notification';
+import { AlertDialog } from '../../../containers/MyNotification/AlertDialog';
 import { withRouter } from "react-router-dom";
 import axios from 'axios';
 import { withTranslation } from 'react-i18next';
@@ -34,7 +35,11 @@ class DeleteWidgetForm extends React.Component {
     open: false,
     dashboards: [],
     widgets: [],
-    widget: {}
+    openModal: false,
+    widget: null,
+    id: null,
+    dashboard: null
+
   }
 
   componentDidMount() {
@@ -57,13 +62,9 @@ class DeleteWidgetForm extends React.Component {
     });
   };
 
-  
-
-  showResult(values) {
-    let widgetId = values._root.entries[1][1];
-
+  handleDelete(id) {
     axios
-      .delete(`${URL}/api/widget_data/${widgetId}`)
+      .delete(`${URL}/api/widget_data/${id}`)
       .then(() => {
         this.setState({open: true, variant: 'success', message: 'Success delete widget!'})
       })
@@ -71,12 +72,25 @@ class DeleteWidgetForm extends React.Component {
         console.log(error);        
         this.setState({open: true, variant: 'error', message: 'Error delete widget!'})
       });
+
+      this.setState({ openModal: false });
+  }
+
+  showResult(values) {
+    
+    let dashboard = values._root.entries[0][1];
+    let id = values._root.entries[1][1];
+
+    const foundWidget = this.state.widgets.find(element => element.id === id);
+    const foundDashboard = this.state.dashboards.find(element => element.id === dashboard);
+
+    this.setState({ dashboard: foundDashboard.name, widget: foundWidget.name, id: id, openModal: true }); 
   }
 
   render() {
     const title = brand.name + ' - Form';
     const description = brand.desc;
-    const { message, variant, open } = this.state;    
+    const { message, variant, open, id, dashboard, widget, openModal } = this.state;    
     const { t } = this.props;
     return (
       <div>
@@ -94,6 +108,7 @@ class DeleteWidgetForm extends React.Component {
           </div>
         </PapperBlock>
         <Notification open={open} handleClose={() => this.handleClose()} variant={variant} message={message} />
+        <AlertDialog open={openModal} title={t("Modal.title")} desc={t("Modal.widget_1") + widget + t("Modal.widget_2") + dashboard}  onClose={() => this.setState({ openModal: false})} onDelete={() => this.handleDelete(id)} cancel={t("Modal.cancel")} deleteText={t("Modal.delete")} />
       </div>
     );
   }

@@ -283,5 +283,13 @@
     },
     "CreateWidget": {
         "title": "Create Widget"
+    },
+    "Modal": {
+        "title": "Confirmation for deletion",
+        "desc": "You want to delete row with id: ",
+        "cancel": "Cancel",
+        "delete": "Delete",
+        "widget_1:": "You want to remove the widget: ",
+        "widget_2:": " from the stage "
     }
 }
