@@ -20,9 +20,10 @@ import ListItemText from '@material-ui/core/ListItemText';
 import dummy from 'dan-api/dummy/dummyContents';
 import messageStyles from 'dan-styles/Messages.scss';
 import styles from './header-jss';
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
 import '../../NVision-Pages/Dashboard/app.css'
 import { getDashboards } from "../../redux/actions/dashboards";
+import { onOpen } from "../../redux/actions/rightSidebar";
 import { URL } from '../../containers/Axios/axiosForData';
 import { SocketConnection } from "../../api/socket";
 import { useTranslation } from 'react-i18next';
@@ -90,6 +91,9 @@ function UserMenu(props) {
   const { anchorElLanguage, openMenuLanguage } = languageState;
   return (
     <div>
+    {location &&
+      <Button variant="outlined" color="primary" onClick={() => props.onOpen(!props.rightSidebar)}>Menu</Button>      
+    }     
     <IconButton
         aria-haspopup="true"
         onClick={handleLanguageMenu('language')}
@@ -239,9 +243,11 @@ UserMenu.defaultProps = {
 };
 
 const mapStateToProps = (state) => ({
-  dashboards: state.get('dashboards').dashboards
+  dashboards: state.get('dashboards').dashboards,
+  rightSidebar: state.get('rightSidebar').open
 })
 
 export default connect(mapStateToProps, {
-  getDash: getDashboards
+  getDash: getDashboards,
+  onOpen: onOpen
 })(withStyles(styles)(UserMenu));

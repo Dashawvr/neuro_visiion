@@ -7,7 +7,14 @@
         "status": "Status",
         "created": "Created User",
         "title": "User list"
-
+    },
+    "TableWidgets": {
+        "name": "Name",
+        "type": "Type",
+        "author": "Author",
+        "dashboard": "Dashboard",
+        "data": "Widget Content",
+        "title": "Widgets list"
     },
     "TableRoles": {
         "name": "Name",
@@ -18,7 +25,6 @@
         "not": "Not",
         "unknow": "Unknow",
         "title": "Roles list"
-
     },
     "TableDashboards": {
         "name": "Name",

@@ -2,6 +2,7 @@ import React from 'react';
 import { Helmet } from 'react-helmet';
 import brand from 'dan-api/dummy/brand';
 import PropTypes from 'prop-types';
+import { withTranslation } from 'react-i18next';
 import { withStyles } from '@material-ui/core/styles';
 import { LoginForm } from 'dan-components';
 import styles from 'dan-components/Forms/user-jss';
@@ -11,6 +12,7 @@ import { URL } from "../../Axios/axiosForData";
 import axios from "axios";
 import { onSignIn } from "../../../redux/actions/login";
 import { SocketConnection } from "../../../api/socket";
+import Notification from '../../MyNotification/Notification';
 
 const user = JSON.parse(localStorage.getItem('user'))
 
@@ -19,8 +21,12 @@ const socketConnection = new SocketConnection();
 
 class Login extends React.Component {
   state = {
+    variant: '',
+    message: '',
+    open: false,
     email: '',
-    password: ''
+    password: '',
+    cn: ''
   }
 
   onChangeEmail = (e) => {
@@ -36,10 +42,23 @@ class Login extends React.Component {
     });
   };
 
+  onChangeCn = (e) => {
+    this.setState({
+      cn: e.target.value
+    });
+  };
+
+  handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    this.setState({ open: false });
+  };
+
   getLogin = () => {
-    console.log(process.env.REACT_APP_API_URL)
-    axios
-      .post(URL + "/api/auth/login", this.state)
+    if (this.state.cn) {
+      axios
+      .post(`${URL}/api/auth/loginWithLdap`, {cn: this.state.cn})
       .then((response) => {
         localStorage.setItem("token", response.data.data.token.access_token);
         this.props.onSignIn(response.data.data.attributes);
@@ -50,9 +69,25 @@ class Login extends React.Component {
         }
       })
       .catch((error) => {
-        console.error(error);
+        this.setState({ open: true, variant: 'error', message: 'Notification.error' });
       });
-  };
+    } else {
+      axios
+      .post(URL + "/api/auth/login", {email: this.state.email, password: this.state.password})
+      .then((response) => {
+        localStorage.setItem("token", response.data.data.token.access_token);
+        this.props.onSignIn(response.data.data.attributes);
+        localStorage.setItem("user", JSON.stringify(response.data.data.attributes));
+        socketConnection.setOnline()
+        if (response.data.data.token.access_token) {
+          this.props.history.push("/home");
+        }
+      })
+      .catch((error) => {
+        this.setState({ open: true, variant: 'error', message: 'Notification.error' });
+      });
+    }
+  }
 
 
   render() {
@@ -74,10 +109,11 @@ class Login extends React.Component {
         </Helmet>
         <div className={classes.container}>
           <div className={classes.userFormWrap}>
-            <LoginForm onChangePassword={this.onChangePassword} onChangeEmail={this.onChangeEmail}
-                       password={this.state.password} email={this.state.email}
-                       onSubmit={() => this.getLogin()}/>
-          </div>
+            <LoginForm onChangePassword={this.onChangePassword} onChangeEmail={this.onChangeEmail} onChangeCn={this.onChangeCn} 
+                       password={this.state.password} email={this.state.email} cn={this.state.cn}
+                       onSubmit={() => this.getLogin()}/> 
+          </div>          
+          <Notification open={this.state.open} handleClose={() => this.handleClose()} variant={this.state.variant} message={t(this.state.message)} />
         </div>
       </div>
     );
@@ -90,7 +126,13 @@ Login.propTypes = {
 };
 
 
-export default withStyles(styles)(withRouter(connect(null, {
-  onSignIn: onSignIn
-})(Login)));
+export default withStyles(styles)(
+  withRouter(
+    withTranslation()(
+      connect(null, {
+        onSignIn: onSignIn
+      })(Login)
+    )
+  )
+);
 

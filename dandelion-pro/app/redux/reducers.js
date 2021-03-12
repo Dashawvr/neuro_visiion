@@ -26,6 +26,7 @@ import dashboards from "./modules/dashboards";
 import roles from "./modules/roles";
 import users from "./modules/users";
 import widget_data from "./modules/widget_data";
+import rightSidebar from "./modules/rightSidebar";
 
 /**
  * Branching reducers to use one reducer for many components
@@ -48,6 +49,7 @@ function branchReducer(reducerFunction, reducerName) {
 export default function createReducer(injectedReducers = {}) {
   const rootReducer = combineReducers({
     widget_data,
+    rightSidebar,
     users,
     roles,
     dashboards,

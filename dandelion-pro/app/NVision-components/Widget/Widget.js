@@ -25,7 +25,8 @@ const Widget = (props) => {
     x: props.coordinate.x, 
     y: props.coordinate.y, 
     width: props.coordinate.width, 
-    height: props.coordinate.height}, 
+    height: props.coordinate.height
+  }, 
     () => handlePosition());
   const [url, setUrl] = useState("");
   const [zIndex, setZIndex] = useState({ zIndex: props.zIndex });
@@ -210,7 +211,11 @@ const Widget = (props) => {
             disableDragging={canEditScene}
             enableResizing={canEnableResizing}
         >
-          <Map lat={props.data.lat} lon={props.data.lon} markerLat={props.styles.lat} markerLon={props.styles.lon} />
+          <Map 
+            lat={props.data.lat ? props.data.lat : 10.000} 
+            lon={props.data.lon ? props.data.lon : 10.000} 
+            markerLat={props.styles.lat ? props.styles.lat : 10.000} 
+            markerLon={props.styles.lon ? props.styles.lon : 10.000} />
         </Rnd>
       );
     case "text":
@@ -250,7 +255,7 @@ const Widget = (props) => {
           scrollamount={props.styles.speed}
           fontSize={props.styles.fontSize}
           >
-            {props.data}
+            {props.data ? props.data : ""}
           </marquee>
         </Rnd>
       );
@@ -285,7 +290,7 @@ const Widget = (props) => {
             <div onDoubleClick={handleDoubleClick}>
               <JsmpegPlayer
                 wrapperClassName={`video-wrapper-${props.id}`}
-                videoUrl={url}
+                videoUrl={url ? url : ""}
                 options={videoOptions}
                 overlayOptions={videoOverlayOptions}
                 onRef={(ref) => (jsmpegPlayer = ref)}

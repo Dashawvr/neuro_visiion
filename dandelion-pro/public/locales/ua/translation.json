@@ -9,6 +9,14 @@
         "title": "Список користувачів"
 
     },
+    "TableWidgets": {
+        "name": "Ім'я",
+        "type": "Тип",
+        "author": "Автор",
+        "dashboard": "Сцена",
+        "data": "Контент",
+        "title": "Список віджетів"
+    },
     "TableRoles": {
         "name": "Ім'я",
         "create": "Створення",

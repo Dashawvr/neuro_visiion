@@ -153,6 +153,12 @@ function SidebarContent(props) {
     icon: 'ios-people',
     linkParent: '/home/group'
   },
+  {
+    key: 'widgets',
+    name: t('Menu.widgets'),
+    icon: 'ios-laptop',
+    linkParent: '/home/widgets'
+  },
 
   {
     key: 'maps',
@@ -161,27 +167,27 @@ function SidebarContent(props) {
     linkParent: '/home/maps',
   },
 
-  {
-    key: 'deleteWidget',
-    name: t('Menu.widgets'),
-    icon: 'ios-laptop',
-    child: [{
-      key: 'deleteWidget',
-      name: t('DeleteWidget.title'),    
-      linkParent: '/home/delete/widget'
-      },
-      {
-      key: 'createWidget',
-      name: t('CreateWidget.title'),    
-      linkParent: '/home/widget'
-      },
-      {
-        key: 'editWidget',
-        name: t('Menu.editPanel'),
-        linkParent: '/home/edit-panel'
-      },
-    ]
-  },
+  // {
+  //   key: 'deleteWidget',
+  //   name: t('Menu.widgets'),
+  //   icon: 'ios-laptop',
+  //   child: [{
+  //     key: 'deleteWidget',
+  //     name: t('DeleteWidget.title'),    
+  //     linkParent: '/home/delete/widget'
+  //     },
+  //     {
+  //     key: 'createWidget',
+  //     name: t('CreateWidget.title'),    
+  //     linkParent: '/home/widget'
+  //     },
+  //     {
+  //       key: 'editWidget',
+  //       name: t('Menu.editPanel'),
+  //       linkParent: '/home/edit-panel'
+  //     },
+  //   ]
+  // },
 
   {
     key: 'no_child',
@@ -190,8 +196,8 @@ function SidebarContent(props) {
     linkParent: '/home/stage',
   },
 ]} toggleDrawerOpen={toggleDrawerOpen}/>
-            ) :
-            (<MainMenu loadTransition={loadTransition} dataMenu={[
+  ) :
+  (<MainMenu loadTransition={loadTransition} dataMenu={[
   {
     key: 'home',
     name: t('Menu.home'),

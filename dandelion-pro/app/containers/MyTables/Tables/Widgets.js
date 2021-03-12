@@ -17,6 +17,7 @@ import request from '../../../utils/request';
 import Notification from '../../MyNotification/Notification';
 import { withRouter } from "react-router-dom";
 import { withTranslation } from 'react-i18next';
+import { Rowing } from '@material-ui/icons';
 import { AlertDialog } from '../../MyNotification/AlertDialog';
 
 const styles = theme => ({
@@ -48,14 +49,15 @@ const styles = theme => ({
   }
 });
 
-class UsersGroups extends React.Component {
+class Widgets extends React.Component {
   state = {
     variant: '',
     message: '',
     open: false,
     id: null,
+    type: null,
     prevRow: undefined,
-    row: undefined,    
+    row: undefined,
     openModal: false,
   }
 
@@ -72,7 +74,7 @@ class UsersGroups extends React.Component {
 
   render() {
     const {
-      id, open, variant, message
+      id, type, open, variant, message
     } = this.state;
     const { classes, data, t } = this.props;
     const options = {
@@ -116,7 +118,7 @@ class UsersGroups extends React.Component {
       rowsPerPage: 5,
       page: 0,
       onRowClick: (rowData, rowIndex) => {
-        this.setState({ id: rowData[0] }, () => {
+        this.setState({ id: rowData[0], type: rowData[2] }, () => {
           this.changeRowColor(rowIndex.rowIndex);
         });
       },
@@ -134,7 +136,7 @@ class UsersGroups extends React.Component {
 
     const handleDelete = (id) => {
       if (id) {
-        request(`${URL}/api/user_group/${id}`, DELETE).then(() => {
+        request(`${URL}/api/widget_data/${id}`, DELETE).then(() => {
           this.setState({ open: true, variant: 'success', message: 'Notification.success' });
         }).catch((error) => {
           this.setState({ open: true, variant: 'error', message: 'Notification.error' });
@@ -144,12 +146,23 @@ class UsersGroups extends React.Component {
         this.setState({ open: true, variant: 'warning', message: 'Notification.clickDelete' });
       }
     };
-    const handleEdit = (id) => {
-      if (id) {
-        this.props.history.push('/home/forms/edit/group/?id=' + id);
-      } else {
-        this.setState({ open: true, variant: 'warning', message: 'Notification.clickEdit' });
-      }
+
+    //TODO: Змінити
+    const handleEdit = (type, widgetId) => {
+        switch (type) {
+          case 'video':
+            this.props.history.push('/home/forms/edit/video?widgetId=' + widgetId);
+            break;
+          case 'map':
+            this.props.history.push('/home/forms/edit/map?widgetId=' + widgetId);
+            break;
+          case 'table':
+            this.props.history.push('/home/forms/edit/table?widgetId=' + widgetId);
+            break;
+          case 'text':
+            this.props.history.push('/home/forms/edit/text?widgetId=' + widgetId);
+            break;
+        }
     };
     const handleClose = (event, reason) => {
       if (reason === 'clickaway') {
@@ -159,76 +172,84 @@ class UsersGroups extends React.Component {
     };
 
     return (
-      <Fragment>
-        <div className={classes.table}>
-          <MUIDataTable
-            title={t('TableGroups.title')}
-            data={data}
-            columns={[
-      {
-        name: 'id',
-        label: 'ID',
-        options: {
-          filter: true
-        }
-      },
-      {
-        name: 'name',
-        label: t('TableGroups.name'),
-        options: {
-          filter: true
-        }
-      },
-      {
-        name: 'users',
-        label: t('TableGroups.users'),
-        options: {
-          filter: true,
-          customBodyRender: (value) => {
-            if (value.length) {
-              return (<div>
+        <Fragment>
+            <div className={classes.table}>
+            <MUIDataTable
+                title={t('TableWidgets.title')}
+                data={data}
+                columns={[
                 {
-                  value.map((user) => {
-                    return <Chip label={user.name + " " + user.surName} color="primary" />
-                  })
+                    name: 'id',
+                    label: 'ID',
+                    options: {
+                    filter: true
+                    }
+                },
+                {
+                    name: 'name',
+                    label: t('TableWidgets.name'),
+                    options: {
+                    filter: true
+                    }
+                },
+                {
+                    name: 'type',
+                    label: t('TableWidgets.type'),
+                    options: {
+                    filter: true,
+                    }
+                },
+                {
+                    name: 'data',
+                    label: t('TableWidgets.data'),
+                    options: {
+                    filter: true,
+                    }
+                },
+                {
+                    name: 'authorId',
+                    label: t('TableWidgets.author'),
+                    options: {
+                    filter: true,
+                    }
+                },
+                {
+                    name: 'dashboardId',
+                    label: t('TableWidgets.dashboard'),
+                    options: {
+                    filter: true,
+                    }
                 }
-              </div>)              
-            } else {
-              return (<Chip label="Nothing" color="secondary" />);
-            }
-          }
-        }
-      },     
-    ]}
-            options={options}
-          />
-        </div>
-        <div>
-          <br />
-          <br />
-          <Button onClick={() => this.props.history.push('/home/forms/add/group')} className={classes.button} variant="contained" color="primary">
-          {t('Buttons.create')}
-            <AddCircleOutlineIcon className={classes.rightIcon} />
-          </Button>
-          <Button onClick={() => handleEdit(id)} className={classes.button} variant="contained" color="secondary">
-          {t('Buttons.edit')}
-            <CreateIcon className={classes.rightIcon} />
-          </Button>
-          <Button onClick={() => handleModal(id)} className={classes.button} variant="contained" color="red">
-          {t('Buttons.delete')}
-            <DeleteIcon className={classes.rightIcon} />
-          </Button>
-          <br />
-        </div>
-        <Notification open={open} handleClose={() => handleClose()} variant={variant} message={t(message)} />
-        <AlertDialog open={this.state.openModal} title={t("Modal.title")} desc={t("Modal.desc") + this.state.id} onClose={() => this.setState({ openModal: false})} onDelete={() => handleDelete(id)} cancel={t("Modal.cancel")} deleteText={t("Modal.delete")} />
-      </Fragment>
+                ]}
+                options={options}
+            />
+            </div>
+                <div>
+                    <br />
+                    <br />
+                    <Button onClick={() => this.props.history.push('/home/widget')} className={classes.button} variant="contained" color="primary">
+                        {t('Buttons.create')}
+                        <AddCircleOutlineIcon className={classes.rightIcon} />
+                    </Button>
+                    <Button onClick={() => handleEdit(type, id)} className={classes.button} variant="contained" color="secondary">
+                        {t('Buttons.edit')}
+                        <CreateIcon className={classes.rightIcon} />
+                    </Button>
+                    <Button onClick={() => handleModal(id)} className={classes.button} variant="contained" color="red">
+                        {t('Buttons.delete')}
+                        <DeleteIcon className={classes.rightIcon} />
+                    </Button>
+                    <br />
+                </div>
+                <AlertDialog open={this.state.openModal} title={t("Modal.title")} desc={t("Modal.desc") + this.state.id} onClose={() => this.setState({ openModal: false})} onDelete={() => handleDelete(id)} cancel={t("Modal.cancel")} deleteText={t("Modal.delete")} />
+                <Notification open={open} handleClose={() => handleClose()} variant={variant} message={t(message)} />
+        </Fragment>
     );
   }
 }
 
-UsersGroups.propTypes = {
+Widgets.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(withRouter(withTranslation()(UsersGroups)));
+export default withStyles(styles)(withRouter(withTranslation()(Widgets)));

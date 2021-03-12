@@ -72,7 +72,9 @@ class LoginForm extends React.Component {
       onChangeEmail,
       onChangePassword,
       password,
-      email
+      email,
+      cn,
+      onChangeCn
     } = this.props;
     const { showPassword } = this.state;
     
@@ -139,45 +141,18 @@ class LoginForm extends React.Component {
               <div>
                 <FormControl className={classes.formControl}>
                   <Field
-                    name="email"
+                    name="cn"
                     component={TextFieldRedux}
-                    placeholder="Your Domain"
-                    label="Your Domain"
+                    placeholder="Your Current Name"
+                    label="Your Current Name"
                     required
-                    className={classes.field}
-                    value={email}
-                    onChange={onChangeEmail}
-                  />
-                </FormControl>
-              </div>
-              <div>
-                <FormControl className={classes.formControl}>
-                  <Field
-                    name="password"
-                    component={TextFieldRedux}
-                    onChange={onChangePassword}
-                    value={password}
                     type={showPassword ? 'text' : 'password'}
-                    label="Your Domain Password"
-                    InputProps={{
-                      endAdornment: (
-                        <InputAdornment position="end">
-                          <IconButton
-                            aria-label="Toggle password visibility"
-                            onClick={this.handleClickShowPassword}
-                            onMouseDown={this.handleMouseDownPassword}
-                          >
-                            {showPassword ? <VisibilityOff/> : <Visibility/>}
-                          </IconButton>
-                        </InputAdornment>
-                      )
-                    }}
-                    required
-                    validate={required}
                     className={classes.field}
+                    value={cn}
+                    onChange={onChangeCn}
                   />
                 </FormControl>
-              </div>
+              </div>              
               <div className={classes.btnArea}>
                 <Button variant="contained" color="primary" size="large" type="submit">
                   Continue

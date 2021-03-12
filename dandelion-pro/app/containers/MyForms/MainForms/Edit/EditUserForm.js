@@ -40,9 +40,13 @@ class EditUserForm extends React.Component {
   componentDidMount() {
     request(`${URL}/api/users/${parsed.id}`, GET).then((res) => {
       this.setState({ user: res.data.user });
+    }).catch((error) => {
+      this.setState({ open: true, variant: 'error', message: 'Notification.error' });
     });
     request(`${URL}/api/role/`, GET).then((res) => {
       this.setState({ roles: res.data.roles.rows });
+    }).catch((error) => {
+      this.setState({ open: true, variant: 'error', message: 'Notification.error' });
     });
   }
 
@@ -54,30 +58,12 @@ class EditUserForm extends React.Component {
   };
 
   showResult(values) {
-    let name = undefined;
-    let email = undefined;
-    let roleId = undefined;
-    let surName = undefined;
-    values._root.entries.map((elem) => {
-      if (elem[0] === 'name') {
-        name = elem[1];
-      }
-      if (elem[0] === 'email') {
-        email = elem[1];
-      }
-      if (elem[0] === 'role') {
-        roleId = Number(elem[1]);
-      }
-      if (elem[0] === 'surName') {
-        surName = elem[1];
-      }
-    });
     PATCH.data = {
-      name: name ? name : this.state.user.name,
-      username: email ? email : this.state.user.email,
-      surName: surName ? surName : this.state.user.surName,
-      email: email ? email : this.state.user.email,
-      roleId: roleId ? roleId : this.state.user.roleId,
+      name: values.name,
+      username: values.email,
+      surName: values.surName,
+      email: values.email,
+      roleId: values.roleId.value
     };
     axios.patch(`${URL}/api/users/${parsed.id}`, PATCH.data, {Authorization: localStorage.getItem('token')}).then(() => {
       this.setState({ open: true, variant: 'success', message: 'Notification.success' });
@@ -92,11 +78,7 @@ class EditUserForm extends React.Component {
     const { user, roles } = this.state;
     const { message, variant, open } = this.state;
     const { t } = this.props;
-    this.state.roles.map((role) => {
-      if (role.id === user.roleId) {
-        user.roleId = role.name;
-      }
-    });
+
     return (
       <div>
         <Helmet>
@@ -115,7 +97,7 @@ class EditUserForm extends React.Component {
               lastName={user.surName ? user.surName : ''}
               userEmail={user.email ? user.email : ''}
               userRole={user.roleId ? user.roleId : ''}
-              roles={roles}
+              roles={roles ? roles : [{id: 0, name: 'No data'}]}
             />
           </div>
         </PapperBlock>

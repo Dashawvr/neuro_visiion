@@ -428,6 +428,10 @@ export const DashboardTable = loadable(() =>
   import ('./MyTables/DashboardTable'), {
   fallback: <Loading />,
 });
+export const WidgetsTable = loadable(() =>
+  import ('./MyTables/WidgetsTable'), {
+  fallback: <Loading />,
+});
 
 export const DeleteWidgetForm = loadable(() =>
   import ('./MyWidgetForms/Delete/DeleteWidgetForm'), {

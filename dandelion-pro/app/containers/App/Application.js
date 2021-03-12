@@ -5,7 +5,7 @@ import { ThemeContext } from './ThemeWrapper';
 import Dashboard from '../Templates/Dashboard';
 
 import {
-  UserTable, RoleTable, DashboardTable,
+  UserTable, RoleTable, DashboardTable, WidgetsTable,
   AddUserForm, AddRoleForm, AddDashboardForm,
   EditUserForm, EditRoleForm, EditDashboardForm,
   AddWidgetForm, CreateWidgetVideoForm, CreateWidgetTextForm,
@@ -57,7 +57,8 @@ function Application(props) {
             <Route path="/home/users"  component={UserTable}/>
             <Route path="/home/group"  component={UsersGroupsTable}/>
             <Route path="/home/edit-panel"  component={EditPanel}/>
-            <Route path="/home/delete/widget"  component={DeleteWidgetForm}/>
+            {/* <Route path="/home/delete/widget"  component={DeleteWidgetForm}/> */}
+            <Route path="/home/widgets"  component={WidgetsTable}/>
             <Route path="/home/maps"  component={StreetViewMap}/>
             <Route path="/home/stage"  component={DashboardTable}/>
             <Route path="/home/dashboard/:id"  component={DashboardNew}/>
