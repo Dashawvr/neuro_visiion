@@ -18,8 +18,6 @@ import Notification from '../../../MyNotification/Notification';
 import axios from 'axios';
 import { withTranslation } from 'react-i18next';
 
-const parsed = queryString.parse(location.search);
-
 const styles = ({
   root: {
     flexGrow: 1,
@@ -38,15 +36,23 @@ class EditDashboardForm extends React.Component {
     dashboard: {},
   }
 
+  parsed = queryString.parse(location.search);
+
   componentDidMount() {
     request(`${URL}/api/users/`, GET).then((res) => {
       this.setState({ users: res.data.users.rows });
+    }).catch((error) => {
+      this.setState({ open: true, variant: 'error', message: 'Notification.error' });
     });
     request(`${URL}/api/role/`, GET).then((res) => {
       this.setState({ roles: res.data.roles.rows });
+    }).catch((error) => {
+      this.setState({ open: true, variant: 'error', message: 'Notification.error' });
     });
-    request(`${URL}/api/dashboard/${parsed.id}`, GET).then((res) => {
+    request(`${URL}/api/dashboard/${this.parsed.id}`, GET).then((res) => {
       this.setState({ dashboard: res.data.Dashboard });
+    }).catch((error) => {
+      this.setState({ open: true, variant: 'error', message: 'Notification.error' });
     });
   }
 
@@ -58,31 +64,13 @@ class EditDashboardForm extends React.Component {
   };
 
   showResult(values) {
-    let enabled = false;
-    let userIdd = null;
-    let roleIdd = null;
-    let name = null;
-    values._root.entries.map((elem) => {
-      if (elem[0] === 'active') {
-        enabled = elem[1];
-      }
-      if (elem[0] === 'user') {
-        userIdd = elem[1];
-      }
-      if (elem[0] === 'role') {
-        roleIdd = elem[1];
-      }
-      if (elem[0] === 'name') {
-        name = elem[1];
-      }
-    });
     PUT.data = {
-      enable: enabled,
-      roleId: roleIdd ? roleIdd : this.state.dashboard.roleId,
-      userId: userIdd ? userIdd : this.state.dashboard.userId,
-      name: name ? name : this.state.dashboard.name,
+      enable: values.active,
+      roleId: values.role.value,
+      userId: values.user.value,
+      name: values.name
     };
-    axios.put(`${URL}/api/dashboard/${parsed.id}`, PUT.data, {Authorization: localStorage.getItem('token')}).then(() => {
+    axios.put(`${URL}/api/dashboard/${this.parsed.id}`, PUT.data, {Authorization: localStorage.getItem('token')}).then(() => {
       this.setState({ open: true, variant: 'success', message: 'Notification.success' });
     }).catch((error) => {
       this.setState({ open: true, variant: 'error', message: 'Notification.error' });
@@ -94,16 +82,10 @@ class EditDashboardForm extends React.Component {
     const description = brand.desc;
     const { message, variant, open } = this.state;
     const { t } = this.props;
-    this.state.roles.map((role) => {
-      if (role.id === this.state.dashboard.roleId) {
-        this.state.role = role.name;
-      }
-    });
-    this.state.users.map((user) => {
-      if (user.id === this.state.dashboard.userId) {
-        this.state.user = user.name;
-      }
-    });
+
+    this.state.user = this.state.users.find(user => user.id === this.state.dashboard.userId);
+    this.state.role = this.state.roles.find(role => role.id === this.state.dashboard.roleId);
+
     return (
       <div>
         <Helmet>
@@ -116,7 +98,15 @@ class EditDashboardForm extends React.Component {
         </Helmet>
         <PapperBlock title={t('EditDashboard.title')} icon="ios-list-box-outline">
           <div>
-            <EditDashboard onSubmit={(values) => this.showResult(values)} users={this.state.users} roles={this.state.roles} user={this.state.user} role={this.state.role} name={this.state.dashboard.name} />
+            <EditDashboard 
+            onSubmit={(values) => this.showResult(values)} 
+            users={this.state.users} 
+            roles={this.state.roles}            
+            user={this.state.user} 
+            role={ this.state.role} 
+            name={this.state.dashboard.name}            
+            enable={this.state.dashboard.enable}             
+            />
           </div>
         </PapperBlock>
         <Notification open={open} handleClose={() => this.handleClose()} variant={variant} message={t(message)} />

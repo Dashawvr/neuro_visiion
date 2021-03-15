@@ -54,20 +54,7 @@ class Roles extends React.Component {
     message: '',
     open: false,
     id: null,
-    prevRow: undefined,
-    row: undefined,
     openModal: false,
-  }
-
-  changeRowColor(index){
-    let row = document.getElementById(`MUIDataTableBodyRow-${index}`);
-
-    if (this.state.prevRow !== undefined) {
-      this.state.row.style.background = '';
-    }
-
-    row.setAttribute('style', 'background: #DEDFE0');
-    this.setState({ prevRow: index, row: row });
   }
 
   render() {
@@ -115,13 +102,15 @@ class Roles extends React.Component {
       print: true,
       rowsPerPage: 5,
       page: 0,
-      onRowClick: (rowData, rowIndex) => {
-        this.setState({ id: rowData[0] }, () => {
-          this.changeRowColor(rowIndex.rowIndex);
-        });
+      onRowsSelect: (current, all, rowsSelected) => {
+        if (all) {
+          const id = data[all[0].dataIndex].id;
+          this.setState({ id: id });
+        }
       },
-      selectableRows: 'none',
       selectableRowsHeader: false,
+      selectableRowsOnClick: true,
+      selectableRows: 'single'
     };
 
     const handleModal = (id) => {

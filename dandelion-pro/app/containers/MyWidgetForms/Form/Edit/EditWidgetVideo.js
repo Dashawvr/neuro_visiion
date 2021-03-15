@@ -1,35 +1,13 @@
 /* eslint-disable react/prop-types */
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
-import { Field, reduxForm } from 'redux-form/immutable';
 import Grid from '@material-ui/core/Grid';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
 import Button from '@material-ui/core/Button';
-import {
-  TextFieldRedux,
-} from 'dan-components/Forms/ReduxFormMUI';
-import { initAction, clearAction } from 'dan-redux/actions/reduxFormActions';
 import history from '../../../../utils/history';
 import { withTranslation } from 'react-i18next';
-import { SketchPicker } from 'react-color';
-import Typography from '@material-ui/core/Typography';
-
-const renderRadioGroup = ({ input, ...rest }) => (
-  <RadioGroup
-    {...input}
-    {...rest}
-    valueselected={input.value}
-    onChange={(event, value) => input.onChange(value)}
-  />
-);
-
-
-// validation functions
-const required = value => (value == null ? 'Required' : undefined);
+import TextField from '@material-ui/core/TextField';
+import { useForm } from "react-hook-form";
 
 const styles = theme => ({
   root: {
@@ -39,99 +17,81 @@ const styles = theme => ({
   field: {
     width: '100%',
     marginBottom: 20
-  },
-  fieldBasic: {
-    width: '100%',
-    marginBottom: 20,
-    marginTop: 10
-  },
-  inlineWrap: {
-    display: 'flex',
-    flexDirection: 'row'
-  },
-  buttonInit: {
-    margin: theme.spacing(4),
-    textAlign: 'center'
-  },
-  divider: {
-    width: '100%',
-    marginBottom: 20,
-    marginLeft: "35%",
-  },
-  dividerText: {
-    width: '100%',
-    marginBottom: 10,
-    marginLeft: "40%",
   }
 });
 
-class EditWidgetVideo extends Component {
-  state = {
-    background: this.props.widget.color,
-  };
+const EditWidgetVideo = (props) => {
 
-  render() {
-    const {
-      classes,
-      handleSubmit,
-      pristine,
-      reset,
-      submitting,
-      widget,
-      t,
-      color
-    } = this.props;
-    const handleChangeComplete = (color) => {
-      this.setState({ background: color.hex });
-      this.props.color(color.hex);
-    };
+  const {
+    classes,
+    onSubmit,
+    widget,
+    styles,
+    t
+  } = props;
+  
+  const { register, handleSubmit, errors } = useForm();
+
     return (
       <div>
         <Grid container spacing={3} alignItems="flex-start" direction="row" justify="center">
           <Grid item xs={12} md={6}>
             <Paper className={classes.root}>
-              <form onSubmit={handleSubmit}>
-                <div>                 
-                <Typography variant="subtitle1" className={classes.dividerText}>{t('EditWidgetVideo.color')}</Typography>
-                  <SketchPicker
-                    color={ this.state.background }
-                    onChangeComplete={ handleChangeComplete }
-                    className={classes.divider}
-                  />
-                </div>
+            {widget.name &&
+              <form onSubmit={handleSubmit(onSubmit)}>                
+              <TextField 
+                label={t('EditUser.name')} 
+                placeholder={t('EditUser.name')} 
+                required 
+                className={classes.field} 
+                name="name" 
+                defaultValue={widget.name} 
+                inputRef={register} />
+
+              <TextField 
+                label={'Data'} 
+                placeholder={'Data'} 
+                required 
+                className={classes.field} 
+                name="data" 
+                defaultValue={widget.data} 
+                inputRef={register} />
+
+              <hr/>
+
+              <TextField 
+                label={t('EditWidgetTable.color')} 
+                placeholder={t('EditWidgetTable.color')}
+                type="color"
+                required 
+                className={classes.field} 
+                name="color" 
+                defaultValue={styles.color} 
+                inputRef={register} />
+
+              <TextField 
+                label={t('EditWidgetMap.size')} 
+                placeholder={t('EditWidgetMap.size')} 
+                required 
+                className={classes.field} 
+                name="size" 
+                defaultValue={styles.size} 
+                inputRef={register} />
+
+              <TextField 
+                label={t('EditWidgetMap.borderRadius')} 
+                placeholder={t('EditWidgetMap.borderRadius')} 
+                required 
+                className={classes.field} 
+                name="borderRadius" 
+                defaultValue={styles.borderRadius} 
+                inputRef={register} /> 
+
                 <div>
-                  <Field
-                    name="size"
-                    component={TextFieldRedux}
-                    label={widget.size}
-                    placeholder={t('EditWidgetVideo.size')}
-                    validate={required}
-                    required
-                    ref={this.saveRef}
-                    className={classes.field}
-                  />
-                </div>  
-                <div>
-                  <Field
-                    name="borderRadius"
-                    component={TextFieldRedux}
-                    label={widget.borderRadius}
-                    placeholder={t('EditWidgetVideo.borderRadius')}
-                    validate={required}
-                    required
-                    ref={this.saveRef}
-                    className={classes.field}
-                  />
-                </div>              
-                <div>
-                  <Button variant="contained" color="secondary" type="submit" disabled={submitting}>
+                  <Button variant="contained" color="secondary" type="submit">
                   {t('Buttons.submit')}
                   </Button>
-                  <Button
-                    type="button"
-                    disabled={pristine || submitting}
-                    onClick={reset}
-                  >
+                  <Button type="reset">
                     {t('Buttons.reset')}
                   </Button>
                   <Button variant="contained" color="primary" onClick={() => history.goBack()}>
@@ -139,43 +99,12 @@ class EditWidgetVideo extends Component {
                   </Button>
                 </div>
               </form>
+            }
             </Paper>
           </Grid>
         </Grid>
       </div>
     );
   }
-}
 
-renderRadioGroup.propTypes = {
-  input: PropTypes.object.isRequired,
-};
-
-EditWidgetVideo.propTypes = {
-  classes: PropTypes.object.isRequired,
-  handleSubmit: PropTypes.func.isRequired,
-  reset: PropTypes.func.isRequired,
-  pristine: PropTypes.bool.isRequired,
-  submitting: PropTypes.bool.isRequired,
-};
-
-const mapDispatchToProps = dispatch => ({
-  init: bindActionCreators(initAction, dispatch),
-  clear: () => dispatch(clearAction),
-});
-
-const ReduxFormMapped = reduxForm({
-  form: 'immutableExample',
-  enableReinitialize: true,
-})(EditWidgetVideo);
-
-const reducer = 'initval';
-const FormInit = connect(
-  state => ({
-    force: state,
-    initialValues: state.getIn([reducer, 'formValues'])
-  }),
-  mapDispatchToProps,
-)(ReduxFormMapped);
-
-export default withStyles(styles)(withTranslation()(FormInit));
+export default withStyles(styles)(withTranslation()(EditWidgetVideo));

@@ -13,14 +13,10 @@ import { withStyles } from '@material-ui/core/styles';
 import { PapperBlock } from 'dan-components';
 import queryString from 'query-string';
 import EditGroup from '../../Forms/Edit/EditGroup';
-import request from '../../../../utils/request';
-import history from '../../../../utils/history';
-import { URL, PATCH, GET } from '../../../Axios/axiosForData';
+import { URL } from '../../../Axios/axiosForData';
 import Notification from '../../../MyNotification/Notification';
 import axios from 'axios';
 import { withTranslation } from 'react-i18next';
-
-const parsed = queryString.parse(location.search);
 
 const styles = ({
   root: {
@@ -37,12 +33,18 @@ class EditGroupForm extends React.Component {
     users: []
   }
 
+  parsed = queryString.parse(location.search);
+  
   componentDidMount() {
-    request(`${URL}/api/user_group/${parsed.id}`, GET).then((res) => {
-      this.setState({ group: res.data.user_group });
+    axios.get(`${URL}/api/user_group/${this.parsed.id}`).then((res) => {
+      this.setState({ group: res.data.data.user_group });
+    }).catch((error) => {
+      this.setState({ open: true, variant: 'error', message: 'Notification.error' });
     });
-    request(`${URL}/api/users/`, GET).then((res) => {
-      this.setState({ users: res.data.users.rows });
+    axios.get(`${URL}/api/users/`).then((res) => {
+      this.setState({ users: res.data.data.users.rows });
+    }).catch((error) => {
+      this.setState({ open: true, variant: 'error', message: 'Notification.error' });
     });
   }
 
@@ -54,21 +56,14 @@ class EditGroupForm extends React.Component {
   };
 
   showResult(values) {
-    let name = undefined;
-    let users = undefined;
-    values._root.entries.map((elem) => {
-      if (elem[0] === 'name') {
-        name = elem[1];
-      }
-      if (elem[0] === 'users') {
-        users = elem[1];
-      }
-    });
-    PATCH.data = {
-      name: name ? name : this.state.group.name,
-      users: users ? users : this.state.group.users,
+    const users = [];
+    values.users.map(user => users.push(user.value));
+    
+    const data = {
+      name: values.name,
+      users: users,
     };
-    axios.patch(`${URL}/api/user_group/${parsed.id}`, PATCH.data, {Authorization: localStorage.getItem('token')}).then(() => {
+    axios.patch(`${URL}/api/user_group/${this.parsed.id}`, data, {Authorization: localStorage.getItem('token')}).then(() => {
       this.setState({ open: true, variant: 'success', message: 'Notification.success' });
     }).catch((error) => {
       this.setState({ open: true, variant: 'error', message: 'Notification.error' });
@@ -81,9 +76,7 @@ class EditGroupForm extends React.Component {
     const { group } = this.state;
     const { message, variant, open } = this.state;
     const { t } = this.props;
-    const getUsers = (values) => {
-      this.setState({selectedUsers: values});
-    }
+
     return (
       <div>
         <Helmet>
@@ -98,9 +91,9 @@ class EditGroupForm extends React.Component {
           <div>
             <EditGroup
               onSubmit={(values) => this.showResult(values)}
-              name={group.name ? group.name : ''}
+              name={group.name}
+              selectUsers={group.users}
               users={this.state.users} 
-              getUsers={getUsers}
             />
           </div>
         </PapperBlock>

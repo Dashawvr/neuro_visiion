@@ -13,13 +13,10 @@ import { withStyles } from '@material-ui/core/styles';
 import { PapperBlock } from 'dan-components';
 import queryString from 'query-string';
 import EditWidgetMap from '../Form/Edit/EditWidgetMap';
-import request from '../../../utils/request';
-import { URL, PATCH, GET } from '../../Axios/axiosForData';
+import { URL } from '../../Axios/axiosForData';
 import Notification from '../../MyNotification/Notification';
 import axios from 'axios';
 import { withTranslation } from 'react-i18next';
-
-const parsed = queryString.parse(location.search);
 
 const styles = ({
   root: {
@@ -34,14 +31,15 @@ class EditWidgetMapForm extends React.Component {
     open: false,
     widget: {},
     styles: {},
-    color: undefined,
   }
 
+  parsed = queryString.parse(location.search);
+
   componentDidMount() {
-    request(`${URL}/api/widget_data/${parsed.widgetId}`, GET).then((res) => {
-      this.setState({ widget: res.data.widgetData });
-      this.setState({ styles: res.data.widgetData.styles });
-      this.setState({ color: res.data.widgetData.styles.color });
+    axios.get(`${URL}/api/widget_data/${this.parsed.widgetId}`).then((res) => {
+      this.setState({ widget: res.data.data.widgetData, styles: res.data.data.widgetData.styles });
+    }).catch((error) => {
+      this.setState({ open: true, variant: 'error', message: 'Notification.error' });
     });
   }
 
@@ -52,43 +50,23 @@ class EditWidgetMapForm extends React.Component {
     this.setState({ open: false });
   };
 
-  getColor = (value) => {
-    this.setState({ color: value});
-  }
+  showResult(values) {    
+    const data = {
+      name: values.name,
+      data: {
+        lat: values.dataLat, 
+        lon: values.dataLon
+      },
+      styles: {
+        borderRadius: values.borderRadius,
+        color: values.color,
+        size: values.size,
+        lon: values.lon,
+        lat: values.lat,
+      }
+    };
 
-  showResult(values) {
-    let borderRadius = undefined;
-    let size = undefined;
-    let lon = undefined;
-    let lat = undefined;
-    values._root.entries.map((elem) => {
-      if (elem[0] === 'borderRadius') {
-        borderRadius = elem[1];
-      }
-      if (elem[0] === 'size') {
-        size = elem[1];
-      }
-      if (elem[0] === 'lon') {
-        lon = elem[1];
-      }
-      if (elem[0] === 'lat') {
-        lat = elem[1];
-      }
-    });
-    delete this.state.widget.createdAt;
-    delete this.state.widget.id;
-    delete this.state.widget.updatedAt;
-    delete this.state.widget.styles;
-    
-    this.state.widget.styles = {
-      borderRadius: borderRadius,
-      color: this.state.color,
-      size: size,
-      lon: lon,
-      lat: lat,
-    }
-    PATCH.data = this.state.widget;
-    axios.patch(`${URL}/api/widget_data/${parsed.widgetId}`, PATCH.data, {Authorization: localStorage.getItem('token')}).then(() => {
+    axios.patch(`${URL}/api/widget_data/${this.parsed.widgetId}`, data, {Authorization: localStorage.getItem('token')}).then(() => {
       this.setState({ open: true, variant: 'success', message: 'Notification.success' });
     }).catch((error) => {
       this.setState({ open: true, variant: 'error', message: 'Notification.error' });
@@ -98,7 +76,7 @@ class EditWidgetMapForm extends React.Component {
   render() {
     const title = brand.name + ' - Form';
     const description = brand.desc;
-    const { message, variant, open, styles } = this.state;
+    const { message, variant, open, styles, widget } = this.state;
     const { t } = this.props;
     return (
       <div>
@@ -111,13 +89,11 @@ class EditWidgetMapForm extends React.Component {
           <meta property="twitter:description" content={description} />
         </Helmet>
         <PapperBlock title={t('EditWidgetMap.title')} icon="ios-list-box-outline">
-          <div>
             <EditWidgetMap
               onSubmit={(values) => this.showResult(values)}
-              widget={styles}
-              color={(value) => this.getColor(value)}
+              styles={styles}
+              widget={widget}
             />
-          </div>
         </PapperBlock>
         <Notification open={open} handleClose={() => this.handleClose()} variant={variant} message={t(message)} />
       </div>

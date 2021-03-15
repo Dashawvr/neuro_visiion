@@ -1,35 +1,15 @@
 /* eslint-disable react/prop-types */
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
-import { Field, reduxForm } from 'redux-form/immutable';
 import Grid from '@material-ui/core/Grid';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
 import Button from '@material-ui/core/Button';
-import {
-  TextFieldRedux,
-} from 'dan-components/Forms/ReduxFormMUI';
-import { initAction, clearAction } from 'dan-redux/actions/reduxFormActions';
 import history from '../../../../utils/history';
 import { withTranslation } from 'react-i18next';
-import { SketchPicker } from 'react-color';
+import TextField from '@material-ui/core/TextField';
+import { useForm, Controller } from "react-hook-form";
+import Select from "react-select";
 import Typography from '@material-ui/core/Typography';
-
-const renderRadioGroup = ({ input, ...rest }) => (
-  <RadioGroup
-    {...input}
-    {...rest}
-    valueselected={input.value}
-    onChange={(event, value) => input.onChange(value)}
-  />
-);
-
-
-// validation functions
-const required = value => (value == null ? 'Required' : undefined);
 
 const styles = theme => ({
   root: {
@@ -40,142 +20,105 @@ const styles = theme => ({
     width: '100%',
     marginBottom: 20
   },
-  fieldBasic: {
-    width: '100%',
-    marginBottom: 20,
-    marginTop: 10
-  },
-  inlineWrap: {
-    display: 'flex',
-    flexDirection: 'row'
-  },
-  buttonInit: {
-    margin: theme.spacing(4),
-    textAlign: 'center'
-  },
-  divider: {
-    width: '100%',
-    marginBottom: 20,
-    marginLeft: "35%",
-  },
-  dividerText: {
-    width: '100%',
-    marginBottom: 10,
-    marginLeft: "40%",
-  }
 });
 
-class EditWidgetTable extends Component {
-  state = {
-    background: this.props.widget.color,
-  };
+const EditWidgetTable = (props) => {
 
-  render() {
-    const {
-      classes,
-      handleSubmit,
-      pristine,
-      reset,
-      submitting,
-      widget,
-      t,
-      color
-    } = this.props;
-    const handleChangeComplete = (color) => {
-      this.setState({ background: color.hex });
-      this.props.color(color.hex);
-    };
+  const {
+    classes,
+    onSubmit,
+    widget,
+    styles,
+    t,
+  } = props;
+
+  const selectOptions = [
+    {value: 'users', label: 'Users'}, 
+    {value: 'role', label: 'Roles'}, 
+    {value: 'dashboard', label: 'Scens'}
+  ];
+
+  const { register, handleSubmit, control, errors } = useForm();
+
     return (
       <div>
         <Grid container spacing={3} alignItems="flex-start" direction="row" justify="center">
           <Grid item xs={12} md={6}>
             <Paper className={classes.root}>
-              <form onSubmit={handleSubmit}>
-                <div>                
-                  <Typography variant="subtitle1" className={classes.dividerText}>{t('EditWidgetTable.color')}</Typography>
-                  <SketchPicker
-                    color={ this.state.background }
-                    onChangeComplete={ handleChangeComplete }
-                    className={classes.divider}
-                  />
-                </div>
+            {widget.name &&
+              <form onSubmit={handleSubmit(onSubmit)}>
+              <TextField 
+                label={t('EditUser.name')} 
+                placeholder={t('EditUser.name')} 
+                required 
+                className={classes.field} 
+                name="name" 
+                defaultValue={widget.name} 
+                inputRef={register} />
+
+              <Typography variant="subtitle2" gutterBottom>
+                Choose one Table
+              </Typography>
+              <Controller
+                name="data"
+                label="Table"
+                placeholder="Table"
+                className={classes.field}
+                isSearchable={true}
+                // defaultValue={widget.name === '"table_role"' ? selectOptions[1] : widget.name === '"table_users"' ? selectOptions[0] : selectOptions[2]}
+                control={control}
+                options={selectOptions}
+                as={Select}
+              />
+
+              <hr/>
+
+              <TextField 
+                label={t('EditWidgetTable.color')} 
+                placeholder={t('EditWidgetTable.color')}
+                type="color"
+                required 
+                className={classes.field} 
+                name="color" 
+                defaultValue={styles.color} 
+                inputRef={register} />
+
+              <TextField 
+                label={t('EditWidgetMap.size')} 
+                placeholder={t('EditWidgetMap.size')} 
+                required 
+                className={classes.field} 
+                name="size" 
+                defaultValue={styles.size} 
+                inputRef={register} />
+
+              <TextField 
+                label={t('EditWidgetMap.borderRadius')} 
+                placeholder={t('EditWidgetMap.borderRadius')} 
+                required 
+                className={classes.field} 
+                name="borderRadius" 
+                defaultValue={styles.borderRadius} 
+                inputRef={register} />
+
                 <div>
-                  <Field
-                    name="size"
-                    component={TextFieldRedux}
-                    label={widget.size}
-                    placeholder={t('EditWidgetTable.size')}
-                    validate={required}
-                    required
-                    ref={this.saveRef}
-                    className={classes.field}
-                  />
-                </div>
-                <div>
-                  <Field
-                    name="borderRadius"
-                    component={TextFieldRedux}
-                    label={widget.borderRadius}
-                    placeholder={t('EditWidgetTable.borderRadius')}
-                    validate={required}
-                    required
-                    ref={this.saveRef}
-                    className={classes.field}
-                  />
-                </div>                
-                <div>
-                  <Button variant="contained" color="secondary" type="submit" disabled={submitting}>
+                  <Button variant="contained" color="secondary" type="submit">
                   {t('Buttons.submit')}
                   </Button>
-                  <Button
-                    type="button"
-                    disabled={pristine || submitting}
-                    onClick={reset}
-                  >
-                    {p('Buttons.reset')}
+                  <Button type="reset">
+                    {t('Buttons.reset')}
                   </Button>
                   <Button variant="contained" color="primary" onClick={() => history.goBack()}>
                   {t('Buttons.cancel')}
                   </Button>
                 </div>
               </form>
+            }
             </Paper>
           </Grid>
         </Grid>
       </div>
     );
-  }
 }
 
-renderRadioGroup.propTypes = {
-  input: PropTypes.object.isRequired,
-};
-
-EditWidgetTable.propTypes = {
-  classes: PropTypes.object.isRequired,
-  handleSubmit: PropTypes.func.isRequired,
-  reset: PropTypes.func.isRequired,
-  pristine: PropTypes.bool.isRequired,
-  submitting: PropTypes.bool.isRequired,
-};
-
-const mapDispatchToProps = dispatch => ({
-  init: bindActionCreators(initAction, dispatch),
-  clear: () => dispatch(clearAction),
-});
-
-const ReduxFormMapped = reduxForm({
-  form: 'immutableExample',
-  enableReinitialize: true,
-})(EditWidgetTable);
-
-const reducer = 'initval';
-const FormInit = connect(
-  state => ({
-    force: state,
-    initialValues: state.getIn([reducer, 'formValues'])
-  }),
-  mapDispatchToProps,
-)(ReduxFormMapped);
-
-export default withStyles(styles)(withTranslation()(FormInit));
+export default withStyles(styles)(withTranslation()(EditWidgetTable));

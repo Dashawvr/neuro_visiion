@@ -1,35 +1,16 @@
 /* eslint-disable react/prop-types */
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
-import { Field, reduxForm } from 'redux-form/immutable';
 import Grid from '@material-ui/core/Grid';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
 import Button from '@material-ui/core/Button';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormControl from '@material-ui/core/FormControl';
-import MenuItem from '@material-ui/core/MenuItem';
-import InputLabel from '@material-ui/core/InputLabel';
-import {
-  SelectRedux,
-  SwitchRedux,
-  TextFieldRedux
-} from 'dan-components/Forms/ReduxFormMUI';
-import { initAction, clearAction } from 'dan-redux/actions/reduxFormActions';
 import history from '../../../../utils/history';
 import { withTranslation } from 'react-i18next';
-
-const renderRadioGroup = ({ input, ...rest }) => (
-  <RadioGroup
-    {...input}
-    {...rest}
-    valueselected={input.value}
-    onChange={(event, value) => input.onChange(value)}
-  />
-);
+import Typography from '@material-ui/core/Typography';
+import Switch from '@material-ui/core/Switch';
+import TextField from '@material-ui/core/TextField';
+import Select from "react-select";
+import { useForm, Controller } from "react-hook-form";
 
 const styles = theme => ({
   root: {
@@ -40,88 +21,100 @@ const styles = theme => ({
     width: '100%',
     marginBottom: 20
   },
-  fieldBasic: {
-    width: '100%',
-    marginBottom: 20,
-    marginTop: 10
-  },
-  inlineWrap: {
-    display: 'flex',
-    flexDirection: 'row'
-  },
-  buttonInit: {
-    margin: theme.spacing(4),
-    textAlign: 'center'
-  },
 });
 
-class EditDashboard extends Component {
-  render() {
+const EditDashboard = (props) => {
+ 
     const {
       classes,
-      handleSubmit,
-      pristine,
-      reset,
-      submitting,
+      onSubmit,
       user,
       role,
       users,
       roles,
       name,
+      enable,
       t,
-    } = this.props;
+    } = props;
+    
+    const { register, handleSubmit, control, errors } = useForm();
+
+    const selectOptionsRoles = [];
+    const selectOptionsUsers = [];
+
+    roles.map((role) => {
+      selectOptionsRoles.push({value: role.id, label: role.name});
+    });
+
+    users.map((user) => {
+      selectOptionsUsers.push({value: user.id, label: user.name});
+    });
+    
     return (
       <div>
         <Grid container spacing={3} alignItems="flex-start" direction="row" justify="center">
           <Grid item xs={12} md={6}>
             <Paper className={classes.root}>
-              <form onSubmit={handleSubmit}>
-              <div>
-                  <Field
-                    name="name"
-                    component={TextFieldRedux}
-                    label={name}
-                    placeholder={t('EditDashboard.name')}
-                    ref={this.saveRef}
-                    className={classes.field}
-                  />
-                </div>
+            {user &&
+              <form onSubmit={handleSubmit(onSubmit)}>
+              <TextField 
+                label={t('EditUser.name')} 
+                placeholder={t('EditUser.name')} 
+                required 
+                className={classes.field} 
+                name="name" 
+                defaultValue={name} 
+                inputRef={register({ required: true })} />
+
+                <Typography variant="subtitle2" gutterBottom>
+                  {t('EditDashboard.role')}
+                </Typography>
+                <Controller
+                  name="role"
+                  label="Role"
+                  placeholder="Role"
+                  className={classes.field}
+                  isSearchable={true}
+                  defaultValue={role ? {value: role.id, label: role.name} : {}}
+                  control={control}
+                  options={selectOptionsRoles}
+                  as={Select}
+                />
+
+                <Typography variant="subtitle2" gutterBottom>
+                  {t('EditDashboard.user')}
+                </Typography>
+                <Controller
+                  name="user"
+                  label="User"
+                  placeholder="User"
+                  className={classes.field}
+                  isSearchable={true}
+                  defaultValue={user ? {value: user.id, label: user.name} : {}}
+                  control={control}
+                  options={selectOptionsUsers}
+                  as={Select}
+                />
+
+                <Typography variant="subtitle2" gutterBottom>
+                  {t('EditDashboard.active')}
+                </Typography>
+                <Controller
+                  name="active"
+                  control={control}
+                  defaultValue={enable}
+                  render={props =>
+                    <Switch
+                      onChange={e => props.onChange(e.target.checked)}
+                      checked={props.value}
+                    />
+                  }
+                />
                 <div>
-                  <FormControl className={classes.field}>
-                    <InputLabel htmlFor="role">{role}</InputLabel>
-                    <Field
-                      name="role"
-                      component={SelectRedux}
-                      placeholder={t('EditDashboard.role')}
-                    >
-                      {roles.map((r) => <MenuItem value={r.id}>{r.name}</MenuItem>)}
-                    </Field>
-                  </FormControl>
-                </div>
-                <div>
-                  <FormControl className={classes.field}>
-                    <InputLabel htmlFor="user">{user}</InputLabel>
-                    <Field
-                      name="user"
-                      component={SelectRedux}
-                      placeholder={t('EditDashboard.user')}
-                    >
-                      {users.map((u) => <MenuItem value={u.id}>{u.name}</MenuItem>)}
-                    </Field>
-                  </FormControl>
-                </div>
-                <div>
-                  <FormControlLabel control={<Field name="active" component={SwitchRedux} />} label={t('EditDashboard.active')} />
-                </div>
-                <div>
-                  <Button variant="contained" color="secondary" type="submit" disabled={submitting}>
+                  <Button variant="contained" color="secondary" type="submit">
                   {t('Buttons.submit')}
                   </Button>
-                  <Button
-                    type="button"
-                    disabled={pristine || submitting}
-                    onClick={reset}
-                  >
+                  <Button type="reset" >
                     {t('Buttons.reset')}
                   </Button>
                   <Button variant="contained" color="primary" onClick={() => history.goBack()}>
@@ -129,43 +122,12 @@ class EditDashboard extends Component {
                   </Button>
                 </div>
               </form>
+            }
             </Paper>
           </Grid>
         </Grid>
       </div>
     );
   }
-}
 
-renderRadioGroup.propTypes = {
-  input: PropTypes.object.isRequired,
-};
-
-EditDashboard.propTypes = {
-  classes: PropTypes.object.isRequired,
-  handleSubmit: PropTypes.func.isRequired,
-  reset: PropTypes.func.isRequired,
-  pristine: PropTypes.bool.isRequired,
-  submitting: PropTypes.bool.isRequired,
-};
-
-const mapDispatchToProps = dispatch => ({
-  init: bindActionCreators(initAction, dispatch),
-  clear: () => dispatch(clearAction),
-});
-
-const ReduxFormMapped = reduxForm({
-  form: 'immutableExample',
-  enableReinitialize: true,
-})(EditDashboard);
-
-const reducer = 'initval';
-const FormInit = connect(
-  state => ({
-    force: state,
-    initialValues: state.getIn([reducer, 'formValues'])
-  }),
-  mapDispatchToProps,
-)(ReduxFormMapped);
-
-export default withStyles(styles)(withTranslation()(FormInit));
+export default withStyles(styles)(withTranslation()(EditDashboard));

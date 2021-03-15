@@ -1,34 +1,15 @@
 /* eslint-disable react/prop-types */
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
-import { Field, reduxForm } from 'redux-form/immutable';
 import Grid from '@material-ui/core/Grid';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
 import Button from '@material-ui/core/Button';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import {
-  TextFieldRedux,
-  SwitchRedux,
-} from 'dan-components/Forms/ReduxFormMUI';
-import { initAction, clearAction } from 'dan-redux/actions/reduxFormActions';
 import history from '../../../../utils/history';
 import { withTranslation } from 'react-i18next';
-
-const renderRadioGroup = ({ input, ...rest }) => (
-  <RadioGroup
-    {...input}
-    {...rest}
-    valueselected={input.value}
-    onChange={(event, value) => input.onChange(value)}
-  />
-);
-
-// validation functions
-const required = value => (value == null ? 'Required' : undefined);
+import Typography from '@material-ui/core/Typography';
+import TextField from '@material-ui/core/TextField';
+import Switch from '@material-ui/core/Switch';
+import { useForm, Controller } from "react-hook-form";
 
 const styles = theme => ({
   root: {
@@ -39,108 +20,108 @@ const styles = theme => ({
     width: '100%',
     marginBottom: 20
   },
-  fieldBasic: {
-    width: '100%',
-    marginBottom: 20,
-    marginTop: 10
-  },
-  inlineWrap: {
-    display: 'flex',
-    flexDirection: 'row'
-  },
-  buttonInit: {
-    margin: theme.spacing(4),
-    textAlign: 'center'
-  },
 });
 
-class EditRole extends Component {
-  render() {
-    const {
-      classes,
-      handleSubmit,
-      pristine,
-      reset,
-      submitting,
-      name,
-      t,
-    } = this.props;
-    return (
-      <div>
-        <Grid container spacing={3} alignItems="flex-start" direction="row" justify="center">
-          <Grid item xs={12} md={6}>
-            <Paper className={classes.root}>
-              <form onSubmit={handleSubmit}>
-                <div>
-                  <Field
-                    name="name"
-                    component={TextFieldRedux}
-                    placeholder={t('EditRole.name')}
-                    label={name}
-                    validate={required}
-                    required
-                    ref={this.saveRef}
-                    className={classes.field}
+const EditRole = (props) => {
+  
+  const {
+    classes,
+    onSubmit,
+    role,
+    access,
+    t,
+  } = props;
+
+  const { register, handleSubmit, control, errors } = useForm();
+    
+  return (
+    <div>
+      <Grid container spacing={3} alignItems="flex-start" direction="row" justify="center">
+        <Grid item xs={12} md={6}>
+          <Paper className={classes.root}>
+          {role && access &&
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <TextField 
+              label={t('EditRole.name')} 
+              placeholder={t('EditRole.name')} 
+              required 
+              className={classes.field} 
+              name="name" 
+              defaultValue={role.name} 
+              inputRef={register({ required: true })} />
+            <Grid 
+              container
+              direction="row"
+              justify="center"
+              alignItems="center"
+              style={{marginBottom: 30}}>
+            <Grid item xs={6} md={3}>
+              <Typography variant="subtitle2" gutterBottom>
+                {t('EditRole.create')}
+              </Typography>
+              <Controller
+                name="create"
+                control={control}
+                defaultValue={access ? access.canCreateUser : false}
+                render={props =>
+                  <Switch
+                    onChange={e => props.onChange(e.target.checked)}
+                    checked={props.value}
                   />
-                </div>
-                <div>
-                  <FormControlLabel control={<Field name="create" component={SwitchRedux} />} label={t('EditRole.create')} />
-                  <FormControlLabel control={<Field name="edit" component={SwitchRedux} />} label={t('EditRole.edit')} />
-                  <FormControlLabel control={<Field name="delete" component={SwitchRedux} />} label={t('EditRole.delete')} />
-                </div>
-                <div>
-                  <Button variant="contained" color="secondary" type="submit" disabled={submitting}>
-                  {t('Buttons.submit')}
-                  </Button>
-                  <Button
-                    type="button"
-                    disabled={pristine || submitting}
-                    onClick={reset}
-                  >
-                    {t('Buttons.reset')}
-                  </Button>
-                  <Button variant="contained" color="primary" onClick={() => history.goBack()}>
-                  {t('Buttons.cancel')}
-                  </Button>
-                </div>
-              </form>
-            </Paper>
-          </Grid>
+                }
+              />
+            </Grid>
+            <Grid item xs={6} md={3}>
+              <Typography variant="subtitle2" gutterBottom>
+                {t('EditRole.edit')}
+              </Typography>
+              <Controller
+                name="edit"
+                control={control}
+                defaultValue={access ? access.canUpdateUser : false}
+                render={props =>
+                  <Switch
+                    onChange={e => props.onChange(e.target.checked)}
+                    checked={props.value}
+                  />
+                }
+              />
+              </Grid>
+              <Grid item xs={6} md={3}>
+                <Typography variant="subtitle2" gutterBottom>
+                  {t('EditRole.delete')}
+                </Typography>
+                <Controller
+                  name="delete"
+                  control={control}
+                  defaultValue={access ? access.canDeleteUser : false}
+                  render={props =>
+                    <Switch
+                      onChange={e => props.onChange(e.target.checked)}
+                      checked={props.value}
+                    />
+                  }
+                />
+              </Grid>
+            </Grid>
+              <div>
+                <Button variant="contained" color="secondary" type="submit">
+                {t('Buttons.submit')}
+                </Button>
+                <Button type="reset">
+                  {t('Buttons.reset')}
+                </Button>
+                <Button variant="contained" color="primary" onClick={() => history.goBack()}>
+                {t('Buttons.cancel')}
+                </Button>
+              </div>
+            </form>
+          }
+          </Paper>
         </Grid>
-      </div>
-    );
-  }
+      </Grid>
+    </div>
+  );
 }
 
-renderRadioGroup.propTypes = {
-  input: PropTypes.object.isRequired,
-};
-
-EditRole.propTypes = {
-  classes: PropTypes.object.isRequired,
-  handleSubmit: PropTypes.func.isRequired,
-  reset: PropTypes.func.isRequired,
-  pristine: PropTypes.bool.isRequired,
-  submitting: PropTypes.bool.isRequired,
-};
-
-const mapDispatchToProps = dispatch => ({
-  init: bindActionCreators(initAction, dispatch),
-  clear: () => dispatch(clearAction),
-});
-
-const ReduxFormMapped = reduxForm({
-  form: 'immutableExample',
-  enableReinitialize: true,
-})(EditRole);
-
-const reducer = 'initval';
-const FormInit = connect(
-  state => ({
-    force: state,
-    initialValues: state.getIn([reducer, 'formValues'])
-  }),
-  mapDispatchToProps,
-)(ReduxFormMapped);
-
-export default withStyles(styles)(withTranslation()(FormInit));
+export default withStyles(styles)(withTranslation()(EditRole));

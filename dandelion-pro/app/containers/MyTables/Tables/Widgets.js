@@ -56,20 +56,7 @@ class Widgets extends React.Component {
     open: false,
     id: null,
     type: null,
-    prevRow: undefined,
-    row: undefined,
     openModal: false,
-  }
-
-  changeRowColor(index){
-    let row = document.getElementById(`MUIDataTableBodyRow-${index}`);
-
-    if (this.state.prevRow !== undefined) {
-      this.state.row.style.background = '';
-    }
-
-    row.setAttribute('style', 'background: #DEDFE0');
-    this.setState({ prevRow: index, row: row });
   }
 
   render() {
@@ -117,13 +104,16 @@ class Widgets extends React.Component {
       print: true,
       rowsPerPage: 5,
       page: 0,
-      onRowClick: (rowData, rowIndex) => {
-        this.setState({ id: rowData[0], type: rowData[2] }, () => {
-          this.changeRowColor(rowIndex.rowIndex);
-        });
+      onRowsSelect: (current, all, rowsSelected) => {
+        if (all) {
+          const id = data[all[0].dataIndex].id;
+          const type = data[all[0].dataIndex].type;
+          this.setState({ id: id, type: type });
+        }
       },
-      selectableRows: 'none',
       selectableRowsHeader: false,
+      selectableRowsOnClick: true,
+      selectableRows: 'single'
     };
 
     const handleModal = (id) => {

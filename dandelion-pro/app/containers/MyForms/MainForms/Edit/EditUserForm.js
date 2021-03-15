@@ -14,13 +14,10 @@ import { PapperBlock } from 'dan-components';
 import queryString from 'query-string';
 import EditUser from '../../Forms/Edit/EditUser';
 import request from '../../../../utils/request';
-import history from '../../../../utils/history';
 import { URL, PATCH, GET } from '../../../Axios/axiosForData';
 import Notification from '../../../MyNotification/Notification';
 import axios from 'axios';
 import { withTranslation } from 'react-i18next';
-
-const parsed = queryString.parse(location.search);
 
 const styles = ({
   root: {
@@ -37,14 +34,16 @@ class EditUserForm extends React.Component {
     roles: [],
   }
 
+  parsed = queryString.parse(location.search);
+
   componentDidMount() {
-    request(`${URL}/api/users/${parsed.id}`, GET).then((res) => {
-      this.setState({ user: res.data.user });
+    axios.get(`${URL}/api/users/${this.parsed.id}`).then((res) => {
+      this.setState({ user: res.data.data.user });
     }).catch((error) => {
       this.setState({ open: true, variant: 'error', message: 'Notification.error' });
     });
-    request(`${URL}/api/role/`, GET).then((res) => {
-      this.setState({ roles: res.data.roles.rows });
+    axios.get(`${URL}/api/role/`).then((res) => {
+      this.setState({ roles: res.data.data.roles.rows });
     }).catch((error) => {
       this.setState({ open: true, variant: 'error', message: 'Notification.error' });
     });
@@ -65,18 +64,18 @@ class EditUserForm extends React.Component {
       email: values.email,
       roleId: values.roleId.value
     };
-    axios.patch(`${URL}/api/users/${parsed.id}`, PATCH.data, {Authorization: localStorage.getItem('token')}).then(() => {
+    axios.patch(`${URL}/api/users/${this.parsed.id}`, PATCH.data, {Authorization: localStorage.getItem('token')}).then(() => {
       this.setState({ open: true, variant: 'success', message: 'Notification.success' });
     }).catch((error) => {
       this.setState({ open: true, variant: 'error', message: 'Notification.error' });
     });
   }
 
+
   render() {
     const title = brand.name + ' - Form';
     const description = brand.desc;
-    const { user, roles } = this.state;
-    const { message, variant, open } = this.state;
+    const { message, variant, open, user, roles } = this.state;
     const { t } = this.props;
 
     return (
@@ -96,7 +95,7 @@ class EditUserForm extends React.Component {
               name={user.name ? user.name : ''}
               lastName={user.surName ? user.surName : ''}
               userEmail={user.email ? user.email : ''}
-              userRole={user.roleId ? user.roleId : ''}
+              userRole={user.role ? user.role : ''}
               roles={roles ? roles : [{id: 0, name: 'No data'}]}
             />
           </div>

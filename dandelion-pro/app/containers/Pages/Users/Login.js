@@ -93,7 +93,7 @@ class Login extends React.Component {
   render() {
     const title = brand.name + ' - Login';
     const description = brand.desc;
-    const { classes } = this.props;
+    const { classes, t } = this.props;
     if (user) {
       return <Redirect to='/home'/>
     }

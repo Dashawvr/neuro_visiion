@@ -13,7 +13,6 @@ import { PapperBlock } from 'dan-components';
 import queryString from 'query-string';
 import EditRole from '../../Forms/Edit/EditRole';
 import request from '../../../../utils/request';
-import history from '../../../../utils/history';
 import {
   URL, PUT, PATCH, GET
 } from '../../../Axios/axiosForData';
@@ -21,7 +20,8 @@ import Notification from '../../../MyNotification/Notification';
 import axios from 'axios';
 import { withTranslation } from 'react-i18next';
 
-const parsed = queryString.parse(location.search);
+// const parsed = queryString.parse(location.search);
+
 const styles = ({
   root: {
     flexGrow: 1,
@@ -37,10 +37,12 @@ class EditRoleForm extends React.Component {
     accessRight: {},
   }
 
+  parsed = queryString.parse(location.search);
+
   componentDidMount() {
-    request(`${URL}/api/role/${parsed.id}`, GET).then((res) => {
-      this.setState({ role: res.data.role });
-      this.setState({ accessRight: res.data.role.access_right });
+    console.log(this.parsed.id, 'id')
+    axios.get(`${URL}/api/role/${this.parsed.id}`).then((res) => {
+      this.setState({ role: res.data.data.role, accessRight: res.data.data.role.access_right });
     });
   }
 
@@ -52,36 +54,21 @@ class EditRoleForm extends React.Component {
   };
 
   showResult(values) {
-    let name = null;
-    let create = false;
-    let update = false;
-    let canDelete = false;
-    values._root.entries.map((elem) => {
-      if (elem[0] === 'name') {
-        name = elem[1];
-      }
-      if (elem[0] === 'create') {
-        create = elem[1];
-      }
-      if (elem[0] === 'update') {
-        update = elem[1];
-      }
-      if (elem[0] === 'delete') {
-        canDelete = elem[1];
-      }
-    });
     PUT.data = {
-      name: name ? name : this.state.role.name,
+      name: values.name,
       role: this.state.role.id,
     };
     PATCH.data = {
-      canCreateUser: create ? create : this.state.accessRight.canCreateUser,
-      canDeleteUser: canDelete ? canDelete : this.state.accessRight.canDeleteUser,
-      canUpdateUser: update ? update : this.state.accessRight.canUpdateUser,
-      roleId: this.state.role.id,
-      // desc: this.state.accessRight.desc,
+      canCreateUser: values.create,
+      canDeleteUser: values.delete,
+      canUpdateUser: values.update,
+      roleId: this.state.role.id
     };
-    axios.put(`${URL}/api/role/` + this.state.accessRight.roleId, PUT.data, {Authorization: localStorage.getItem('token')});
+    axios.put(`${URL}/api/role/` + this.state.accessRight.roleId, PUT.data, {Authorization: localStorage.getItem('token')})
+    .then()
+    .catch((error) => {
+      this.setState({ open: true, variant: 'error', message: 'Notification.error' });
+    });
     axios.patch(`${URL}/api/access_right/` + this.state.accessRight.id, PATCH.data, {Authorization: localStorage.getItem('token')}).then(() => {
       this.setState({ open: true, variant: 'success', message: 'Notification.success' });
     }).catch((error) => {
@@ -106,7 +93,11 @@ class EditRoleForm extends React.Component {
         </Helmet>
         <PapperBlock title={t('EditRole.title')} icon="ios-list-box-outline">
           <div>
-            <EditRole onSubmit={(values) => this.showResult(values)} name={this.state.role.name} />
+            <EditRole 
+              onSubmit={(values) => this.showResult(values)} 
+              role={this.state.role} 
+              access={this.state.role.access_right}
+              />
           </div>
         </PapperBlock>
         <Notification open={open} handleClose={() => this.handleClose()} variant={variant} message={t(message)} />
