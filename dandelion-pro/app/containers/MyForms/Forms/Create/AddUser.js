@@ -8,6 +8,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Grid from '@material-ui/core/Grid';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControl from '@material-ui/core/FormControl';
+import Typography from '@material-ui/core/Typography';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Button from '@material-ui/core/Button';
@@ -15,6 +16,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import {
   SelectRedux,
   TextFieldRedux,
+  CheckboxRedux
 } from 'dan-components/Forms/ReduxFormMUI';
 import { initAction, clearAction } from 'dan-redux/actions/reduxFormActions';
 import history from '../../../../utils/history';
@@ -76,6 +78,7 @@ class AddUser extends Component {
       submitting,
       roles,
       t,
+      createWithLDAP
     } = this.props;
     return (
       <div>
@@ -143,6 +146,19 @@ class AddUser extends Component {
                       {roles.map((r) => <MenuItem value={r.id}>{r.name}</MenuItem>)}
                     </Field>
                   </FormControl>
+                </div>
+                <div>
+                <Typography variant="subtitle2">Create with LDAP</Typography>
+                  <Field
+                    name="ldap"
+                    component={CheckboxRedux}
+                    placeholder={'Create with LDAP'}
+                    label={('Create with LDAP')}
+                    validate={required}
+                    required
+                    ref={this.saveRef}
+                    className={classes.field}
+                  />
                 </div>
                 <div>
                   <Button variant="contained" color="secondary" type="submit" disabled={submitting}>

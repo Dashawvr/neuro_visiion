@@ -52,6 +52,7 @@ class AddUserForm extends React.Component {
     let email = null;
     let password = null;
     let roleId = null;
+    let ldap = null;
     values._root.entries.map((elem) => {
       if (elem[0] === 'name') {
         name = elem[1];
@@ -68,21 +69,41 @@ class AddUserForm extends React.Component {
       if (elem[0] === 'role') {
         roleId = elem[1];
       }
+      if (elem[0] === 'ldap') {
+        ldap = elem[1];
+      }
     });
-    POST.data = {
-      name: name,
-      surName: surName,
-      email: email,
-      password: password,
-      roleId: Number(roleId),
-      username: email,
-    };
-    axios.post(`${URL}/api/users/`, POST.data, {Authorization: localStorage.getItem('token')}).then(() => {
-        this.setState({ open: true, variant: 'success', message: 'Notification.success' });
-      }).catch((error) => {
-        this.setState({ open: true, variant: 'error', message: 'Notification.error' });
-      });
+
+    if (!ldap) {
+      POST.data = {
+        name: name,
+        surName: surName,
+        email: email,
+        password: password,
+        roleId: Number(roleId),
+        username: email,
+      };
+      axios.post(`${URL}/api/users/`, POST.data, {Authorization: localStorage.getItem('token')}).then(() => {
+          this.setState({ open: true, variant: 'success', message: 'Notification.success' });
+        }).catch((error) => {
+          this.setState({ open: true, variant: 'error', message: 'Notification.error' });
+        });
+    } else {
+      POST.data = {
+        cn: name,
+        sn: surName,
+        mail: email,
+        userPassword: password,
+        st: Number(roleId),
+      };
+      axios.post(`${URL}/api/ldap/create`, POST.data, {Authorization: localStorage.getItem('token')}).then(() => {
+          this.setState({ open: true, variant: 'success', message: 'Notification.success' });
+        }).catch((error) => {
+          this.setState({ open: true, variant: 'error', message: 'Notification.error' });
+        });
+    }
   }
+
 
   render() {
     const title = brand.name + ' - Form';
