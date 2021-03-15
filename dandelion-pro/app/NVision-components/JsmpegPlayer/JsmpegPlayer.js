@@ -14,15 +14,13 @@ export default class JsmpegPlayer extends Component {
   render() {
     return (
       <div
-        className={`${this.props.wrapperClassName} video-vidget`}
+        className={`${this.props.wrapperClassName}-video-vidget`}
         ref={(videoWrapper) => (this.els.videoWrapper = videoWrapper)}
       ></div>
     );
   }
 
   componentDidMount() {
-    // Reference documentation, pay attention to the order of parameters.
-    // https://github.com/cycjimmy/jsmpeg-player#usage
     this.video = new JSMpeg.VideoElement(
       this.els.videoWrapper,
       this.props.videoUrl,

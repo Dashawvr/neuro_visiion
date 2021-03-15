@@ -84,6 +84,7 @@ const Widget = (props) => {
             <Rnd
               className="widgetTable"
               onDoubleClick={handleDoubleClick}
+              bounds="window"
               default={{
                 x: props.coordinate.x,
                 y: props.coordinate.y,
@@ -117,6 +118,7 @@ const Widget = (props) => {
             <Rnd
                 className="widgetTable"
                 onDoubleClick={handleDoubleClick}
+                bounds="window"
                 default={{
                   x: props.coordinate.x,
                   y: props.coordinate.y,
@@ -149,6 +151,8 @@ const Widget = (props) => {
           return (
             <Rnd
                 className="widgetTable"
+                onDoubleClick={handleDoubleClick}
+                bounds="window"
                 default={{
                   x: props.coordinate.x,
                   y: props.coordinate.y,
@@ -186,6 +190,7 @@ const Widget = (props) => {
         <Rnd
             className="widgetMap"
             onDoubleClick={handleDoubleClick}
+            bounds="window"
             default={{
               x: props.coordinate.x,
               y: props.coordinate.y,
@@ -223,6 +228,7 @@ const Widget = (props) => {
         <Rnd
             className="widgetText"
             onDoubleClick={handleDoubleClick}
+            bounds="window"
             default={{
               x: props.coordinate.x,
               y: props.coordinate.y,
@@ -264,6 +270,7 @@ const Widget = (props) => {
           <Rnd
             className="widgetVideo"
             onDoubleClick={handleDoubleClick}
+            bounds="window"
             style={{
               zIndex: zIndex.zIndex,
               border: `${props.styles.size}px solid ${props.styles.color}`,

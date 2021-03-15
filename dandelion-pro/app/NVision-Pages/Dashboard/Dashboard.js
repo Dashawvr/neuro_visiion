@@ -3,20 +3,17 @@ import "../../NVision-styles/style.css";
 import React, { Fragment, useState, useEffect } from "react";
 import Widget from "../../NVision-components/Widget/Widget";
 import RightSidebar from "../../NVision-components/RightSidebar/RightSidebar";
-import { Redirect, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import axios from "axios";
 import request from '../../utils/request';
 import { URL, GET } from '../../containers/Axios/axiosForData';
-import Notification from '../../containers/MyNotification/Notification';
+import { withTranslation } from 'react-i18next';
 
 const Dashboard = (props) => {
   const [widgets, setWidgets] = useState([]);
   const [widgetsForTable, setWidgetsForTable] = useState([]);
   const [users, setUsers] = useState([]);
   const [dashboards, setDashboards] = useState([]);
-  const [notificationOpen, setNotificationOpen] = useState({open: false});
-  const [notificationVariant, setNotificationVariant] = useState({variant: ''});
-  const [notificationMessage, setNotificationMessage] = useState({message: ''});
   const history = useHistory();
 
   const id = history.location.pathname.split('/')[3]
@@ -27,35 +24,15 @@ const Dashboard = (props) => {
         .get(`${URL}/api/dashboard/${id}`)
         .then((res) => {
           setWidgets(res.data.data.Dashboard.widget_data);
-        })
-        .catch((error) => {
-          setNotificationOpen({ open: true });
-          setNotificationVariant({ variant: 'error'});
-          setNotificationMessage({ message: 'Notification.error'});
         });
       request(`${URL}/api/dashboard/${id}`, GET).then((res) => {
         setWidgetsForTable(res.data.Dashboard.widget_data);
-      })
-      .catch((error) => {
-        setNotificationOpen({ open: true });
-        setNotificationVariant({ variant: 'error'});
-        setNotificationMessage({ message: 'Notification.error'});
       });
       request(`${URL}/api/dashboard`, GET).then((res) => {
         setDashboards(res.data.Dashboards.rows);
-      })
-      .catch((error) => {
-        setNotificationOpen({ open: true });
-        setNotificationVariant({ variant: 'error'});
-        setNotificationMessage({ message: 'Notification.error'});
       });
       request(`${URL}/api/users`, GET).then((res) => {
         setUsers(res.data.users.rows);
-      })
-      .catch((error) => {
-        setNotificationOpen({ open: true });
-        setNotificationVariant({ variant: 'error'});
-        setNotificationMessage({ message: 'Notification.error'});
       });
     }
     getWidgets();
@@ -86,13 +63,6 @@ const Dashboard = (props) => {
           widget.data = widget.name;
       }
   });
-
-  const handleClose = (event, reason) => {
-    if (reason === 'clickaway') {
-      return;
-    }
-    setNotificationOpen({open: false});
-  };
 
   const defaultCoordinates = {
     x: 10,
@@ -128,7 +98,6 @@ const Dashboard = (props) => {
             <></>
           }
       <RightSidebar widgets={widgetsForTable}/>
-      <Notification open={notificationOpen} handleClose={() => handleClose()} variant={notificationVariant} message={t(notificationMessage)} />
     </Fragment>
   );
 };
