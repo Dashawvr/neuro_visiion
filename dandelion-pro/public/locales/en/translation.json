@@ -26,6 +26,16 @@
         "unknow": "Unknow",
         "title": "Roles list"
     },
+    "TableCamers": {
+        "ip": "IP Adress",
+        "port": "PORT",
+        "username": "Username",
+        "password": "Password",
+        "type": "Type connect",
+        "stream_url": "URL Streams",
+        "isDefaultRecord": "Default stream",
+        "title": "Cams list"
+    }, 
     "TableDashboards": {
         "name": "Name",
         "yes": "Yes",
@@ -172,7 +182,8 @@
         "maps": "Maps",
         "editPanel": "Edit Widget",
         "widgets": "Widgets",
-        "stage": "Stage"
+        "stage": "Stage",
+        "cams": "Cams"
     },
     "Status": {
         "online": "Online",

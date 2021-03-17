@@ -158,6 +158,12 @@ function SidebarContent(props) {
     icon: 'ios-laptop',
     linkParent: '/home/widgets'
   },
+  {
+    key: 'cams',
+    name: t('Menu.cams'),
+    icon: 'ios-videocam',
+    linkParent: '/home/camers'
+  },
 
   {
     key: 'maps',

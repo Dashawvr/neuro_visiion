@@ -17,6 +17,7 @@ export default class JsmpegPlayer extends Component {
     return (
       <div
         className={`${this.props.wrapperClassName} videoVidget`}
+        style={{width: this.props.size.width, height: this.props.size.height}}
         ref={(videoWrapper) => (this.els.videoWrapper = videoWrapper)}
       ></div>
     );

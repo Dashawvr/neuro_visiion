@@ -37,6 +37,16 @@
         "role": "Роль",
         "user": "Користувач",
         "active": "Активний"
+    }, 
+    "TableCamers": {
+        "ip": "IP Адреса",
+        "port": "PORT",
+        "username": "Користувач",
+        "password": "Пароль",
+        "type": "Тип підключення",
+        "stream_url": "Адреса на якій іде запис",
+        "isDefaultRecord": "Запис за завмовчуванням",
+        "title": "Список камер"
     },   
     "TableGroups": {
         "name": "Ім'я",        
@@ -174,7 +184,8 @@
         "maps": "Карта",
         "editPanel": "Редагувати Віджет",
         "widgets": "Віджети",
-        "stage": "Сцени"
+        "stage": "Сцени",
+        "cams": "Камери"
     },
     "Status": {
         "online": "Онлайн",

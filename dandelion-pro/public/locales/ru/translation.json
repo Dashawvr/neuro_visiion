@@ -26,8 +26,17 @@
         "not": "Нет",
         "unknow": "Неизвесно",
         "title": "Список ролей"
-
-    }, 
+    },
+    "TableCamers": {
+        "ip": "IP Адресс",
+        "port": "PORT",
+        "username": "Пользователь",
+        "password": "Пароль",
+        "type": "Тип подключения",
+        "stream_url": "Адресс на котором идет запись",
+        "isDefaultRecord": "Запись по умолчанию",
+        "title": "Список камер"
+    },    
     "TableDashboards": {
         "name": "Имя",
         "yes": "Да",
@@ -174,7 +183,8 @@
         "maps": "Карта",
         "editPanel": "Изменить виджет",
         "widgets": "Виджеты",
-        "stage": "Сцены"
+        "stage": "Сцены",
+        "cams": "Камери"
     },
     "Status": {
         "online": "В сети",

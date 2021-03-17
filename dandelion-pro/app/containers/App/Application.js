@@ -12,7 +12,8 @@ import {
   CreateWidgetMapForm, CreateWidgetTableForm,
   PersonalDashboard, DashboardNew, EditPanel,
   StreetViewMap, EditWidgetVideoForm, EditWidgetTableForm, EditWidgetTextForm, EditWidgetMapForm,
-  UsersGroupsTable, AddGroupForm, EditGroupForm, DeleteWidgetForm,
+  UsersGroupsTable, AddGroupForm, EditGroupForm, DeleteWidgetForm, CamersTable, AddCameraForm,
+  EditCameraForm
 } from '../pageListAsync';
 
 function useInterval(callback, delay) {
@@ -56,6 +57,7 @@ function Application(props) {
             <Route path="/home/roles"  component={RoleTable}/>
             <Route path="/home/users"  component={UserTable}/>
             <Route path="/home/group"  component={UsersGroupsTable}/>
+            <Route path="/home/camers"  component={CamersTable}/>
             <Route path="/home/edit-panel"  component={EditPanel}/>
             {/* <Route path="/home/delete/widget"  component={DeleteWidgetForm}/> */}
             <Route path="/home/widgets"  component={WidgetsTable}/>
@@ -74,11 +76,13 @@ function Application(props) {
             <Route path="/home/forms/edit/scene" component={EditDashboardForm} />
             <Route path="/home/forms/edit/role" component={EditRoleForm} />
             <Route path="/home/forms/edit/user" component={EditUserForm} />
+            <Route path="/home/forms/edit/camera" component={EditCameraForm} />
             <Route path="/home/forms/edit/group" component={EditGroupForm} />
             <Route path="/home/forms/add/scene" component={AddDashboardForm} />
             <Route path="/home/forms/add/role" component={AddRoleForm} />
             <Route path="/home/forms/add/user" component={AddUserForm} />
             <Route path="/home/forms/add/group" component={AddGroupForm} />
+            <Route path="/home/forms/add/camera" component={AddCameraForm} />
           </Switch>
         </Dashboard>
   );

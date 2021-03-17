@@ -424,6 +424,10 @@ export const RoleTable = loadable(() =>
   import ('./MyTables/RoleTable'), {
   fallback: <Loading />,
 });
+export const CamersTable = loadable(() =>
+  import ('./MyTables/CamersTable'), {
+  fallback: <Loading />,
+});
 export const DashboardTable = loadable(() =>
   import ('./MyTables/DashboardTable'), {
   fallback: <Loading />,
@@ -481,6 +485,10 @@ export const EditRoleForm = loadable(() =>
   import ('./MyForms/MainForms/Edit/EditRoleForm'), {
   fallback: <Loading />,
 });
+export const EditCameraForm = loadable(() =>
+  import ('./MyForms/MainForms/Edit/EditCameraForm'), {
+  fallback: <Loading />,
+});
 export const AddGroupForm = loadable(() =>
   import ('./MyForms/MainForms/Create/AddGroupForm'), {
   fallback: <Loading />,
@@ -499,6 +507,10 @@ export const AddDashboardForm = loadable(() =>
 });
 export const AddRoleForm = loadable(() =>
   import ('./MyForms/MainForms/Create/AddRoleForm'), {
+  fallback: <Loading />,
+});
+export const AddCameraForm = loadable(() =>
+  import ('./MyForms/MainForms/Create/AddCameraForm'), {
   fallback: <Loading />,
 });
 export const AddUserForm = loadable(() =>
