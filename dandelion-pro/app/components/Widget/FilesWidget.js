@@ -26,7 +26,7 @@ function FilesWidget(props) {
     axios
       .get( URL +'/api/cpu/info/')
       .then((response) => {
-        setInfo(response.data.data.info);
+        setInfo(response.data.data.info ? response.data.data.info : response.data.data);
       })
       .catch((error) => {
         console.error(error);
@@ -42,7 +42,7 @@ function FilesWidget(props) {
       <Grid item md={4} sm={12} xs={12}>
         <PapperBlock whiteBg noMargin title={t("FilesWidget.title")} icon="ios-cloud-outline" desc="">
           {
-            info.totalGb? (
+            info.totalGb ? 
               <div className={classes.secondaryWrap}>
                 <div className={classes.centerItem}>
                   <Chip label={used} className={classes.chip} color="secondary"/>
@@ -60,7 +60,12 @@ function FilesWidget(props) {
                   </li>
                 </ul>
               </div>
-            ):(<CircularProgress className={classes.center} />)
+            : info ?
+            <div>
+              <h6>{info}ed on your System</h6>
+            </div>
+            :
+            (<CircularProgress className={classes.center} />)
           }
 
           <Divider className={classes.divider}/>
