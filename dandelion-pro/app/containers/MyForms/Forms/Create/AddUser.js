@@ -154,8 +154,6 @@ class AddUser extends Component {
                     component={CheckboxRedux}
                     placeholder={'Create with LDAP'}
                     label={('Create with LDAP')}
-                    validate={required}
-                    required
                     ref={this.saveRef}
                     className={classes.field}
                   />

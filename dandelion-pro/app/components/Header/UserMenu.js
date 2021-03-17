@@ -92,7 +92,7 @@ function UserMenu(props) {
   return (
     <div>
     {location &&
-      <Button variant="outlined" color="primary" onClick={() => props.onOpen(!props.rightSidebar)}>Menu</Button>      
+      <Button variant="outlined" color="primary" onClick={() => props.onOpen(!props.rightSidebar.open)}>Menu</Button>      
     }     
     <IconButton
         aria-haspopup="true"

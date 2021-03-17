@@ -10,6 +10,7 @@ import TextField from '@material-ui/core/TextField';
 import { useForm, Controller } from "react-hook-form";
 import Select from "react-select";
 import Typography from '@material-ui/core/Typography';
+import { connect } from 'react-redux';
 
 const styles = theme => ({
   root: {
@@ -21,6 +22,27 @@ const styles = theme => ({
     marginBottom: 20
   },
 });
+
+const customStyles = {
+  option: (provided, state) => ({
+    ...provided,
+    backgroundColor: state.isFocused ? "#343434" : "#292929",
+    color: 'white',
+  }),
+  control: (base, state) => ({
+    ...base,
+    background: "#292929",
+    color: '#fff',
+  }),
+  menuList: base => ({
+    ...base,
+    padding: 0
+  }),
+  singleValue: (provided) => ({
+    ...provided,
+    color: 'white'
+  })
+};
 
 const EditWidgetTable = (props) => {
 
@@ -64,6 +86,7 @@ const EditWidgetTable = (props) => {
                 label="Table"
                 placeholder="Table"
                 className={classes.field}
+                styles={props.mode === 'dark' ? customStyles : ''}
                 isSearchable={true}
                 // defaultValue={widget.name === '"table_role"' ? selectOptions[1] : widget.name === '"table_users"' ? selectOptions[0] : selectOptions[2]}
                 control={control}
@@ -121,4 +144,8 @@ const EditWidgetTable = (props) => {
     );
 }
 
-export default withStyles(styles)(withTranslation()(EditWidgetTable));
+const mapStateToProps = (state) => ({
+  mode: state.getIn(['ui', 'type']),
+})
+
+export default connect(mapStateToProps)(withStyles(styles)(withTranslation()(EditWidgetTable)));

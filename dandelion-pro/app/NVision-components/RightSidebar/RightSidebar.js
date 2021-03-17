@@ -9,15 +9,14 @@ import { onOpen } from "../../redux/actions/rightSidebar";
 
 const useStyles = makeStyles({
   drawer: {
-    width: '60rem',
+    width: '70rem',
   }
 });
 
 const RightSidebar = (props) => {
   const classes = useStyles();
-
   return (         
-    <Drawer anchor='right' open={props.rightSidebar} onClose={() => props.onOpen(!props.rightSidebar)}>
+    <Drawer anchor='right' open={props.rightSidebar.open} onClose={() => props.onOpen(!props.rightSidebar.open)}>
       <div className={classes.drawer}>
         <Widgets data={props.widgets} />
       </div>

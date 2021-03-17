@@ -10,6 +10,7 @@ import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import Select from "react-select";
 import { useForm, Controller } from "react-hook-form";
+import { connect } from 'react-redux';
 
 const styles = theme => ({
   root: {
@@ -25,6 +26,27 @@ const styles = theme => ({
     fontSize: '12px'
   }
 });
+
+const customStyles = {
+  option: (provided, state) => ({
+    ...provided,
+    backgroundColor: state.isFocused ? "#343434" : "#292929",
+    color: 'white',
+  }),
+  control: (base, state) => ({
+    ...base,
+    background: "#292929",
+    color: '#fff',
+  }),
+  menuList: base => ({
+    ...base,
+    padding: 0
+  }),
+  singleValue: (provided) => ({
+    ...provided,
+    color: 'white'
+  })
+};
 
 const EditUser = (props) => {
 
@@ -46,7 +68,6 @@ const EditUser = (props) => {
   });
 
   const { register, handleSubmit, control, errors } = useForm();
-
     return (
       <div>
         <Grid container spacing={3} alignItems="flex-start" direction="row" justify="center">
@@ -94,6 +115,7 @@ const EditUser = (props) => {
                     label="Role"
                     placeholder="Role"
                     className={classes.field}
+                    styles={props.mode === 'dark' ? customStyles : ''}
                     isSearchable={true}
                     defaultValue={{value: userRole.id, label: userRole.name}}
                     control={control}
@@ -121,4 +143,8 @@ const EditUser = (props) => {
     );
 }
 
-export default withStyles(styles)(withTranslation()(EditUser));
+const mapStateToProps = (state) => ({
+  mode: state.getIn(['ui', 'type']),
+})
+
+export default connect(mapStateToProps)(withStyles(styles)(withTranslation()(EditUser)));

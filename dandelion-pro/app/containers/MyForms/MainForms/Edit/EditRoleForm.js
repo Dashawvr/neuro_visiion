@@ -20,7 +20,6 @@ import Notification from '../../../MyNotification/Notification';
 import axios from 'axios';
 import { withTranslation } from 'react-i18next';
 
-// const parsed = queryString.parse(location.search);
 
 const styles = ({
   root: {
@@ -40,7 +39,6 @@ class EditRoleForm extends React.Component {
   parsed = queryString.parse(location.search);
 
   componentDidMount() {
-    console.log(this.parsed.id, 'id')
     axios.get(`${URL}/api/role/${this.parsed.id}`).then((res) => {
       this.setState({ role: res.data.data.role, accessRight: res.data.data.role.access_right });
     });

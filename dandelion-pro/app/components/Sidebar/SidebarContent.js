@@ -37,8 +37,7 @@ function SidebarContent(props) {
   useEffect(() => {
     socketConnection.checkUserStatus();
     socketConnection.onUserStatus((status) => {
-      changeStatus(status);
-      console.log(status)
+      changeStatus('online');
     });
   },[])
 

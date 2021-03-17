@@ -10,6 +10,7 @@ import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import Switch from '@material-ui/core/Switch';
 import { useForm, Controller } from "react-hook-form";
+import { connect } from 'react-redux';
 
 const styles = theme => ({
   root: {
@@ -124,4 +125,8 @@ const EditRole = (props) => {
   );
 }
 
-export default withStyles(styles)(withTranslation()(EditRole));
+const mapStateToProps = (state) => ({
+  mode: state.getIn(['ui', 'type']),
+})
+
+export default connect(mapStateToProps)(withStyles(styles)(withTranslation()(EditRole)));

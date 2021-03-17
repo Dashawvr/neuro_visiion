@@ -10,6 +10,7 @@ import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import Select from "react-select";
 import { useForm, Controller } from "react-hook-form";
+import { connect } from 'react-redux';
 
 const styles = theme => ({
   root: {
@@ -21,6 +22,27 @@ const styles = theme => ({
     marginBottom: 20
   }
 });
+
+const customStyles = {
+  option: (provided, state) => ({
+    ...provided,
+    backgroundColor: state.isFocused ? "#343434" : "#292929",
+    color: 'white',
+  }),
+  control: (base, state) => ({
+    ...base,
+    background: "#292929",
+    color: '#fff',
+  }),
+  menuList: base => ({
+    ...base,
+    padding: 0
+  }),
+  singleValue: (provided) => ({
+    ...provided,
+    color: 'white'
+  })
+};
 
 const EditGroup = (props) => {
   
@@ -77,6 +99,7 @@ const EditGroup = (props) => {
                 label="Users"
                 placeholder="Users"
                 className={classes.field}
+                styles={props.mode === 'dark' ? customStyles : ''}
                 isSearchable={true}
                 defaultValue={prevUsers}
                 control={control}
@@ -103,4 +126,8 @@ const EditGroup = (props) => {
     );
   }
 
-export default withStyles(styles)(withTranslation()(EditGroup));
+  const mapStateToProps = (state) => ({
+    mode: state.getIn(['ui', 'type']),
+  });
+
+export default connect(mapStateToProps)(withStyles(styles)(withTranslation()(EditGroup)));

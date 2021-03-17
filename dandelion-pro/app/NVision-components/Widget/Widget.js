@@ -51,7 +51,7 @@ const Widget = (props) => {
 
   const user = JSON.parse(localStorage.getItem('user'));
 
-  if (user.id === 1 || user.id === 2) {
+  if (user.roleId === 1 || user.roleId === 2) {
     canEnableResizing = true;
     canEditScene = false;
   } else {
