@@ -1,6 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { Component } from "react";
-import JSMpeg from "@cycjimmy/jsmpeg-player";
+// import JSMpeg from "@cycjimmy/jsmpeg-player";
+import JSMpeg from 'jsmpeg-player';
+import '../../NVision-Pages/Dashboard/app.css'
 
 export default class JsmpegPlayer extends Component {
   constructor(props) {
@@ -14,7 +16,7 @@ export default class JsmpegPlayer extends Component {
   render() {
     return (
       <div
-        className={`${this.props.wrapperClassName}-video-vidget`}
+        className={`${this.props.wrapperClassName} videoVidget`}
         ref={(videoWrapper) => (this.els.videoWrapper = videoWrapper)}
       ></div>
     );

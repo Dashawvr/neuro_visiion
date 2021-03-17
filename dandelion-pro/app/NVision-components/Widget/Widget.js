@@ -12,10 +12,11 @@ import axios from "axios";
 import history from "../../utils/history";
 import JsmpegPlayer from "../JsmpegPlayer/JsmpegPlayer";
 import { URL } from '../../containers/Axios/axiosForData';
+// import '../../NVision-Pages/Dashboard/app.css';
 
 const videoOptions = {
   autoplay: true,
-  autoSetWrapperSize: false,
+  autoSetWrapperSize: true,
 };
 const videoOverlayOptions = {};
 
@@ -266,6 +267,7 @@ const Widget = (props) => {
         </Rnd>
       );
     case "video":
+      if (url.length) {
         return (
           <Rnd
             className="widgetVideo"
@@ -297,7 +299,7 @@ const Widget = (props) => {
             <div onDoubleClick={handleDoubleClick}>
               <JsmpegPlayer
                 wrapperClassName={`video-wrapper-${props.id}`}
-                videoUrl={url ? url : ""}
+                videoUrl={url}
                 options={videoOptions}
                 overlayOptions={videoOverlayOptions}
                 onRef={(ref) => (jsmpegPlayer = ref)}
@@ -305,6 +307,10 @@ const Widget = (props) => {
             </div>            
           </Rnd>
         );
+      } else {
+        return <></>;
+      }
+        
     default:
      return(<></>)
   }
