@@ -178,7 +178,7 @@ class UsersGroups extends React.Component {
               return (<div>
                 {
                   value.map((user) => {
-                    return <Chip label={user.name + " " + user.surName} color="primary" />
+                    return <Chip label={user.name + " " + user.surName} style={{marginRight: 5}} color="primary" />
                   })
                 }
               </div>)              
