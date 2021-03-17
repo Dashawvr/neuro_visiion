@@ -82,6 +82,7 @@ class AddUserForm extends React.Component {
         password: password,
         roleId: Number(roleId),
         username: email,
+        title: 'postgre'
       };
       axios.post(`${URL}/api/users/`, POST.data, {Authorization: localStorage.getItem('token')}).then(() => {
           this.setState({ open: true, variant: 'success', message: 'Notification.success' });
@@ -95,6 +96,7 @@ class AddUserForm extends React.Component {
         mail: email,
         userPassword: password,
         st: Number(roleId),
+        title: 'ldap'
       };
       axios.post(`${URL}/api/ldap/create`, POST.data, {Authorization: localStorage.getItem('token')}).then(() => {
           this.setState({ open: true, variant: 'success', message: 'Notification.success' });

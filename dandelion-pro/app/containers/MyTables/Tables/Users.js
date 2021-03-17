@@ -12,13 +12,13 @@ import Button from '@material-ui/core/Button';
 import DeleteIcon from '@material-ui/icons/Delete';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import CreateIcon from '@material-ui/icons/Create';
-import { URL, DELETE } from '../../Axios/axiosForData';
+import { URL, DELETE, POST } from '../../Axios/axiosForData';
 import request from '../../../utils/request';
 import Notification from '../../MyNotification/Notification';
 import { withRouter } from "react-router-dom";
 import { withTranslation } from 'react-i18next';
-import { Rowing } from '@material-ui/icons';
 import { AlertDialog } from '../../MyNotification/AlertDialog';
+import Axios from 'axios';
 
 const styles = theme => ({
   button: {
@@ -104,7 +104,7 @@ class Users extends React.Component {
       rowsPerPage: 5,
       page: 0,
       onRowsSelect: (current, all, rowsSelected) => {
-        if (all) {
+        if (all.length) {
           const id = data[all[0].dataIndex].id;
           this.setState({ id: id });
         }
@@ -123,15 +123,28 @@ class Users extends React.Component {
     }
 
     const handleDelete = (id) => {
-      if (id) {
+      let findUser;
+
+      if (!id) {        
+        this.setState({ open: true, variant: 'warning', message: 'Notification.clickDelete' });
+      } else {
+        findUser = data.filter((user) => user.id === id);
+      }
+
+      if (id && findUser[0].title === 'postgre') {
         request(`${URL}/api/users/${id}`, DELETE).then(() => {
           this.setState({ open: true, variant: 'success', message: 'Notification.success' });
         }).catch((error) => {
           this.setState({ open: true, variant: 'error', message: 'Notification.error' });
         });
         this.setState({ openModal: false });
-      } else {
-        this.setState({ open: true, variant: 'warning', message: 'Notification.clickDelete' });
+      } else if (id && findUser[0].title === 'ldap') { 
+        Axios.post(`${URL}/api/ldap/delete`, {cn: findUser[0].name}).then(() => {
+          this.setState({ open: true, variant: 'success', message: 'Notification.success' });
+        }).catch((error) => {
+          this.setState({ open: true, variant: 'error', message: 'Notification.error' });
+        });
+        this.setState({ openModal: false });
       }
     };
     const handleEdit = (id) => {

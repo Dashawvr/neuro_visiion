@@ -102,7 +102,7 @@ class Dashboards extends React.Component {
       rowsPerPage: 5,
       page: 0,
       onRowsSelect: (current, all, rowsSelected) => {
-        if (all) {
+        if (all.length) {
           const id = data[all[0].dataIndex].id;
           this.setState({ id: id });
         }
