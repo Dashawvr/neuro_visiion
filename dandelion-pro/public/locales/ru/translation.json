@@ -87,6 +87,9 @@
         "lastName": "Фамилия",
         "email": "Почта"
     },
+    "AddCamera": {
+        "title": "Создать Камеру"
+    },
     "EditDashboard": {
         "title": "Редактировать сцену",
         "role": "Роль",

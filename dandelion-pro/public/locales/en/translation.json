@@ -60,6 +60,9 @@
         "password": "Password",
         "role": "Role"
     },
+    "AddCamera": {
+        "title": "Create Camera"
+    },
     "AddDashboard": {
         "title": "Create Dashboard",
         "role": "Role",

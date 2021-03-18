@@ -45,8 +45,8 @@ class AddCameraForm extends React.Component {
     POST.data = {
       ip: values.ip,
       port: values.port,
-      username: values.username,
-      password: values.password,
+      username: values.usernamee,
+      password: values.passwordd,
       type: values.type.value,
       isDefaultRecord: values.isDefaultRecord,
     };
@@ -74,7 +74,7 @@ class AddCameraForm extends React.Component {
           <meta property="twitter:title" content={title} />
           <meta property="twitter:description" content={description} />
         </Helmet>
-        <PapperBlock title={t('AddUser.title')} icon="ios-list-box-outline">
+        <PapperBlock title={t('AddCamera.title')} icon="ios-list-box-outline">
           <div>
             <AddCamera onSubmit={(values) => this.showResult(values)}  />
           </div>

@@ -88,16 +88,15 @@ const AddCamera = (props) => {
                     placeholder={t('TableCamers.username')} 
                     required 
                     className={classes.field} 
-                    name="username"  
+                    name="usernamee"  
                     inputRef={register({ required: true })} />
 
                   <TextField 
                     label={t('TableCamers.password')} 
                     placeholder={t('TableCamers.password')} 
                     required 
-                    type='password'
                     className={classes.field} 
-                    name="password"  
+                    name="passwordd"  
                     inputRef={register({ required: true })} />
 
                 <Typography variant="subtitle2" gutterBottom>
