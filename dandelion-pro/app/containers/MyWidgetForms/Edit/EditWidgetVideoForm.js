@@ -31,6 +31,7 @@ class EditWidgetVideoForm extends React.Component {
     open: false,
     widget: {},
     styles: {},
+    cams: []
   }
 
   parsed = queryString.parse(location.search);
@@ -38,6 +39,12 @@ class EditWidgetVideoForm extends React.Component {
   componentDidMount() {
     axios.get(`${URL}/api/widget_data/${this.parsed.widgetId}`).then((res) => {
       this.setState({ widget: res.data.data.widgetData, styles: res.data.data.widgetData.styles });
+    }).catch((error) => {
+      this.setState({ open: true, variant: 'error', message: 'Notification.error' });
+    });
+
+    axios.get(`${URL}/api/camera`).then((res) => {
+      this.setState({ cams: res.data.data.cameras.rows });
     }).catch((error) => {
       this.setState({ open: true, variant: 'error', message: 'Notification.error' });
     });
@@ -53,7 +60,7 @@ class EditWidgetVideoForm extends React.Component {
   showResult(values) {
     const data = {
       name: values.name,
-      data: values.data,
+      data: values.data.value,
       styles: {
         borderRadius: values.borderRadius,
         color: values.color,
@@ -70,8 +77,9 @@ class EditWidgetVideoForm extends React.Component {
   render() {
     const title = brand.name + ' - Form';
     const description = brand.desc;
-    const { message, variant, open, styles, widget } = this.state;
+    const { message, variant, open, styles, widget, cams } = this.state;
     const { t } = this.props;
+    const cam = cams.filter((cam) => cam.id === widget.data);
     return (
       <div>
         <Helmet>
@@ -88,6 +96,8 @@ class EditWidgetVideoForm extends React.Component {
               onSubmit={(values) => this.showResult(values)}
               styles={styles}
               widget={widget}
+              cams={cams}
+              camera={cam[0]}
             />
           </div>
         </PapperBlock>

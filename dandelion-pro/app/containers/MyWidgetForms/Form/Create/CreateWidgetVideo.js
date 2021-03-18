@@ -10,7 +10,11 @@ import { connect } from 'react-redux';
 import Button from '@material-ui/core/Button';
 import {
   TextFieldRedux,
+  SelectRedux
 } from 'dan-components/Forms/ReduxFormMUI';
+import InputLabel from '@material-ui/core/InputLabel';
+import FormControl from '@material-ui/core/FormControl';
+import MenuItem from '@material-ui/core/MenuItem';
 import { initAction, clearAction } from 'dan-redux/actions/reduxFormActions';
 import history from '../../../../utils/history';
 import { withTranslation } from 'react-i18next';
@@ -59,6 +63,7 @@ class CreateWidgetVideo extends Component {
       pristine,
       reset,
       submitting,
+      cams
     } = this.props;
     const { t } = this.props;
     return (
@@ -80,17 +85,19 @@ class CreateWidgetVideo extends Component {
                   />
                 </div>
                 <div>
-                  <Field
-                    name="data"
-                    component={TextFieldRedux}
-                    placeholder={t('AddWidgetVideo.url')}
-                    label={t('AddWidgetVideo.url')}
-                    validate={required}
-                    required
-                    ref={this.saveRef}
-                    className={classes.field}
-                  />
+                  <FormControl className={classes.field}>
+                    <InputLabel htmlFor="camera">{t('AddWidgetVideo.cams')}</InputLabel>
+                    <Field
+                      name="camera"
+                      component={SelectRedux}
+                      placeholder="Selection"
+                      required
+                    >
+                      {cams.map((c) => <MenuItem value={c.id}>{c.ip.length ? c.ip : c.username}</MenuItem>)}
+                    </Field>
+                  </FormControl>
                 </div>
+
                 <div>
                   <Button variant="contained" color="secondary" type="submit" disabled={submitting}>
                   {t('Buttons.submit')}

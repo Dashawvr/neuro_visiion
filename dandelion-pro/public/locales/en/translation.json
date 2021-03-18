@@ -121,7 +121,7 @@
     },
     "AddWidgetVideo": {
         "name": "Name",
-        "url": "RTSP",
+        "cams": "Camera",
         "title": "Create Widget Video"
     },
     "AddWidgetMap": {

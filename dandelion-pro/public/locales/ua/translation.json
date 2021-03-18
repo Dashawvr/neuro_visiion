@@ -123,7 +123,7 @@
     },
     "AddWidgetVideo": {
         "name": "Ім'я",
-        "url": "RTSP",
+        "url": "Камера",
         "title": "Створити віджет відео"
     },
     "AddWidgetMap": {

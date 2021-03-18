@@ -7,7 +7,10 @@ import Button from '@material-ui/core/Button';
 import history from '../../../../utils/history';
 import { withTranslation } from 'react-i18next';
 import TextField from '@material-ui/core/TextField';
-import { useForm } from "react-hook-form";
+import Typography from '@material-ui/core/Typography';
+import Select from "react-select";
+import { useForm, Controller } from "react-hook-form";
+import { connect } from 'react-redux';
 
 const styles = theme => ({
   root: {
@@ -20,6 +23,27 @@ const styles = theme => ({
   }
 });
 
+const customStyles = {
+  option: (provided, state) => ({
+    ...provided,
+    backgroundColor: state.isFocused ? "#343434" : "#292929",
+    color: 'white',
+  }),
+  control: (base, state) => ({
+    ...base,
+    background: "#292929",
+    color: '#fff',
+  }),
+  menuList: base => ({
+    ...base,
+    padding: 0
+  }),
+  singleValue: (provided) => ({
+    ...provided,
+    color: 'white'
+  })
+};
+
 const EditWidgetVideo = (props) => {
 
   const {
@@ -27,10 +51,18 @@ const EditWidgetVideo = (props) => {
     onSubmit,
     widget,
     styles,
+    cams,
+    camera,
     t
   } = props;
   
-  const { register, handleSubmit, errors } = useForm();
+  const { register, handleSubmit, control, errors } = useForm();
+
+  const selectOptions = [];
+
+  cams.map((cam) => {
+    selectOptions.push({value: cam.id, label: cam.ip ? cam.ip : cam.username});
+  });
 
     return (
       <div>
@@ -48,14 +80,21 @@ const EditWidgetVideo = (props) => {
                 defaultValue={widget.name} 
                 inputRef={register} />
 
-              <TextField 
-                label={'Data'} 
-                placeholder={'Data'} 
-                required 
-                className={classes.field} 
-                name="data" 
-                defaultValue={widget.data} 
-                inputRef={register} />
+              <Typography variant="subtitle2" gutterBottom>
+                Choose one Camera
+              </Typography>
+              <Controller
+                name="data"
+                label="Camera"
+                placeholder="Camera"
+                className={classes.field}
+                styles={props.mode === 'dark' ? customStyles : ''}
+                isSearchable={true}
+                defaultValue={{value: camera.id, label: camera.ip ? camera.ip : camera.username}}
+                control={control}
+                options={selectOptions}
+                as={Select}
+              />
 
               <hr/>
 
@@ -106,5 +145,8 @@ const EditWidgetVideo = (props) => {
       </div>
     );
   }
+  const mapStateToProps = (state) => ({
+    mode: state.getIn(['ui', 'type']),
+  })
 
-export default withStyles(styles)(withTranslation()(EditWidgetVideo));
+export default connect(mapStateToProps)(withStyles(styles)(withTranslation()(EditWidgetVideo)));

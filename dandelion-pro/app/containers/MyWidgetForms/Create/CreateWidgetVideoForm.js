@@ -31,6 +31,13 @@ class CreateWidgetVideoForm extends React.Component {
     variant: '',
     message: '',
     open: false,
+    cams: []
+  }
+
+  componentDidMount() {
+    axios.get(`${URL}/api/camera`).then((res) => {
+        this.setState({ cams: res.data.data.cameras.rows });
+    });
   }
 
   handleClose = (event, reason) => {
@@ -47,8 +54,8 @@ class CreateWidgetVideoForm extends React.Component {
       if (elem[0] === 'name') {
         name = elem[1];
       }
-      if (elem[0] === 'data') {
-        data = elem[1];
+      if (elem[0] === 'camera') {
+        data = Number(elem[1]);
       }
     });
     const user = JSON.parse(localStorage.getItem('user'));
@@ -77,7 +84,7 @@ class CreateWidgetVideoForm extends React.Component {
   render() {
     const title = brand.name + ' - Form';
     const description = brand.desc;
-    const { message, variant, open } = this.state;
+    const { message, variant, open, cams } = this.state;
     const { t } = this.props;
     return (
       <div>
@@ -91,7 +98,7 @@ class CreateWidgetVideoForm extends React.Component {
         </Helmet>
         <PapperBlock title={t('AddWidgetVideo.title')} icon="ios-list-box-outline">
           <div>
-            <CreateWidgetVideo onSubmit={(values) => this.showResult(values)} />
+            <CreateWidgetVideo onSubmit={(values) => this.showResult(values)} cams={cams} />
           </div>
         </PapperBlock>
         <Notification open={open} handleClose={() => this.handleClose()} variant={variant} message={t(message)} />
