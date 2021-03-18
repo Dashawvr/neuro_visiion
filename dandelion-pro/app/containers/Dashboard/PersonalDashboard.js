@@ -23,9 +23,11 @@ import { useBeforeunload } from 'react-beforeunload';
 const socketConnection = new SocketConnection();
 
 function PersonalDashboard(props) {
+
   const title = brand.name + ' - Personal Dashboard';
   const description = brand.desc;
   const { classes } = props;
+
   const user = JSON.parse(localStorage.getItem('user'))
 
 
@@ -43,6 +45,7 @@ function PersonalDashboard(props) {
   if (!user) {
     return <Redirect to="/"/>;
   }
+  
   return (
     <div>
       <Helmet>

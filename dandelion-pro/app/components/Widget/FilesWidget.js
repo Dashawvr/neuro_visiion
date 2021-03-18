@@ -59,11 +59,7 @@ function FilesWidget(props) {
                     <Typography variant="caption" gutterBottom>{t("FilesWidget.total")}</Typography>
                   </li>
                 </ul>
-              </div>
-            : info ?
-            <div>
-              <h6>{info}ed on your System</h6>
-            </div>
+              </div>          
             :
             (<CircularProgress className={classes.center} />)
           }
