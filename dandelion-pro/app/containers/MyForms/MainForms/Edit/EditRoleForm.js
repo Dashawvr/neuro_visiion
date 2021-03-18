@@ -57,9 +57,9 @@ class EditRoleForm extends React.Component {
       role: this.state.role.id,
     };
     PATCH.data = {
-      canCreateUser: values.create,
-      canDeleteUser: values.delete,
-      canUpdateUser: values.update,
+      can_create_user: values.create,
+      can_delete_user: values.delete,
+      can_update_user: values.update,
       roleId: this.state.role.id
     };
     axios.put(`${URL}/api/role/` + this.state.accessRight.roleId, PUT.data, {Authorization: localStorage.getItem('token')})

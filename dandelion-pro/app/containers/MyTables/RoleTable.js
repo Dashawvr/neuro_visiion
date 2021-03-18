@@ -26,20 +26,17 @@ class RoleTable extends Component {
   componentDidMount() {
     request(`${URL}/api/role`, GET).then((res) => {
       this.setState({ roles: res.data.roles.rows });
-      console.log(res.data.roles.rows);
     });
   }
 
   render() {
     const title = brand.name + ' - Table';
     const description = brand.desc;
-    // this.state.roles.map((role) => {
-    //   role.create = role.access_right.canCreateUser;
-    //   role.edit = role.access_right.canUpdateUser;
-    //   role.delete = role.access_right.canDeleteUser;
-    //   console.log('success');
-    // });
-    console.log(this.state.roles);
+    this.state.roles.map((role) => {
+      role.create = role.access_right.can_create_user;
+      role.edit = role.access_right.can_update_user;
+      role.delete = role.access_right.can_delete_user;
+    });
     return (
       <div>
         <Helmet>

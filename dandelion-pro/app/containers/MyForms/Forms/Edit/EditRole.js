@@ -63,7 +63,7 @@ const EditRole = (props) => {
               <Controller
                 name="create"
                 control={control}
-                defaultValue={access ? access.canCreateUser : false}
+                defaultValue={access ? access.can_create_user : false}
                 render={props =>
                   <Switch
                     onChange={e => props.onChange(e.target.checked)}
@@ -79,7 +79,7 @@ const EditRole = (props) => {
               <Controller
                 name="edit"
                 control={control}
-                defaultValue={access ? access.canUpdateUser : false}
+                defaultValue={access ? access.can_update_user : false}
                 render={props =>
                   <Switch
                     onChange={e => props.onChange(e.target.checked)}
@@ -95,7 +95,7 @@ const EditRole = (props) => {
                 <Controller
                   name="delete"
                   control={control}
-                  defaultValue={access ? access.canDeleteUser : false}
+                  defaultValue={access ? access.can_delete_user : false}
                   render={props =>
                     <Switch
                       onChange={e => props.onChange(e.target.checked)}

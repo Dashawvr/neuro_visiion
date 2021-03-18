@@ -61,9 +61,9 @@ class AddRoleForm extends React.Component {
       role: important,
     };
     const data = {
-      canCreateUser: create,
-      canUpdateUser: edit,
-      canDeleteUser: canDelete,
+      can_create_user: create,
+      can_update_user: edit,
+      can_delete_user: canDelete,
       roleId: null
     };
     await axios.post(`${URL}/api/role/`, POST.data).then((res) => {
