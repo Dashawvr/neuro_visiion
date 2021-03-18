@@ -126,7 +126,7 @@
     },
     "AddWidgetVideo": {
         "name": "Ім'я",
-        "url": "Камера",
+        "cams": "Камера",
         "title": "Створити віджет відео"
     },
     "AddWidgetMap": {

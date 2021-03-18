@@ -125,7 +125,7 @@
     },
     "AddWidgetVideo": {
         "name": "Имя",
-        "url": "Камера",
+        "cams": "Камера",
         "title": "Создать виджет камера"
     },
     "AddWidgetMap": {
