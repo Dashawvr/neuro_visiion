@@ -72,6 +72,15 @@ class EditWidgetVideoForm extends React.Component {
     }).catch((error) => {
       this.setState({ open: true, variant: 'error', message: 'Notification.error' });
     });
+    const coordData = {
+      width: values.width,
+      height: values.height
+    }
+    axios.patch(`${URL}/api/widget_coordinates/${this.state.widget.widgetCoordinatesId}`, coordData, {Authorization: localStorage.getItem('token')}).then(() => {
+      this.setState({ open: true, variant: 'success', message: 'Notification.success' });
+    }).catch((error) => {
+      this.setState({ open: true, variant: 'error', message: 'Notification.error' });
+    });
   }
 
   render() {

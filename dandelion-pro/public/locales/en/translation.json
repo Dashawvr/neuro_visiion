@@ -115,17 +115,41 @@
         "table": "Table",
         "roles": "Roles",
         "users": "Users",
-        "dashboards": "Dashboards"
+        "dashboards": "Dashboards",
+        "link": "Link",
+        "image": "Image",
+        "doc": "Document"
     },
     "AddWidgetText": {
         "name": "Name",
         "text": "Text",
         "title": "Create Widget Text"
     },
+    "AddWidgetDoc": {
+        "name": "Name",
+        "text": "Link to document",
+        "title": "Create Widget Document"
+    },
+    "AddWidgetLink": {
+        "name": "Name",
+        "text": "Link to site",
+        "title": "Create Widget Link"
+    },
+    "AddWidgetImage": {
+        "name": "Name",
+        "text": "Link to image",
+        "title": "Create Widget Image"
+    },
     "AddWidgetVideo": {
         "name": "Name",
         "cams": "Camera",
-        "title": "Create Widget Video"
+        "title": "Create Widget Video",
+        "height": "Height",
+        "width": "Width"
+    },
+    "EditVideo": {
+        "height": "Height",
+        "width": "Width"
     },
     "AddWidgetMap": {
         "name": "Name",
@@ -141,6 +165,18 @@
         "text": "Text",
         "map": "Map",
         "dashboard": "Dashboard"
+    },
+    "EditWidgetLink": {
+        "title": "Edit widget link",
+        "data": "Link"
+    },
+    "EditWidgetImage": {
+        "title": "Edit widget Image",
+        "data": "Link to image"
+    },
+    "EditWidgetDoc": {
+        "title": "Edit widget Document",
+        "data": "Link to document"
     },
     "EditWidgetTable": {
         "title": "Edit Widget Table",
@@ -311,5 +347,9 @@
         "delete": "Delete",
         "widget_1:": "You want to remove the widget: ",
         "widget_2:": " from the stage "
+    },
+    "RightSidebar": {
+        "title": "Handle Widgets on Scene",
+        "submit": "Submit"
     }
 }

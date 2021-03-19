@@ -11,7 +11,7 @@ import { Helmet } from 'react-helmet';
 import brand from 'dan-api/dummy/brand';
 import { withStyles } from '@material-ui/core/styles';
 import { PapperBlock } from 'dan-components';
-import CreateWidgetMap from '../Form/Create/CreateWidgetMap';
+import CreateWidgetDoc from '../Form/Create/CreateWidgetDoc';
 import { POST, URL } from '../../Axios/axiosForData';
 import Notification from '../../MyNotification/Notification';
 import { withRouter } from "react-router-dom";
@@ -26,7 +26,7 @@ const styles = ({
   }
 });
 
-class CreateWidgetMapForm extends React.Component {
+class CreateWidgetDocForm extends React.Component {
   state = {
     variant: '',
     message: '',
@@ -41,49 +41,42 @@ class CreateWidgetMapForm extends React.Component {
   };
 
   showResult(values) {
-    const user = JSON.parse(localStorage.getItem('user'));
-    let lon = null;
-    let lat = null;
     let name = null;
+    let data = null;
     values._root.entries.map((elem) => {
-      if (elem[0] === 'lat') {
-        lat = elem[1];
-      }
-      if (elem[0] === 'lon') {
-        lon = elem[1];
-      }
       if (elem[0] === 'name') {
         name = elem[1];
       }
+      if (elem[0] === 'data') {
+        data = elem[1];
+      }
     });
+    const user = JSON.parse(localStorage.getItem('user'));
+    console.log(user);
     POST.data = {
       type: parsed.get('type'),
       authorId: user.id,
-      data: {
-        lat,
-        lon,
-      },
+      data: data,
       name: name,
       widgetCoordinatesId: parsed.get('coordinatesId'),
       styles: {
         borderRadius: 0,
         color: '#000000',
         size: 5,
-        lat: lat,
-        lon: lon
       },
       z_index: 1,
     };
+    console.log(POST.data);
     axios.post(`${URL}/api/widget_data/`, POST.data, {Authorization: localStorage.getItem('token')}).then(() => {
       this.setState({ open: true, variant: 'success', message: 'Notification.success' });
     }).catch((error) => {
       this.setState({ open: true, variant: 'error', message: 'Notification.error' });
     });
-    // setTimeout(() => this.props.history.push('/home'), 1000);    
+    // setTimeout(() => this.props.history.push('/home'), 1000);  
   }
 
   render() {
-    const title = brand.name + ' - Map';
+    const title = brand.name + ' - Form';
     const description = brand.desc;
     const { message, variant, open } = this.state;
     const { t } = this.props;
@@ -97,9 +90,9 @@ class CreateWidgetMapForm extends React.Component {
           <meta property="twitter:title" content={title} />
           <meta property="twitter:description" content={description} />
         </Helmet>
-        <PapperBlock title={t('AddWidgetMap.title')}icon="ios-list-box-outline">
+        <PapperBlock title={t('AddWidgetDoc.title')} icon="ios-list-box-outline">
           <div>
-            <CreateWidgetMap onSubmit={(values) => this.showResult(values)} />
+            <CreateWidgetDoc onSubmit={(values) => this.showResult(values)} />
           </div>
         </PapperBlock>
         <Notification open={open} handleClose={() => this.handleClose()} variant={variant} message={t(message)} />
@@ -108,4 +101,4 @@ class CreateWidgetMapForm extends React.Component {
   }
 }
 
-export default withStyles(styles)(withRouter(withTranslation()(CreateWidgetMapForm)));
+export default withStyles(styles)(withRouter(withTranslation()(CreateWidgetDocForm)));

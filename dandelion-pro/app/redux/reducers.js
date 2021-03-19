@@ -23,6 +23,7 @@ import socmed from '../containers/SampleApps/Timeline/reducers/timelineReducer';
 import taskboard from '../containers/SampleApps/TaskBoard/reducers/taskboardReducer';
 import loginReducer from "./modules/loginReducer";
 import dashboards from "./modules/dashboards";
+import allDashboards from "./modules/allDashboards";
 import roles from "./modules/roles";
 import users from "./modules/users";
 import widget_data from "./modules/widget_data";
@@ -53,6 +54,7 @@ export default function createReducer(injectedReducers = {}) {
     users,
     roles,
     dashboards,
+    allDashboards,
     loginReducer,
     form,
     ui: uiReducer,

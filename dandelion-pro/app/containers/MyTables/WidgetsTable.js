@@ -40,13 +40,6 @@ class WidgetsTable extends Component {
   render() {
     const title = brand.name + ' - Table';
     const description = brand.desc;
-    this.state.widgets.map((widget) => {
-      this.state.dashboards.map((dashboard) => {
-        if (dashboard.id === widget.dashboardId) {
-          widget.dashboardId = dashboard.name;
-        }
-      });
-    });
 
     this.state.widgets.map((widget) => {
       this.state.users.map((user) => {
@@ -75,7 +68,7 @@ class WidgetsTable extends Component {
         </Helmet>
 
         <div>
-          <Widgets data={this.state.widgets} />
+          <Widgets data={this.state.widgets}/>
         </div>
       </div>
     );

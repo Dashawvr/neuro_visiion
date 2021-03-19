@@ -1,24 +1,22 @@
-/* eslint-disable react/no-unused-state */
-/* eslint-disable prefer-destructuring */
-/* eslint-disable react/destructuring-assignment */
-/* eslint-disable array-callback-return */
-/* eslint-disable react/no-unused-state */
 /* eslint-disable class-methods-use-this */
 /* eslint-disable no-restricted-globals */
+/* eslint-disable react/prop-types */
+/* eslint-disable array-callback-return */
+/* eslint-disable no-param-reassign */
+/* eslint-disable react/no-unused-state */
+/* eslint-disable react/destructuring-assignment */
 /* eslint-disable no-unused-vars */
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import brand from 'dan-api/dummy/brand';
 import { withStyles } from '@material-ui/core/styles';
 import { PapperBlock } from 'dan-components';
-import CreateWidgetText from '../Form/Create/CreateWidgetText';
-import { POST, URL } from '../../Axios/axiosForData';
+import queryString from 'query-string';
+import EditWidgetDoc from '../Form/Edit/EditWidgetDoc';
+import { URL } from '../../Axios/axiosForData';
 import Notification from '../../MyNotification/Notification';
-import { withRouter } from "react-router-dom";
 import axios from 'axios';
 import { withTranslation } from 'react-i18next';
-
-const parsed = new URLSearchParams(window.location.search);
 
 const styles = ({
   root: {
@@ -26,11 +24,23 @@ const styles = ({
   }
 });
 
-class CreateWidgetTextForm extends React.Component {
+class EditWidgetDocForm extends React.Component {
   state = {
     variant: '',
     message: '',
     open: false,
+    widget: {},
+    styles: {},
+  }
+
+  parsed = queryString.parse(location.search);
+
+  componentDidMount() {
+    axios.get(`${URL}/api/widget_data/${this.parsed.widgetId}`).then((res) => {
+      this.setState({ widget: res.data.data.widgetData, styles: res.data.data.widgetData.styles });
+    }).catch((error) => {
+      this.setState({ open: true, variant: 'error', message: 'Notification.error' });
+    });
   }
 
   handleClose = (event, reason) => {
@@ -40,45 +50,29 @@ class CreateWidgetTextForm extends React.Component {
     this.setState({ open: false });
   };
 
-  showResult(values) {
-    let name = null;
-    let data = null;
-    values._root.entries.map((elem) => {
-      if (elem[0] === 'name') {
-        name = elem[1];
-      }
-      if (elem[0] === 'data') {
-        data = elem[1];
-      }
-    });
-    const user = JSON.parse(localStorage.getItem('user'));
-    console.log(user);
-    POST.data = {
-      type: parsed.get('type'),
-      authorId: user.id,
-      data: data,
-      name: name,
-      widgetCoordinatesId: parsed.get('coordinatesId'),
+  showResult(values) {    
+    const data = {
+      name: values.name,
+      data: values.data,
       styles: {
-        borderRadius: 0,
-        color: '#000000',
-        size: 5,
-      },
-      z_index: 1,
-    };
-    console.log(POST.data);
-    axios.post(`${URL}/api/widget_data/`, POST.data, {Authorization: localStorage.getItem('token')}).then(() => {
+        borderRadius: values.borderRadius,
+        color: values.color,
+        size: values.size,
+        speed: values.speed,
+        fontSize: values.fontSize,
+      }      
+    }
+    axios.patch(`${URL}/api/widget_data/${this.parsed.widgetId}`, data, {Authorization: localStorage.getItem('token')}).then(() => {
       this.setState({ open: true, variant: 'success', message: 'Notification.success' });
     }).catch((error) => {
       this.setState({ open: true, variant: 'error', message: 'Notification.error' });
     });
-    // setTimeout(() => this.props.history.push('/home'), 1000);  
   }
 
   render() {
     const title = brand.name + ' - Form';
     const description = brand.desc;
-    const { message, variant, open } = this.state;
+    const { message, variant, open, styles, widget } = this.state;
     const { t } = this.props;
     return (
       <div>
@@ -90,9 +84,13 @@ class CreateWidgetTextForm extends React.Component {
           <meta property="twitter:title" content={title} />
           <meta property="twitter:description" content={description} />
         </Helmet>
-        <PapperBlock title={t('AddWidgetText.title')} icon="ios-list-box-outline">
+        <PapperBlock title={t('EditWidgetDoc.title')} icon="ios-list-box-outline">
           <div>
-            <CreateWidgetText onSubmit={(values) => this.showResult(values)} />
+            <EditWidgetDoc
+              onSubmit={(values) => this.showResult(values)}
+              styles={styles}
+              widget={widget}
+            />
           </div>
         </PapperBlock>
         <Notification open={open} handleClose={() => this.handleClose()} variant={variant} message={t(message)} />
@@ -101,4 +99,4 @@ class CreateWidgetTextForm extends React.Component {
   }
 }
 
-export default withStyles(styles)(withRouter(withTranslation()(CreateWidgetTextForm)));
+export default withStyles(styles)(withTranslation()(EditWidgetDocForm));

@@ -69,12 +69,14 @@ class AddGroup extends Component {
       t,
       getUsers,
     } = this.props;
+    
     const handleChangeMulti = (value) => {
       this.setState({selectUsers: value}, () => {
         getUsers(this.state.selectUsers);
       });
       console.log(this.state.selectUsers);
     };
+
     return (
       <div>
         <Grid container spacing={3} alignItems="flex-start" direction="row" justify="center">

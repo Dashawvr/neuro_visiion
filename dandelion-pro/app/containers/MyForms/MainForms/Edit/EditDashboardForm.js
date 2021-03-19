@@ -33,6 +33,7 @@ class EditDashboardForm extends React.Component {
     role: null,
     users: [],
     roles: [],
+    widgets: [],
     dashboard: {},
   }
 
@@ -54,6 +55,11 @@ class EditDashboardForm extends React.Component {
     }).catch((error) => {
       this.setState({ open: true, variant: 'error', message: 'Notification.error' });
     });
+    request(`${URL}/api/widget_data`, GET).then((res) => {
+      this.setState({ widgets: res.data.WidgetDates.rows });
+    }).catch((error) => {
+      this.setState({ open: true, variant: 'error', message: 'Notification.error' });
+    });
   }
 
   handleClose = (event, reason) => {
@@ -64,11 +70,18 @@ class EditDashboardForm extends React.Component {
   };
 
   showResult(values) {
+    const selectWidgets = [];
+    if (values.widgets) {
+      values.widgets.map((widget) => {
+        selectWidgets.push(widget.value);
+      });
+    }
     PUT.data = {
       enable: values.active,
       roleId: values.role.value,
       userId: values.user.value,
-      name: values.name
+      name: values.name,
+      widget_dates: selectWidgets
     };
     axios.put(`${URL}/api/dashboard/${this.parsed.id}`, PUT.data, {Authorization: localStorage.getItem('token')}).then(() => {
       this.setState({ open: true, variant: 'success', message: 'Notification.success' });
@@ -105,7 +118,9 @@ class EditDashboardForm extends React.Component {
             user={this.state.user} 
             role={ this.state.role} 
             name={this.state.dashboard.name}            
-            enable={this.state.dashboard.enable}             
+            enable={this.state.dashboard.enable}
+            widgets={this.state.widgets}
+            selectWidgets={this.state.dashboard.widgetdates}             
             />
           </div>
         </PapperBlock>

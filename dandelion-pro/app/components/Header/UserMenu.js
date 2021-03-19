@@ -23,6 +23,7 @@ import styles from './header-jss';
 import { connect } from 'react-redux';
 import '../../NVision-Pages/Dashboard/app.css'
 import { getDashboards } from "../../redux/actions/dashboards";
+import { getAllDashboards } from "../../redux/actions/allDashboards";
 import { onOpen } from "../../redux/actions/rightSidebar";
 import { URL } from '../../containers/Axios/axiosForData';
 import { SocketConnection } from "../../api/socket";
@@ -40,7 +41,7 @@ function UserMenu(props) {
     anchorElLanguage: null,
     openMenuLanguage: null
   });
-
+const [user, setUser] = useState({});
   const history = useHistory()
 
   const handleMenu = menu => (event) => {
@@ -80,13 +81,14 @@ function UserMenu(props) {
 
 
   useEffect(() => {
-    const user = JSON.parse(localStorage.getItem('user'))
-    props.getDash(user.id)
+    const user = JSON.parse(localStorage.getItem('user'));
+    setUser(user);
+    props.getDash(user.id);
+    props.getAllDash();
   }, [])
 
 
-  const { classes, dark, dashboards, location } = props;
-
+  const { classes, dark, dashboards, allDashboards, location } = props;
   const { anchorEl, openMenu } = menuState;
   const { anchorElLanguage, openMenuLanguage } = languageState;
   return (
@@ -108,10 +110,17 @@ function UserMenu(props) {
         color="inherit"
         className={classNames(classes.notifIcon, dark ? classes.dark : classes.light)}
       >
+      {user.roleId === 1 || user.roleId === 2 ?
+        <Badge className={classes.badge} badgeContent={allDashboards ? allDashboards.data.data.Dashboards.rows.length : ''}
+               color="secondary">
+          <i className={`ion-ios-monitor ${location ? 'black' : ''}`}/>
+        </Badge>
+        :
         <Badge className={classes.badge} badgeContent={dashboards ? dashboards.data.data.dashboard.rows.length : ''}
                color="secondary">
           <i className={`ion-ios-monitor ${location ? 'black' : ''}`}/>
         </Badge>
+      }
       </IconButton>
       <Menu
         id="menu-language"
@@ -183,9 +192,9 @@ function UserMenu(props) {
         open={openMenu === 'notification'}
         onClose={handleClose}
       >
-        {
-          dashboards ?
-            (dashboards.data.data.dashboard.rows.map((el) => {
+        { user.roleId === 1 || user.roleId === 2 ?
+        allDashboards &&
+          (allDashboards.data.data.Dashboards.rows.map((el) => {
               return (
                 <div key={el.id}>
                   <MenuItem onClick={() => {
@@ -199,8 +208,24 @@ function UserMenu(props) {
                   <Divider variant="inset"/>
                 </div>
               )
-            })) : ''
-        }
+            }))
+            :
+            dashboards &&
+              (dashboards.data.data.dashboard.rows.map((el) => {
+              return (
+                <div key={el.id}>
+                  <MenuItem onClick={() => {
+                    history.push(`/home/dashboard/${el.id}`)
+                    handleClose()
+                  }}>
+                    <div className={messageStyles.messageInfo}>
+                      <ListItemText primary={`${el.name}`} secondary={el.createdAt}/>
+                    </div>
+                  </MenuItem>
+                  <Divider variant="inset"/>
+                </div>
+              )
+            }))}
       </Menu>
       <Button onClick={handleMenu('user-setting')}>
         <Avatar
@@ -244,10 +269,12 @@ UserMenu.defaultProps = {
 
 const mapStateToProps = (state) => ({
   dashboards: state.get('dashboards').dashboards,
+  allDashboards: state.get('allDashboards').dashboards,
   rightSidebar: state.get('rightSidebar').open
 })
 
 export default connect(mapStateToProps, {
   getDash: getDashboards,
+  getAllDash: getAllDashboards,
   onOpen: onOpen
 })(withStyles(styles)(UserMenu));

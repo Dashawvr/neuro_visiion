@@ -11,9 +11,8 @@ import { withTranslation } from 'react-i18next';
 
 const Dashboard = (props) => {
   const [widgets, setWidgets] = useState([]);
-  const [widgetsForTable, setWidgetsForTable] = useState([]);
-  const [users, setUsers] = useState([]);
-  const [dashboards, setDashboards] = useState([]);
+  const [allWidgets, setAllWidgets] = useState([]);
+  const [dashboard, setDashboard] = useState([]);
   const history = useHistory();
 
   const id = history.location.pathname.split('/')[3]
@@ -23,46 +22,24 @@ const Dashboard = (props) => {
       await axios
         .get(`${URL}/api/dashboard/${id}`)
         .then((res) => {
-          setWidgets(res.data.data.Dashboard.widget_data);
+          setWidgets(res.data.data.Dashboard.widgetdates);
         });
-      request(`${URL}/api/dashboard/${id}`, GET).then((res) => {
-        setWidgetsForTable(res.data.Dashboard.widget_data);
-      });
-      request(`${URL}/api/dashboard`, GET).then((res) => {
-        setDashboards(res.data.Dashboards.rows);
-      });
-      request(`${URL}/api/users`, GET).then((res) => {
-        setUsers(res.data.users.rows);
+      
+      await axios
+        .get(`${URL}/api/dashboard/${id}`)
+        .then((res) => {
+          setDashboard(res.data.data.Dashboard);
+        });
+
+      await axios
+        .get(`${URL}/api/widget_data`)
+        .then((res) => {
+          setAllWidgets(res.data.data.WidgetDates.rows);
       });
     }
     getWidgets();
   }, [history.location.pathname]);
 
-
-  widgetsForTable.map((widget) => {
-    dashboards.map((dashboard) => {
-      if (dashboard.id === widget.dashboardId) {
-        widget.dashboardId = dashboard.name;
-      }
-    });
-  });
-
-  widgetsForTable.map((widget) => {
-    users.map((user) => {
-      if (user.id === widget.authorId) {
-        widget.authorId = user.name;
-      }
-    });
-  });
-
-  widgetsForTable.map((widget) => {
-      if (widget.type === 'table') {
-          widget.data = widget.name;
-      }
-      if (widget.type === 'map') {
-          widget.data = widget.name;
-      }
-  });
 
   const defaultCoordinates = {
     x: 10,
@@ -97,7 +74,7 @@ const Dashboard = (props) => {
           :
             <></>
           }
-      <RightSidebar widgets={widgetsForTable}/>
+      <RightSidebar widgets={widgets} allWidgets={allWidgets} dashboardId={id} dashboard={dashboard} />
     </Fragment>
   );
 };

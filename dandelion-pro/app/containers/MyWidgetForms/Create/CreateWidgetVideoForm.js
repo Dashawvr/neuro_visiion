@@ -50,12 +50,20 @@ class CreateWidgetVideoForm extends React.Component {
   showResult(values) {
     let name = null;
     let data = null;
+    let width = null;
+    let height = null;
     values._root.entries.map((elem) => {
       if (elem[0] === 'name') {
         name = elem[1];
       }
       if (elem[0] === 'camera') {
         data = Number(elem[1]);
+      }
+      if (elem[0] === 'width') {
+        width = `${elem[1]}px`;
+      }
+      if (elem[0] === 'height') {
+        height = `${elem[1]}px`;
       }
     });
     const user = JSON.parse(localStorage.getItem('user'));
@@ -64,7 +72,6 @@ class CreateWidgetVideoForm extends React.Component {
       authorId: user.id,
       data: data,
       name: name,
-      dashboardId: parsed.get('dashboardId'),
       widgetCoordinatesId: parsed.get('coordinatesId'),
       styles: {
         borderRadius: 0,
@@ -74,6 +81,15 @@ class CreateWidgetVideoForm extends React.Component {
       z_index: 1,
     };
     axios.post(`${URL}/api/widget_data/`, POST.data, {Authorization: localStorage.getItem('token')}).then(() => {
+      this.setState({ open: true, variant: 'success', message: 'Notification.success' });
+    }).catch((error) => {
+      this.setState({ open: true, variant: 'error', message: 'Notification.error' });
+    });
+    const coordData = {
+      width: width,
+      height: height
+    };
+    axios.patch(`${URL}/api/widget_coordinates/${parsed.get('coordinatesId')}`, coordData, {Authorization: localStorage.getItem('token')}).then(() => {
       this.setState({ open: true, variant: 'success', message: 'Notification.success' });
     }).catch((error) => {
       this.setState({ open: true, variant: 'error', message: 'Notification.error' });

@@ -33,6 +33,8 @@ class AddDashboardForm extends React.Component {
     open: false,
     roles: [],
     users: [],
+    widgets: [],
+    selectedWidgets: []
   }
 
   componentDidMount() {
@@ -42,6 +44,9 @@ class AddDashboardForm extends React.Component {
     request(`${URL}/api/role/`, GET).then((res) => {
       this.setState({ roles: res.data.roles.rows });
     });
+    request(`${URL}/api/widget_data`, GET).then((res) => {
+      this.setState({ widgets: res.data.WidgetDates.rows });
+  });
   }
 
   handleClose = (event, reason) => {
@@ -56,6 +61,7 @@ class AddDashboardForm extends React.Component {
     let roleId = null;
     let userId = null;
     let name = null;
+    let widgetsSel = [];
     values._root.entries.map((elem) => {
       if (elem[0] === 'active') {
         active = elem[1];
@@ -70,11 +76,17 @@ class AddDashboardForm extends React.Component {
         name = elem[1];
       }
     });
+
+    this.state.selectedWidgets.map(widget => {
+      widgetsSel.push(widget.value);
+    })
+
     POST.data = {
       enable: active,
       roleId: roleId,
       userId: userId,
       name: name,
+      widget_dates: widgetsSel
     };
     axios.post(`${URL}/api/dashboard/`, POST.data, {Authorization: localStorage.getItem('token')}).then(() => {
       this.setState({ open: true, variant: 'success', message: 'Notification.success' });
@@ -86,8 +98,11 @@ class AddDashboardForm extends React.Component {
   render() {
     const title = brand.name + ' - Form';
     const description = brand.desc;
-    const { message, variant, open } = this.state;
+    const { message, variant, open, roles, users, widgets } = this.state;
     const { t } = this.props;
+    const getWidgets = (values) => {
+      this.setState({selectedWidgets: values});
+    }
     return (
       <div>
         <Helmet>
@@ -100,7 +115,7 @@ class AddDashboardForm extends React.Component {
         </Helmet>
         <PapperBlock title={t('AddDashboard.title')} icon="ios-list-box-outline">
           <div>
-            <AddDashboard onSubmit={(values) => this.showResult(values)} users={this.state.users} roles={this.state.roles} />
+            <AddDashboard onSubmit={(values) => this.showResult(values)} users={users} roles={roles} widgets={widgets} getWidgets={getWidgets} />
           </div>
         </PapperBlock>
         <Notification open={open} handleClose={() => this.handleClose()} variant={variant} message={t(message)} />

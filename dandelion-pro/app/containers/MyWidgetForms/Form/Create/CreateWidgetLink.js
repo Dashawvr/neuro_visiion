@@ -1,20 +1,15 @@
-/* eslint-disable react/prop-types */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import { Field, reduxForm } from 'redux-form/immutable';
-import MenuItem from '@material-ui/core/MenuItem';
 import Grid from '@material-ui/core/Grid';
 import RadioGroup from '@material-ui/core/RadioGroup';
-import FormControl from '@material-ui/core/FormControl';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Button from '@material-ui/core/Button';
-import InputLabel from '@material-ui/core/InputLabel';
 import {
-  SelectRedux,
-  // TextFieldRedux,
+  TextFieldRedux,
 } from 'dan-components/Forms/ReduxFormMUI';
 import { initAction, clearAction } from 'dan-redux/actions/reduxFormActions';
 import history from '../../../../utils/history';
@@ -28,6 +23,9 @@ const renderRadioGroup = ({ input, ...rest }) => (
     onChange={(event, value) => input.onChange(value)}
   />
 );
+
+// validation functions
+const required = value => (value == null ? 'Required' : undefined);
 
 const styles = theme => ({
   root: {
@@ -53,7 +51,7 @@ const styles = theme => ({
   },
 });
 
-class AddWidget extends Component {
+class CreateWidgetLink extends Component {
   render() {
     const {
       classes,
@@ -69,24 +67,29 @@ class AddWidget extends Component {
           <Grid item xs={12} md={6}>
             <Paper className={classes.root}>
               <form onSubmit={handleSubmit}>
+              <div>
+                  <Field
+                    name="name"
+                    component={TextFieldRedux}
+                    placeholder={t('AddWidgetText.name')}
+                    label={t('AddWidgetText.name')}
+                    validate={required}
+                    required
+                    ref={this.saveRef}
+                    className={classes.field}
+                  />
+                </div>
                 <div>
-                  <FormControl className={classes.field}>
-                    <InputLabel htmlFor="widgetType">{t('AddWidget.type')}</InputLabel>
-                    <Field
-                      name="widgetType"
-                      component={SelectRedux}
-                      placeholder={t('AddWidget.type')}
-                      required
-                    >
-                      <MenuItem value="table">{t('AddWidget.table')}</MenuItem>
-                      <MenuItem value="video">{t('AddWidget.video')}</MenuItem>
-                      <MenuItem value="text">{t('AddWidget.text')}</MenuItem>
-                      <MenuItem value="map">{t('AddWidget.map')}</MenuItem>
-                      <MenuItem value="doc">{t('AddWidget.doc')}</MenuItem>
-                      <MenuItem value="link">{t('AddWidget.link')}</MenuItem>
-                      <MenuItem value="image">{t('AddWidget.image')}</MenuItem>
-                    </Field>
-                  </FormControl>
+                  <Field
+                    name="data"
+                    component={TextFieldRedux}
+                    placeholder={t('AddWidgetLink.text')}
+                    label={t('AddWidgetLink.text')}
+                    validate={required}
+                    required
+                    ref={this.saveRef}
+                    className={classes.field}
+                  />
                 </div>
                 <div>
                   <Button variant="contained" color="secondary" type="submit" disabled={submitting}>
@@ -99,7 +102,7 @@ class AddWidget extends Component {
                   >
                     {t('Buttons.reset')}
                   </Button>
-                  <Button variant="contained" color="primary" onClick={() => history.goBack()}>
+                  <Button variant="contained" color="primary" onClick={() => history.push('/home')}>
                   {t('Buttons.cancel')}
                   </Button>
                 </div>
@@ -116,7 +119,7 @@ renderRadioGroup.propTypes = {
   input: PropTypes.object.isRequired,
 };
 
-AddWidget.propTypes = {
+CreateWidgetLink.propTypes = {
   classes: PropTypes.object.isRequired,
   handleSubmit: PropTypes.func.isRequired,
   reset: PropTypes.func.isRequired,
@@ -130,9 +133,9 @@ const mapDispatchToProps = dispatch => ({
 });
 
 const ReduxFormMapped = reduxForm({
-  form: 'addWidget',
+  form: 'immutableExample',
   enableReinitialize: true,
-})(AddWidget);
+})(CreateWidgetLink);
 
 const reducer = 'initval';
 const FormInit = connect(

@@ -57,7 +57,6 @@ class CreateWidgetTableForm extends React.Component {
       authorId: user.id,
       data: data,
       name: name,
-      dashboardId: parsed.get('dashboardId'),
       widgetCoordinatesId: parsed.get('coordinatesId'),
       styles: {
         borderRadius: 0,

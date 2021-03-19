@@ -203,13 +203,26 @@ class Widgets extends React.Component {
                     filter: true,
                     }
                 },
-                {
-                    name: 'dashboardId',
-                    label: t('TableWidgets.dashboard'),
-                    options: {
-                    filter: true,
-                    }
-                }
+                // {
+                //     name: 'dashboards',
+                //     label: t('TableWidgets.dashboard'),
+                //     options: {
+                //       filter: true,
+                //       customBodyRender: (value) => {
+                //         if (value.length) {
+                //           return (<div>
+                //             {
+                //               value.map((dash) => {
+                //                 return <Chip label={dash.name} style={{marginRight: 5}} color="primary" />
+                //               })
+                //             }
+                //           </div>)              
+                //         } else {
+                //           return (<Chip label="Nothing" color="secondary" />);
+                //         }
+                //       }
+                //     }
+                // }
                 ]}
                 options={options}
             />

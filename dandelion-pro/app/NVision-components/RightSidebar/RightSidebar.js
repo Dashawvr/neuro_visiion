@@ -2,32 +2,150 @@ import React from 'react';
 import Widgets from '../../containers/MyTables/Tables/Widgets';
 import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
+import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
-import Divider from '@material-ui/core/Divider';
+import history from '../../utils/history';
+import { withTranslation } from 'react-i18next';
+import Typography from '@material-ui/core/Typography';
+import TextField from '@material-ui/core/TextField';
+import Select from "react-select";
+import { useForm, Controller } from "react-hook-form";
 import { connect } from 'react-redux';
 import { onOpen } from "../../redux/actions/rightSidebar";
+import { withStyles } from '@material-ui/core/styles';
+import axios from "axios";
+import {URL, POST, PUT, PATCH} from '../../containers/Axios/axiosForData';
 
-const useStyles = makeStyles({
+const styles = theme => ({
+  field: {
+    width: '100%',
+    marginBottom: 20
+  },
   drawer: {
-    width: '70rem',
-  }
+    width: '60rem',
+    padding: 30,
+  },
+  button: {
+    marginTop: '15px',
+  },
 });
 
+const customStyles = {
+  option: (provided, state) => ({
+    ...provided,
+    backgroundColor: state.isFocused ? "#343434" : "#292929",
+    color: 'white',
+  }),
+  control: (base, state) => ({
+    ...base,
+    background: "#292929",
+    color: '#fff',
+  }),
+  menuList: base => ({
+    ...base,
+    padding: 0
+  }),
+  singleValue: (provided) => ({
+    ...provided,
+    color: 'white'
+  })
+};
+
 const RightSidebar = (props) => {
-  const classes = useStyles();
+  const {
+    classes,
+    widgets,
+    allWidgets,
+    rightSidebar,
+    onOpen,
+    dashboardId,
+    dashboard,
+    t,
+  } = props;
+  
+  const { register, handleSubmit, control, errors } = useForm();
+
+  const listWidgets = [];
+  const selectedWidgets = [];
+
+  allWidgets.map(widget => {
+    listWidgets.push({value: widget.id, label: widget.name});
+  });
+
+  if (widgets) {
+    widgets.map((widget) => {
+      selectedWidgets.push({value: widget.id, label: widget.name});
+    });
+  }
+
+  const onSubmit = (values) => {
+    const selectWidgets = [];
+    if (values.widgets) {
+      values.widgets.map((widget) => {
+        selectWidgets.push(widget.value);
+      });
+      
+      console.log(selectWidgets);
+      
+      const data = {
+        roleId: dashboard.roleId,
+        userId: dashboard.userId,
+        enable: dashboard.enable,
+        name: dashboard.name,
+        widget_dates: selectWidgets
+      }
+      axios.put(`${URL}/api/dashboard/${dashboardId}`, data)
+    } else {
+      const data = {
+        roleId: dashboard.roleId,
+        userId: dashboard.userId,
+        enable: dashboard.enable,
+        name: dashboard.name,
+        widget_dates: []
+      }
+      axios.put(`${URL}/api/dashboard/${dashboardId}`, data)
+    }
+  }
+
   return (         
-    <Drawer anchor='right' open={props.rightSidebar.open} onClose={() => props.onOpen(!props.rightSidebar.open)}>
+    <Drawer anchor='right' open={rightSidebar.open} onClose={() => onOpen(!rightSidebar.open)}>
+          <Widgets data={widgets} />
       <div className={classes.drawer}>
-        <Widgets data={props.widgets} />
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <Typography variant="subtitle2" gutterBottom>              
+              {t('RightSidebar.title')}
+            </Typography>
+            <Controller
+              isMulti
+              name="widgets"
+              label="Widgets"
+              placeholder="Widgets"
+              className={classes.field}
+              styles={props.mode === 'dark' ? customStyles : ''}
+              isSearchable={true}
+              defaultValue={selectedWidgets}
+              control={control}
+              options={listWidgets}
+              as={Select}
+            />
+            <div className={classes.button}>
+              <Button variant="contained" color="secondary" type="submit">
+                {t('RightSidebar.submit')}
+              </Button>
+            </div>
+          </form>
       </div>
     </Drawer>
   );
 }
 
+
 const mapStateToProps = (state) => ({
-  rightSidebar: state.get('rightSidebar').open
+  rightSidebar: state.get('rightSidebar').open,
+  mode: state.getIn(['ui', 'type'])
 })
 
 export default connect(mapStateToProps, {
   onOpen: onOpen
-})(RightSidebar);
+})(withStyles(styles)(withTranslation()(RightSidebar)));

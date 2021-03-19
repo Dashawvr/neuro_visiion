@@ -310,9 +310,114 @@ const Widget = (props) => {
       } else {
         return <></>;
       }
+
+      case "doc":        
+        return (
+          <Rnd
+            className="widgetVideo"
+            onDoubleClick={handleDoubleClick}
+            bounds="window"
+            style={{
+              zIndex: zIndex.zIndex,
+              border: `${props.styles.size}px solid ${props.styles.color}`,
+              borderRadius: props.styles.borderRadius,
+              backgroundColor: props.styles.color,
+            }}
+            default={{
+              x: props.coordinate.x,
+              y: props.coordinate.y,
+              width: props.coordinate.width,
+              height: props.coordinate.height,
+            }}
+            onDragStop={(e, d) => {
+              setCoordinates({...coordinates, x: d.x, y: d.y });
+            }}
+            onResizeStop={(e, direction, ref, delta, position) => {
+              setCoordinates({
+                width: ref.style.width,
+                height: ref.style.height,
+                ...position,
+              });
+            }}
+          >
+            <div onDoubleClick={handleDoubleClick}>
+              <iframe width='100%' height={coordinates.height} src={props.data ? props.data : ""} ></iframe>
+            </div>            
+          </Rnd>
+        );
+
+      case "link":        
+        return (
+          <Rnd
+            className="widgetVideo"
+            onDoubleClick={handleDoubleClick}
+            bounds="window"
+            style={{
+              zIndex: zIndex.zIndex,
+              border: `${props.styles.size}px solid ${props.styles.color}`,
+              borderRadius: props.styles.borderRadius,
+              backgroundColor: props.styles.color,
+            }}
+            default={{
+              x: props.coordinate.x,
+              y: props.coordinate.y,
+              width: props.coordinate.width,
+              height: props.coordinate.height,
+            }}
+            onDragStop={(e, d) => {
+              setCoordinates({...coordinates, x: d.x, y: d.y });
+            }}
+            onResizeStop={(e, direction, ref, delta, position) => {
+              setCoordinates({
+                width: ref.style.width,
+                height: ref.style.height,
+                ...position,
+              });
+            }}
+          >
+            <div onDoubleClick={handleDoubleClick}>
+              <iframe width='100%' height={coordinates.height} src={props.data ? props.data : ""} ></iframe>
+            </div>            
+          </Rnd>
+        );
         
+      case "image":        
+        return (
+          <Rnd
+            className="widgetVideo"
+            onDoubleClick={handleDoubleClick}
+            bounds="window"
+            style={{
+              zIndex: zIndex.zIndex,
+              border: `${props.styles.size}px solid ${props.styles.color}`,
+              borderRadius: props.styles.borderRadius,
+              backgroundColor: props.styles.color,
+            }}
+            default={{
+              x: props.coordinate.x,
+              y: props.coordinate.y,
+              width: props.coordinate.width,
+              height: props.coordinate.height,
+            }}
+            onDragStop={(e, d) => {
+              setCoordinates({...coordinates, x: d.x, y: d.y });
+            }}
+            onResizeStop={(e, direction, ref, delta, position) => {
+              setCoordinates({
+                width: ref.style.width,
+                height: ref.style.height,
+                ...position,
+              });
+            }}
+          >
+            <div onDoubleClick={handleDoubleClick}>
+              <iframe width='100%' height={coordinates.height} src={props.data ? props.data : ""} ></iframe>
+            </div>            
+          </Rnd>
+        );
+         
     default:
-     return(<></>)
+      return(<></>)
   }
 };
 export default Widget;

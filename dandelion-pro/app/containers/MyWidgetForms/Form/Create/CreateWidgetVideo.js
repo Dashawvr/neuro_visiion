@@ -85,6 +85,30 @@ class CreateWidgetVideo extends Component {
                   />
                 </div>
                 <div>
+                  <Field
+                    name="width"
+                    component={TextFieldRedux}
+                    placeholder={t('AddWidgetVideo.width')}
+                    label={t('AddWidgetVideo.width')}
+                    validate={required}
+                    required
+                    ref={this.saveRef}
+                    className={classes.field}
+                  />
+                </div>
+                <div>
+                  <Field
+                    name="height"
+                    component={TextFieldRedux}
+                    placeholder={t('AddWidgetVideo.height')}
+                    label={t('AddWidgetVideo.height')}
+                    validate={required}
+                    required
+                    ref={this.saveRef}
+                    className={classes.field}
+                  />
+                </div>
+                <div>
                   <FormControl className={classes.field}>
                     <InputLabel htmlFor="camera">{t('AddWidgetVideo.cams')}</InputLabel>
                     <Field

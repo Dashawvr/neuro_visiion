@@ -7,10 +7,7 @@ import Button from '@material-ui/core/Button';
 import history from '../../../../utils/history';
 import { withTranslation } from 'react-i18next';
 import TextField from '@material-ui/core/TextField';
-import Typography from '@material-ui/core/Typography';
-import Select from "react-select";
-import { useForm, Controller } from "react-hook-form";
-import { connect } from 'react-redux';
+import { useForm } from "react-hook-form";
 
 const styles = theme => ({
   root: {
@@ -19,58 +16,28 @@ const styles = theme => ({
   },
   field: {
     width: '100%',
-    marginBottom: 20
+    marginBottom: 20,
   }
 });
 
-const customStyles = {
-  option: (provided, state) => ({
-    ...provided,
-    backgroundColor: state.isFocused ? "#343434" : "#292929",
-    color: 'white',
-  }),
-  control: (base, state) => ({
-    ...base,
-    background: "#292929",
-    color: '#fff',
-  }),
-  menuList: base => ({
-    ...base,
-    padding: 0
-  }),
-  singleValue: (provided) => ({
-    ...provided,
-    color: 'white'
-  })
-};
-
-const EditWidgetVideo = (props) => {
-
+const EditWidgetLink = (props) => {
   const {
     classes,
     onSubmit,
     widget,
     styles,
-    cams,
-    camera,
-    t
+    t,
   } = props;
-  
-  const { register, handleSubmit, control, errors } = useForm();
 
-  const selectOptions = [];
-
-  cams.map((cam) => {
-    selectOptions.push({value: cam.id, label: cam.ip ? cam.ip : cam.username});
-  });
+  const { register, handleSubmit, errors } = useForm();
 
     return (
       <div>
         <Grid container spacing={3} alignItems="flex-start" direction="row" justify="center">
           <Grid item xs={12} md={6}>
             <Paper className={classes.root}>
-            {widget.name &&
-              <form onSubmit={handleSubmit(onSubmit)}>                
+            {widget.name && widget &&
+              <form onSubmit={handleSubmit(onSubmit)}>
               <TextField 
                 label={t('EditUser.name')} 
                 placeholder={t('EditUser.name')} 
@@ -80,39 +47,15 @@ const EditWidgetVideo = (props) => {
                 defaultValue={widget.name} 
                 inputRef={register} />
 
-              <Typography variant="subtitle2" gutterBottom>
-                Choose one Camera
-              </Typography>
-              <Controller
-                name="data"
-                label="Camera"
-                placeholder="Camera"
-                className={classes.field}
-                styles={props.mode === 'dark' ? customStyles : ''}
-                isSearchable={true}
-                defaultValue={{value: camera.id, label: camera.ip ? camera.ip : camera.username}}
-                control={control}
-                options={selectOptions}
-                as={Select}
-              />
-
               <TextField 
-                label={t('EditVideo.width')} 
-                placeholder={t('EditVideo.width')} 
+                label={t('EditWidgetLink.data')}
+                placeholder={t('EditWidgetLink.data')}
                 required 
                 className={classes.field} 
-                name="width" 
-                defaultValue={widget.widget_coordinate.width} 
+                name="data" 
+                defaultValue={widget.data} 
                 inputRef={register} />
 
-              <TextField 
-                label={t('EditVideo.height')} 
-                placeholder={t('EditVideo.height')} 
-                required 
-                className={classes.field} 
-                name="height" 
-                defaultValue={widget.widget_coordinate.height} 
-                inputRef={register} />
               <hr/>
 
               <TextField 
@@ -141,7 +84,25 @@ const EditWidgetVideo = (props) => {
                 className={classes.field} 
                 name="borderRadius" 
                 defaultValue={styles.borderRadius} 
-                inputRef={register} /> 
+                inputRef={register} />
+
+              <TextField 
+                label={t('EditWidgetText.fontSize')} 
+                placeholder={t('EditWidgetText.fontSize')} 
+                required 
+                className={classes.field} 
+                name="fontSize" 
+                defaultValue={styles.fontSize} 
+                inputRef={register} />
+
+                <TextField 
+                  label={t('EditWidgetText.speed')} 
+                  placeholder={t('EditWidgetText.speed')} 
+                  required 
+                  className={classes.field} 
+                  name="speed" 
+                  defaultValue={styles.speed} 
+                  inputRef={register} />
 
                 <div>
                   <Button variant="contained" color="secondary" type="submit">
@@ -161,9 +122,6 @@ const EditWidgetVideo = (props) => {
         </Grid>
       </div>
     );
-  }
-  const mapStateToProps = (state) => ({
-    mode: state.getIn(['ui', 'type']),
-  })
+}
 
-export default connect(mapStateToProps)(withStyles(styles)(withTranslation()(EditWidgetVideo)));
+export default withStyles(styles)(withTranslation()(EditWidgetLink));

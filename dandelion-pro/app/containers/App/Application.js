@@ -13,7 +13,8 @@ import {
   PersonalDashboard, DashboardNew, EditPanel,
   StreetViewMap, EditWidgetVideoForm, EditWidgetTableForm, EditWidgetTextForm, EditWidgetMapForm,
   UsersGroupsTable, AddGroupForm, EditGroupForm, DeleteWidgetForm, CamersTable, AddCameraForm,
-  EditCameraForm
+  EditCameraForm, EditWidgetDocForm, EditWidgetLinkForm, EditWidgetImageForm, CreateWidgetDocForm,
+  CreateWidgetLinkForm, CreateWidgetImageForm
 } from '../pageListAsync';
 
 function useInterval(callback, delay) {
@@ -64,20 +65,30 @@ function Application(props) {
             <Route path="/home/maps"  component={StreetViewMap}/>
             <Route path="/home/stage"  component={DashboardTable}/>
             <Route path="/home/dashboard/:id"  component={DashboardNew}/>
-            <Route path="/home/widget" component={AddWidgetForm}/>
+
+            <Route path="/home/forms/edit/link" component={EditWidgetLinkForm} />
+            <Route path="/home/forms/edit/doc" component={EditWidgetDocForm} />
+            <Route path="/home/forms/edit/image" component={EditWidgetImageForm} />
             <Route path="/home/forms/edit/video" component={EditWidgetVideoForm} />
             <Route path="/home/forms/edit/map" component={EditWidgetMapForm} />
             <Route path="/home/forms/edit/text" component={EditWidgetTextForm} />
             <Route path="/home/forms/edit/table" component={EditWidgetTableForm} />
+
+            <Route path="/home/widget" component={AddWidgetForm}/>
+            <Route path="/home/forms/add/doc" component={CreateWidgetDocForm} />
+            <Route path="/home/forms/add/image" component={CreateWidgetImageForm} />
+            <Route path="/home/forms/add/link" component={CreateWidgetLinkForm} />
             <Route path="/home/forms/add/video" component={CreateWidgetVideoForm} />
             <Route path="/home/forms/add/text" component={CreateWidgetTextForm} />
             <Route path="/home/forms/add/map" component={CreateWidgetMapForm} />
             <Route path="/home/forms/add/table" component={CreateWidgetTableForm} />
+
             <Route path="/home/forms/edit/scene" component={EditDashboardForm} />
             <Route path="/home/forms/edit/role" component={EditRoleForm} />
             <Route path="/home/forms/edit/user" component={EditUserForm} />
             <Route path="/home/forms/edit/camera" component={EditCameraForm} />
             <Route path="/home/forms/edit/group" component={EditGroupForm} />
+
             <Route path="/home/forms/add/scene" component={AddDashboardForm} />
             <Route path="/home/forms/add/role" component={AddRoleForm} />
             <Route path="/home/forms/add/user" component={AddUserForm} />

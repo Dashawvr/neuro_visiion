@@ -33,14 +33,7 @@ class AddWidgetForm extends React.Component {
     variant: '',
     message: '',
     open: false,
-    dashboards: [],
     coordinatesId: undefined,
-  }
-
-  componentDidMount() {
-    request(`${URL}/api/dashboard/`, GET).then((res) => {
-      this.setState({ dashboards: res.data.Dashboards.rows });
-    });
   }
 
   handleClose = (event, reason) => {
@@ -55,14 +48,10 @@ class AddWidgetForm extends React.Component {
       x: 350,
       y: 30,
       width: "300px",
-      height: "150px",
+      height: "300px",
     };
-    let dashboardId = null;
     let type = null;
     values._root.entries.map((elem) => {
-      if (elem[0] === 'dashboardId') {
-        dashboardId = elem[1];
-      }
       if (elem[0] === 'widgetType') {
         type = elem[1];
         data.type = elem[1] + ' widget';
@@ -77,22 +66,31 @@ class AddWidgetForm extends React.Component {
       this.setState({ open: true, variant: 'error', message: 'Notification.error' });
       this.props.history.push('/home');
     });
-    setTimeout(() => this.redirectToCreate(type, dashboardId), 2000);
+    setTimeout(() => this.redirectToCreate(type), 2000);
   }
 
-  redirectToCreate(type, dashboardId) {
+  redirectToCreate(type) {
     switch (type) {
       case 'video':
-        this.props.history.push('/home/forms/add/video?coordinatesId=' + this.state.coordinatesId.id + '&type=' + type+ '&dashboardId=' + dashboardId);
+        this.props.history.push('/home/forms/add/video?coordinatesId=' + this.state.coordinatesId.id + '&type=' + type);
         break;
       case 'map':
-        this.props.history.push('/home/forms/add/map?coordinatesId=' + this.state.coordinatesId.id + '&type=' + type +'&dashboardId=' + dashboardId);
+        this.props.history.push('/home/forms/add/map?coordinatesId=' + this.state.coordinatesId.id + '&type=' + type);
         break;
       case 'table':
-        this.props.history.push('/home/forms/add/table?coordinatesId=' + this.state.coordinatesId.id + '&type=' + type+ '&dashboardId=' + dashboardId);
+        this.props.history.push('/home/forms/add/table?coordinatesId=' + this.state.coordinatesId.id + '&type=' + type);
         break;
       case 'text':
-        this.props.history.push('/home/forms/add/text?coordinatesId=' + this.state.coordinatesId.id + '&type=' + type +'&dashboardId=' + dashboardId);
+        this.props.history.push('/home/forms/add/text?coordinatesId=' + this.state.coordinatesId.id + '&type=' + type);
+        break;
+      case 'doc':
+        this.props.history.push('/home/forms/add/doc?coordinatesId=' + this.state.coordinatesId.id + '&type=' + type);
+        break;
+      case 'image':
+        this.props.history.push('/home/forms/add/image?coordinatesId=' + this.state.coordinatesId.id + '&type=' + type);
+        break;
+      case 'link':
+        this.props.history.push('/home/forms/add/link?coordinatesId=' + this.state.coordinatesId.id + '&type=' + type);
         break;
     }
   }
@@ -114,7 +112,7 @@ class AddWidgetForm extends React.Component {
         </Helmet>
         <PapperBlock title={t('AddWidget.title')} icon="ios-list-box-outline">
           <div>
-            <AddWidget onSubmit={(values) => this.showResult(values)} dashboards={this.state.dashboards} />
+            <AddWidget onSubmit={(values) => this.showResult(values)} />
           </div>
         </PapperBlock>
         <Notification open={open} handleClose={() => this.handleClose()} variant={variant} message={t(message)} />

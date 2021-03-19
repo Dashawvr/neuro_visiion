@@ -194,14 +194,29 @@ class Camers extends React.Component {
                     name: 'stream_url',
                     label: t('TableCamers.stream_url'),
                     options: {
-                    filter: true,
+                      filter: true,
+                      customBodyRender: (value) => {
+                          if (value) {
+                            return (<Chip label={"Yes"} color="secondary" />);
+                          } 
+                            return (<Chip label={"No"} color="primary" />);                          
+                      }
                     }
                 },
                 {
                     name: 'isDefaultRecord',
                     label: t('TableCamers.isDefaultRecord'),
                     options: {
-                    filter: true,
+                      filter: true,
+                      customBodyRender: (value) => {
+                        if (value === true) {
+                          return (<Chip label={"Yes"} color="secondary" />);
+                        }
+                        if (value === false) {
+                          return (<Chip label={"No"} color="primary" />);
+                        }
+                        return (<Chip label={"Don`t know"} />);
+                      }
                     }
                 }
                 ]}

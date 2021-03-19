@@ -21,6 +21,8 @@ import {
 import { initAction, clearAction } from 'dan-redux/actions/reduxFormActions';
 import history from '../../../../utils/history';
 import { withTranslation } from 'react-i18next';
+import SelectSuggestionTags from '../../../Forms/demos/SelectSuggestionTags';
+import './index.css';
 
 const renderRadioGroup = ({ input, ...rest }) => (
   <RadioGroup
@@ -56,6 +58,10 @@ const styles = theme => ({
 });
 
 class AddDashboard extends Component {
+  state = {
+    selectWidgets: [],
+  }
+
   render() {
     const {
       classes,
@@ -65,8 +71,16 @@ class AddDashboard extends Component {
       submitting,
       roles,
       users,
+      widgets,
+      getWidgets,
       t,
     } = this.props;
+
+    const handleChangeMulti = (value) => {
+      this.setState({selectWidgets: value}, () => {
+        getWidgets(this.state.selectWidgets);
+      });
+    };
     return (
       <div>
         <Grid container spacing={3} alignItems="flex-start" direction="row" justify="center">
@@ -108,6 +122,19 @@ class AddDashboard extends Component {
                   </FormControl>
                 </div>
                 <div>
+                  <SelectSuggestionTags 
+                  className={classes.field}
+                  data={widgets.map(widget => ({
+                    value: widget.id,
+                    label: widget.name
+                  }))} 
+                  title='Widgets' 
+                  desc='Select widgets' 
+                  value={this.state.selectUsers}
+                  handleChangeMulti={handleChangeMulti}  
+                  />
+                </div>
+                <div style={{paddingTop: 10, paddingBottom: 10}}>
                   <FormControlLabel control={<Field name="active" component={SwitchRedux} />} label={t('AddDashboard.active')} />
                 </div>
                 <div>

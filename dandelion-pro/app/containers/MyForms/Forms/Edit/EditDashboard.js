@@ -56,6 +56,8 @@ const EditDashboard = (props) => {
       roles,
       name,
       enable,
+      selectWidgets,
+      widgets,
       t,
     } = props;
     
@@ -71,6 +73,21 @@ const EditDashboard = (props) => {
     users.map((user) => {
       selectOptionsUsers.push({value: user.id, label: user.name});
     });
+
+    const selectedWidgets = [];
+    const prevWidgets = [];
+
+    if (selectWidgets) {
+      selectWidgets.map((widget) => {
+        prevWidgets.push({value: widget.id, label: widget.name})
+      });
+    }
+    
+    widgets.map(widget => (
+      selectedWidgets.push(
+        {value: widget.id, label: widget.name}
+      )
+    ));
     
     return (
       <div>
@@ -116,6 +133,23 @@ const EditDashboard = (props) => {
                   defaultValue={user ? {value: user.id, label: user.name} : {}}
                   control={control}
                   options={selectOptionsUsers}
+                  as={Select}
+                />
+
+                <Typography variant="subtitle2" gutterBottom>
+                  Choose Widgets
+                </Typography>
+                <Controller
+                  isMulti
+                  name="widgets"
+                  label="Widgets"
+                  placeholder="Widgets"
+                  className={classes.field}
+                  styles={props.mode === 'dark' ? customStyles : ''}
+                  isSearchable={true}
+                  defaultValue={prevWidgets}
+                  control={control}
+                  options={selectedWidgets}
                   as={Select}
                 />
 

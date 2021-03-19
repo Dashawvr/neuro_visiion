@@ -445,6 +445,18 @@ export const EditWidgetVideoForm = loadable(() =>
   import ('./MyWidgetForms/Edit/EditWidgetVideoForm'), {
   fallback: <Loading />,
 });
+export const EditWidgetLinkForm = loadable(() =>
+  import ('./MyWidgetForms/Edit/EditWidgetLinkForm'), {
+  fallback: <Loading />,
+});
+export const EditWidgetDocForm = loadable(() =>
+  import ('./MyWidgetForms/Edit/EditWidgetDocForm'), {
+  fallback: <Loading />,
+});
+export const EditWidgetImageForm = loadable(() =>
+  import ('./MyWidgetForms/Edit/EditWidgetImageForm'), {
+  fallback: <Loading />,
+});
 export const EditWidgetTableForm = loadable(() =>
   import ('./MyWidgetForms/Edit/EditWidgetTableForm'), {
   fallback: <Loading />,
@@ -455,6 +467,18 @@ export const EditWidgetMapForm = loadable(() =>
 });
 export const EditWidgetTextForm = loadable(() =>
   import ('./MyWidgetForms/Edit/EditWidgetTextForm'), {
+  fallback: <Loading />,
+});
+export const CreateWidgetDocForm = loadable(() =>
+  import ('./MyWidgetForms/Create/CreateWidgetDocForm'), {
+  fallback: <Loading />,
+});
+export const CreateWidgetLinkForm = loadable(() =>
+  import ('./MyWidgetForms/Create/CreateWidgetLinkForm'), {
+  fallback: <Loading />,
+});
+export const CreateWidgetImageForm = loadable(() =>
+  import ('./MyWidgetForms/Create/CreateWidgetImageForm'), {
   fallback: <Loading />,
 });
 export const CreateWidgetVideoForm = loadable(() =>
