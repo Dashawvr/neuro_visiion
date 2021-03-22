@@ -95,7 +95,7 @@ class CreateWidgetTable extends Component {
                     >
                       <MenuItem value="roles">{t('AddWidgetTable.roles')}</MenuItem>
                       <MenuItem value="users">{t('AddWidgetTable.users')}</MenuItem>
-                      <MenuItem value="dashboards">{t('AddWidgetTable.dashboards')}</MenuItem>
+                      <MenuItem value="dashboard">{t('AddWidgetTable.dashboards')}</MenuItem>
                     </Field>
                   </FormControl>
                 </div>
