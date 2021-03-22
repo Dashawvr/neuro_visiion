@@ -91,13 +91,13 @@ const EditGroup = (props) => {
 
 
               <Typography variant="subtitle2" gutterBottom>
-                Choose Users
+                {t('EditGroup.users')}
               </Typography>
               <Controller
                 isMulti
                 name="users"
-                label="Users"
-                placeholder="Users"
+                label={t('EditGroup.users')}
+                placeholder={t('EditGroup.users')}
                 className={classes.field}
                 styles={props.mode === 'dark' ? customStyles : ''}
                 isSearchable={true}
@@ -108,7 +108,7 @@ const EditGroup = (props) => {
               />
                 <div>
                   <Button variant="contained" color="secondary" type="submit">
-                  {t('Buttons.submit')}
+                  {t('Buttons.edit')}
                   </Button>
                   <Button type="reset" >
                     {t('Buttons.reset')}

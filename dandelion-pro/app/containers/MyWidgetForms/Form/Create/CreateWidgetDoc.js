@@ -14,6 +14,7 @@ import {
 import { initAction, clearAction } from 'dan-redux/actions/reduxFormActions';
 import history from '../../../../utils/history';
 import { withTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 
 const renderRadioGroup = ({ input, ...rest }) => (
   <RadioGroup
@@ -102,8 +103,10 @@ class CreateWidgetDoc extends Component {
                   >
                     {t('Buttons.reset')}
                   </Button>
-                  <Button variant="contained" color="primary" onClick={() => history.push('/home')}>
-                  {t('Buttons.cancel')}
+                  <Button variant="contained" color="primary">
+                    <Link to="/home/widgets" style={{color: 'white', textDecoration: 'none'}}>
+                      {t('Buttons.cancel')}
+                    </Link>
                   </Button>
                 </div>
               </form>

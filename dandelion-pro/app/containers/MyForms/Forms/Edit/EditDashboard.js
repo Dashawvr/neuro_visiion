@@ -110,8 +110,8 @@ const EditDashboard = (props) => {
                 </Typography>
                 <Controller
                   name="role"
-                  label="Role"
-                  placeholder="Role"
+                  label={t('EditDashboard.role')}
+                  placeholder={t('EditDashboard.role')}
                   className={classes.field}
                   isSearchable={true}
                   defaultValue={role ? {value: role.id, label: role.name} : {}}
@@ -125,8 +125,8 @@ const EditDashboard = (props) => {
                 </Typography>
                 <Controller
                   name="user"
-                  label="User"
-                  placeholder="User"
+                  label={t('EditDashboard.user')}
+                  placeholder={t('EditDashboard.user')}
                   className={classes.field}
                   styles={props.mode === 'dark' ? customStyles : ''}
                   isSearchable={true}
@@ -137,13 +137,13 @@ const EditDashboard = (props) => {
                 />
 
                 <Typography variant="subtitle2" gutterBottom>
-                  Choose Widgets
+                {t('EditDashboard.widgets')}
                 </Typography>
                 <Controller
                   isMulti
                   name="widgets"
-                  label="Widgets"
-                  placeholder="Widgets"
+                  label={t('EditDashboard.widgets')}
+                  placeholder={t('EditDashboard.widgets')}
                   className={classes.field}
                   styles={props.mode === 'dark' ? customStyles : ''}
                   isSearchable={true}
@@ -169,7 +169,7 @@ const EditDashboard = (props) => {
                 />
                 <div>
                   <Button variant="contained" color="secondary" type="submit">
-                  {t('Buttons.submit')}
+                  {t('Buttons.edit')}
                   </Button>
                   <Button type="reset" >
                     {t('Buttons.reset')}

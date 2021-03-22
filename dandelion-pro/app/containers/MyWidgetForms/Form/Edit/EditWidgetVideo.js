@@ -81,12 +81,12 @@ const EditWidgetVideo = (props) => {
                 inputRef={register} />
 
               <Typography variant="subtitle2" gutterBottom>
-                Choose one Camera
+                {t('EditVideo.camera')} 
               </Typography>
               <Controller
                 name="data"
-                label="Camera"
-                placeholder="Camera"
+                label={t('EditVideo.camera')} 
+                placeholder={t('EditVideo.camera')} 
                 className={classes.field}
                 styles={props.mode === 'dark' ? customStyles : ''}
                 isSearchable={true}
@@ -145,7 +145,7 @@ const EditWidgetVideo = (props) => {
 
                 <div>
                   <Button variant="contained" color="secondary" type="submit">
-                  {t('Buttons.submit')}
+                  {t('Buttons.edit')}
                   </Button>
                   <Button type="reset">
                     {t('Buttons.reset')}

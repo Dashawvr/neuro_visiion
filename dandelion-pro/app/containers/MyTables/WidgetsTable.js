@@ -23,6 +23,7 @@ class WidgetsTable extends Component {
     widgets: [],
     users: [],
     dashboards: [],
+    camers: []
   }
 
   componentDidMount() {
@@ -35,6 +36,9 @@ class WidgetsTable extends Component {
     request(`${URL}/api/users`, GET).then((res) => {
         this.setState({ users: res.data.users.rows });
     });
+    request(`${URL}/api/camera`, GET).then((res) => {
+      this.setState({ camers: res.data.cameras.rows });
+  });
   }
 
   render() {
@@ -54,6 +58,13 @@ class WidgetsTable extends Component {
         }
         if (widget.type === 'map') {
             widget.data = widget.name;
+        }
+        if (widget.type === 'video') {
+          this.state.camers.map((cam) => {
+            if (cam.id === widget.data) {
+              widget.data = cam.ip ? cam.ip : cam.username;
+            }
+          })
         }
     });
     return (

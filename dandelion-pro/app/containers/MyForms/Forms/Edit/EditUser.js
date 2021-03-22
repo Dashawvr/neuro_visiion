@@ -108,12 +108,12 @@ const EditUser = (props) => {
                     )}
 
                   <Typography variant="subtitle2" gutterBottom>
-                    Choose one Role
+                  {t('EditUser.role')}
                   </Typography>
                   <Controller
                     name="roleId"
-                    label="Role"
-                    placeholder="Role"
+                    label={t('EditUser.role')}
+                    placeholder={t('EditUser.role')}
                     className={classes.field}
                     styles={props.mode === 'dark' ? customStyles : ''}
                     isSearchable={true}
@@ -125,7 +125,7 @@ const EditUser = (props) => {
                 </div>                              
                 <div>
                   <Button variant="contained" color="secondary" type="submit">
-                    {t('Buttons.submit')}
+                    {t('Buttons.edit')}
                   </Button>
                   <Button type="reset">
                     {t('Buttons.reset')}

@@ -224,7 +224,7 @@ class Dashboards extends React.Component {
             <DeleteIcon className={classes.rightIcon} />
           </Button>
           <Button onClick={() => handleEditDashboard(id)} className={classes.button} variant="contained" color="red">
-            Edit on Scene
+            {t('Buttons.edit_on_scene')}
             <CreateIcon className={classes.rightIcon} />
           </Button>
           <br />

@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import { PropTypes } from 'prop-types';
 import classNames from 'classnames';
 import Fade from '@material-ui/core/Fade';
@@ -33,7 +33,15 @@ function LeftSidebarLayout(props) {
     titleException,
     handleOpenGuide,
   } = props;
-  const location = history.location.pathname.split('/').includes('dashboard')
+
+  const location = history.location.pathname.split('/').includes('dashboard');
+
+  useEffect(() => {
+    if (location) {
+      toggleDrawer();
+    }
+  }, [])
+  
   return (
     <Fragment>
       <Header
@@ -54,22 +62,24 @@ function LeftSidebarLayout(props) {
         dataMenu={dataMenu}
         leftSidebar
       />
-      <main className={`${classNames(classes.content, !sidebarOpen ? classes.contentPaddingLeft : '')} ${location?'app':''}`} id="mainContent">
+      <main className={`${classNames(!location ? classes.content : '', !location ? !sidebarOpen ? classes.contentPaddingLeft : '' : '')} ${location ? 'app' : '' }`} id="mainContent">
         {
           !location ?
-            (<Decoration
+            <Decoration
               mode={mode}
               gradient={gradient}
               decoration={deco}
               bgPosition={bgPosition}
               horizontalMenu={false}
-            />):''
+            />
+            : 
+            ''
         }
         <section className={`${classNames(classes.mainWrap, classes.sidebarLayout)}`}>
-          {(titleException.indexOf(history.location.pathname) < 0&&!location) && (
+          {(titleException.indexOf(history.location.pathname) <  0 && !location) && (
             <div className={classes.pageTitle}>
-              <Typography component="h4" className={`${bgPosition === 'header' ? classes.darkTitle : classes.lightTitle} ${location?'black':''}`} variant="h4"></Typography>
-              <BreadCrumb separator=" / " theme={`${bgPosition === 'header' ? 'dark' : 'light'}${location?'black':''}`} location={history.location} />
+              <Typography component="h4" className={`${bgPosition === 'header' ? classes.darkTitle : classes.lightTitle} ${ location ? 'black' : '' }`} variant="h4"></Typography>
+              <BreadCrumb separator=" / " theme={`${bgPosition === 'header' ? 'dark' : 'light'}${ location ? 'black' : '' }`} location={history.location} />
             </div>
           )}
           { !pageLoaded && (<img src="/images/spinner.gif" alt="spinner" className={classes.circularProgress} />) }

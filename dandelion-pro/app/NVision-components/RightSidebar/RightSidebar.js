@@ -1,21 +1,16 @@
 import React from 'react';
 import Widgets from '../../containers/MyTables/Tables/Widgets';
-import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
-import Paper from '@material-ui/core/Paper';
-import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
-import history from '../../utils/history';
 import { withTranslation } from 'react-i18next';
 import Typography from '@material-ui/core/Typography';
-import TextField from '@material-ui/core/TextField';
 import Select from "react-select";
 import { useForm, Controller } from "react-hook-form";
 import { connect } from 'react-redux';
 import { onOpen } from "../../redux/actions/rightSidebar";
 import { withStyles } from '@material-ui/core/styles';
 import axios from "axios";
-import {URL, POST, PUT, PATCH} from '../../containers/Axios/axiosForData';
+import {URL} from '../../containers/Axios/axiosForData';
 
 const styles = theme => ({
   field: {
@@ -24,7 +19,7 @@ const styles = theme => ({
   },
   drawer: {
     width: '60rem',
-    padding: 30,
+    padding: 25,
   },
   button: {
     marginTop: '15px',
@@ -110,9 +105,9 @@ const RightSidebar = (props) => {
 
   return (         
     <Drawer anchor='right' open={rightSidebar.open} onClose={() => onOpen(!rightSidebar.open)}>
-          <Widgets data={widgets} />
       <div className={classes.drawer}>
-          <form onSubmit={handleSubmit(onSubmit)}>
+          <Widgets data={widgets} />
+          <form onSubmit={handleSubmit(onSubmit)} style={{marginTop: 25}}>
             <Typography variant="subtitle2" gutterBottom>              
               {t('RightSidebar.title')}
             </Typography>

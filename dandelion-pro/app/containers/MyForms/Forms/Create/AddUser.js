@@ -148,12 +148,12 @@ class AddUser extends Component {
                   </FormControl>
                 </div>
                 <div>
-                <Typography variant="subtitle2">Create with LDAP</Typography>
+                <Typography variant="subtitle2">{t('AddUser.ldap')}</Typography>
                   <Field
                     name="ldap"
                     component={CheckboxRedux}
-                    placeholder={'Create with LDAP'}
-                    label={('Create with LDAP')}
+                    placeholder={t('AddUser.ldap')}
+                    label={t('AddUser.ldap')}
                     ref={this.saveRef}
                     className={classes.field}
                   />

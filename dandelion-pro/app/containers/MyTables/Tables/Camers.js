@@ -197,9 +197,9 @@ class Camers extends React.Component {
                       filter: true,
                       customBodyRender: (value) => {
                           if (value) {
-                            return (<Chip label={"Yes"} color="secondary" />);
+                            return (<Chip label={t('Buttons.yes')} color="secondary" />);
                           } 
-                            return (<Chip label={"No"} color="primary" />);                          
+                            return (<Chip label={t('Buttons.no')} color="primary" />);                          
                       }
                     }
                 },
@@ -210,12 +210,12 @@ class Camers extends React.Component {
                       filter: true,
                       customBodyRender: (value) => {
                         if (value === true) {
-                          return (<Chip label={"Yes"} color="secondary" />);
+                          return (<Chip label={t('Buttons.yes')} color="secondary" />);
                         }
                         if (value === false) {
-                          return (<Chip label={"No"} color="primary" />);
+                          return (<Chip label={t('Buttons.no')} color="primary" />);
                         }
-                        return (<Chip label={"Don`t know"} />);
+                        return (<Chip label={t('Buttons.dont_know')} />);
                       }
                     }
                 }

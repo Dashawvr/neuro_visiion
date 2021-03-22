@@ -81,7 +81,7 @@ const Widget = (props) => {
             <Rnd
               className="widgetTable"
               onDoubleClick={handleDoubleClick}
-              bounds="window"
+              bounds=".app"
               default={{
                 x: props.coordinate.x,
                 y: props.coordinate.y,
@@ -115,7 +115,7 @@ const Widget = (props) => {
             <Rnd
                 className="widgetTable"
                 onDoubleClick={handleDoubleClick}
-                bounds="window"
+                bounds=".app"
                 default={{
                   x: props.coordinate.x,
                   y: props.coordinate.y,
@@ -149,7 +149,7 @@ const Widget = (props) => {
             <Rnd
                 className="widgetTable"
                 onDoubleClick={handleDoubleClick}
-                bounds="window"
+                bounds=".app"
                 default={{
                   x: props.coordinate.x,
                   y: props.coordinate.y,
@@ -187,7 +187,7 @@ const Widget = (props) => {
         <Rnd
             className="widgetMap"
             onDoubleClick={handleDoubleClick}
-            bounds="window"
+            bounds=".app"
             default={{
               x: props.coordinate.x,
               y: props.coordinate.y,
@@ -225,7 +225,7 @@ const Widget = (props) => {
         <Rnd
             className="widgetText"
             onDoubleClick={handleDoubleClick}
-            bounds="window"
+            bounds=".app"
             default={{
               x: props.coordinate.x,
               y: props.coordinate.y,
@@ -268,7 +268,7 @@ const Widget = (props) => {
           <Rnd
             className="widgetVideo"
             onDoubleClick={handleDoubleClick}
-            bounds="window"
+            bounds=".app"
             style={{
               zIndex: zIndex.zIndex,
               border: `${props.styles.size}px solid ${props.styles.color}`,
@@ -316,7 +316,7 @@ const Widget = (props) => {
           <Rnd
             className="widgetVideo"
             onDoubleClick={handleDoubleClick}
-            bounds="window"
+            bounds=".app"
             style={{
               zIndex: zIndex.zIndex,
               border: `${props.styles.size}px solid ${props.styles.color}`,
@@ -351,7 +351,7 @@ const Widget = (props) => {
           <Rnd
             className="widgetVideo"
             onDoubleClick={handleDoubleClick}
-            bounds="window"
+            bounds=".app"
             style={{
               zIndex: zIndex.zIndex,
               border: `${props.styles.size}px solid ${props.styles.color}`,
@@ -386,7 +386,7 @@ const Widget = (props) => {
           <Rnd
             className="widgetVideo"
             onDoubleClick={handleDoubleClick}
-            bounds="window"
+            bounds=".app"
             style={{
               zIndex: zIndex.zIndex,
               border: `${props.styles.size}px solid ${props.styles.color}`,

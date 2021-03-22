@@ -100,6 +100,7 @@ class AddGroup extends Component {
                   value: user.id,
                   label: user.name + ' ' + user.surName
                 }))} 
+                style={{height: 80}}
                 title='Користувачі' 
                 desc='Виберіть користувачів' 
                 value={this.state.selectUsers}

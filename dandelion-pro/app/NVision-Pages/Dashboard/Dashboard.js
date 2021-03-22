@@ -5,14 +5,15 @@ import Widget from "../../NVision-components/Widget/Widget";
 import RightSidebar from "../../NVision-components/RightSidebar/RightSidebar";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
-import request from '../../utils/request';
-import { URL, GET } from '../../containers/Axios/axiosForData';
+import { URL } from '../../containers/Axios/axiosForData';
 import { withTranslation } from 'react-i18next';
 
 const Dashboard = (props) => {
   const [widgets, setWidgets] = useState([]);
   const [allWidgets, setAllWidgets] = useState([]);
   const [dashboard, setDashboard] = useState([]);
+  const [users, setUsers] = useState([]);
+  const [camers, setCamers] = useState([]);
   const history = useHistory();
 
   const id = history.location.pathname.split('/')[3]
@@ -36,9 +37,45 @@ const Dashboard = (props) => {
         .then((res) => {
           setAllWidgets(res.data.data.WidgetDates.rows);
       });
+
+      await axios
+        .get(`${URL}/api/users`)
+        .then((res) => {
+          setUsers(res.data.data.users.rows);
+      });
+      
+      await axios
+        .get(`${URL}/api/camera`)
+        .then((res) => {
+          setCamers(res.data.data.cameras.rows);
+      });
     }
     getWidgets();
   }, [history.location.pathname]);
+
+
+  widgets.map((widget) => {
+    users.map((user) => {
+      if (user.id === widget.authorId) {
+        widget.authorId = user.name;
+      }
+    });
+  });
+  widgets.map((widget) => {
+      if (widget.type === 'table') {
+          widget.data = widget.name;
+      }
+      if (widget.type === 'map') {
+          widget.data = widget.name;
+      }
+      if (widget.type === 'video') {
+        camers.map((cam) => {
+          if (cam.id === widget.data) {
+            widget.data = cam.ip ? cam.ip : cam.username;
+          }
+        })
+      }
+  });
 
 
   const defaultCoordinates = {
@@ -55,7 +92,7 @@ const Dashboard = (props) => {
   }
 
   return (
-    <Fragment>
+    <div>
           {widgets ?
             widgets.map((widget) => {
               return (
@@ -75,8 +112,9 @@ const Dashboard = (props) => {
             <></>
           }
       <RightSidebar widgets={widgets} allWidgets={allWidgets} dashboardId={id} dashboard={dashboard} />
-    </Fragment>
+    </div>
   );
 };
+
 
 export default withTranslation()(Dashboard);

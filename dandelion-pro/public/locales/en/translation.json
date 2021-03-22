@@ -32,7 +32,7 @@
         "username": "Username",
         "password": "Password",
         "type": "Type connect",
-        "stream_url": "URL Streams",
+        "stream_url": "Online",
         "isDefaultRecord": "Default stream",
         "title": "Cams list"
     }, 
@@ -58,7 +58,8 @@
         "lastName": "Last Name",
         "email": "Email",
         "password": "Password",
-        "role": "Role"
+        "role": "Role",
+        "ldap": "Create with LDAP server" 
     },
     "AddCamera": {
         "title": "Create Camera"
@@ -87,19 +88,21 @@
         "title": "Edit User",
         "name": "Name",
         "lastName": "Last Name",
-        "email": "Email"
+        "email": "Email",
+        "role": "Choose one role"
     },
     "EditDashboard": {
         "title": "Edit Dashboard",
         "role": "Role",
         "user": "User",
         "active": "Active",
-        "name": "Name"
+        "name": "Name",
+        "widgets": "Choose widgets"
     },
     "EditGroup": {
         "title": "Edit Group",
         "name": "Name",
-        "users": "Users"
+        "users": "Choose users"
     },
     "EditRole": {
         "title": "Edit Role",
@@ -149,7 +152,8 @@
     },
     "EditVideo": {
         "height": "Height",
-        "width": "Width"
+        "width": "Width",
+        "camera": "Choose video camera"
     },
     "AddWidgetMap": {
         "name": "Name",
@@ -180,7 +184,7 @@
     },
     "EditWidgetTable": {
         "title": "Edit Widget Table",
-        "table": "Table",
+        "table": "Choose table",
         "roles": "Roles",
         "users": "Users",
         "dashboards": "Dashboards",
@@ -222,7 +226,8 @@
         "editPanel": "Edit Widget",
         "widgets": "Widgets",
         "stage": "Stage",
-        "cams": "Cams"
+        "cams": "Cams",
+        "menu": "Menu"
     },
     "Status": {
         "online": "Online",
@@ -235,7 +240,11 @@
         "edit": "Edit",
         "cancel": "Cancel",
         "reset": "Reset",
-        "submit": "Submit"
+        "submit": "Submit",
+        "yes": "Yes",
+        "no": "No",
+        "dont_know": "Don`t know",
+        "edit_on_scene": "Edit on scene"
     },
     "Notification": {
         "success": "OK, Succeess",

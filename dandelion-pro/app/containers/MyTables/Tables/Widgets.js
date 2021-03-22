@@ -6,7 +6,6 @@
 import React, { Fragment } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
-import Chip from '@material-ui/core/Chip';
 import MUIDataTable from 'mui-datatables';
 import Button from '@material-ui/core/Button';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -137,7 +136,6 @@ class Widgets extends React.Component {
       }
     };
 
-    //TODO: Змінити
     const handleEdit = (type, widgetId) => {
         switch (type) {
           case 'video':
@@ -151,6 +149,15 @@ class Widgets extends React.Component {
             break;
           case 'text':
             this.props.history.push('/home/forms/edit/text?widgetId=' + widgetId);
+            break;
+          case 'link':
+            this.props.history.push('/home/forms/edit/link?widgetId=' + widgetId);
+            break;
+          case 'doc':
+            this.props.history.push('/home/forms/edit/doc?widgetId=' + widgetId);
+            break;
+          case 'image':
+            this.props.history.push('/home/forms/edit/image?widgetId=' + widgetId);
             break;
         }
     };
@@ -194,35 +201,23 @@ class Widgets extends React.Component {
                     label: t('TableWidgets.data'),
                     options: {
                     filter: true,
-                    }
+                    customBodyRender: (value) => {
+                        if (value.length > 50) {
+                          return value.slice(0, 50) + '...'             
+                        } else {
+                          return value;
+                        }
+                      }
+                    }                    
                 },
                 {
                     name: 'authorId',
                     label: t('TableWidgets.author'),
                     options: {
                     filter: true,
+                    display: false,
                     }
                 },
-                // {
-                //     name: 'dashboards',
-                //     label: t('TableWidgets.dashboard'),
-                //     options: {
-                //       filter: true,
-                //       customBodyRender: (value) => {
-                //         if (value.length) {
-                //           return (<div>
-                //             {
-                //               value.map((dash) => {
-                //                 return <Chip label={dash.name} style={{marginRight: 5}} color="primary" />
-                //               })
-                //             }
-                //           </div>)              
-                //         } else {
-                //           return (<Chip label="Nothing" color="secondary" />);
-                //         }
-                //       }
-                //     }
-                // }
                 ]}
                 options={options}
             />

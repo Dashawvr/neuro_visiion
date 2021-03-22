@@ -79,12 +79,12 @@ const EditWidgetTable = (props) => {
                 inputRef={register} />
 
               <Typography variant="subtitle2" gutterBottom>
-                Choose one Table
+              {t('EditWidgetTable.table')} 
               </Typography>
               <Controller
                 name="data"
-                label="Table"
-                placeholder="Table"
+                label={t('EditWidgetTable.table')} 
+                placeholder={t('EditWidgetTable.table')} 
                 className={classes.field}
                 styles={props.mode === 'dark' ? customStyles : ''}
                 isSearchable={true}
@@ -126,7 +126,7 @@ const EditWidgetTable = (props) => {
 
                 <div>
                   <Button variant="contained" color="secondary" type="submit">
-                  {t('Buttons.submit')}
+                  {t('Buttons.edit')}
                   </Button>
                   <Button type="reset">
                     {t('Buttons.reset')}

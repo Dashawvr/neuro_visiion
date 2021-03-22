@@ -106,7 +106,7 @@ const EditWidgetLink = (props) => {
 
                 <div>
                   <Button variant="contained" color="secondary" type="submit">
-                  {t('Buttons.submit')}
+                  {t('Buttons.edit')}
                   </Button>
                   <Button type="reset">
                     {t('Buttons.reset')}

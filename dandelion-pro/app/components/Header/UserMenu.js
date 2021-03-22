@@ -1,21 +1,16 @@
-import React, { useEffect, Fragment, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
-import Info from '@material-ui/icons/Info';
-import Warning from '@material-ui/icons/Warning';
-import Check from '@material-ui/icons/CheckCircle';
-import Error from '@material-ui/icons/RemoveCircle';
 import ExitToApp from '@material-ui/icons/ExitToApp';
 import Badge from '@material-ui/core/Badge';
 import Divider from '@material-ui/core/Divider';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import dummy from 'dan-api/dummy/dummyContents';
 import messageStyles from 'dan-styles/Messages.scss';
@@ -25,10 +20,8 @@ import '../../NVision-Pages/Dashboard/app.css'
 import { getDashboards } from "../../redux/actions/dashboards";
 import { getAllDashboards } from "../../redux/actions/allDashboards";
 import { onOpen } from "../../redux/actions/rightSidebar";
-import { URL } from '../../containers/Axios/axiosForData';
 import { SocketConnection } from "../../api/socket";
 import { useTranslation } from 'react-i18next';
-import { withTranslation } from 'react-i18next';
 
 const socketConnection = new SocketConnection();
 
@@ -94,7 +87,7 @@ const [user, setUser] = useState({});
   return (
     <div>
     {location &&
-      <Button variant="outlined" color="primary" onClick={() => props.onOpen(!props.rightSidebar.open)}>Menu</Button>      
+      <Button variant="outlined" color="primary" onClick={() => props.onOpen(!props.rightSidebar.open)}>{t("Menu.menu")}</Button>      
     }     
     <IconButton
         aria-haspopup="true"
