@@ -55,7 +55,7 @@ class EditWidgetDocForm extends React.Component {
       name: values.name,
       data: values.data,
       styles: {
-        borderRadius: values.borderRadius,
+        borderRadius: Number(values.borderRadius),
         color: values.color,
         size: values.size,
         speed: values.speed,

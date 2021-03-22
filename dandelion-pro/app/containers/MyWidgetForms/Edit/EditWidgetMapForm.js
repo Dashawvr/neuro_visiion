@@ -58,7 +58,7 @@ class EditWidgetMapForm extends React.Component {
         lon: values.dataLon
       },
       styles: {
-        borderRadius: values.borderRadius,
+        borderRadius: Number(values.borderRadius),
         color: values.color,
         size: values.size,
         lon: values.lon,

@@ -62,7 +62,7 @@ class EditWidgetVideoForm extends React.Component {
       name: values.name,
       data: values.data.value,
       styles: {
-        borderRadius: values.borderRadius,
+        borderRadius: Number(values.borderRadius),
         color: values.color,
         size: values.size
       }      
