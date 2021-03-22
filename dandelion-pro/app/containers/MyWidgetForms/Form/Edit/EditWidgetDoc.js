@@ -86,24 +86,6 @@ const EditWidgetDoc = (props) => {
                 defaultValue={styles.borderRadius} 
                 inputRef={register} />
 
-              <TextField 
-                label={t('EditWidgetText.fontSize')} 
-                placeholder={t('EditWidgetText.fontSize')} 
-                required 
-                className={classes.field} 
-                name="fontSize" 
-                defaultValue={styles.fontSize} 
-                inputRef={register} />
-
-                <TextField 
-                  label={t('EditWidgetText.speed')} 
-                  placeholder={t('EditWidgetText.speed')} 
-                  required 
-                  className={classes.field} 
-                  name="speed" 
-                  defaultValue={styles.speed} 
-                  inputRef={register} />
-
                 <div>
                   <Button variant="contained" color="secondary" type="submit">
                   {t('Buttons.edit')}
