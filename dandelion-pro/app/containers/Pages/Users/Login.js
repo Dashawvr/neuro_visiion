@@ -65,7 +65,7 @@ class Login extends React.Component {
         localStorage.setItem("user", JSON.stringify(response.data.data.attributes));
         socketConnection.setOnline();
         const newToken = localStorage.getItem("token");
-        if (response.data.data.token.access_token && newToken.length) {
+        if (response.data.data.token.access_token && newToken.length > 50) {
           this.props.history.push("/home");
         }
       })
@@ -81,7 +81,7 @@ class Login extends React.Component {
         localStorage.setItem("user", JSON.stringify(response.data.data.attributes));
         socketConnection.setOnline()
         const newToken = localStorage.getItem("token");
-        if (response.data.data.token.access_token && newToken.length) {
+        if (response.data.data.token.access_token && newToken.length > 50) {
           this.props.history.push("/home");
         }
       })
