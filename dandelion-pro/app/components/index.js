@@ -40,6 +40,7 @@ export ContactWidget from './Widget/ContactWidget';
 export WeatherWidget from './Widget/WeatherWidget';
 export DateWidget from './Widget/DateWidget';
 export FilesWidget from './Widget/FilesWidget';
+export SystemWidget from './Widget/SystemWidget';
 export NewsWidget from './Widget/NewsWidget';
 export CalculatorWidget from './Widget/CalculatorWidget';
 export TimelineWidget from './Widget/TimelineWidget';

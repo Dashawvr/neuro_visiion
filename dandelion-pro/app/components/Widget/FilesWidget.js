@@ -39,7 +39,7 @@ function FilesWidget(props) {
 
   return (
     <Grid container spacing={3}>
-      <Grid item md={4} sm={12} xs={12}>
+      <Grid item md={12} sm={12} xs={12}>
         <PapperBlock whiteBg noMargin title={t("FilesWidget.title")} icon="ios-cloud-outline" desc="">
           {
             info.totalGb ? 
@@ -64,15 +64,17 @@ function FilesWidget(props) {
             (<CircularProgress className={classes.center} />)
           }
 
-          <Divider className={classes.divider}/>
+          {/* <Divider className={classes.divider}/>
           <Grid container justify="center">
             <Button color="secondary" variant="contained" className={classes.button}>
             {t("FilesWidget.upgrade")}
             </Button>
-          </Grid>
+          </Grid> */}
         </PapperBlock>
       </Grid>
-      <Grid item md={4} sm={12} xs={12}>
+
+      
+      {/* <Grid item md={4} sm={12} xs={12}>
         <PapperBlock title={t("SystemWidget.title")} icon="ion-ios-world" whiteBg desc="">
           <div className={classes.albumRoot}>
           {t("SystemWidget.platform")}  {window.navigator.platform}
@@ -81,13 +83,13 @@ function FilesWidget(props) {
           {t("SystemWidget.agent")} {window.navigator.userAgent}
           </div>
           <Divider className={classes.divider}/>
-          {/*<Grid container justify="center">*/}
-          {/*  <Button color="secondary" className={classes.button}>*/}
-          {/*    See All*/}
-          {/*  </Button>*/}
-          {/*</Grid>*/}
+          <Grid container justify="center">
+            <Button color="secondary" className={classes.button}>
+              See All
+            </Button>
+          </Grid>
         </PapperBlock>
-      </Grid>
+      </Grid> */}
     </Grid>
   );
 }
