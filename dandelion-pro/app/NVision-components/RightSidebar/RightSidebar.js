@@ -64,6 +64,17 @@ const RightSidebar = (props) => {
   const listWidgets = [];
   const selectedWidgets = [];
 
+
+  widgets.map((widget) => {
+    if (widget.type === 'table') {
+        widget.data = widget.name;
+    }
+    if (widget.type === 'map') {
+        widget.data = widget.name;
+    }
+  })
+
+
   allWidgets.map(widget => {
     listWidgets.push({value: widget.id, label: widget.name});
   });

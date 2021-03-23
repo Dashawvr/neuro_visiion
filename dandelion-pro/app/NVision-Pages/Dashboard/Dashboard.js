@@ -10,6 +10,7 @@ import { withTranslation } from 'react-i18next';
 
 const Dashboard = (props) => {
   const [widgets, setWidgets] = useState([]);
+  const [widgetss, setWidgetss] = useState([]);
   const [allWidgets, setAllWidgets] = useState([]);
   const [dashboard, setDashboard] = useState([]);
   const [users, setUsers] = useState([]);
@@ -24,6 +25,12 @@ const Dashboard = (props) => {
         .get(`${URL}/api/dashboard/${id}`)
         .then((res) => {
           setWidgets(res.data.data.Dashboard.widgetdates);
+        });
+
+      await axios
+        .get(`${URL}/api/dashboard/${id}`)
+        .then((res) => {
+          setWidgetss(res.data.data.Dashboard.widgetdates);
         });
       
       await axios
@@ -105,7 +112,7 @@ const Dashboard = (props) => {
           :
             <></>
           }
-      <RightSidebar widgets={widgets} allWidgets={allWidgets} dashboardId={id} dashboard={dashboard} />
+      <RightSidebar widgets={widgetss} allWidgets={allWidgets} dashboardId={id} dashboard={dashboard} />
     </div>
   );
 };

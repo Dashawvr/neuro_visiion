@@ -32,9 +32,7 @@ class WidgetTableRole extends Component {
       role.create = role.access_right.canCreateUser;
       role.edit = role.access_right.canUpdateUser;
       role.delete = role.access_right.canDeleteUser;
-      console.log('success');
     });
-    console.log(this.state.roles);
     return (<RoleTable data={this.state.roles} />);
   }
 }
