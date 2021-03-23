@@ -72,7 +72,7 @@ const Widget = (props) => {
         history.push("/home");
       });
   };
-
+  
   switch (props.type) {
     case "table":
       switch (props.data) {

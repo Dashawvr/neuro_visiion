@@ -62,9 +62,6 @@ const Dashboard = (props) => {
     });
   });
   widgets.map((widget) => {
-      if (widget.type === 'table') {
-          widget.data = widget.name;
-      }
       if (widget.type === 'map') {
           widget.data = widget.name;
       }
