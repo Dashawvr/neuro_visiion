@@ -18,7 +18,6 @@ import { withRouter } from "react-router-dom";
 import axios from 'axios';
 import { withTranslation } from 'react-i18next';
 
-const parsed = new URLSearchParams(window.location.search);
 
 const styles = ({
   root: {
@@ -33,6 +32,7 @@ class CreateWidgetVideoForm extends React.Component {
     open: false,
     cams: []
   }
+  parsed = new URLSearchParams(window.location.search);
 
   componentDidMount() {
     axios.get(`${URL}/api/camera`).then((res) => {
@@ -68,11 +68,11 @@ class CreateWidgetVideoForm extends React.Component {
     });
     const user = JSON.parse(localStorage.getItem('user'));
     POST.data = {
-      type: parsed.get('type'),
+      type: this.parsed.get('type'),
       authorId: user.id,
       data: data,
       name: name,
-      widgetCoordinatesId: parsed.get('coordinatesId'),
+      widgetCoordinatesId: this.parsed.get('coordinatesId'),
       styles: {
         borderRadius: 0,
         color: '#000000',
@@ -89,7 +89,7 @@ class CreateWidgetVideoForm extends React.Component {
       width: width,
       height: height
     };
-    axios.patch(`${URL}/api/widget_coordinates/${parsed.get('coordinatesId')}`, coordData, {Authorization: localStorage.getItem('token')}).then(() => {
+    axios.patch(`${URL}/api/widget_coordinates/${this.parsed.get('coordinatesId')}`, coordData, {Authorization: localStorage.getItem('token')}).then(() => {
       this.setState({ open: true, variant: 'success', message: 'Notification.success' });
     }).catch((error) => {
       this.setState({ open: true, variant: 'error', message: 'Notification.error' });
