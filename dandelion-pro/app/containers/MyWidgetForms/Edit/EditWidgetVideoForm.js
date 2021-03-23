@@ -37,17 +37,19 @@ class EditWidgetVideoForm extends React.Component {
   parsed = queryString.parse(location.search);
 
   componentDidMount() {
-    axios.get(`${URL}/api/widget_data/${this.parsed.widgetId}`).then((res) => {
-      this.setState({ widget: res.data.data.widgetData, styles: res.data.data.widgetData.styles });
-    }).catch((error) => {
-      this.setState({ open: true, variant: 'error', message: 'Notification.error' });
-    });
+    if (this.parsed.widgetId) {
+      axios.get(`${URL}/api/widget_data/${this.parsed.widgetId}`).then((res) => {
+        this.setState({ widget: res.data.data.widgetData, styles: res.data.data.widgetData.styles });
+      }).catch((error) => {
+        this.setState({ open: true, variant: 'error', message: 'Notification.error' });
+      });
 
-    axios.get(`${URL}/api/camera`).then((res) => {
-      this.setState({ cams: res.data.data.cameras.rows });
-    }).catch((error) => {
-      this.setState({ open: true, variant: 'error', message: 'Notification.error' });
-    });
+      axios.get(`${URL}/api/camera`).then((res) => {
+        this.setState({ cams: res.data.data.cameras.rows });
+      }).catch((error) => {
+        this.setState({ open: true, variant: 'error', message: 'Notification.error' });
+      });
+    }
   }
 
   handleClose = (event, reason) => {
