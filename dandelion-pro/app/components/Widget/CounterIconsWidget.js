@@ -10,7 +10,7 @@ import colorfull from 'dan-api/palette/colorfull';
 import CounterWidget from '../Counter/CounterWidget';
 import styles from './widget-jss';
 import { connect } from "react-redux";
-import { getDashboards } from "../../redux/actions/dashboards";
+import { getAllDashboards } from "../../redux/actions/allDashboards";
 import { getRole } from "../../redux/actions/role";
 import { getUsers } from "../../redux/actions/users";
 import { getWidgetData } from "../../redux/actions/widget_data";
@@ -26,11 +26,11 @@ function CounterIconWidget(props) {
     props.getUsers()
     props.getWidgetData()
   }, [])
-
-  const countOfDash = Number(dashboards?dashboards.data.data.dashboard.rows.length:'')
-  const countOfRole  = Number(roles?roles.data.data.roles.count:'')
-  const countOfUsers = Number(users?users.data.data.users.count:'')
-  const countOfWidgets = Number(widget_data?widget_data.data.data.WidgetDates.count:'')
+  console.log(dashboards)
+  const countOfDash = Number(dashboards?dashboards.data.data.Dashboards.rows.length:'')
+  const countOfRole  = Number(roles?roles.data.data.roles.rows.length:'')
+  const countOfUsers = Number(users?users.data.data.users.rows.length:'')
+  const countOfWidgets = Number(widget_data?widget_data.data.data.WidgetDates.rows.length:'')
 
   const user = JSON.parse(localStorage.getItem('user'))
 
@@ -95,14 +95,14 @@ CounterIconWidget.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  dashboards: state.get('dashboards').dashboards,
+  dashboards: state.get('allDashboards').dashboards,
   roles: state.get('roles').roles,
   users: state.get('users').users,
   widget_data: state.get('widget_data').widget_data
 })
 
 export default connect(mapStateToProps, {
-  getDash: getDashboards,
+  getDash: getAllDashboards,
   getRoles: getRole,
   getUsers: getUsers,
   getWidgetData: getWidgetData
