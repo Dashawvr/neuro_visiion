@@ -61,13 +61,15 @@ class Login extends React.Component {
       .post(`${URL}/api/auth/loginWithLdap`, {cn: this.state.cn})
       .then((response) => {
         localStorage.setItem("token", response.data.data.token.access_token);
-        this.props.onSignIn(response.data.data.attributes);
-        localStorage.setItem("user", JSON.stringify(response.data.data.attributes));
-        socketConnection.setOnline();
-        const newToken = localStorage.getItem("token");
-        if (response.data.data.token.access_token && newToken.length > 50) {
-          this.props.history.push("/home");
-        }
+        setTimeout(() => {
+          this.props.onSignIn(response.data.data.attributes);
+          localStorage.setItem("user", JSON.stringify(response.data.data.attributes));
+          socketConnection.setOnline();
+          const newToken = localStorage.getItem("token");
+          if (response.data.data.token.access_token && newToken.length > 50) {
+            this.props.history.push("/home");
+          }
+        }, 1000);        
       })
       .catch((error) => {
         this.setState({ open: true, variant: 'error', message: 'Notification.error' });
@@ -77,13 +79,15 @@ class Login extends React.Component {
       .post(URL + "/api/auth/login", {email: this.state.email, password: this.state.password})
       .then((response) => {
         localStorage.setItem("token", response.data.data.token.access_token);
-        this.props.onSignIn(response.data.data.attributes);
-        localStorage.setItem("user", JSON.stringify(response.data.data.attributes));
-        socketConnection.setOnline()
-        const newToken = localStorage.getItem("token");
-        if (response.data.data.token.access_token && newToken.length > 50) {
-          this.props.history.push("/home");
-        }
+        setTimeout(() => {
+          this.props.onSignIn(response.data.data.attributes);
+          localStorage.setItem("user", JSON.stringify(response.data.data.attributes));
+          socketConnection.setOnline()
+          const newToken = localStorage.getItem("token");
+          if (response.data.data.token.access_token && newToken.length > 50) {
+            this.props.history.push("/home");
+          }
+        }, 1000);        
       })
       .catch((error) => {
         this.setState({ open: true, variant: 'error', message: 'Notification.error' });
