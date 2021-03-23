@@ -10,7 +10,7 @@ export class SocketConnection {
     }
   }
   connect() {
-    this.socket = io('ws://45.89.89.96:2000/');
+    this.socket = io('ws://45.89.89.96:8062/');
   }
   setOnline() {
     this.checkConnection()
