@@ -92,7 +92,7 @@ class TableDashboards extends React.Component {
       <Fragment>
         <div className={classes.table}>
           <MUIDataTable
-            title="Dashboards list"
+            title={t('TableDashboards.title')}
             data={data}
             columns={[
     {
@@ -110,7 +110,7 @@ class TableDashboards extends React.Component {
         }
       },
       {
-        label: 'Active',
+        label: t('TableDashboards.active'),
         name: 'enable',
         options: {
           filter: true,
