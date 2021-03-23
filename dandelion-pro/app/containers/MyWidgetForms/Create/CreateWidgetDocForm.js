@@ -18,7 +18,6 @@ import { withRouter } from "react-router-dom";
 import axios from 'axios';
 import { withTranslation } from 'react-i18next';
 
-const parsed = new URLSearchParams(window.location.search);
 
 const styles = ({
   root: {
@@ -32,7 +31,9 @@ class CreateWidgetDocForm extends React.Component {
     message: '',
     open: false,
   }
-
+  
+  parsed = new URLSearchParams(window.location.search);
+  
   handleClose = (event, reason) => {
     if (reason === 'clickaway') {
       return;
