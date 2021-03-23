@@ -59,11 +59,11 @@ const EditWidgetMap = (props) => {
 
                 <TextField 
                   label={'Довгота'} 
-                  placeholder={t('EditWidgetMap.lat')} 
+                  placeholder={t('EditWidgetMap.lon')} 
                   required 
                   className={classes.field} 
                   name="dataLon" 
-                  defaultValue={styles.lat} 
+                  defaultValue={styles.lon} 
                   inputRef={register} />
 
                 <hr/>
