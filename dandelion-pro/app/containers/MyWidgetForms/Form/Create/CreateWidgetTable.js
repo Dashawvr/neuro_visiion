@@ -93,7 +93,7 @@ class CreateWidgetTable extends Component {
                       placeholder={t('AddWidgetTable.table')}
                       required
                     >
-                      <MenuItem value="roles">{t('AddWidgetTable.roles')}</MenuItem>
+                      <MenuItem value="role">{t('AddWidgetTable.roles')}</MenuItem>
                       <MenuItem value="users">{t('AddWidgetTable.users')}</MenuItem>
                       <MenuItem value="dashboard">{t('AddWidgetTable.dashboards')}</MenuItem>
                     </Field>
