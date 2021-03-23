@@ -18,7 +18,6 @@ import { withRouter } from "react-router-dom";
 import axios from 'axios';
 import { withTranslation } from 'react-i18next';
 
-const parsed = new URLSearchParams(window.location.search);
 
 const styles = ({
   root: {
@@ -32,6 +31,8 @@ class CreateWidgetMapForm extends React.Component {
     message: '',
     open: false,
   }
+  
+  parsed = new URLSearchParams(window.location.search);
 
   handleClose = (event, reason) => {
     if (reason === 'clickaway') {
@@ -57,14 +58,14 @@ class CreateWidgetMapForm extends React.Component {
       }
     });
     POST.data = {
-      type: parsed.get('type'),
+      type: this.parsed.get('type'),
       authorId: user.id,
       data: {
         lat,
         lon,
       },
       name: name,
-      widgetCoordinatesId: parsed.get('coordinatesId'),
+      widgetCoordinatesId: this.parsed.get('coordinatesId'),
       styles: {
         borderRadius: 0,
         color: '#000000',
@@ -74,12 +75,12 @@ class CreateWidgetMapForm extends React.Component {
       },
       z_index: 1,
     };
+
     axios.post(`${URL}/api/widget_data/`, POST.data, {Authorization: localStorage.getItem('token')}).then(() => {
       this.setState({ open: true, variant: 'success', message: 'Notification.success' });
     }).catch((error) => {
       this.setState({ open: true, variant: 'error', message: 'Notification.error' });
-    });
-    // setTimeout(() => this.props.history.push('/home'), 1000);    
+    });    
   }
 
   render() {
