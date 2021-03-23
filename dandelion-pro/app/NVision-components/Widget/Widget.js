@@ -60,6 +60,7 @@ const Widget = (props) => {
     setZIndex((prevIndex) => {
       return { zIndex: prevIndex.zIndex + 1 }
     });
+
   };
 
   const handlePosition = () => {
@@ -69,8 +70,10 @@ const Widget = (props) => {
       })
       .catch((error) => {
         console.log(error);
-        history.push("/home");
       });
+
+    axios
+      .patch(`${URL}/api/widget_data/${props.id}`, {z_index: zIndex.zIndex});
   };
   
   switch (props.type) {
@@ -256,7 +259,7 @@ const Widget = (props) => {
           direction="left"
           hspace="10px"
           scrollamount={props.styles.speed}
-          fontSize={props.styles.fontSize}
+          style={{fontSize: props.styles.fontSize+'px'}}
           >
             {props.data ? props.data : ""}
           </marquee>
