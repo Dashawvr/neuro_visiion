@@ -220,7 +220,8 @@ const Widget = (props) => {
             lat={props.data.lat ? props.data.lat : 10.000} 
             lon={props.data.lon ? props.data.lon : 10.000} 
             markerLat={props.styles.lat ? props.styles.lat : 10.000} 
-            markerLon={props.styles.lon ? props.styles.lon : 10.000} />
+            markerLon={props.styles.lon ? props.styles.lon : 10.000}
+            dragging={false} />
         </Rnd>
       );
     case "text":

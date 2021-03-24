@@ -39,7 +39,7 @@ function DateWidget(props) {
 
   const { classes, t } = props;
   return (
-    <Paper style={{height: '85%'}} className={classes.wrapperDate}>
+    <Paper style={{height: 'calc(100% - 48px)'}} className={classes.wrapperDate}>
       <section className={classes.calendarWrap}>
         <Calendar
           onChange={onChange}

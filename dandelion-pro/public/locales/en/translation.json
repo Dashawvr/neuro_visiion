@@ -35,6 +35,14 @@
         "stream_url": "Online",
         "isDefaultRecord": "Default stream",
         "title": "Cams list"
+    },
+    "TableMaps": {
+        "lon": "Longitude",
+        "lat": "Latitude",
+        "username": "Username",
+        "password": "Password",
+        "type": "Type",
+        "title": "Maps list"
     }, 
     "TableDashboards": {
         "name": "Name",

@@ -432,6 +432,10 @@ export const CamersTable = loadable(() =>
   import ('./MyTables/CamersTable'), {
   fallback: <Loading />,
 });
+export const MapsTable = loadable(() =>
+  import ('./MyTables/MapsTable'), {
+  fallback: <Loading />,
+});
 export const DashboardTable = loadable(() =>
   import ('./MyTables/DashboardTable'), {
   fallback: <Loading />,
@@ -517,6 +521,10 @@ export const EditCameraForm = loadable(() =>
   import ('./MyForms/MainForms/Edit/EditCameraForm'), {
   fallback: <Loading />,
 });
+export const EditMapForm = loadable(() =>
+  import ('./MyForms/MainForms/Edit/EditMapForm'), {
+  fallback: <Loading />,
+});
 export const AddGroupForm = loadable(() =>
   import ('./MyForms/MainForms/Create/AddGroupForm'), {
   fallback: <Loading />,
@@ -539,6 +547,10 @@ export const AddRoleForm = loadable(() =>
 });
 export const AddCameraForm = loadable(() =>
   import ('./MyForms/MainForms/Create/AddCameraForm'), {
+  fallback: <Loading />,
+});
+export const AddMapForm = loadable(() =>
+  import ('./MyForms/MainForms/Create/AddMapForm'), {
   fallback: <Loading />,
 });
 export const AddUserForm = loadable(() =>

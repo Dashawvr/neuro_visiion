@@ -40,7 +40,7 @@ function TimelineWidget(props) {
     },
   ];
   return (
-    <PapperBlock height="100%" heightDiv="92%" whiteBg noMargin title={t("TimelineWidget.title")} icon="ios-time-outline" desc="">
+    <PapperBlock height="100%" heightDiv="calc(100% - 48px)" whiteBg noMargin title={t("TimelineWidget.title")} icon="ios-time-outline" desc="">
       <div className={classes.activityWrap}>
         <List>
           {dataTimeline.map((item, index) => (

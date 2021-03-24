@@ -14,7 +14,7 @@ import {
   StreetViewMap, EditWidgetVideoForm, EditWidgetTableForm, EditWidgetTextForm, EditWidgetMapForm,
   UsersGroupsTable, AddGroupForm, EditGroupForm, CamersTable, AddCameraForm,
   EditCameraForm, EditWidgetDocForm, EditWidgetLinkForm, EditWidgetImageForm, CreateWidgetDocForm,
-  CreateWidgetLinkForm, CreateWidgetImageForm, DashboardOnlySee
+  CreateWidgetLinkForm, CreateWidgetImageForm, DashboardOnlySee, MapsTable, AddMapForm, EditMapForm
 } from '../pageListAsync';
 
 function useInterval(callback, delay) {
@@ -62,7 +62,7 @@ function Application(props) {
             <Route path="/home/edit-panel"  component={EditPanel}/>
             {/* <Route path="/home/delete/widget"  component={DeleteWidgetForm}/> */}
             <Route path="/home/widgets"  component={WidgetsTable}/>
-            <Route path="/home/maps"  component={StreetViewMap}/>
+            <Route path="/home/maps"  component={MapsTable}/>
             <Route path="/home/stage"  component={DashboardTable}/>
             <Route path="/home/edit/dashboard/:id"  component={DashboardNew}/>
             <Route path="/home/dashboard/:id"  component={DashboardOnlySee}/>
@@ -88,6 +88,7 @@ function Application(props) {
             <Route path="/home/forms/edit/role" component={EditRoleForm} />
             <Route path="/home/forms/edit/user" component={EditUserForm} />
             <Route path="/home/forms/edit/camera" component={EditCameraForm} />
+            <Route path="/home/forms/edit/maps" component={EditMapForm} />
             <Route path="/home/forms/edit/group" component={EditGroupForm} />
 
             <Route path="/home/forms/add/scene" component={AddDashboardForm} />
@@ -95,6 +96,7 @@ function Application(props) {
             <Route path="/home/forms/add/user" component={AddUserForm} />
             <Route path="/home/forms/add/group" component={AddGroupForm} />
             <Route path="/home/forms/add/camera" component={AddCameraForm} />
+            <Route path="/home/forms/add/maps" component={AddMapForm} />
           </Switch>
         </Dashboard>
   );
