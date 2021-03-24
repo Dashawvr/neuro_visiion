@@ -12,9 +12,9 @@ import {
   CreateWidgetMapForm, CreateWidgetTableForm,
   PersonalDashboard, DashboardNew, EditPanel,
   StreetViewMap, EditWidgetVideoForm, EditWidgetTableForm, EditWidgetTextForm, EditWidgetMapForm,
-  UsersGroupsTable, AddGroupForm, EditGroupForm, DeleteWidgetForm, CamersTable, AddCameraForm,
+  UsersGroupsTable, AddGroupForm, EditGroupForm, CamersTable, AddCameraForm,
   EditCameraForm, EditWidgetDocForm, EditWidgetLinkForm, EditWidgetImageForm, CreateWidgetDocForm,
-  CreateWidgetLinkForm, CreateWidgetImageForm
+  CreateWidgetLinkForm, CreateWidgetImageForm, DashboardOnlySee
 } from '../pageListAsync';
 
 function useInterval(callback, delay) {
@@ -64,7 +64,8 @@ function Application(props) {
             <Route path="/home/widgets"  component={WidgetsTable}/>
             <Route path="/home/maps"  component={StreetViewMap}/>
             <Route path="/home/stage"  component={DashboardTable}/>
-            <Route path="/home/dashboard/:id"  component={DashboardNew}/>
+            <Route path="/home/edit/dashboard/:id"  component={DashboardNew}/>
+            <Route path="/home/dashboard/:id"  component={DashboardOnlySee}/>
 
             <Route path="/home/forms/edit/link" component={EditWidgetLinkForm} />
             <Route path="/home/forms/edit/doc" component={EditWidgetDocForm} />

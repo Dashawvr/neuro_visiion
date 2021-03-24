@@ -18,11 +18,13 @@ function PapperBlock(props) {
     noMargin,
     colorMode,
     overflowX,
-    icon
+    icon,
+    height,
+    heightDiv
   } = props;
   return (
-    <div>
-      <Paper className={classNames(classes.root, noMargin && classes.noMargin, colorMode && classes.colorMode)} elevation={0}>
+    <div style={{height: heightDiv}}>
+      <Paper style={{height: height}} className={classNames(classes.root, noMargin && classes.noMargin, colorMode && classes.colorMode)} elevation={0}>
         <div className={classes.descBlock}>
           <span className={classes.iconTitle}>
             <Ionicon icon={icon} />

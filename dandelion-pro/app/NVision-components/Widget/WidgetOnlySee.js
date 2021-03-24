@@ -1,7 +1,6 @@
 /* eslint-disable jsx-a11y/no-distracting-elements */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
-import useStateWithCallback from 'use-state-with-callback';
 import "../../NVision-styles/style.css";
 import { Rnd } from 'react-rnd';
 import TableUsers from "../../containers/MyWidgets/WidgetTableUsers";
@@ -9,22 +8,20 @@ import TableRoles from "../../containers/MyWidgets/WidgetTableRole";
 import TableDashboards from "../../containers/MyWidgets/WidgetTableDashboards";
 import Map from "../../containers/MyWidgets/WidgetMap";
 import axios from "axios";
-import history from "../../utils/history";
 import JsmpegPlayer from "../JsmpegPlayer/JsmpegPlayer";
 import { URL } from '../../containers/Axios/axiosForData';
 
 const videoOptions = {};
 const videoOverlayOptions = {};
 
-const Widget = (props) => {
+const WidgetOnlySee = (props) => {
   let jsmpegPlayer = null;
-  const [coordinates, setCoordinates] = useStateWithCallback({
+  const [coordinates, setCoordinates] = useState({
     x: props.coordinate.x, 
     y: props.coordinate.y, 
     width: props.coordinate.width, 
     height: props.coordinate.height
-  }, 
-    () => handlePosition());
+  });
   const [url, setUrl] = useState("");
   const [zIndex, setZIndex] = useState({ zIndex: props.zIndex });
 
@@ -43,38 +40,8 @@ const Widget = (props) => {
     }
   }, []);
 
-  let canEditScene = undefined;
-  let canEnableResizing = undefined;
-
-  const user = JSON.parse(localStorage.getItem('user'));
-
-  if (user.roleId === 1 || user.roleId === 2) {
-    canEnableResizing = true;
-    canEditScene = false;
-  } else {
-    canEnableResizing = false;
-    canEditScene = true;
-  }
-
-  const handleDoubleClick = () => {
-    setZIndex((prevIndex) => {
-      return { zIndex: prevIndex.zIndex + 1 }
-    });
-
-  };
-
-  const handlePosition = () => {
-    axios
-      .patch(`${URL}/api/widget_coordinates/${props.coordinatesId}`, coordinates)
-      .then((res) => {
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-
-    axios
-      .patch(`${URL}/api/widget_data/${props.id}`, {z_index: zIndex.zIndex});
-  };
+  let canEditScene = true;
+  let canEnableResizing = false;
   
   switch (props.type) {
     case "table":
@@ -83,7 +50,6 @@ const Widget = (props) => {
           return (
             <Rnd
               className="widgetTable"
-              onDoubleClick={handleDoubleClick}
               bounds=".app"
               default={{
                 x: props.coordinate.x,
@@ -96,17 +62,7 @@ const Widget = (props) => {
                 border: `${props.styles.size}px solid ${props.styles.color}`,
                 borderRadius: props.styles.borderRadius,
                 backgroundColor: props.styles.color,
-              }}
-              onDragStop={(e, d) => {
-                setCoordinates({...coordinates, x: d.x, y: d.y });
-              }}
-            onResizeStop={(e, direction, ref, delta, position) => {
-              setCoordinates({
-                width: ref.style.width,
-                height: ref.style.height,
-                ...position,
-              });
-            }}
+              }}              
               disableDragging={canEditScene}
               enableResizing={canEnableResizing}
             >
@@ -117,7 +73,6 @@ const Widget = (props) => {
           return (
             <Rnd
                 className="widgetTable"
-                onDoubleClick={handleDoubleClick}
                 bounds=".app"
                 default={{
                   x: props.coordinate.x,
@@ -130,17 +85,7 @@ const Widget = (props) => {
                   border: `${props.styles.size}px solid ${props.styles.color}`,
                   borderRadius: props.styles.borderRadius,
                   backgroundColor: props.styles.color,
-                }}
-                onDragStop={(e, d) => {
-                  setCoordinates({...coordinates, x: d.x, y: d.y });
-                }}
-                onResizeStop={(e, direction, ref, delta, position) => {
-                  setCoordinates({
-                    width: ref.style.width,
-                    height: ref.style.height,
-                    ...position,
-                  });
-                }}
+                }}                
                 disableDragging={canEditScene}
                 enableResizing={canEnableResizing}
             >
@@ -151,7 +96,6 @@ const Widget = (props) => {
           return (
             <Rnd
                 className="widgetTable"
-                onDoubleClick={handleDoubleClick}
                 bounds=".app"
                 default={{
                   x: props.coordinate.x,
@@ -164,16 +108,6 @@ const Widget = (props) => {
                   border: `${props.styles.size}px solid ${props.styles.color}`,
                   borderRadius: props.styles.borderRadius,
                   backgroundColor: props.styles.color,
-                }}
-                onDragStop={(e, d) => {
-                  setCoordinates({...coordinates, x: d.x, y: d.y });
-                }}
-                onResizeStop={(e, direction, ref, delta, position) => {
-                  setCoordinates({
-                    width: ref.style.width,
-                    height: ref.style.height,
-                    ...position,
-                  });
                 }}
                 disableDragging={canEditScene}
                 enableResizing={canEnableResizing}
@@ -188,8 +122,7 @@ const Widget = (props) => {
     case "map":
       return (
         <Rnd
-            className="widgetMap"
-            onDoubleClick={handleDoubleClick}
+            className="widgetMap"            
             bounds=".app"
             default={{
               x: props.coordinate.x,
@@ -202,16 +135,6 @@ const Widget = (props) => {
               border: `${props.styles.size}px solid ${props.styles.color}`,
               borderRadius: props.styles.borderRadius,
               backgroundColor: props.styles.color,
-            }}
-            onDragStop={(e, d) => { 
-              setCoordinates({...coordinates, x: d.x, y: d.y });
-            }}
-            onResizeStop={(e, direction, ref, delta, position) => {
-              setCoordinates({
-                width: ref.style.width,
-                height: ref.style.height,
-                ...position,
-              });
             }}
             disableDragging={canEditScene}
             enableResizing={canEnableResizing}
@@ -227,7 +150,6 @@ const Widget = (props) => {
       return (
         <Rnd
             className="widgetText"
-            onDoubleClick={handleDoubleClick}
             bounds=".app"
             default={{
               x: props.coordinate.x,
@@ -240,16 +162,6 @@ const Widget = (props) => {
               border: `${props.styles.size}px solid ${props.styles.color}`,
               borderRadius: props.styles.borderRadius,
               backgroundColor: props.styles.color,
-            }}
-            onDragStop={(e, d, r) => {
-              setCoordinates({...coordinates, x: d.x, y: d.y });
-            }}
-            onResizeStop={(e, direction, ref, delta, position) => {
-              setCoordinates({
-                width: ref.style.width,
-                height: ref.style.height,
-                ...position,
-              });
             }}
             disableDragging={canEditScene}
             enableResizing={canEnableResizing}
@@ -270,7 +182,6 @@ const Widget = (props) => {
         return (
           <Rnd
             className="widgetVideo"
-            onDoubleClick={handleDoubleClick}
             bounds=".app"
             style={{
               zIndex: zIndex.zIndex,
@@ -283,21 +194,10 @@ const Widget = (props) => {
               y: props.coordinate.y,
               width: props.coordinate.width,
               height: props.coordinate.height,
-            }}
-            onDragStop={(e, d) => {
-              setCoordinates({...coordinates, x: d.x, y: d.y });
-            }}
-            onResizeStop={(e, direction, ref, delta, position) => {
-              setCoordinates({
-                width: ref.style.width,
-                height: ref.style.height,
-                ...position,
-              });
-            }}
+            }}       
             disableDragging={canEditScene}
-            enableResizing={canEnableResizing}
+            enableResizing={canEnableResizing}     
           >
-            <div onDoubleClick={handleDoubleClick}>
               <JsmpegPlayer
                 wrapperClassName={`video-wrapper-${props.id}`}
                 size={{
@@ -308,8 +208,7 @@ const Widget = (props) => {
                 options={videoOptions}
                 overlayOptions={videoOverlayOptions}
                 onRef={(ref) => (jsmpegPlayer = ref)}
-              />
-            </div>            
+              />           
           </Rnd>
         );
       } else {
@@ -320,7 +219,6 @@ const Widget = (props) => {
         return (
           <Rnd
             className="widgetVideo"
-            onDoubleClick={handleDoubleClick}
             bounds=".app"
             style={{
               zIndex: zIndex.zIndex,
@@ -334,22 +232,10 @@ const Widget = (props) => {
               width: props.coordinate.width,
               height: props.coordinate.height,
             }}
-            onDragStop={(e, d) => {
-              setCoordinates({...coordinates, x: d.x, y: d.y });
-            }}
-            onResizeStop={(e, direction, ref, delta, position) => {
-              setCoordinates({
-                width: ref.style.width,
-                height: ref.style.height,
-                ...position,
-              });
-            }}
             disableDragging={canEditScene}
             enableResizing={canEnableResizing}
           >
-            <div onDoubleClick={handleDoubleClick}>
-              <iframe width='100%' height={coordinates.height} src={props.data ? props.data : ""} ></iframe>
-            </div>            
+            <iframe width='100%' height={coordinates.height} src={props.data ? props.data : ""} ></iframe>           
           </Rnd>
         );
 
@@ -357,7 +243,6 @@ const Widget = (props) => {
         return (
           <Rnd
             className="widgetVideo"
-            onDoubleClick={handleDoubleClick}
             bounds=".app"
             style={{
               zIndex: zIndex.zIndex,
@@ -371,22 +256,10 @@ const Widget = (props) => {
               width: props.coordinate.width,
               height: props.coordinate.height,
             }}
-            onDragStop={(e, d) => {
-              setCoordinates({...coordinates, x: d.x, y: d.y });
-            }}
-            onResizeStop={(e, direction, ref, delta, position) => {
-              setCoordinates({
-                width: ref.style.width,
-                height: ref.style.height,
-                ...position,
-              });
-            }}
             disableDragging={canEditScene}
             enableResizing={canEnableResizing}
           >
-            <div onDoubleClick={handleDoubleClick}>
-              <iframe width='100%' height={coordinates.height} src={props.data ? props.data : ""} ></iframe>
-            </div>            
+            <iframe width='100%' height={coordinates.height} src={props.data ? props.data : ""} ></iframe>           
           </Rnd>
         );
         
@@ -394,7 +267,6 @@ const Widget = (props) => {
         return (
           <Rnd
             className="widgetVideo"
-            onDoubleClick={handleDoubleClick}
             bounds=".app"
             style={{
               zIndex: zIndex.zIndex,
@@ -408,22 +280,10 @@ const Widget = (props) => {
               width: props.coordinate.width,
               height: props.coordinate.height,
             }}
-            onDragStop={(e, d) => {
-              setCoordinates({...coordinates, x: d.x, y: d.y });
-            }}
-            onResizeStop={(e, direction, ref, delta, position) => {
-              setCoordinates({
-                width: ref.style.width,
-                height: ref.style.height,
-                ...position,
-              });
-            }}
             disableDragging={canEditScene}
             enableResizing={canEnableResizing}
           >
-            <div onDoubleClick={handleDoubleClick}>
-              <iframe width='100%' height={coordinates.height} src={props.data ? props.data : ""} ></iframe>
-            </div>            
+            <iframe width='100%' height={coordinates.height} src={props.data ? props.data : ""} ></iframe>           
           </Rnd>
         );
          
@@ -431,4 +291,4 @@ const Widget = (props) => {
       return(<></>)
   }
 };
-export default Widget;
+export default WidgetOnlySee;

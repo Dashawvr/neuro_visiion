@@ -1,14 +1,14 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import "../../NVision-styles/style.css";
-import React, { Fragment, useState, useEffect } from "react";
-import Widget from "../../NVision-components/Widget/Widget";
+import React, { useState, useEffect } from "react";
+import WidgetOnlySee from "../../NVision-components/Widget/WidgetOnlySee";
 import RightSidebar from "../../NVision-components/RightSidebar/RightSidebar";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
 import { URL } from '../../containers/Axios/axiosForData';
 import { withTranslation } from 'react-i18next';
 
-const Dashboard = (props) => {
+const DashboardOnlySee = (props) => {
   const [widgets, setWidgets] = useState([]);
   const [widgetss, setWidgetss] = useState([]);
   const [allWidgets, setAllWidgets] = useState([]);
@@ -17,7 +17,7 @@ const Dashboard = (props) => {
   const [camers, setCamers] = useState([]);
   const history = useHistory();
 
-  const id = history.location.pathname.split('/')[4]
+  const id = history.location.pathname.split('/')[3]
 
   useEffect(() => {
     async function getWidgets() {
@@ -97,7 +97,7 @@ const Dashboard = (props) => {
           {widgets ?
             widgets.map((widget) => {
               return (
-                <Widget
+                <WidgetOnlySee
                   data={widget.data}
                   type={widget.type}
                   coordinatesId={widget.widgetCoordinatesId}
@@ -118,4 +118,4 @@ const Dashboard = (props) => {
 };
 
 
-export default withTranslation()(Dashboard);
+export default withTranslation()(DashboardOnlySee);

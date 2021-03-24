@@ -81,12 +81,12 @@ const [user, setUser] = useState({});
   }, [])
 
 
-  const { classes, dark, dashboards, allDashboards, location } = props;
+  const { classes, dark, dashboards, allDashboards, location, editScene } = props;
   const { anchorEl, openMenu } = menuState;
   const { anchorElLanguage, openMenuLanguage } = languageState;
   return (
     <div>
-    {location &&
+    {editScene &&
       <Button variant="outlined" color="primary" onClick={() => props.onOpen(!props.rightSidebar.open)}>{t("Menu.menu")}</Button>      
     }     
     <IconButton

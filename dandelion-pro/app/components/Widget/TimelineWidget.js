@@ -7,6 +7,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import PapperBlock from '../PapperBlock/PapperBlock';
 import styles from './widget-jss';
+import Paper from '@material-ui/core/Paper';
 import { withTranslation } from 'react-i18next';
 
 function TimelineWidget(props) {
@@ -39,7 +40,7 @@ function TimelineWidget(props) {
     },
   ];
   return (
-    <PapperBlock whiteBg noMargin title={t("TimelineWidget.title")} icon="ios-time-outline" desc="">
+    <PapperBlock height="100%" heightDiv="92%" whiteBg noMargin title={t("TimelineWidget.title")} icon="ios-time-outline" desc="">
       <div className={classes.activityWrap}>
         <List>
           {dataTimeline.map((item, index) => (

@@ -121,7 +121,7 @@ class Dashboards extends React.Component {
 
     const handleEditDashboard = (id) => {
       if (id) {
-        this.props.history.push(`/home/dashboard/${id}`);
+        this.props.history.push(`/home/edit/dashboard/${id}`);
       } else {
         this.setState({ open: true, variant: 'warning', message: 'Notification.clickEdit' });
       }

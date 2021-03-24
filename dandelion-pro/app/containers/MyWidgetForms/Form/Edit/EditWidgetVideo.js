@@ -69,7 +69,7 @@ const EditWidgetVideo = (props) => {
         <Grid container spacing={3} alignItems="flex-start" direction="row" justify="center">
           <Grid item xs={12} md={6}>
             <Paper className={classes.root}>
-            {widget.name && camera.id &&
+            {widget.name && camera &&
               <form onSubmit={handleSubmit(onSubmit)}>                
               <TextField 
                 label={t('EditUser.name')} 

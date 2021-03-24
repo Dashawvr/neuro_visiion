@@ -28,6 +28,9 @@
   width: calc(100% - 64px);
   height: calc(100% - 64px);
 }
+::-webkit-scrollbar {
+  width: 0px;
+}
 
 .black {
   color: black !important;

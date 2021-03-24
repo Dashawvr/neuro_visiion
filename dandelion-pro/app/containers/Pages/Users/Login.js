@@ -61,12 +61,12 @@ class Login extends React.Component {
       .post(`${URL}/api/auth/loginWithLdap`, {cn: this.state.cn})
       .then((response) => {
         localStorage.setItem("token", response.data.data.token.access_token);
+        localStorage.setItem("user", JSON.stringify(response.data.data.attributes));
         setTimeout(() => {
-          this.props.onSignIn(response.data.data.attributes);
-          localStorage.setItem("user", JSON.stringify(response.data.data.attributes));
-          socketConnection.setOnline();
           const newToken = localStorage.getItem("token");
-          if (response.data.data.token.access_token && newToken.length > 50) {
+          if (newToken.length > 50) {
+            this.props.onSignIn(response.data.data.attributes);
+            socketConnection.setOnline();
             this.props.history.push("/home");
           }
         }, 1000);        
@@ -79,12 +79,12 @@ class Login extends React.Component {
       .post(URL + "/api/auth/login", {email: this.state.email, password: this.state.password})
       .then((response) => {
         localStorage.setItem("token", response.data.data.token.access_token);
+        localStorage.setItem("user", JSON.stringify(response.data.data.attributes));
+        const newToken = localStorage.getItem("token");
         setTimeout(() => {
-          this.props.onSignIn(response.data.data.attributes);
-          localStorage.setItem("user", JSON.stringify(response.data.data.attributes));
-          socketConnection.setOnline()
-          const newToken = localStorage.getItem("token");
-          if (response.data.data.token.access_token && newToken.length > 50) {
+          if (newToken.length > 50) {
+            this.props.onSignIn(response.data.data.attributes);
+            socketConnection.setOnline()
             this.props.history.push("/home");
           }
         }, 1000);        

@@ -97,6 +97,7 @@ function Header(props) {
     history
   } = props;
   const location = history.location.pathname.split('/').includes('dashboard')
+  const editScene = history.location.pathname.split('/').includes('dashboard') && history.location.pathname.split('/').includes('edit')
 
   const setMargin = (sidebarPosition) => {
     if (sidebarPosition === 'right-sidebar') {
@@ -173,7 +174,7 @@ function Header(props) {
         {/*<Hidden xsDown>*/}
         {/*  <span className={classes.separatorV} />*/}
         {/*</Hidden>*/}
-        <UserMenu location={location}/>
+        <UserMenu location={location} editScene={editScene}/>
       </Toolbar>
     </AppBar>
   );

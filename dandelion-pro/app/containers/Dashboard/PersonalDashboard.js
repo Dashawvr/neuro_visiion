@@ -57,14 +57,6 @@ function PersonalDashboard(props) {
         <meta property="twitter:title" content={title}/>
         <meta property="twitter:description" content={description}/>
       </Helmet>
-      {/* 1st Section */}
-      {/* <Grid container spacing={3} className={classes.root}>
-        <Grid item md={6} xs={12}>
-          <CounterIconsWidget/>
-        </Grid>
-      </Grid>
-      <Divider className={classes.divider}/> */}
-      {/* 3rd Section */}
       <Grid container spacing={3} className={classes.root}>
         <Grid item md={6} xs={12}>
           <Divider className={classes.divider}/>
@@ -83,7 +75,7 @@ function PersonalDashboard(props) {
         </Grid>
         <Grid item md={6} xs={12}>
           <Divider className={classes.divider}/>
-          <TimelineWidget/>
+          <TimelineWidget />
           <Divider className={classes.divider}/>
         </Grid>
         <Grid item md={6} xs={12}>

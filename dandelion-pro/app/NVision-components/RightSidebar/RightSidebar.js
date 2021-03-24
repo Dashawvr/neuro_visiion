@@ -84,6 +84,7 @@ const RightSidebar = (props) => {
       selectedWidgets.push({value: widget.id, label: widget.name});
     });
   }
+  console.log(selectedWidgets)
 
   const onSubmit = (values) => {
     const selectWidgets = [];
@@ -118,6 +119,7 @@ const RightSidebar = (props) => {
     <Drawer anchor='right' open={rightSidebar.open} onClose={() => onOpen(!rightSidebar.open)}>
       <div className={classes.drawer}>
           <Widgets data={widgets} />
+          {widgets ? selectedWidgets.length > 0 &&
           <form onSubmit={handleSubmit(onSubmit)} style={{marginTop: 25}}>
             <Typography variant="subtitle2" gutterBottom>              
               {t('RightSidebar.title')}
@@ -141,6 +143,30 @@ const RightSidebar = (props) => {
               </Button>
             </div>
           </form>
+          :
+          <form onSubmit={handleSubmit(onSubmit)} style={{marginTop: 25}}>
+            <Typography variant="subtitle2" gutterBottom>              
+              {t('RightSidebar.title')}
+            </Typography>
+            <Controller
+              isMulti
+              name="widgets"
+              label="Widgets"
+              placeholder="Widgets"
+              className={classes.field}
+              styles={props.mode === 'dark' ? customStyles : ''}
+              isSearchable={true}
+              control={control}
+              options={listWidgets}
+              as={Select}
+            />
+            <div className={classes.button}>
+              <Button variant="contained" color="secondary" type="submit">
+                {t('RightSidebar.submit')}
+              </Button>
+            </div>
+          </form>
+          }
       </div>
     </Drawer>
   );

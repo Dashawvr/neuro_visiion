@@ -4,7 +4,6 @@ import axios from "axios";
 
 export const onSignIn = (data) => {
     return async (dispatch) => {
-        console.log(data)
         dispatch ({
             type: LOGIN,
             payload: data

@@ -13,7 +13,7 @@ function SystemWidget(props) {
   return (
     <Grid container spacing={3}>
       <Grid item md={12} sm={12} xs={12}>
-        <PapperBlock whiteBg noMargin title={t("SystemWidget.title")} icon="ios-cloud-outline" desc="">           
+        <PapperBlock height="100%" heightDiv="92%" whiteBg noMargin title={t("SystemWidget.title")} icon="ios-cloud-outline" desc="">           
             <div className={classes.secondaryWrap}>
               <div>
                   {t("SystemWidget.platform")}  {window.navigator.platform}

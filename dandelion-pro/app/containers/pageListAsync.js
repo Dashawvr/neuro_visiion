@@ -56,6 +56,10 @@ export const DashboardNew = loadable(() =>
     import ('../NVision-Pages/Dashboard/Dashboard'), {
     fallback: <Loading />,
 });
+export const DashboardOnlySee = loadable(() =>
+    import ('../NVision-Pages/Dashboard/DashboardOnlySee'), {
+    fallback: <Loading />,
+});
 // export const CryptoDashboard = loadable(() =>
 //   import ('./Dashboard/CryptoDashboard'), {
 //     fallback: <Loading />,
