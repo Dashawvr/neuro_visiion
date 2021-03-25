@@ -101,6 +101,12 @@
     "AddCamera": {
         "title": "Створити Камеру"
     },
+    "AddMap": {
+        "title": "Створити Карту"
+    },
+    "EditMap": {
+        "title": "Редагувати Карту"
+    },
     "EditDashboard": {
         "title": "Редагувати сцену",
         "role": "Роль",

@@ -73,7 +73,7 @@ class AddMapForm extends React.Component {
           <meta property="twitter:title" content={title} />
           <meta property="twitter:description" content={description} />
         </Helmet>
-        <PapperBlock title={t('AddCamera.title')} icon="ios-list-box-outline">
+        <PapperBlock title={t('AddMap.title')} icon="ios-list-box-outline">
           <div>
             <AddMap onSubmit={(values) => this.showResult(values)}  />
           </div>

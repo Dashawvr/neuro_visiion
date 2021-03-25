@@ -163,6 +163,12 @@
         "width": "Width",
         "camera": "Choose video camera"
     },
+    "AddMap": {
+        "title": "Create Map"
+    },
+    "EditMap": {
+        "title": "Edit Map"
+    },
     "AddWidgetMap": {
         "name": "Name",
         "lat": "Latitude",
