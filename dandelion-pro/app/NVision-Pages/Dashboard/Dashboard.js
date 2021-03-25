@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import "../../NVision-styles/style.css";
-import React, { Fragment, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Widget from "../../NVision-components/Widget/Widget";
 import RightSidebar from "../../NVision-components/RightSidebar/RightSidebar";
 import { useHistory } from "react-router-dom";
@@ -15,6 +15,7 @@ const Dashboard = (props) => {
   const [dashboard, setDashboard] = useState([]);
   const [users, setUsers] = useState([]);
   const [camers, setCamers] = useState([]);
+
   const history = useHistory();
 
   const id = history.location.pathname.split('/')[4]

@@ -84,7 +84,6 @@ const RightSidebar = (props) => {
       selectedWidgets.push({value: widget.id, label: widget.name});
     });
   }
-  console.log(selectedWidgets)
 
   const onSubmit = (values) => {
     const selectWidgets = [];
@@ -92,8 +91,6 @@ const RightSidebar = (props) => {
       values.widgets.map((widget) => {
         selectWidgets.push(widget.value);
       });
-      
-      console.log(selectWidgets);
       
       const data = {
         roleId: dashboard.roleId,

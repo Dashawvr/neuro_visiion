@@ -99,7 +99,7 @@ class Dashboards extends React.Component {
       filterType: 'dropdown',
       responsive: 'stacked',
       print: true,
-      rowsPerPage: 5,
+      rowsPerPage: 10,
       page: 0,
       onRowsSelect: (current, all, rowsSelected) => {
         if (all.length) {
@@ -219,11 +219,11 @@ class Dashboards extends React.Component {
           {t('Buttons.edit')}
             <CreateIcon className={classes.rightIcon} />
           </Button>
-          <Button onClick={() => handleModal(id)} className={classes.button} variant="contained" color="red">
+          <Button onClick={() => handleModal(id)} className={classes.button} variant="contained">
           {t('Buttons.delete')}
             <DeleteIcon className={classes.rightIcon} />
           </Button>
-          <Button onClick={() => handleEditDashboard(id)} className={classes.button} variant="contained" color="red">
+          <Button onClick={() => handleEditDashboard(id)} className={classes.button} variant="contained">
             {t('Buttons.edit_on_scene')}
             <CreateIcon className={classes.rightIcon} />
           </Button>

@@ -109,7 +109,7 @@ class EditDashboardForm extends React.Component {
           <meta property="twitter:title" content={title} />
           <meta property="twitter:description" content={description} />
         </Helmet>
-        <PapperBlock title={t('EditDashboard.title')} icon="ios-list-box-outline">
+        <PapperBlock title={t('EditDashboard.title')} icon="ios-list-box-outline" desc="">
           <div>
             <EditDashboard 
             onSubmit={(values) => this.showResult(values)} 

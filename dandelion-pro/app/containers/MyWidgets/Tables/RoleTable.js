@@ -7,14 +7,6 @@ import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import Chip from '@material-ui/core/Chip';
 import MUIDataTable from 'mui-datatables';
-import Button from '@material-ui/core/Button';
-import DeleteIcon from '@material-ui/icons/Delete';
-import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
-import CreateIcon from '@material-ui/icons/Create';
-import history from '../../../utils/history';
-import request from '../../../utils/request';
-import { URL, DELETE } from '../../Axios/axiosForData';
-import Notification from '../../MyNotification/Notification';
 import { withRouter } from "react-router-dom";
 import { withTranslation } from 'react-i18next';
 
@@ -89,7 +81,7 @@ class RoleTable extends React.Component {
       filterType: 'dropdown',
       responsive: 'stacked',
       print: true,
-      rowsPerPage: 5,
+      rowsPerPage: 10,
       page: 0,
       onRowClick: (rowData) => {
         this.setState({ id: rowData[0] });

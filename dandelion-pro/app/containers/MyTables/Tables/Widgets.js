@@ -101,7 +101,7 @@ class Widgets extends React.Component {
       filterType: 'dropdown',
       responsive: 'stacked',
       print: true,
-      rowsPerPage: 5,
+      rowsPerPage: 10,
       page: 0,
       onRowsSelect: (current, all, rowsSelected) => {
         if (all.length) {
@@ -137,6 +137,7 @@ class Widgets extends React.Component {
     };
 
     const handleEdit = (type, widgetId) => {
+      if (widgetId) {
         switch (type) {
           case 'video':
             this.props.history.push('/home/forms/edit/video?widgetId=' + widgetId);
@@ -160,6 +161,9 @@ class Widgets extends React.Component {
             this.props.history.push('/home/forms/edit/image?widgetId=' + widgetId);
             break;
         }
+      } else {
+        this.setState({ open: true, variant: 'warning', message: 'Notification.clickDelete' });
+      }
     };
     const handleClose = (event, reason) => {
       if (reason === 'clickaway') {
@@ -233,7 +237,7 @@ class Widgets extends React.Component {
                         {t('Buttons.edit')}
                         <CreateIcon className={classes.rightIcon} />
                     </Button>
-                    <Button onClick={() => handleModal(id)} className={classes.button} variant="contained" color="red">
+                    <Button onClick={() => handleModal(id)} className={classes.button} variant="contained">
                         {t('Buttons.delete')}
                         <DeleteIcon className={classes.rightIcon} />
                     </Button>

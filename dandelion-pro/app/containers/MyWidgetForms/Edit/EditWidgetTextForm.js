@@ -86,7 +86,7 @@ class EditWidgetTextForm extends React.Component {
           <meta property="twitter:title" content={title} />
           <meta property="twitter:description" content={description} />
         </Helmet>
-        <PapperBlock title={t('EditWidgetText.title')} icon="ios-list-box-outline">
+        <PapperBlock title={t('EditWidgetText.title')} icon="ios-list-box-outline" desc="">
           <div>
             <EditWidgetText
               onSubmit={(values) => this.showResult(values)}

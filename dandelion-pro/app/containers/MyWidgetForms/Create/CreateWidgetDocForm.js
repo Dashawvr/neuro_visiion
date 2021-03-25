@@ -91,7 +91,7 @@ class CreateWidgetDocForm extends React.Component {
           <meta property="twitter:title" content={title} />
           <meta property="twitter:description" content={description} />
         </Helmet>
-        <PapperBlock title={t('AddWidgetDoc.title')} icon="ios-list-box-outline">
+        <PapperBlock title={t('AddWidgetDoc.title')} icon="ios-list-box-outline" desc="">
           <div>
             <CreateWidgetDoc onSubmit={(values) => this.showResult(values)} />
           </div>

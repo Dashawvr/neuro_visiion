@@ -23,7 +23,6 @@ class WidgetTableRole extends Component {
   componentDidMount() {
     request(`${URL}/api/role`, GET).then((res) => {
       this.setState({ roles: res.data.roles.rows });
-      console.log(res.data.roles.rows);
     });
   }
 

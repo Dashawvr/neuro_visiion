@@ -101,7 +101,7 @@ class EditWidgetVideoForm extends React.Component {
           <meta property="twitter:title" content={title} />
           <meta property="twitter:description" content={description} />
         </Helmet>
-        <PapperBlock title={t('EditWidgetVideo.title')} icon="ios-list-box-outline">
+        <PapperBlock title={t('EditWidgetVideo.title')} icon="ios-list-box-outline" desc="">
           <div>
             <EditWidgetVideo
               onSubmit={(values) => this.showResult(values)}

@@ -100,7 +100,7 @@ class UsersGroups extends React.Component {
       filterType: 'dropdown',
       responsive: 'stacked',
       print: true,
-      rowsPerPage: 5,
+      rowsPerPage: 10,
       page: 0,
       onRowsSelect: (current, all, rowsSelected) => {
         if (all.length) {
@@ -178,7 +178,7 @@ class UsersGroups extends React.Component {
               return (<div>
                 {
                   value.map((user) => {
-                    return <Chip label={user.name + " " + user.surName} style={{marginRight: 5}} color="primary" />
+                    return <Chip key={user.id} label={user.name + " " + user.surName} style={{marginRight: 5}} color="primary" />
                   })
                 }
               </div>)              
@@ -203,7 +203,7 @@ class UsersGroups extends React.Component {
           {t('Buttons.edit')}
             <CreateIcon className={classes.rightIcon} />
           </Button>
-          <Button onClick={() => handleModal(id)} className={classes.button} variant="contained" color="red">
+          <Button onClick={() => handleModal(id)} className={classes.button} variant="contained">
           {t('Buttons.delete')}
             <DeleteIcon className={classes.rightIcon} />
           </Button>

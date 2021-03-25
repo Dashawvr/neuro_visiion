@@ -90,7 +90,7 @@ class CreateWidgetLinkForm extends React.Component {
           <meta property="twitter:title" content={title} />
           <meta property="twitter:description" content={description} />
         </Helmet>
-        <PapperBlock title={t('AddWidgetLink.title')} icon="ios-list-box-outline">
+        <PapperBlock title={t('AddWidgetLink.title')} icon="ios-list-box-outline" desc="">
           <div>
             <CreateWidgetLink onSubmit={(values) => this.showResult(values)} />
           </div>

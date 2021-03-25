@@ -9,7 +9,6 @@ import TableRoles from "../../containers/MyWidgets/WidgetTableRole";
 import TableDashboards from "../../containers/MyWidgets/WidgetTableDashboards";
 import Map from "../../containers/MyWidgets/WidgetMap";
 import axios from "axios";
-import history from "../../utils/history";
 import JsmpegPlayer from "../JsmpegPlayer/JsmpegPlayer";
 import { URL } from '../../containers/Axios/axiosForData';
 

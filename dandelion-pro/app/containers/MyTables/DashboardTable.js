@@ -26,7 +26,6 @@ class DashboardTable extends Component {
   componentDidMount() {
     request(`${URL}/api/dashboard`, GET).then((res) => {
       this.setState({ dashboards: res.data.Dashboards.rows });
-      console.log(res.data.Dashboards.rows);
     });
     request(`${URL}/api/role`, GET).then((res) => {
       this.setState({ roles: res.data.roles.rows });

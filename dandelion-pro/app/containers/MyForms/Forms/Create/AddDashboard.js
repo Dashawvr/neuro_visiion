@@ -105,7 +105,7 @@ class AddDashboard extends Component {
                       component={SelectRedux}
                       placeholder={t('AddDashboard.role')}
                     >
-                      {roles.map((r) => <MenuItem value={r.id}>{r.name}</MenuItem>)}
+                      {roles.map((r) => <MenuItem key={r.id} value={r.id}>{r.name}</MenuItem>)}
                     </Field>
                   </FormControl>
                 </div>
@@ -117,7 +117,7 @@ class AddDashboard extends Component {
                       component={SelectRedux}
                       placeholder={t('AddDashboard.user')}
                     >
-                      {users.map((u) => <MenuItem value={u.id}>{u.name}</MenuItem>)}
+                      {users.map((u) => <MenuItem key={u.id} value={u.id}>{u.name}</MenuItem>)}
                     </Field>
                   </FormControl>
                 </div>

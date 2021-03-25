@@ -59,7 +59,6 @@ const EditCamera = (props) => {
     } = props;
   
   const selectOptions = [{value: 'rtsp', label: 'RTSP'}];
-console.log(props.camera)
   const { register, handleSubmit, control, errors } = useForm();
     return (
       <div>

@@ -100,7 +100,7 @@ class Camers extends React.Component {
       filterType: 'dropdown',
       responsive: 'stacked',
       print: true,
-      rowsPerPage: 5,
+      rowsPerPage: 10,
       page: 0,
       onRowsSelect: (current, all, rowsSelected) => {
         if (all.length) {
@@ -118,6 +118,14 @@ class Camers extends React.Component {
         this.setState({ openModal: true });
       } else {
         this.setState({ open: true, variant: 'warning', message: 'Notification.clickDelete' });
+      }
+    }
+
+    const handleEdit = (id) => {
+      if (id) {
+        this.props.history.push(`/home/forms/edit/camera?id=${id}`);
+      } else {
+        this.setState({ open: true, variant: 'warning', message: 'Notification.clickEdit' });
       }
     }
 
@@ -230,11 +238,11 @@ class Camers extends React.Component {
                         {t('Buttons.create')}
                         <AddCircleOutlineIcon className={classes.rightIcon} />
                     </Button>
-                    <Button onClick={() => this.props.history.push(`/home/forms/edit/camera?id=${id}`)} className={classes.button} variant="contained" color="secondary">
+                    <Button onClick={() => handleEdit(id)} className={classes.button} variant="contained" color="secondary">
                         {t('Buttons.edit')}
                         <CreateIcon className={classes.rightIcon} />
                     </Button>
-                    <Button onClick={() => handleModal(id)} className={classes.button} variant="contained" color="red">
+                    <Button onClick={() => handleModal(id)} className={classes.button} variant="contained">
                         {t('Buttons.delete')}
                         <DeleteIcon className={classes.rightIcon} />
                     </Button>

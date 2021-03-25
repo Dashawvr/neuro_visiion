@@ -90,7 +90,7 @@ class EditWidgetMapForm extends React.Component {
           <meta property="twitter:title" content={title} />
           <meta property="twitter:description" content={description} />
         </Helmet>
-        <PapperBlock title={t('EditWidgetMap.title')} icon="ios-list-box-outline">
+        <PapperBlock title={t('EditWidgetMap.title')} icon="ios-list-box-outline" desc="">
             <EditWidgetMap
               onSubmit={(values) => this.showResult(values)}
               styles={styles}

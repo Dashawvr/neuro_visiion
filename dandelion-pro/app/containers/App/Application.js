@@ -55,15 +55,15 @@ function Application(props) {
         <Dashboard history={history} changeMode={changeMode}>
           <Switch>
             <Route exact path="/home" component={PersonalDashboard}/>
+            
             <Route path="/home/roles"  component={RoleTable}/>
             <Route path="/home/users"  component={UserTable}/>
             <Route path="/home/group"  component={UsersGroupsTable}/>
             <Route path="/home/camers"  component={CamersTable}/>
-            <Route path="/home/edit-panel"  component={EditPanel}/>
-            {/* <Route path="/home/delete/widget"  component={DeleteWidgetForm}/> */}
             <Route path="/home/widgets"  component={WidgetsTable}/>
             <Route path="/home/maps"  component={MapsTable}/>
             <Route path="/home/stage"  component={DashboardTable}/>
+
             <Route path="/home/edit/dashboard/:id"  component={DashboardNew}/>
             <Route path="/home/dashboard/:id"  component={DashboardOnlySee}/>
 

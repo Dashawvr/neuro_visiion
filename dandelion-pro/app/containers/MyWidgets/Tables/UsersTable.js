@@ -87,7 +87,7 @@ class UsersTable extends React.Component {
       filterType: 'dropdown',
       responsive: 'stacked',
       print: true,
-      rowsPerPage: 5,
+      rowsPerPage: 10,
       page: 0,
       onRowClick: (rowData) => {
         this.setState({ id: rowData[0] });

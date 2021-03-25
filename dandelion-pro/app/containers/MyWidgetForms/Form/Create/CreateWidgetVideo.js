@@ -118,7 +118,7 @@ class CreateWidgetVideo extends Component {
                       placeholder="Selection"
                       required
                     >
-                      {cams.map((c) => <MenuItem value={c.id}>{c.ip.length ? c.ip : c.username}</MenuItem>)}
+                      {cams.map((c) => <MenuItem key={c.id} value={c.id}>{c.ip.length ? c.ip : c.username}</MenuItem>)}
                     </Field>
                   </FormControl>
                 </div>

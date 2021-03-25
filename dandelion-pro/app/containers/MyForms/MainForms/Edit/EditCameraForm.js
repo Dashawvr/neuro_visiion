@@ -82,7 +82,7 @@ class EditCameraForm extends React.Component {
           <meta property="twitter:title" content={title} />
           <meta property="twitter:description" content={description} />
         </Helmet>
-        <PapperBlock title={t('EditUser.title')} icon="ios-list-box-outline">
+        <PapperBlock title={t('EditUser.title')} icon="ios-list-box-outline" desc="">
           <div>
             <EditCamera
               onSubmit={(values) => this.showResult(values)}

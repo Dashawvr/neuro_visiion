@@ -16,7 +16,7 @@ import FontFaceObserver from 'fontfaceobserver';
 import history from 'utils/history';
 import 'sanitize.css/sanitize.css';
 
-import {BrowserRouter} from "react-router-dom";
+import { Router } from "react-router-dom";
 
 // Import root app
 import App from 'containers/App';
@@ -58,9 +58,9 @@ axios.defaults.headers.common = {
   ReactDOM.render(
     <Provider store={store}>
       <Suspense fallback="loading...">
-        <BrowserRouter history={history}>
+        <Router history={history}>
           <App />
-        </BrowserRouter>
+        </Router>
       </Suspense>
     </Provider>,
     MOUNT_NODE,

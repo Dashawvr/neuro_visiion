@@ -112,7 +112,7 @@ class CreateWidgetVideoForm extends React.Component {
           <meta property="twitter:title" content={title} />
           <meta property="twitter:description" content={description} />
         </Helmet>
-        <PapperBlock title={t('AddWidgetVideo.title')} icon="ios-list-box-outline">
+        <PapperBlock title={t('AddWidgetVideo.title')} icon="ios-list-box-outline" desc="">
           <div>
             <CreateWidgetVideo onSubmit={(values) => this.showResult(values)} cams={cams} />
           </div>

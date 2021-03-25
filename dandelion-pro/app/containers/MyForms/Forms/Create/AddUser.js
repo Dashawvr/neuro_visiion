@@ -143,7 +143,7 @@ class AddUser extends Component {
                       placeholder="Selection"
                       required
                     >
-                      {roles.map((r) => <MenuItem value={r.id}>{r.name}</MenuItem>)}
+                      {roles.map((r) => <MenuItem key={r.id} value={r.id}>{r.name}</MenuItem>)}
                     </Field>
                   </FormControl>
                 </div>

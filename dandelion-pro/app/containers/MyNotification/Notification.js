@@ -60,7 +60,7 @@ function MySnackbarContent(props) {
 
   return (
     <SnackbarContent
-      className={classNames(classes[variant], className)}
+      className={classNames(classes[variant], className ? className : "")}
       aria-describedby="client-snackbar"
       message={(
         <span id="client-snackbar" className={classes.message}>
@@ -86,7 +86,7 @@ function MySnackbarContent(props) {
 
 MySnackbarContent.propTypes = {
   classes: PropTypes.object.isRequired,
-  className: PropTypes.string.isRequired,
+  className: PropTypes.string,
   message: PropTypes.node.isRequired,
   onClose: PropTypes.func,
   variant: PropTypes.oneOf(['success', 'warning', 'error', 'info']).isRequired,
