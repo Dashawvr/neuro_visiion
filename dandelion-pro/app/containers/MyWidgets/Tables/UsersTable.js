@@ -143,6 +143,29 @@ class UsersTable extends React.Component {
         label: t('TableUsers.created'),
         options: {
           filter: true,
+          customBodyRender: (value) => {
+            if (value) {
+              const usersCreated = [];
+              value.map((user) => {
+                const result = data.filter((res) => res.id === user);
+                if (result.length) {usersCreated.push(result[0].name);}
+              })
+
+              if (usersCreated.length) {
+                return (<div>
+                  {
+                    usersCreated.map((user) => {
+                      return <Chip key={user.id} label={user} style={{marginRight: 5}} color="primary" />
+                    })
+                  }
+                </div>) 
+              } else {
+                return (<Chip label="Nothing" color="secondary" />);
+              }           
+            } else {
+              return (<Chip label="Nothing" color="secondary" />);
+            }
+          }
         }
       },
       {

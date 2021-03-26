@@ -111,62 +111,72 @@ const RightSidebar = (props) => {
       axios.put(`${URL}/api/dashboard/${dashboardId}`, data)
     }
   }
+  
+  if (widgets.length) {
+    return (         
+      <Drawer anchor='right' open={rightSidebar.open} onClose={() => onOpen(!rightSidebar.open)}>
+        <div className={classes.drawer}>
+            <Widgets data={widgets} />
+            {selectedWidgets.length &&
+              <form onSubmit={handleSubmit(onSubmit)} style={{marginTop: 25}}>
+              <Typography variant="subtitle2" gutterBottom>              
+                {t('RightSidebar.title')}
+              </Typography>
+              <Controller
+                isMulti
+                name="widgets"
+                label="Widgets"
+                placeholder="Widgets"
+                className={classes.field}
+                styles={props.mode === 'dark' ? customStyles : ''}
+                isSearchable={true}
+                defaultValue={selectedWidgets}
+                control={control}
+                options={listWidgets}
+                as={Select}
+              />
+              <div className={classes.button}>
+                <Button variant="contained" color="secondary" type="submit">
+                  {t('RightSidebar.submit')}
+                </Button>
+              </div>
+            </form>}   
+        </div>
+      </Drawer>
+    );
+  } else {
+    return (         
+      <Drawer anchor='right' open={rightSidebar.open} onClose={() => onOpen(!rightSidebar.open)}>
+        <div className={classes.drawer}>
+            <Widgets data={widgets} />
+            <form onSubmit={handleSubmit(onSubmit)} style={{marginTop: 25}}>
+              <Typography variant="subtitle2" gutterBottom>              
+                {t('RightSidebar.title')}
+              </Typography>
+              <Controller
+                isMulti
+                name="widgets"
+                label="Widgets"
+                placeholder="Widgets"
+                className={classes.field}
+                styles={props.mode === 'dark' ? customStyles : ''}
+                isSearchable={true}
+                control={control}
+                options={listWidgets}
+                as={Select}
+              />
+              <div className={classes.button}>
+                <Button variant="contained" color="secondary" type="submit">
+                  {t('RightSidebar.submit')}
+                </Button>
+              </div>
+            </form>
+        </div>
+      </Drawer>
+    );
+  }
 
-  return (         
-    <Drawer anchor='right' open={rightSidebar.open} onClose={() => onOpen(!rightSidebar.open)}>
-      <div className={classes.drawer}>
-          <Widgets data={widgets} />
-          {widgets ? selectedWidgets.length > 0 &&
-          <form onSubmit={handleSubmit(onSubmit)} style={{marginTop: 25}}>
-            <Typography variant="subtitle2" gutterBottom>              
-              {t('RightSidebar.title')}
-            </Typography>
-            <Controller
-              isMulti
-              name="widgets"
-              label="Widgets"
-              placeholder="Widgets"
-              className={classes.field}
-              styles={props.mode === 'dark' ? customStyles : ''}
-              isSearchable={true}
-              defaultValue={selectedWidgets}
-              control={control}
-              options={listWidgets}
-              as={Select}
-            />
-            <div className={classes.button}>
-              <Button variant="contained" color="secondary" type="submit">
-                {t('RightSidebar.submit')}
-              </Button>
-            </div>
-          </form>
-          :
-          <form onSubmit={handleSubmit(onSubmit)} style={{marginTop: 25}}>
-            <Typography variant="subtitle2" gutterBottom>              
-              {t('RightSidebar.title')}
-            </Typography>
-            <Controller
-              isMulti
-              name="widgets"
-              label="Widgets"
-              placeholder="Widgets"
-              className={classes.field}
-              styles={props.mode === 'dark' ? customStyles : ''}
-              isSearchable={true}
-              control={control}
-              options={listWidgets}
-              as={Select}
-            />
-            <div className={classes.button}>
-              <Button variant="contained" color="secondary" type="submit">
-                {t('RightSidebar.submit')}
-              </Button>
-            </div>
-          </form>
-          }
-      </div>
-    </Drawer>
-  );
+ 
 }
 
 
