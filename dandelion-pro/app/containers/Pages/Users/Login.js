@@ -67,7 +67,7 @@ class Login extends React.Component {
           if (newToken.length > 50) {
             this.props.onSignIn(response.data.data.attributes);
             socketConnection.setOnline();
-            this.props.history.push("/home");
+            window.location.href = "/home";
           }
         }, 1000);        
       })
@@ -79,15 +79,13 @@ class Login extends React.Component {
       .post(URL + "/api/auth/login", {email: this.state.email, password: this.state.password})
       .then((response) => {
         localStorage.setItem("token", response.data.data.token.access_token);
-        setTimeout(() => {
         localStorage.setItem("user", JSON.stringify(response.data.data.attributes));
         const newToken = localStorage.getItem("token");
           if (newToken.length > 50) {
             this.props.onSignIn(response.data.data.attributes);
             socketConnection.setOnline()
-            this.props.history.push("/home");
-          }
-        }, 1000);        
+            window.location.href = "/home";
+          }       
       })
       .catch((error) => {
         this.setState({ open: true, variant: 'error', message: 'Notification.error' });

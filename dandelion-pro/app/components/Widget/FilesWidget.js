@@ -5,8 +5,6 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Chip from '@material-ui/core/Chip';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import Button from '@material-ui/core/Button';
-import Divider from '@material-ui/core/Divider';
 import styles from './widget-jss';
 import PapperBlock from '../PapperBlock/PapperBlock';
 import { URL } from '../../containers/Axios/axiosForData'
@@ -29,6 +27,7 @@ function FilesWidget(props) {
         setInfo(response.data.data.info ? response.data.data.info : response.data.data);
       })
       .catch((error) => {
+        /** TODO - Create custom notification */
         console.error(error);
       });
   };
