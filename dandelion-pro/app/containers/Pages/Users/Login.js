@@ -61,8 +61,8 @@ class Login extends React.Component {
       .post(`${URL}/api/auth/loginWithLdap`, {cn: this.state.cn})
       .then((response) => {
         localStorage.setItem("token", response.data.data.token.access_token);
-        localStorage.setItem("user", JSON.stringify(response.data.data.attributes));
         setTimeout(() => {
+        localStorage.setItem("user", JSON.stringify(response.data.data.attributes));
           const newToken = localStorage.getItem("token");
           if (newToken.length > 50) {
             this.props.onSignIn(response.data.data.attributes);
@@ -79,9 +79,9 @@ class Login extends React.Component {
       .post(URL + "/api/auth/login", {email: this.state.email, password: this.state.password})
       .then((response) => {
         localStorage.setItem("token", response.data.data.token.access_token);
+        setTimeout(() => {
         localStorage.setItem("user", JSON.stringify(response.data.data.attributes));
         const newToken = localStorage.getItem("token");
-        setTimeout(() => {
           if (newToken.length > 50) {
             this.props.onSignIn(response.data.data.attributes);
             socketConnection.setOnline()
