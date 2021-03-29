@@ -75,9 +75,11 @@ const [user, setUser] = useState({});
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem('user'));
-    setUser(user);
-    props.getDash(user.id);
-    props.getAllDash();
+    if (user) {
+      setUser(user);
+      props.getDash(user.id);
+      props.getAllDash();
+    }
   }, [])
 
 

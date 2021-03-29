@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Widgets from '../../containers/MyTables/Tables/Widgets';
 import Drawer from '@material-ui/core/Drawer';
 import Button from '@material-ui/core/Button';
@@ -48,6 +48,7 @@ const customStyles = {
 };
 
 const RightSidebar = (props) => {
+  const [selectedWidgets, setSelectedWidgets] = useState([]);
   const {
     classes,
     widgets,
@@ -62,8 +63,6 @@ const RightSidebar = (props) => {
   const { register, handleSubmit, control, errors } = useForm();
 
   const listWidgets = [];
-  const selectedWidgets = [];
-
 
   widgets.map((widget) => {
     if (widget.type === 'table') {
@@ -72,17 +71,18 @@ const RightSidebar = (props) => {
     if (widget.type === 'map') {
         widget.data = widget.name;
     }
-  })
-
+  });
 
   allWidgets.map(widget => {
     listWidgets.push({value: widget.id, label: widget.name});
   });
-
-  if (widgets) {
-    widgets.map((widget) => {
-      selectedWidgets.push({value: widget.id, label: widget.name});
+ 
+  if (widgets.length !== selectedWidgets.length) {
+    let selectedsWidgets = widgets.map((widget) => {
+      return {value: widget.id, label: widget.name};
     });
+
+    setSelectedWidgets(selectedsWidgets);
   }
 
   const onSubmit = (values) => {
@@ -117,7 +117,7 @@ const RightSidebar = (props) => {
       <Drawer anchor='right' open={rightSidebar.open} onClose={() => onOpen(!rightSidebar.open)}>
         <div className={classes.drawer}>
             <Widgets data={widgets} />
-            {selectedWidgets.length &&
+            {selectedWidgets ?
               <form onSubmit={handleSubmit(onSubmit)} style={{marginTop: 25}}>
               <Typography variant="subtitle2" gutterBottom>              
                 {t('RightSidebar.title')}
@@ -140,7 +140,10 @@ const RightSidebar = (props) => {
                   {t('RightSidebar.submit')}
                 </Button>
               </div>
-            </form>}   
+            </form>
+            :
+            <></>
+            }   
         </div>
       </Drawer>
     );
@@ -174,11 +177,8 @@ const RightSidebar = (props) => {
         </div>
       </Drawer>
     );
-  }
-
- 
+  } 
 }
-
 
 const mapStateToProps = (state) => ({
   rightSidebar: state.get('rightSidebar').open,
