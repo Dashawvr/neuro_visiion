@@ -57,7 +57,7 @@ const AddCamera = (props) => {
       t,
     } = props;
   
-  const selectOptions = [{value: 'rtsp', label: 'RTSP'}];
+  const selectOptions = [{value: 'rtsp', label: 'RTSP/Camera'}, {value: 'rtsp/nvr', label: 'RTSP/NVR'}];
 
   const { register, handleSubmit, control, errors } = useForm();
     return (
@@ -79,9 +79,18 @@ const AddCamera = (props) => {
                     label={t('TableCamers.port')} 
                     placeholder={t('TableCamers.port')} 
                     required 
+                    type="number"
                     className={classes.field} 
                     name="port" 
                     inputRef={register({ required: true })} />
+
+                  <TextField 
+                    label={t('TableCamers.channel')} 
+                    placeholder={t('TableCamers.channel')}                      
+                    type="number"
+                    className={classes.field} 
+                    name="channel" 
+                    inputRef={register()} />
 
                   <TextField 
                     label={t('TableCamers.username')} 
@@ -123,7 +132,7 @@ const AddCamera = (props) => {
                     styles={props.mode === 'dark' ? customStyles : ''}
                     isSearchable={true}
                     control={control}
-                    defaultValue={selectOptions[0]}
+                    defaultValue={selectOptions[1]}
                     options={selectOptions}
                     as={Select}
                   />

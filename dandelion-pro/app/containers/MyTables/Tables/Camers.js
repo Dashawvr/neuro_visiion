@@ -178,6 +178,13 @@ class Camers extends React.Component {
                     }
                 },
                 {
+                    name: 'channel',
+                    label: t('TableCamers.channel'),
+                    options: {
+                    filter: true,
+                    }
+                },
+                {
                     name: 'username',
                     label: t('TableCamers.username'),
                     options: {

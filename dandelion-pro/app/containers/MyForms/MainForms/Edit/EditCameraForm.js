@@ -57,6 +57,7 @@ class EditCameraForm extends React.Component {
         password: values.passwordd,
         type: values.type.value,
         isDefaultRecord: values.isDefaultRecord,
+        channel: values.channel
       };
     axios.put(`${URL}/api/camera/${this.parsed.id}`, PATCH.data, {Authorization: localStorage.getItem('token')}).then(() => {
       this.setState({ open: true, variant: 'success', message: 'Notification.success' });

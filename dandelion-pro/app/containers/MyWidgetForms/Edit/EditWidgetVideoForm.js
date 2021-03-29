@@ -108,7 +108,7 @@ class EditWidgetVideoForm extends React.Component {
               styles={styles}
               widget={widget}
               cams={cams}
-              camera={cam[0]}
+              camera={cam[0] ? cam[0] : ''}
             />
           </div>
         </PapperBlock>

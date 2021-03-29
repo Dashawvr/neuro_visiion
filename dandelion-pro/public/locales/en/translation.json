@@ -34,7 +34,8 @@
         "type": "Type connect",
         "stream_url": "Online",
         "isDefaultRecord": "Default stream",
-        "title": "Cams list"
+        "title": "Cams list",
+        "channel": "Channel"
     },
     "TableMaps": {
         "lon": "Longitude",
@@ -179,8 +180,8 @@
         "title": "Create Widget",
         "type": "Widget Type",
         "table": "Table",
-        "video": "Video",
-        "text": "Text",
+        "video": "Video stream",
+        "text": "Treadmill",
         "map": "Map",
         "dashboard": "Dashboard"
     },
