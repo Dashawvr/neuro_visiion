@@ -76,9 +76,10 @@
     "AddDashboard": {
         "title": "Create Dashboard",
         "role": "Role",
-        "user": "User",
+        "user": "Users",
         "active": "Active",
-        "name": "Name"
+        "name": "Name",
+        "group": "Choose users groups"
     },
     "AddGroup": {
         "title": "Create Group",
@@ -103,10 +104,11 @@
     "EditDashboard": {
         "title": "Edit Dashboard",
         "role": "Role",
-        "user": "User",
+        "user": "Users",
         "active": "Active",
         "name": "Name",
-        "widgets": "Choose widgets"
+        "widgets": "Choose widgets",
+        "group": "Choose users groups"
     },
     "EditGroup": {
         "title": "Edit Group",
@@ -375,5 +377,11 @@
     "RightSidebar": {
         "title": "Handle Widgets on Scene",
         "submit": "Submit"
+    },
+    "ignore-x-frame": {
+        "main": "install browser plug-in:",
+        "image": "In order for all photos to be displayed correctly,",
+        "link": "In order for all links to be displayed correctly,",
+        "doc": "In order for all documents to be displayed correctly,"
     }
 }

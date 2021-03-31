@@ -15,6 +15,7 @@ import { initAction, clearAction } from 'dan-redux/actions/reduxFormActions';
 import history from '../../../../utils/history';
 import { withTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
+import Typography from '@material-ui/core/Typography';
 
 const renderRadioGroup = ({ input, ...rest }) => (
   <RadioGroup
@@ -67,6 +68,12 @@ class CreateWidgetDoc extends Component {
         <Grid container spacing={3} alignItems="flex-start" direction="row" justify="center">
           <Grid item xs={12} md={6}>
             <Paper className={classes.root}>
+              <Typography variant="subtitle2" gutterBottom>
+                {t("ignore-x-frame.doc")} <br/> {t("ignore-x-frame.main")} 
+                <Button target="_blank" href="https://chrome.google.com/webstore/detail/ignore-x-frame-headers/gleekbfjekiniecknbkamfmkohkpodhe" color="primary">
+                  Ignore-X-Frame
+                </Button>
+              </Typography>
               <form onSubmit={handleSubmit}>
               <div>
                   <Field

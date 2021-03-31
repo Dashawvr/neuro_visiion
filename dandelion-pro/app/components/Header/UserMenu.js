@@ -86,6 +86,7 @@ const [user, setUser] = useState({});
   const { classes, dark, dashboards, allDashboards, location, editScene } = props;
   const { anchorEl, openMenu } = menuState;
   const { anchorElLanguage, openMenuLanguage } = languageState;
+
   return (
     <div>
     {editScene &&
@@ -106,12 +107,12 @@ const [user, setUser] = useState({});
         className={classNames(classes.notifIcon, dark ? classes.dark : classes.light)}
       >
       {user.roleId === 1 || user.roleId === 2 ?
-        <Badge className={classes.badge} badgeContent={allDashboards ? allDashboards.data.data.Dashboards.rows.length : ''}
+        <Badge className={classes.badge} badgeContent={allDashboards ? allDashboards.data.data.Dashboards.rows.length : '0'}
                color="secondary">
           <i className={`ion-ios-monitor ${location ? 'black' : ''}`}/>
         </Badge>
         :
-        <Badge className={classes.badge} badgeContent={dashboards ? dashboards.data.data.dashboard.rows.length : ''}
+        <Badge className={classes.badge} badgeContent={dashboards ? dashboards.length : '0'}
                color="secondary">
           <i className={`ion-ios-monitor ${location ? 'black' : ''}`}/>
         </Badge>
@@ -205,8 +206,8 @@ const [user, setUser] = useState({});
               )
             }))
             :
-            dashboards &&
-              (dashboards.data.data.dashboard.rows.map((el) => {
+            dashboards ?
+              (dashboards.map((el) => {
               return (
                 <div key={el.id}>
                   <MenuItem onClick={() => {
@@ -220,7 +221,9 @@ const [user, setUser] = useState({});
                   <Divider variant="inset"/>
                 </div>
               )
-            }))}
+            }))
+            :
+            <></>}
       </Menu>
       <Button onClick={handleMenu('user-setting')}>
         <Avatar

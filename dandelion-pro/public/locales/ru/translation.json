@@ -74,9 +74,10 @@
     "AddDashboard": {
         "title": "Создать сцену",
         "role": "Роль",
-        "user": "Пользователь",
+        "user": "Пользователи",
         "active": "Активный",
-        "name": "Имя"
+        "name": "Имя",
+        "group": "Оберіть групи пользователей"
     },
     "AddGroup": {
         "title": "Создать групу",
@@ -104,10 +105,11 @@
     "EditDashboard": {
         "title": "Редактировать сцену",
         "role": "Роль",
-        "user": "Пользователь",
+        "user": "Пользователи",
         "active": "Активный",
         "name": "Имя",
-        "widgets": "Выберите виджети"
+        "widgets": "Выберите виджети",
+        "group": "Выберите групи пользователей"
     },
     "EditGroup": {
         "title": "Редактировать групу",
@@ -376,5 +378,11 @@
     "RightSidebar": {
         "title": "Управление виджетами на сцене",
         "submit": "Подтвердить"
+    },
+    "ignore-x-frame": {
+        "main": "install browser plug-in:",
+        "image": "In order for all photos to be displayed correctly,",
+        "link": "In order for all links to be displayed correctly,",
+        "doc": "In order for all documents to be displayed correctly,"
     }
 }

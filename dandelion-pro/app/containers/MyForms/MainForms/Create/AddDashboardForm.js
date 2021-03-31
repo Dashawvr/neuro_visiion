@@ -34,7 +34,9 @@ class AddDashboardForm extends React.Component {
     roles: [],
     users: [],
     widgets: [],
-    selectedWidgets: []
+    groups: [],
+    selectedWidgets: [],
+    selectedUsers: []
   }
 
   componentDidMount() {
@@ -46,7 +48,10 @@ class AddDashboardForm extends React.Component {
     });
     request(`${URL}/api/widget_data`, GET).then((res) => {
       this.setState({ widgets: res.data.WidgetDates.rows });
-  });
+    });
+    request(`${URL}/api/user_group`, GET).then((res) => {
+      this.setState({ groups: res.data.user_groups.rows });
+    });
   }
 
   handleClose = (event, reason) => {
@@ -57,36 +62,48 @@ class AddDashboardForm extends React.Component {
   };
 
   showResult(values) {
-    let active = false;
-    let roleId = null;
-    let userId = null;
-    let name = null;
-    let widgetsSel = [];
-    values._root.entries.map((elem) => {
-      if (elem[0] === 'active') {
-        active = elem[1];
-      }
-      if (elem[0] === 'role') {
-        roleId = elem[1];
-      }
-      if (elem[0] === 'user') {
-        userId = elem[1];
-      }      
-      if (elem[0] === 'name') {
-        name = elem[1];
-      }
-    });
+    const selectWidgets = [];
+    const selectUsers = [];
+    const selectGroups = [];
+    const peopleFromGroup = [];
 
-    this.state.selectedWidgets.map(widget => {
-      widgetsSel.push(widget.value);
+    if (values.widgets) {
+      values.widgets.map((widget) => {
+        selectWidgets.push(widget.value);
+      });
+    }
+    if (values.users) {
+      values.users.map((user) => {
+        selectUsers.push(user.value);
+      });
+    }
+    if (values.groups) {
+      values.groups.map((group) => {
+        selectGroups.push(group.value);
+        this.state.groups.map((gr) => {
+          if (gr.id === group.value) {
+            gr.users.map((g) => {
+              peopleFromGroup.push(g.id);
+            })
+          }
+        })
+      });
+    }
+
+    const allUsers = selectUsers.concat(peopleFromGroup);
+    
+    const uniquePeople = allUsers.filter(function(item, pos) {
+      return allUsers.indexOf(item) == pos;
     })
+    
 
     POST.data = {
-      enable: active,
-      roleId: roleId,
-      userId: userId,
-      name: name,
-      widget_dates: widgetsSel
+      enable: values.active,
+      roleId: values.role.value,
+      userId: uniquePeople,
+      name: values.name,
+      widget_dates: selectWidgets,
+      groups: selectGroups
     };
     axios.post(`${URL}/api/dashboard/`, POST.data, {Authorization: localStorage.getItem('token')}).then(() => {
       this.setState({ open: true, variant: 'success', message: 'Notification.success' });
@@ -98,11 +115,9 @@ class AddDashboardForm extends React.Component {
   render() {
     const title = brand.name + ' - Form';
     const description = brand.desc;
-    const { message, variant, open, roles, users, widgets } = this.state;
+    const { message, variant, open, roles, users, widgets, groups } = this.state;
     const { t } = this.props;
-    const getWidgets = (values) => {
-      this.setState({selectedWidgets: values});
-    }
+    
     return (
       <div>
         <Helmet>
@@ -115,7 +130,7 @@ class AddDashboardForm extends React.Component {
         </Helmet>
         <PapperBlock title={t('AddDashboard.title')} icon="ios-list-box-outline" desc="">
           <div>
-            <AddDashboard onSubmit={(values) => this.showResult(values)} users={users} roles={roles} widgets={widgets} getWidgets={getWidgets} />
+            <AddDashboard onSubmit={(values) => this.showResult(values)} users={users} roles={roles} widgets={widgets} groups={groups} />
           </div>
         </PapperBlock>
         <Notification open={open} handleClose={() => this.handleClose()} variant={variant} message={t(message)} />

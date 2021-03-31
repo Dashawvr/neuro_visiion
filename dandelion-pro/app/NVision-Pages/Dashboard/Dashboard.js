@@ -18,7 +18,8 @@ const Dashboard = (props) => {
 
   const history = useHistory();
 
-  const id = history.location.pathname.split('/')[4]
+  const id = history.location.pathname.split('/')[4];
+  const userRoleId = localStorage.getItem('user').roleId;
 
   useEffect(() => {
     async function getWidgets() {
@@ -60,7 +61,6 @@ const Dashboard = (props) => {
     }
     getWidgets();
   }, [history.location.pathname]);
-
 
   widgets.map((widget) => {
     users.map((user) => {

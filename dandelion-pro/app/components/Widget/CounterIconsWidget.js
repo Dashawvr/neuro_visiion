@@ -84,7 +84,55 @@ function CounterIconWidget(props) {
               </CounterWidget>
             </Grid>
           </Grid>
-        ):''
+        ):
+        (
+          <Grid container spacing={2}>
+            <Grid item xs={6} md={6}>
+              <CounterWidget
+                color={colorfull[0]}
+                start={0}
+                end={0}
+                duration={3}
+                title={t("CounterWidget.widgets")}
+              >
+                <OndemandVideo className={classes.counterIcon} />
+              </CounterWidget>
+            </Grid>
+            <Grid item xs={6} md={6}>
+              <CounterWidget
+                color={colorfull[1]}
+                start={0}
+                end={0}
+                duration={3}
+                title={t("CounterWidget.people")}
+              >
+                <SupervisorAccount className={classes.counterIcon} />
+              </CounterWidget>
+            </Grid>
+            <Grid item xs={6} md={6}>
+              <CounterWidget
+                color={colorfull[2]}
+                start={0}
+                end={0}
+                duration={3}
+                title={t("CounterWidget.roles")}
+              >
+                <Edit className={classes.counterIcon} />
+              </CounterWidget>
+            </Grid>
+            <Grid item xs={6} md={6}>
+              <CounterWidget
+                color={colorfull[3]}
+                start={0}
+                end={0}
+                duration={3}
+                title={t("CounterWidget.dashboards")}
+              >
+                <CollectionsBookmark className={classes.counterIcon} />
+              </CounterWidget>
+            </Grid>
+          </Grid>
+        )
       }
     </div>
   );

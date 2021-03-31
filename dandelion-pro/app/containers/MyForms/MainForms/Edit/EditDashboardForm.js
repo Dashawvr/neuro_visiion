@@ -35,6 +35,7 @@ class EditDashboardForm extends React.Component {
     roles: [],
     widgets: [],
     dashboard: {},
+    groups: []
   }
 
   parsed = queryString.parse(location.search);
@@ -60,6 +61,9 @@ class EditDashboardForm extends React.Component {
     }).catch((error) => {
       this.setState({ open: true, variant: 'error', message: 'Notification.error' });
     });
+    request(`${URL}/api/user_group`, GET).then((res) => {
+      this.setState({ groups: res.data.user_groups.rows });
+    });
   }
 
   handleClose = (event, reason) => {
@@ -71,17 +75,30 @@ class EditDashboardForm extends React.Component {
 
   showResult(values) {
     const selectWidgets = [];
+    const selectUsers = [];
+    const selectGroups = [];
     if (values.widgets) {
       values.widgets.map((widget) => {
         selectWidgets.push(widget.value);
       });
     }
+    if (values.users) {
+      values.users.map((user) => {
+        selectUsers.push(user.value);
+      });
+    }
+    if (values.groups) {
+      values.groups.map((group) => {
+        selectGroups.push(group.value);
+      });
+    }
     PUT.data = {
       enable: values.active,
       roleId: values.role.value,
-      userId: values.user.value,
+      userId: selectUsers,
       name: values.name,
-      widget_dates: selectWidgets
+      widget_dates: selectWidgets,
+      groups: selectGroups,
     };
     axios.put(`${URL}/api/dashboard/${this.parsed.id}`, PUT.data, {Authorization: localStorage.getItem('token')}).then(() => {
       this.setState({ open: true, variant: 'success', message: 'Notification.success' });
@@ -96,7 +113,6 @@ class EditDashboardForm extends React.Component {
     const { message, variant, open } = this.state;
     const { t } = this.props;
 
-    this.state.user = this.state.users.find(user => user.id === this.state.dashboard.userId);
     this.state.role = this.state.roles.find(role => role.id === this.state.dashboard.roleId);
 
     return (
@@ -115,7 +131,9 @@ class EditDashboardForm extends React.Component {
             onSubmit={(values) => this.showResult(values)} 
             users={this.state.users} 
             roles={this.state.roles}            
-            user={this.state.user} 
+            user={this.state.dashboard.users} 
+            group={this.state.dashboard.groups ? this.state.dashboard.groups.length > 0 ? this.state.dashboard.groups : 0 : 0} 
+            groups={this.state.groups} 
             role={ this.state.role} 
             name={this.state.dashboard.name}            
             enable={this.state.dashboard.enable}

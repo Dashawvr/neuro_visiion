@@ -5,11 +5,11 @@ import axios from 'axios'
 export const getDashboards = (id) => {
   return async (dispatch) => {
     axios
-      .get(`${URL}/api/dashboard/user/${id}`)
+      .get(`${URL}/api/users/${id}`)
       .then((res) => {
         dispatch ({
           type: GET_DASH,
-          payload: res
+          payload: res.data.data.user.dashboards
         })
       });
   }

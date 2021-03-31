@@ -7,6 +7,8 @@ import { useHistory } from "react-router-dom";
 import axios from "axios";
 import { URL } from '../../containers/Axios/axiosForData';
 import { withTranslation } from 'react-i18next';
+import { connect } from 'react-redux';
+import { getDashboards } from "../../redux/actions/dashboards";
 
 const DashboardOnlySee = (props) => {
   const [widgets, setWidgets] = useState([]);
@@ -17,7 +19,8 @@ const DashboardOnlySee = (props) => {
   const [camers, setCamers] = useState([]);
   const history = useHistory();
 
-  const id = history.location.pathname.split('/')[3]
+  const id = history.location.pathname.split('/')[3];
+  const user = JSON.parse(localStorage.getItem('user')).roleId;
 
   useEffect(() => {
     async function getWidgets() {
@@ -57,27 +60,33 @@ const DashboardOnlySee = (props) => {
           setCamers(res.data.data.cameras.rows);
       });
     }
-    getWidgets();
+    getWidgets();    
+    props.getDash(user.id);    
   }, [history.location.pathname]);
 
 
+  let access = [];
+  
+  if (props.dashboards) {
+    access = props.dashboards.filter((dash) => dash.id === dashboard.id);
+  }
+
   widgets.map((widget) => {
     users.map((user) => {
-      if (user.id === widget.authorId) {
-        widget.authorId = user.name;
-      }
+        if (user.id === widget.authorId) {
+          widget.authorId = user.name;
+        }
+      });
     });
-  });
-  widgets.map((widget) => {
-      if (widget.type === 'video') {
-        camers.map((cam) => {
-          if (cam.id === widget.data) {
-            widget.data = cam.ip ? cam.ip : cam.username;
-          }
-        })
-      }
-  });
-
+    widgets.map((widget) => {
+        if (widget.type === 'video') {
+          camers.map((cam) => {
+            if (cam.id === widget.data) {
+              widget.data = cam.ip ? cam.ip : cam.username;
+            }
+          })
+        }
+    });
 
   const defaultCoordinates = {
     x: 10,
@@ -94,7 +103,26 @@ const DashboardOnlySee = (props) => {
 
   return (
     <div>
-          {widgets ?
+          {dashboard.roleId && props.dashboards ?
+            user === 1 || user === 2 ? 
+              widgets.map((widget) => {
+                return (
+                  <WidgetOnlySee
+                    data={widget.data}
+                    type={widget.type}
+                    coordinatesId={widget.widgetCoordinatesId}
+                    key={widget.id}
+                    id={widget.id}
+                    zIndex={widget.z_index ? widget.z_index : 1}
+                    styles={widget.styles ? widget.styles : defaultStyles}
+                    coordinate={widget.widget_coordinate ? widget.widget_coordinate : defaultCoordinates}
+                  />
+                );
+              })
+            :
+            access.length === 0 ?
+              history.push('/home')            
+            :
             widgets.map((widget) => {
               return (
                 <WidgetOnlySee
@@ -109,7 +137,7 @@ const DashboardOnlySee = (props) => {
                 />
               );
             })
-          :
+            : 
             <></>
           }
       <RightSidebar widgets={widgetss} allWidgets={allWidgets} dashboardId={id} dashboard={dashboard} />
@@ -117,5 +145,10 @@ const DashboardOnlySee = (props) => {
   );
 };
 
+const mapStateToProps = (state) => ({
+  dashboards: state.get('dashboards').dashboards,
+})
 
-export default withTranslation()(DashboardOnlySee);
+export default connect(mapStateToProps, {
+  getDash: getDashboards,
+}) (withTranslation()(DashboardOnlySee));

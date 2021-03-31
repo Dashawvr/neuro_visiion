@@ -53,6 +53,8 @@ const EditDashboard = (props) => {
       user,
       role,
       users,
+      groups,
+      group,
       roles,
       name,
       enable,
@@ -65,6 +67,8 @@ const EditDashboard = (props) => {
 
     const selectOptionsRoles = [];
     const selectOptionsUsers = [];
+    const selectOptionsGroups = [];
+    const selecteOptionsWidgets = [];
 
     roles.map((role) => {
       selectOptionsRoles.push({value: role.id, label: role.name});
@@ -74,27 +78,48 @@ const EditDashboard = (props) => {
       selectOptionsUsers.push({value: user.id, label: user.name});
     });
 
-    const selectedWidgets = [];
+    groups.map((group) => {
+      selectOptionsGroups.push({value: group.id, label: group.name});
+    });
+
+    widgets.map(widget => {
+      selecteOptionsWidgets.push({value: widget.id, label: widget.name});
+    });
+
     const prevWidgets = [];
+    const prevUsers = [];
+    const prevGroups = [];
+    const prevGrs = [];
+
+    if (group) {
+      groups.map((gr) => {
+        group.map((g) => {
+          if (gr.id === g) {
+            prevGrs.push(gr);
+          }
+        })
+      })
+    }
 
     if (selectWidgets) {
-      selectWidgets.map((widget) => {
-        prevWidgets.push({value: widget.id, label: widget.name})
-      });
+      selectWidgets.map((widget) => {prevWidgets.push({value: widget.id, label: widget.name})});
     }
-    
-    widgets.map(widget => (
-      selectedWidgets.push(
-        {value: widget.id, label: widget.name}
-      )
-    ));
+
+    if (prevGrs) {
+      prevGrs.map((group) => {prevGroups.push({value: group.id, label: group.name})});
+    }
+
+    if (user) {
+      user.map((user) => {prevUsers.push({value: user.id, label: user.name})});
+    }
     
     return (
       <div>
         <Grid container spacing={3} alignItems="flex-start" direction="row" justify="center">
           <Grid item xs={12} md={6}>
             <Paper className={classes.root}>
-            {user &&
+            { group ?
+              user && prevGroups.length > 0 &&
               <form onSubmit={handleSubmit(onSubmit)}>
               <TextField 
                 label={t('EditUser.name')} 
@@ -111,7 +136,8 @@ const EditDashboard = (props) => {
                 <Controller
                   name="role"
                   label={t('EditDashboard.role')}
-                  placeholder={t('EditDashboard.role')}
+                  placeholder={t('EditDashboard.role')}                  
+                  styles={props.mode === 'dark' ? customStyles : ''}
                   className={classes.field}
                   isSearchable={true}
                   defaultValue={role ? {value: role.id, label: role.name} : {}}
@@ -123,17 +149,35 @@ const EditDashboard = (props) => {
                 <Typography variant="subtitle2" gutterBottom>
                   {t('EditDashboard.user')}
                 </Typography>
-                <Controller
-                  name="user"
+                  <Controller
+                  isMulti
+                  name="users"
                   label={t('EditDashboard.user')}
                   placeholder={t('EditDashboard.user')}
                   className={classes.field}
                   styles={props.mode === 'dark' ? customStyles : ''}
                   isSearchable={true}
-                  defaultValue={user ? {value: user.id, label: user.name} : {}}
+                  defaultValue={prevUsers}
                   control={control}
                   options={selectOptionsUsers}
-                  as={Select}
+                  as={Select}                
+                />
+
+                <Typography variant="subtitle2" gutterBottom>
+                  {t('EditDashboard.group')}
+                </Typography>
+                  <Controller
+                  isMulti
+                  name="groups"
+                  label={t('EditDashboard.group')}
+                  placeholder={t('EditDashboard.group')}
+                  className={classes.field}
+                  styles={props.mode === 'dark' ? customStyles : ''}
+                  isSearchable={true}
+                  defaultValue={prevGroups}
+                  control={control}
+                  options={selectOptionsGroups}
+                  as={Select}                
                 />
 
                 <Typography variant="subtitle2" gutterBottom>
@@ -149,7 +193,7 @@ const EditDashboard = (props) => {
                   isSearchable={true}
                   defaultValue={prevWidgets}
                   control={control}
-                  options={selectedWidgets}
+                  options={selecteOptionsWidgets}
                   as={Select}
                 />
 
@@ -178,7 +222,112 @@ const EditDashboard = (props) => {
                   {t('Buttons.cancel')}
                   </Button>
                 </div>
-              </form>
+              </form> 
+              :
+              user &&
+              <form onSubmit={handleSubmit(onSubmit)}>
+              <TextField 
+                label={t('EditUser.name')} 
+                placeholder={t('EditUser.name')} 
+                required 
+                className={classes.field} 
+                name="name" 
+                defaultValue={name} 
+                inputRef={register({ required: true })} />
+
+                <Typography variant="subtitle2" gutterBottom>
+                  {t('EditDashboard.role')}
+                </Typography>
+                <Controller
+                  name="role"
+                  label={t('EditDashboard.role')}
+                  placeholder={t('EditDashboard.role')}                  
+                  styles={props.mode === 'dark' ? customStyles : ''}
+                  className={classes.field}
+                  isSearchable={true}
+                  defaultValue={role ? {value: role.id, label: role.name} : {}}
+                  control={control}
+                  options={selectOptionsRoles}
+                  as={Select}
+                />
+
+                <Typography variant="subtitle2" gutterBottom>
+                  {t('EditDashboard.user')}
+                </Typography>
+                  <Controller
+                  isMulti
+                  name="users"
+                  label={t('EditDashboard.user')}
+                  placeholder={t('EditDashboard.user')}
+                  className={classes.field}
+                  styles={props.mode === 'dark' ? customStyles : ''}
+                  isSearchable={true}
+                  defaultValue={prevUsers}
+                  control={control}
+                  options={selectOptionsUsers}
+                  as={Select}                
+                />
+
+                <Typography variant="subtitle2" gutterBottom>
+                  {t('EditDashboard.group')}
+                </Typography>
+                  <Controller
+                  isMulti
+                  name="groups"
+                  label={t('EditDashboard.group')}
+                  placeholder={t('EditDashboard.group')}
+                  className={classes.field}
+                  styles={props.mode === 'dark' ? customStyles : ''}
+                  isSearchable={true}
+                  defaultValue={prevGroups}
+                  control={control}
+                  options={selectOptionsGroups}
+                  as={Select}                
+                />
+
+                <Typography variant="subtitle2" gutterBottom>
+                {t('EditDashboard.widgets')}
+                </Typography>
+                <Controller
+                  isMulti
+                  name="widgets"
+                  label={t('EditDashboard.widgets')}
+                  placeholder={t('EditDashboard.widgets')}
+                  className={classes.field}
+                  styles={props.mode === 'dark' ? customStyles : ''}
+                  isSearchable={true}
+                  defaultValue={prevWidgets}
+                  control={control}
+                  options={selecteOptionsWidgets}
+                  as={Select}
+                />
+
+                <Typography variant="subtitle2" gutterBottom>
+                  {t('EditDashboard.active')}
+                </Typography>
+                <Controller
+                  name="active"
+                  control={control}
+                  defaultValue={enable}
+                  render={props =>
+                    <Switch
+                      onChange={e => props.onChange(e.target.checked)}
+                      checked={props.value}
+                    />
+                  }
+                />
+                <div>
+                  <Button variant="contained" color="secondary" type="submit">
+                  {t('Buttons.edit')}
+                  </Button>
+                  <Button type="reset" >
+                    {t('Buttons.reset')}
+                  </Button>
+                  <Button variant="contained" color="primary" onClick={() => history.goBack()}>
+                  {t('Buttons.cancel')}
+                  </Button>
+                </div>
+              </form>             
             }
             </Paper>
           </Grid>
