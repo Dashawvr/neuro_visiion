@@ -6,6 +6,9 @@ import red from '@material-ui/core/colors/red';
 import images from 'dan-api/images/photos';
 
 const styles = theme => ({
+  center: {
+    marginLeft: '50%'
+  },
   rootCounter: {
     flexGrow: 1,
   },
@@ -435,6 +438,7 @@ const styles = theme => ({
     justifyContent: 'flex-end',
     flexDirection: 'column',
     alignItems: 'center',
+    paddingTop: 20,
     background: theme.palette.type === 'dark' ? theme.palette.secondary.dark : theme.palette.secondary.main,
     [theme.breakpoints.down('sm')]: {
       paddingTop: theme.spacing(3)

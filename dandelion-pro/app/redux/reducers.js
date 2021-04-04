@@ -10,7 +10,7 @@ import history from 'utils/history';
 import languageProviderReducer from 'containers/LanguageProvider/reducer';
 import uiReducer from './modules/ui';
 import initval from './modules/initForm';
-import auth from './modules/auth';
+import login from './modules/login';
 import treeTable from '../containers/Tables/reducers/treeTbReducer';
 import crudTable from '../containers/Tables/reducers/crudTbReducer';
 import crudTableForm from '../containers/Tables/reducers/crudTbFrmReducer';
@@ -21,6 +21,13 @@ import email from '../containers/SampleApps/Email/reducers/emailReducer';
 import calendar from '../containers/SampleApps/Calendar/reducers/calendarReducer';
 import socmed from '../containers/SampleApps/Timeline/reducers/timelineReducer';
 import taskboard from '../containers/SampleApps/TaskBoard/reducers/taskboardReducer';
+import loginReducer from "./modules/loginReducer";
+import dashboards from "./modules/dashboards";
+import allDashboards from "./modules/allDashboards";
+import roles from "./modules/roles";
+import users from "./modules/users";
+import widget_data from "./modules/widget_data";
+import rightSidebar from "./modules/rightSidebar";
 
 /**
  * Branching reducers to use one reducer for many components
@@ -42,10 +49,17 @@ function branchReducer(reducerFunction, reducerName) {
  */
 export default function createReducer(injectedReducers = {}) {
   const rootReducer = combineReducers({
+    widget_data,
+    rightSidebar,
+    users,
+    roles,
+    dashboards,
+    allDashboards,
+    loginReducer,
     form,
     ui: uiReducer,
     initval,
-    auth,
+    login,
     socmed,
     calendar,
     ecommerce,

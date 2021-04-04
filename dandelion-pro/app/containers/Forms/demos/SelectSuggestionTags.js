@@ -11,50 +11,10 @@ import Chip from '@material-ui/core/Chip';
 import MenuItem from '@material-ui/core/MenuItem';
 import CancelIcon from '@material-ui/icons/Cancel';
 
-const suggestions = [
-  { label: 'Afghanistan' },
-  { label: 'Aland Islands' },
-  { label: 'Albania' },
-  { label: 'Algeria' },
-  { label: 'American Samoa' },
-  { label: 'Andorra' },
-  { label: 'Angola' },
-  { label: 'Anguilla' },
-  { label: 'Antarctica' },
-  { label: 'Antigua and Barbuda' },
-  { label: 'Argentina' },
-  { label: 'Armenia' },
-  { label: 'Aruba' },
-  { label: 'Australia' },
-  { label: 'Austria' },
-  { label: 'Azerbaijan' },
-  { label: 'Bahamas' },
-  { label: 'Bahrain' },
-  { label: 'Bangladesh' },
-  { label: 'Barbados' },
-  { label: 'Belarus' },
-  { label: 'Belgium' },
-  { label: 'Belize' },
-  { label: 'Benin' },
-  { label: 'Bermuda' },
-  { label: 'Bhutan' },
-  { label: 'Bolivia, Plurinational State of' },
-  { label: 'Bonaire, Sint Eustatius and Saba' },
-  { label: 'Bosnia and Herzegovina' },
-  { label: 'Botswana' },
-  { label: 'Bouvet Island' },
-  { label: 'Brazil' },
-  { label: 'British Indian Ocean Territory' },
-  { label: 'Brunei Darussalam' },
-].map(suggestion => ({
-  value: suggestion.label,
-  label: suggestion.label,
-}));
-
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
-    height: 250,
+    height: 150,
   },
   input: {
     display: 'flex',
@@ -333,7 +293,7 @@ const components = {
   ValueContainer,
 };
 
-export default function SelectSuggestions() {
+export default function SelectSuggestions(props) {
   const classes = useStyles();
   const theme = useTheme();
   const [multi, setMulti] = React.useState(null);
@@ -360,17 +320,17 @@ export default function SelectSuggestions() {
           styles={selectStyles}
           inputId="react-select-multiple"
           TextFieldProps={{
-            label: 'Countries',
+            label: props.title,
             InputLabelProps: {
               htmlFor: 'react-select-multiple',
               shrink: true,
             },
-            placeholder: 'Select multiple countries',
+            placeholder: props.desc,
           }}
-          options={suggestions}
+          options={props.data}
           components={components}
-          value={multi}
-          onChange={handleChangeMulti}
+          value={props.value}
+          onChange={props.handleChangeMulti}
           isMulti
         />
       </NoSsr>

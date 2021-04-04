@@ -12,10 +12,12 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import Collapse from '@material-ui/core/Collapse';
 import Chip from '@material-ui/core/Chip';
+import Typography from '@material-ui/core/Typography';
 import Ionicon from 'react-ionicons';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import styles from './sidebar-jss';
+import {userCred} from "../../api/ui/menu";
 
 const LinkBtn = React.forwardRef(function LinkBtn(props, ref) { // eslint-disable-line
   return <NavLink to={props.to} {...props} innerRef={ref} />; // eslint-disable-line
@@ -36,6 +38,12 @@ function MainMenu(props) {
     dataMenu
   } = props;
 
+  const textStyle = {
+    text: {
+      textOverflow: "ellipsis", 
+      overflow: "hidden"
+    }
+  }
   const getMenus = menuArray => menuArray.map((item, index) => {
     if (item.child || item.linkParent) {
       return (
@@ -58,9 +66,10 @@ function MainMenu(props) {
                 <Ionicon icon={item.icon} />
               </ListItemIcon>
             )}
-            <ListItemText classes={{ primary: classes.primary }} variant="inset" primary={item.name} />
+            <ListItemText variant="inset" classes={{ primary: classes.primary }} primary={<Typography variant="subtitle1" 
+            style={{ textOverflow: "ellipsis", overflow: "hidden" }}>{item.name}</Typography>} />
             { !item.linkParent && (
-              <span>
+              <span >
                 { open.indexOf(item.key) > -1 ? <ExpandLess /> : <ExpandMore /> }
               </span>
             )}

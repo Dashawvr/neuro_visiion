@@ -63,7 +63,7 @@ export const dataApi = [
   {
     id: '1',
     text: 'Just write',
-    email: 'mail@dandelion.com',
+    email: 'mail@vision.micro-gis.com',
     radio: 'option2',
     selection: 'option1',
     onof: false,

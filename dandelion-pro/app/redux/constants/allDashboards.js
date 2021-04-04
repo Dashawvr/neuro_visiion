@@ -1,0 +1,1 @@
+export const GET_ALL_DASH = 'GET_ALL_DASH'

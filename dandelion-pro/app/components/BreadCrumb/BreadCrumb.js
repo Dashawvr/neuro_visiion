@@ -4,13 +4,15 @@ import { withStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
 import { Link, Route } from 'react-router-dom';
 import styles from './breadCrumb-jss';
+import { withTranslation } from 'react-i18next';
 
 const Breadcrumbs = (props) => {
   const {
     classes,
     theme,
     separator,
-    location
+    location,
+    t
   } = props;
   return (
     <section className={classNames(theme === 'dark' ? classes.dark : classes.light, classes.breadcrumbs)}>
@@ -22,7 +24,7 @@ const Breadcrumbs = (props) => {
           parts = parts.slice(1, parts.length - 1);
           return (
             <p>
-              You are here:
+              {t('BreadCrumb.1')}
               <span>
                 {
                   parts.map((part, partIndex) => {
@@ -53,4 +55,4 @@ Breadcrumbs.propTypes = {
   separator: PropTypes.string.isRequired,
 };
 
-export default withStyles(styles)(Breadcrumbs);
+export default withStyles(styles)(withTranslation()(Breadcrumbs));

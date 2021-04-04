@@ -1,42 +1,42 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
-import { Switch, Route, Redirect } from 'react-router-dom';
-import NotFound from 'containers/Pages/Standalone/NotFoundDedicated';
+import React, { useContext, useEffect } from 'react';
+import { Switch, Route, BrowserRouter, withRouter } from 'react-router-dom';
 import Auth from './Auth';
-import Login from "../Pages/Users/Login";
 import Application from './Application';
-import LandingCorporate from './Landing';
-import LandingCreative from './LandingCreative';
-// import ArticleNews from './ArticleNews';
-import ThemeWrapper from './ThemeWrapper';
+import ThemeWrapper, { ThemeContext } from './ThemeWrapper';
 import { Email } from "../SampleApps/Email";
+import { useBeforeunload } from 'react-beforeunload'
+import { SocketConnection } from "../../api/socket";
 
-import { isAuthorised } from '../../api/helpers';
+window.__MUI_USE_NEXT_TYPOGRAPHY_VARIANTS__ = true
 
-window.__MUI_USE_NEXT_TYPOGRAPHY_VARIANTS__ = true;
+const socketConnection = new SocketConnection();
+
+const f = () => {
+  socketConnection.setOffline()
+}
 
 function App() {
-  const { isAuthorised } = useSelector((state) => {
-    return ({
-      isAuthorised: state.get('auth').isAuthorised
-    });
-  })
+
+  const changeMode = useContext(ThemeContext);
+
+  const handleClose = () => {
+    socketConnection.setOffline()
+  }
+
+  useBeforeunload(() => handleClose())
+
+  useEffect(() => {
+    handleClose()
+  }, [])
+
   return (
     <ThemeWrapper>
       <Switch>
-        {/*<Route path="/" exact component={LandingCorporate} />*/}
-        {/*<Route path="/landing-creative" exact component={LandingCreative} />*/}
-        {isAuthorised && <Route exact path="/" component={Application}/>}
-        {/*<Route path="/app/pages/email" component={Email}/>*/}
-        <Route path="/login" component={Auth}/>
-        <Redirect to='/login'/>
-        <Route component={NotFound}/>
-
+        <Route path="/" exact component={Auth}/>
+        <Route path={"/home"} component={Application}/>
       </Switch>
     </ThemeWrapper>
   );
 }
 
 export default App;
-{/*<Route path="/blog" component={ArticleNews} />*/
-}

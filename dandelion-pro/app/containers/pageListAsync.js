@@ -27,32 +27,47 @@ export const PersonalDashboard = loadable(() =>
   import ('./Dashboard/PersonalDashboard'), {
     fallback: <Loading />,
   });
+// stage
 export const Stage = loadable(() =>
   import ('../NVision-Pages/Stage/Stage'), {
     fallback: <Loading />,
   });
-
+// Roles
 export const Roles = loadable(() =>
     import ('../NVision-Pages/Roles/Roles'), {
     fallback: <Loading />,
 });
+//Widgets
 export const Users = loadable(() =>
-    import ('../NVision-Pages/Users/Users'), {
+    import ('../NVision-Pages/Widgets/Widgets'), {
     fallback: <Loading />,
 });
+// Edit Panel
 export const EditPanel = loadable(() =>
     import ('../NVision-Pages/Edit-Panel/EditPanel'), {
     fallback: <Loading />,
 });
-// export const CrmDashboard = loadable(() =>
+// Dashboard
+// export const DashboardNew = loadable(() =>
 //   import ('./Dashboard/CrmDashboard'), {
 //     fallback: <Loading />,
 //   });
+export const DashboardNew = loadable(() =>
+    import ('../NVision-Pages/Dashboard/Dashboard'), {
+    fallback: <Loading />,
+});
+export const DashboardOnlySee = loadable(() =>
+    import ('../NVision-Pages/Dashboard/DashboardOnlySee'), {
+    fallback: <Loading />,
+});
 // export const CryptoDashboard = loadable(() =>
 //   import ('./Dashboard/CryptoDashboard'), {
 //     fallback: <Loading />,
 //   });
-
+export const Widgets = loadable(() =>
+  import ('../NVision-Pages/Widgets/Widgets'), {
+  fallback: <Loading />,
+});
 // Widgets
 export const Infographics = loadable(() =>
   import ('./Widgets/Infographics'), {
@@ -310,26 +325,6 @@ export const Login = loadable(() =>
   import ('./Pages/Users/Login'), {
     fallback: <Loading />,
   });
-// export const LoginV2 = loadable(() =>
-//   import ('./Pages/Users/LoginV2'), {
-//     fallback: <Loading />,
-//   });
-// export const LoginV3 = loadable(() =>
-//   import ('./Pages/Users/LoginV3'), {
-//     fallback: <Loading />,
-//   });
-// export const Register = loadable(() =>
-//   import ('./Pages/Users/Register'), {
-//     fallback: <Loading />,
-//   });
-// export const RegisterV2 = loadable(() =>
-//   import ('./Pages/Users/RegisterV2'), {
-//     fallback: <Loading />,
-//   });
-// export const RegisterV3 = loadable(() =>
-//   import ('./Pages/Users/RegisterV3'), {
-//     fallback: <Loading />,
-//   });
 export const ComingSoon = loadable(() =>
   import ('./Pages/ComingSoon'), {
     fallback: <Loading />,
@@ -420,6 +415,148 @@ export const StreetViewMap = loadable(() =>
   import ('./Maps/StreetViewMap'), {
     fallback: <Loading />,
   });
+
+export const UsersGroupsTable = loadable(() =>
+  import ('./MyTables/UsersGroupsTable'), {
+  fallback: <Loading />,
+});
+export const UserTable = loadable(() =>
+  import ('./MyTables/UserTable'), {
+  fallback: <Loading />,
+});
+export const RoleTable = loadable(() =>
+  import ('./MyTables/RoleTable'), {
+  fallback: <Loading />,
+});
+export const CamersTable = loadable(() =>
+  import ('./MyTables/CamersTable'), {
+  fallback: <Loading />,
+});
+export const MapsTable = loadable(() =>
+  import ('./MyTables/MapsTable'), {
+  fallback: <Loading />,
+});
+export const DashboardTable = loadable(() =>
+  import ('./MyTables/DashboardTable'), {
+  fallback: <Loading />,
+});
+export const WidgetsTable = loadable(() =>
+  import ('./MyTables/WidgetsTable'), {
+  fallback: <Loading />,
+});
+
+export const DeleteWidgetForm = loadable(() =>
+  import ('./MyWidgetForms/Delete/DeleteWidgetForm'), {
+  fallback: <Loading />,
+});
+export const EditWidgetVideoForm = loadable(() =>
+  import ('./MyWidgetForms/Edit/EditWidgetVideoForm'), {
+  fallback: <Loading />,
+});
+export const EditWidgetLinkForm = loadable(() =>
+  import ('./MyWidgetForms/Edit/EditWidgetLinkForm'), {
+  fallback: <Loading />,
+});
+export const EditWidgetDocForm = loadable(() =>
+  import ('./MyWidgetForms/Edit/EditWidgetDocForm'), {
+  fallback: <Loading />,
+});
+export const EditWidgetImageForm = loadable(() =>
+  import ('./MyWidgetForms/Edit/EditWidgetImageForm'), {
+  fallback: <Loading />,
+});
+export const EditWidgetTableForm = loadable(() =>
+  import ('./MyWidgetForms/Edit/EditWidgetTableForm'), {
+  fallback: <Loading />,
+});
+export const EditWidgetMapForm = loadable(() =>
+  import ('./MyWidgetForms/Edit/EditWidgetMapForm'), {
+  fallback: <Loading />,
+});
+export const EditWidgetTextForm = loadable(() =>
+  import ('./MyWidgetForms/Edit/EditWidgetTextForm'), {
+  fallback: <Loading />,
+});
+export const CreateWidgetDocForm = loadable(() =>
+  import ('./MyWidgetForms/Create/CreateWidgetDocForm'), {
+  fallback: <Loading />,
+});
+export const CreateWidgetLinkForm = loadable(() =>
+  import ('./MyWidgetForms/Create/CreateWidgetLinkForm'), {
+  fallback: <Loading />,
+});
+export const CreateWidgetImageForm = loadable(() =>
+  import ('./MyWidgetForms/Create/CreateWidgetImageForm'), {
+  fallback: <Loading />,
+});
+export const CreateWidgetVideoForm = loadable(() =>
+  import ('./MyWidgetForms/Create/CreateWidgetVideoForm'), {
+  fallback: <Loading />,
+});
+export const CreateWidgetTableForm = loadable(() =>
+  import ('./MyWidgetForms/Create/CreateWidgetTableForm'), {
+  fallback: <Loading />,
+});
+export const CreateWidgetMapForm = loadable(() =>
+  import ('./MyWidgetForms/Create/CreateWidgetMapForm'), {
+  fallback: <Loading />,
+});
+export const CreateWidgetTextForm = loadable(() =>
+  import ('./MyWidgetForms/Create/CreateWidgetTextForm'), {
+  fallback: <Loading />,
+});
+export const AddWidgetForm = loadable(() =>
+  import ('./MyWidgetForms/Create/CreateWidgetForm'), {
+  fallback: <Loading />,
+});
+export const EditDashboardForm = loadable(() =>
+  import ('./MyForms/MainForms/Edit/EditDashboardForm'), {
+  fallback: <Loading />,
+});
+export const EditRoleForm = loadable(() =>
+  import ('./MyForms/MainForms/Edit/EditRoleForm'), {
+  fallback: <Loading />,
+});
+export const EditCameraForm = loadable(() =>
+  import ('./MyForms/MainForms/Edit/EditCameraForm'), {
+  fallback: <Loading />,
+});
+export const EditMapForm = loadable(() =>
+  import ('./MyForms/MainForms/Edit/EditMapForm'), {
+  fallback: <Loading />,
+});
+export const AddGroupForm = loadable(() =>
+  import ('./MyForms/MainForms/Create/AddGroupForm'), {
+  fallback: <Loading />,
+});
+export const EditGroupForm = loadable(() =>
+  import ('./MyForms/MainForms/Edit/EditGroupForm'), {
+  fallback: <Loading />,
+});
+export const EditUserForm = loadable(() =>
+  import ('./MyForms/MainForms/Edit/EditUserForm'), {
+  fallback: <Loading />,
+});
+export const AddDashboardForm = loadable(() =>
+  import ('./MyForms/MainForms/Create/AddDashboardForm'), {
+  fallback: <Loading />,
+});
+export const AddRoleForm = loadable(() =>
+  import ('./MyForms/MainForms/Create/AddRoleForm'), {
+  fallback: <Loading />,
+});
+export const AddCameraForm = loadable(() =>
+  import ('./MyForms/MainForms/Create/AddCameraForm'), {
+  fallback: <Loading />,
+});
+export const AddMapForm = loadable(() =>
+  import ('./MyForms/MainForms/Create/AddMapForm'), {
+  fallback: <Loading />,
+});
+export const AddUserForm = loadable(() =>
+  import ('./MyForms/MainForms/Create/AddUserForm'), {
+  fallback: <Loading />,
+});
 
 // Other
 export const NotFound = loadable(() =>

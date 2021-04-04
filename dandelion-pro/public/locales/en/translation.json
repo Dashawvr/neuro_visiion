@@ -1,0 +1,386 @@
+{
+    "TableUsers": {
+        "name": "Name",
+        "lastName": "Last Name",
+        "email": "Email",
+        "role": "Role",
+        "status": "Status",
+        "created": "Created User",
+        "title": "User list"
+    },
+    "TableWidgets": {
+        "name": "Name",
+        "type": "Type",
+        "author": "Author",
+        "dashboard": "Dashboard",
+        "data": "Widget Content",
+        "title": "Widgets list"
+    },
+    "TableRoles": {
+        "name": "Name",
+        "create": "Create",
+        "edit": "Edit",
+        "delete": "Delete",
+        "yes": "Yes",
+        "not": "Not",
+        "unknow": "Unknow",
+        "title": "Roles list"
+    },
+    "TableCamers": {
+        "ip": "IP Adress",
+        "port": "PORT",
+        "username": "Username",
+        "password": "Password",
+        "type": "Type connect",
+        "stream_url": "Online",
+        "isDefaultRecord": "Default stream",
+        "title": "Cams list"
+    },
+    "TableMaps": {
+        "lon": "Longitude",
+        "lat": "Latitude",
+        "username": "Username",
+        "password": "Password",
+        "type": "Type",
+        "title": "Maps list"
+    }, 
+    "TableDashboards": {
+        "name": "Name",
+        "yes": "Yes",
+        "not": "Not",
+        "unknow": "Unknow",
+        "title": "Dashboards list",
+        "role": "Role",
+        "user": "User",
+        "active": "Active"
+    },    
+    "TableGroups": {
+        "name": "Name",        
+        "title": "Users Groups list",
+        "users": "Users"
+
+    },
+    "AddUser": {
+        "title": "Create User",
+        "name": "Name",
+        "lastName": "Last Name",
+        "email": "Email",
+        "password": "Password",
+        "role": "Role",
+        "ldap": "Create with LDAP server" 
+    },
+    "AddCamera": {
+        "title": "Create Camera"
+    },
+    "AddDashboard": {
+        "title": "Create Dashboard",
+        "role": "Role",
+        "user": "Users",
+        "active": "Active",
+        "name": "Name",
+        "group": "Choose users groups"
+    },
+    "AddGroup": {
+        "title": "Create Group",
+        "name": "Name",
+        "users": "Users"        
+    },
+    "AddRole": {
+        "title": "Create Role",
+        "name": "Name",
+        "important": "Important",
+        "create": "Create",
+        "edit": "Edit",
+        "delete": "Delete"
+    },
+    "EditUser": {
+        "title": "Edit User",
+        "name": "Name",
+        "lastName": "Last Name",
+        "email": "Email",
+        "role": "Choose one role"
+    },
+    "EditDashboard": {
+        "title": "Edit Dashboard",
+        "role": "Role",
+        "user": "Users",
+        "active": "Active",
+        "name": "Name",
+        "widgets": "Choose widgets",
+        "group": "Choose users groups"
+    },
+    "EditGroup": {
+        "title": "Edit Group",
+        "name": "Name",
+        "users": "Choose users"
+    },
+    "EditRole": {
+        "title": "Edit Role",
+        "name": "Name",
+        "important": "Important",
+        "create": "Create",
+        "edit": "Edit",
+        "delete": "Delete"
+    },
+    "AddWidgetTable": {
+        "name": "Name",
+        "title": "Create Widget Table",
+        "table": "Table",
+        "roles": "Roles",
+        "users": "Users",
+        "dashboards": "Dashboards",
+        "link": "Link",
+        "image": "Image",
+        "doc": "Document"
+    },
+    "AddWidgetText": {
+        "name": "Name",
+        "text": "Text",
+        "title": "Create Widget Text"
+    },
+    "AddWidgetDoc": {
+        "name": "Name",
+        "text": "Link to document",
+        "title": "Create Widget Document"
+    },
+    "AddWidgetLink": {
+        "name": "Name",
+        "text": "Link to site",
+        "title": "Create Widget Link"
+    },
+    "AddWidgetImage": {
+        "name": "Name",
+        "text": "Link to image",
+        "title": "Create Widget Image"
+    },
+    "AddWidgetVideo": {
+        "name": "Name",
+        "cams": "Camera",
+        "title": "Create Widget Video",
+        "height": "Height",
+        "width": "Width"
+    },
+    "EditVideo": {
+        "height": "Height",
+        "width": "Width",
+        "camera": "Choose video camera"
+    },
+    "AddMap": {
+        "title": "Create Map"
+    },
+    "EditMap": {
+        "title": "Edit Map"
+    },
+    "AddWidgetMap": {
+        "name": "Name",
+        "lat": "Latitude",
+        "lon": "Lontitude",
+        "title": "Create Widget Map"
+    },
+    "AddWidget": {
+        "title": "Create Widget",
+        "type": "Widget Type",
+        "table": "Table",
+        "video": "Video",
+        "text": "Text",
+        "map": "Map",
+        "dashboard": "Dashboard"
+    },
+    "EditWidgetLink": {
+        "title": "Edit widget link",
+        "data": "Link"
+    },
+    "EditWidgetImage": {
+        "title": "Edit widget Image",
+        "data": "Link to image"
+    },
+    "EditWidgetDoc": {
+        "title": "Edit widget Document",
+        "data": "Link to document"
+    },
+    "EditWidgetTable": {
+        "title": "Edit Widget Table",
+        "table": "Choose table",
+        "roles": "Roles",
+        "users": "Users",
+        "dashboards": "Dashboards",
+        "color": "Border Color",
+        "size": "Border Size (px)",
+        "borderRadius": "Border Radius (px)"
+    },
+    "EditWidgetText": {
+        "text": "Text",
+        "color": "Border Color",
+        "size": "Border Size (px)",
+        "speed": "Text Speed",
+        "fontSize": "Text Font Size (px)",
+        "title": "Edit Widget Text",
+        "borderRadius": "Border Radius (px)"
+    },
+    "EditWidgetVideo": {
+        "url": "RTSP",
+        "color": "Border Color",
+        "size": "Border Size (px)",
+        "title": "Edit Widget Video",
+        "borderRadius": "Border Radius (px)"
+    },
+    "EditWidgetMap": {
+        "lat": "Marker Latitude",
+        "lon": "Marker Lontitude",
+        "color": "Border Color",
+        "size": "Border Size (px)",
+        "title": "Edit Widget Map",
+        "borderRadius": "Border Radius (px)"
+    },
+    "Menu": {
+        "logOut": "Log Out",
+        "home": "Home",
+        "users": "Users",
+        "roles": "Roles",
+        "group": "User Group",
+        "maps": "Maps",
+        "editPanel": "Edit Widget",
+        "widgets": "Widgets",
+        "stage": "Stage",
+        "cams": "Cams",
+        "menu": "Menu"
+    },
+    "Status": {
+        "online": "Online",
+        "offline": "Offline",
+        "undefined": "Unknown"
+    },
+    "Buttons": {
+        "create": "Create",
+        "delete": "Delete",
+        "edit": "Edit",
+        "cancel": "Cancel",
+        "reset": "Reset",
+        "submit": "Submit",
+        "yes": "Yes",
+        "no": "No",
+        "dont_know": "Don`t know",
+        "edit_on_scene": "Edit on scene"
+    },
+    "Notification": {
+        "success": "OK, Succeess",
+        "error": "Oops, Error",
+        "clickDelete": "Click on row for delete!",
+        "clickEdit": "Click on row for edit!"
+    },    
+    "AccessDenied": {
+        "desc": "Oops, You Are Dont Have Access :("
+    },
+    "NotFound": {
+        "desc": "Oops, Page Not Found :("
+    },
+    "ServerError": {
+        "desc": "Oops, Sorry Server Doesn`t Work :("
+    },
+    "MUIDATABLES": {
+        "noMatch": "Sorry, no matching records found",
+        "toolTip": "Sort",
+        "sort": "Sort for",
+        "next": "Next Page",
+        "previous": "Previous Page",
+        "rowsPerPage": "Rows per page:",
+        "displayRows": "of",
+        "search": "Search",
+        "downloadCsv": "Download CSV",
+        "print": "Print",
+        "viewColumns": "View Columns",
+        "filterTable": "Filter Table",
+        "all": "All",
+        "title": "FILTERS",
+        "reset": "RESET",
+        "titleShow": "Show Columns",
+        "titleAria": "Show/Hide Table Columns",
+        "text": "row(s) selected",
+        "delete": "Delete",
+        "deleteAria": "Delete Selected Rows"
+    },
+    "CounterWidget": {
+        "widgets": "Widgets",
+        "roles": "Roles",
+        "people": "Num of people",
+        "dashboards": "Dashboards"
+    },
+    "ContactWidget": {
+        "contact": "CONTACTS",
+        "messages": "MESSAGES",
+        "notifications": "NOTIFICATIONS"
+    },
+    "TimelineWidget": {
+      "1":  {
+        "time": "11:20",
+        "title": "Updated Product",
+        "desc": "Quisque a consequat ante, at volutpat enim."
+      },
+      "2": {
+        "time": "Yesteray",
+        "title": "You liked James products",
+        "desc": "Aenean sit amet magna vel magna fringilla fermentum."
+      },
+      "3": {
+        "time": "Yesterday",
+        "title": "James just like your product",
+        "desc": "Nam posuere accumsan porta."
+      },
+      "4": {
+        "time": "11 Oct 2018",
+        "title": "Jenna commented on your product",
+        "desc": "Curabitur egestas consequat lorem."
+      },
+      "5": {
+        "time": "Last week",
+        "title": "Jihan Doe just like your product",
+        "desc": "Vestibulum nec mi suscipit, dapibus purus a"
+      },
+      "title": "Recent Activity"
+    },
+    "FilesWidget": {
+        "title": "Your Storage",
+        "used": "% Used",
+        "total": "Total Storage",
+        "upgrade": "UPGRADE SPACE"
+    },
+    "SystemWidget": {
+        "title": "Operation System",
+        "platform": "Your platform: ",
+        "agent": "Your agent: "
+    },
+    "BreadCrumb": {
+        "1": "You are here: "
+    },
+    "DeleteWidget": {
+        "title": "Delete Widget",
+        "widget": "Widget",
+        "dashboard": "Dashboard"
+    },
+    "EditWidget": {
+        "title": "Edit Widget",
+        "widget": "Widget",
+        "dashboard": "Dashboard"
+    },
+    "CreateWidget": {
+        "title": "Create Widget"
+    },
+    "Modal": {
+        "title": "Confirmation for deletion",
+        "desc": "You want to delete row with id: ",
+        "cancel": "Cancel",
+        "delete": "Delete",
+        "widget_1:": "You want to remove the widget: ",
+        "widget_2:": " from the stage "
+    },
+    "RightSidebar": {
+        "title": "Handle Widgets on Scene",
+        "submit": "Submit"
+    },
+    "ignore-x-frame": {
+        "main": "install browser plug-in:",
+        "image": "In order for all photos to be displayed correctly,",
+        "link": "In order for all links to be displayed correctly,",
+        "doc": "In order for all documents to be displayed correctly,"
+    }
+}

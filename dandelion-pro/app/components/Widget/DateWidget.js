@@ -8,6 +8,7 @@ import Calendar from 'react-calendar';
 import Clock from 'react-clock';
 import 'dan-styles/vendors/react-clock/react-clock.css';
 import styles from './widget-jss';
+import { withTranslation } from 'react-i18next';
 
 function DateWidget(props) {
   const [date, setDate] = useState(new Date());
@@ -36,9 +37,9 @@ function DateWidget(props) {
 
   const onChange = dateParams => setDate(dateParams);
 
-  const { classes } = props;
+  const { classes, t } = props;
   return (
-    <Paper className={classes.wrapperDate}>
+    <Paper style={{height: 'calc(100% - 48px)'}} className={classes.wrapperDate}>
       <section className={classes.calendarWrap}>
         <Calendar
           onChange={onChange}
@@ -60,4 +61,4 @@ DateWidget.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(DateWidget);
+export default withStyles(styles)(withTranslation()(DateWidget));
