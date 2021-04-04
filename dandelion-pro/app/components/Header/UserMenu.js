@@ -1,41 +1,41 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
-import { useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
+import Info from '@material-ui/icons/Info';
+import Warning from '@material-ui/icons/Warning';
+import Check from '@material-ui/icons/CheckCircle';
+import Error from '@material-ui/icons/RemoveCircle';
 import ExitToApp from '@material-ui/icons/ExitToApp';
 import Badge from '@material-ui/core/Badge';
 import Divider from '@material-ui/core/Divider';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
+import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import dummy from 'dan-api/dummy/dummyContents';
 import messageStyles from 'dan-styles/Messages.scss';
+import avatarApi from 'dan-api/images/avatars';
+import link from 'dan-api/ui/link';
 import styles from './header-jss';
-import { connect } from 'react-redux';
-import '../../NVision-Pages/Dashboard/app.css'
-import { getDashboards } from "../../redux/actions/dashboards";
-import { getAllDashboards } from "../../redux/actions/allDashboards";
-import { onOpen } from "../../redux/actions/rightSidebar";
-import { SocketConnection } from "../../api/socket";
-import { useTranslation } from 'react-i18next';
 
-const socketConnection = new SocketConnection();
+import { logOut } from '../../api/queries'
+import { clearTokens } from '../../api/helpers'
+import { logOutAction } from "../../redux/actions/login";
 
 function UserMenu(props) {
   const [menuState, setMenuState] = useState({
     anchorEl: null,
     openMenu: null
   });
-  const [languageState, setLanguageState] = useState({
-    anchorElLanguage: null,
-    openMenuLanguage: null
-  });
-const [user, setUser] = useState({});
-  const history = useHistory()
+
+  const dispatch = useDispatch();
 
   const handleMenu = menu => (event) => {
     const { openMenu } = menuState;
@@ -45,129 +45,35 @@ const [user, setUser] = useState({});
     });
   };
 
-  const handleLanguageMenu = menu => (event) => {
-    const { openMenuLanguage } = languageState;
-    setLanguageState({
-      openMenuLanguage: openMenuLanguage === menu ? null : menu,
-      anchorElLanguage: event.currentTarget
-    });
-  };
-
   const handleClose = () => {
     setMenuState({ anchorEl: null, openMenu: null });
   };
-  const handleLanguageClose = () => {
-    setLanguageState({ anchorElLanguage: null, openMenuLanguage: null });
-  };
 
-  const { t, i18n } = useTranslation();
-
-  const handleLanguage = (lang) => {
-    i18n.changeLanguage(lang);
-  };
-
-  const logOut = async () => {
-    await socketConnection.setOffline();
-    localStorage.clear();    
-    history.push('/')
-  };
-
-
-  useEffect(() => {
-    const user = JSON.parse(localStorage.getItem('user'));
-    if (user) {
-      setUser(user);
-      props.getDash(user.id);
-      props.getAllDash();
+  const handleLogOut = async () => {
+    try {
+      await logOut();
+      clearTokens();
+      dispatch(logOutAction());
+    } catch (error) {
+      clearTokens();
+      dispatch(logOutAction());
     }
-  }, [])
+  };
 
-
-  const { classes, dark, dashboards, allDashboards, location, editScene } = props;
+  const { classes, dark } = props;
   const { anchorEl, openMenu } = menuState;
-  const { anchorElLanguage, openMenuLanguage } = languageState;
-
   return (
     <div>
-    {editScene &&
-      <Button variant="outlined" color="primary" onClick={() => props.onOpen(!props.rightSidebar.open)}>{t("Menu.menu")}</Button>      
-    }     
-    <IconButton
-        aria-haspopup="true"
-        onClick={handleLanguageMenu('language')}
-        color="inherit"
-        className={classNames(classes.notifIcon, dark ? classes.dark : classes.light)}
-      >
-        <i className={`ion-earth ${location ? 'black' : ''}`}/>
-      </IconButton>
       <IconButton
         aria-haspopup="true"
         onClick={handleMenu('notification')}
         color="inherit"
         className={classNames(classes.notifIcon, dark ? classes.dark : classes.light)}
       >
-      {user.roleId === 1 || user.roleId === 2 ?
-        <Badge className={classes.badge} badgeContent={allDashboards ? allDashboards.data.data.Dashboards.rows.length : '0'}
-               color="secondary">
-          <i className={`ion-ios-monitor ${location ? 'black' : ''}`}/>
+        <Badge className={classes.badge} badgeContent={4} color="secondary">
+          <i className="ion-ios-bell-outline"/>
         </Badge>
-        :
-        <Badge className={classes.badge} badgeContent={dashboards ? dashboards.length : '0'}
-               color="secondary">
-          <i className={`ion-ios-monitor ${location ? 'black' : ''}`}/>
-        </Badge>
-      }
       </IconButton>
-      <Menu
-        id="menu-language"
-        anchorEl={anchorElLanguage}
-        anchorOrigin={{
-          vertical: 'top',
-          horizontal: 'right',
-        }}
-        transformOrigin={{
-          vertical: 'top',
-          horizontal: 'right',
-        }}
-        className={classes.notifMenu}
-        PaperProps={{
-          style: {
-            width: 350,
-          },
-        }}
-        open={openMenuLanguage === 'language'}
-        onClose={handleLanguageClose}
-      >
-      <MenuItem onClick={() => {
-        handleLanguage('ru')
-        handleClose()
-      }}>
-        <div className={messageStyles.messageInfo}>
-          <ListItemText primary='Російська' secondary='Russian' />
-        </div>
-      </MenuItem>
-      <Divider variant="inset"/>
-
-      <MenuItem onClick={() => {
-        handleLanguage('en')
-        handleClose()
-      }}>
-        <div className={messageStyles.messageInfo}>
-          <ListItemText primary='Англійська' secondary='English' />
-        </div>
-      </MenuItem>
-      <Divider variant="inset"/>
-
-      <MenuItem onClick={() => {
-        handleLanguage('ua')
-        handleClose()
-      }}>
-        <div className={messageStyles.messageInfo}>
-          <ListItemText primary='Українська' secondary='Ukrainian' />
-        </div>
-      </MenuItem>
-      </Menu>
-
       <Menu
         id="menu-notification"
         anchorEl={anchorEl}
@@ -188,42 +94,37 @@ const [user, setUser] = useState({});
         open={openMenu === 'notification'}
         onClose={handleClose}
       >
-        { user.roleId === 1 || user.roleId === 2 ?
-        allDashboards &&
-          (allDashboards.data.data.Dashboards.rows.map((el) => {
-              return (
-                <div key={el.id}>
-                  <MenuItem onClick={() => {
-                    history.push(`/home/dashboard/${el.id}`)
-                    handleClose()
-                  }}>
-                    <div className={messageStyles.messageInfo}>
-                      <ListItemText primary={`${el.name}`} secondary={el.createdAt}/>
-                    </div>
-                  </MenuItem>
-                  <Divider variant="inset"/>
-                </div>
-              )
-            }))
-            :
-            dashboards ?
-              (dashboards.map((el) => {
-              return (
-                <div key={el.id}>
-                  <MenuItem onClick={() => {
-                    history.push(`/home/dashboard/${el.id}`)
-                    handleClose()
-                  }}>
-                    <div className={messageStyles.messageInfo}>
-                      <ListItemText primary={`${el.name}`} secondary={el.createdAt}/>
-                    </div>
-                  </MenuItem>
-                  <Divider variant="inset"/>
-                </div>
-              )
-            }))
-            :
-            <></>}
+        <MenuItem onClick={handleClose}>
+          <div className={messageStyles.messageInfo}>
+            {/*<ListItemAvatar>*/}
+            {/*  <Avatar alt="User Name" src={avatarApi[0]} />*/}
+            {/*</ListItemAvatar>*/}
+            <ListItemText primary={'Stage 1'} secondary={dummy.text.date}/>
+          </div>
+        </MenuItem>
+        <Divider variant="inset"/>
+        <MenuItem onClick={handleClose}>
+          <div className={messageStyles.messageInfo}>
+            {/*<ListItemAvatar>*/}
+            {/*  <Avatar className={messageStyles.icon}>*/}
+            {/*    <Info />*/}
+            {/*  </Avatar>*/}
+            {/*</ListItemAvatar>*/}
+            <ListItemText primary={'Stage 2'} className={classes.textNotif} secondary={dummy.text.date}/>
+          </div>
+        </MenuItem>
+        <Divider variant="inset"/>
+        <MenuItem onClick={handleClose}>
+          <div className={messageStyles.messageSuccess}>
+            {/*<ListItemAvatar>*/}
+            {/*  <Avatar className={messageStyles.icon}>*/}
+            {/*    <Check />*/}
+            {/*  </Avatar>*/}
+            {/*</ListItemAvatar>*/}
+            <ListItemText primary={'Stage 3'} className={classes.textNotif} secondary={dummy.text.date}/>
+          </div>
+        </MenuItem>
+        <Divider variant="inset"/>
       </Menu>
       <Button onClick={handleMenu('user-setting')}>
         <Avatar
@@ -245,11 +146,20 @@ const [user, setUser] = useState({});
         open={openMenu === 'user-setting'}
         onClose={handleClose}
       >
-        <MenuItem onClick={() => {
-          logOut()
-        }}>
-          <ExitToApp/>
-          {t('Menu.logOut')}
+        {/*<MenuItem onClick={handleClose} component={Link} to={link.profile}>My Profile</MenuItem>*/}
+        <MenuItem onClick={handleClose} component={Link} to={link.calendar}>My Calendar</MenuItem>
+        <MenuItem onClick={handleClose} component={Link} to={link.email}>
+          My Inbox
+          <ListItemIcon>
+            <Badge className={classNames(classes.badge, classes.badgeMenu)} badgeContent={2} color="secondary"/>
+          </ListItemIcon>
+        </MenuItem>
+        <Divider/>
+        <MenuItem onClick={handleLogOut} component={Link} to='/login'>
+          <ListItemIcon>
+            <ExitToApp/>
+          </ListItemIcon>
+          Log Out
         </MenuItem>
       </Menu>
     </div>
@@ -265,14 +175,4 @@ UserMenu.defaultProps = {
   dark: false
 };
 
-const mapStateToProps = (state) => ({
-  dashboards: state.get('dashboards').dashboards,
-  allDashboards: state.get('allDashboards').dashboards,
-  rightSidebar: state.get('rightSidebar').open
-})
-
-export default connect(mapStateToProps, {
-  getDash: getDashboards,
-  getAllDash: getAllDashboards,
-  onOpen: onOpen
-})(withStyles(styles)(UserMenu));
+export default withStyles(styles)(UserMenu);

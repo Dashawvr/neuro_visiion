@@ -1,39 +1,27 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import brand from 'dan-api/dummy/brand';
 import PropTypes from 'prop-types';
-import { withTranslation } from 'react-i18next';
+import styles from 'dan-components/Forms/user-jss';
 import { withStyles } from '@material-ui/core/styles';
 import { LoginForm } from 'dan-components';
-import styles from 'dan-components/Forms/user-jss';
-import { withRouter, Redirect } from "react-router-dom";
-import { connect } from "react-redux";
-import { URL } from "../../Axios/axiosForData";
-import axios from "axios";
-import { onSignIn } from "../../../redux/actions/login";
-import { SocketConnection } from "../../../api/socket";
-import Notification from '../../MyNotification/Notification';
 
-const user = JSON.parse(localStorage.getItem('user'))
-
-const socketConnection = new SocketConnection();
-
+import { loginAction } from '../../../redux/actions/login';
+import { login } from '../../../api/queries'
+import { setTokens } from '../../../api/helpers'
 
 class Login extends React.Component {
   state = {
-    variant: '',
-    message: '',
-    open: false,
     email: '',
-    password: '',
-    cn: ''
+    password: ''
   }
 
   onChangeEmail = (e) => {
     this.setState({
       email: e.target.value
     });
-    console.log(this.state.email)
   };
 
   onChangePassword = (e) => {
@@ -42,65 +30,29 @@ class Login extends React.Component {
     });
   };
 
-  onChangeCn = (e) => {
-    this.setState({
-      cn: e.target.value
-    });
+  login = async () => {
+    try {
+      const { data: { data } } = await login(this.state);
+
+      setTokens(data.token);
+
+      this.props.dispatch(loginAction(data.attributes));
+
+      this.redirectToApp()
+
+    } catch (error) {
+      //TODO
+      if (error.status === 400) alert('Неправильний пароль або логін!')
+      if (error.status === 404) alert('Упс, нічого не знайдено.')
+    }
   };
 
-  handleClose = (event, reason) => {
-    if (reason === 'clickaway') {
-      return;
-    }
-    this.setState({ open: false });
-  };
-
-  getLogin = () => {
-    if (this.state.cn) {
-      axios
-      .post(`${URL}/api/auth/loginWithLdap`, {cn: this.state.cn})
-      .then((response) => {
-        localStorage.setItem("token", response.data.data.token.access_token);
-        setTimeout(() => {
-        localStorage.setItem("user", JSON.stringify(response.data.data.attributes));
-          const newToken = localStorage.getItem("token");
-          if (newToken.length > 50) {
-            this.props.onSignIn(response.data.data.attributes);
-            socketConnection.setOnline();
-            window.location.href = "/home";
-          }
-        }, 1000);        
-      })
-      .catch((error) => {
-        this.setState({ open: true, variant: 'error', message: 'Notification.error' });
-      });
-    } else {
-      axios
-      .post(URL + "/api/auth/login", {email: this.state.email, password: this.state.password})
-      .then((response) => {
-        localStorage.setItem("token", response.data.data.token.access_token);
-        localStorage.setItem("user", JSON.stringify(response.data.data.attributes));
-        const newToken = localStorage.getItem("token");
-          if (newToken.length > 50) {
-            this.props.onSignIn(response.data.data.attributes);
-            socketConnection.setOnline()
-            window.location.href = "/home";
-          }       
-      })
-      .catch((error) => {
-        this.setState({ open: true, variant: 'error', message: 'Notification.error' });
-      });
-    }
-  }
-
+  redirectToApp = () => this.props.history.push({ pathname: '/' });
 
   render() {
     const title = brand.name + ' - Login';
     const description = brand.desc;
-    const { classes, t } = this.props;
-    if (user) {
-      return <Redirect to='/home'/>
-    }
+    const { classes } = this.props;
     return (
       <div className={classes.root}>
         <Helmet>
@@ -113,11 +65,10 @@ class Login extends React.Component {
         </Helmet>
         <div className={classes.container}>
           <div className={classes.userFormWrap}>
-            <LoginForm onChangePassword={this.onChangePassword} onChangeEmail={this.onChangeEmail} onChangeCn={this.onChangeCn} 
-                       password={this.state.password} email={this.state.email} cn={this.state.cn}
-                       onSubmit={() => this.getLogin()}/> 
-          </div>          
-          <Notification open={this.state.open} handleClose={() => this.handleClose()} variant={this.state.variant} message={t(this.state.message)} />
+            <LoginForm onChangePassword={this.onChangePassword} onChangeEmail={this.onChangeEmail}
+                       password={this.state.password} email={this.state.email}
+                       onSubmit={() => this.login()}/>
+          </div>
         </div>
       </div>
     );
@@ -129,14 +80,7 @@ Login.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
+const mapDispatchToProps = dispatch => ({ dispatch });
 
-export default withStyles(styles)(
-  withRouter(
-    withTranslation()(
-      connect(null, {
-        onSignIn: onSignIn
-      })(Login)
-    )
-  )
-);
+export default withStyles(styles)(withRouter(connect(null, mapDispatchToProps)(Login)));
 
