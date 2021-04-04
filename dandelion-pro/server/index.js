@@ -2,7 +2,6 @@
 
 const logger = require('./logger');
 const favicon = require('serve-favicon');
-const path = require('path');
 const rawicons = require('./rawicons');
 const rawdocs = require('./rawdocs');
 const argv = require('./argv');
