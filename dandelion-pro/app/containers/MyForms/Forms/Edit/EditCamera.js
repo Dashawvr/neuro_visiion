@@ -58,7 +58,7 @@ const EditCamera = (props) => {
       t,
     } = props;
   
-  const selectOptions = [{value: 'rtsp', label: 'RTSP/Camera'}, {value: 'rtsp/nvr', label: 'RTSP/NVR'}];
+  const selectOptions = [{value: 'rtsp', label: 'RTSP'}];
   const { register, handleSubmit, control, errors } = useForm();
     return (
       <div>
@@ -81,20 +81,10 @@ const EditCamera = (props) => {
                     label={t('TableCamers.port')} 
                     placeholder={t('TableCamers.port')} 
                     required 
-                    type="number"
                     defaultValue={camera.port}
                     className={classes.field} 
                     name="port" 
                     inputRef={register({ required: true })} />
-
-                  <TextField 
-                    label={t('TableCamers.channel')} 
-                    placeholder={t('TableCamers.cahnnel')}                      
-                    type="number"
-                    defaultValue={camera.channel}
-                    className={classes.field} 
-                    name="channel" 
-                    inputRef={register()} />
 
                   <TextField 
                     label={t('TableCamers.username')} 

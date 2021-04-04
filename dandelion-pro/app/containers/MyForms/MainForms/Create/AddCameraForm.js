@@ -49,7 +49,6 @@ class AddCameraForm extends React.Component {
       password: values.passwordd,
       type: values.type.value,
       isDefaultRecord: values.isDefaultRecord,
-      channel: values.channel
     };
 
     axios.post(`${URL}/api/camera/`, POST.data, {Authorization: localStorage.getItem('token')}).then(() => {
